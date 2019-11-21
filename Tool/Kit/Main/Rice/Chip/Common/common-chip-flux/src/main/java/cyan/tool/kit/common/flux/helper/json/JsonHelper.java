@@ -1,4 +1,4 @@
-package cyan.tool.kit.common.flux.util.json;
+package cyan.tool.kit.common.flux.helper.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,18 +6,20 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * <p>JsonUtils</p>
+ * <p>JsonHelper</p>
  *
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
  * @date 18:25 2019/11/20
  */
-@Slf4j
-public class JsonUtils {
+public class JsonHelper {
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -27,14 +29,8 @@ public class JsonUtils {
      * @param <T> 目标类型
      * @return String json字符串
      */
-    public static <T> String parserJson(T target) {
-        try {
-            return MAPPER.writeValueAsString(target);
-        } catch (JsonProcessingException exception) {
-            log.error("It is failed during bean to parse as json!",exception);
-            exception.printStackTrace();
-            return null;
-        }
+    public static <T> String parserJson(T target) throws JsonProcessingException {
+        return MAPPER.writeValueAsString(target);
     }
 
     /**
@@ -44,14 +40,8 @@ public class JsonUtils {
      * @param <T> bean类型
      * @return T Bean
      */
-    public static <T> T parserBean(String json, Class<T> clazz) {
-        try {
-            return MAPPER.readValue(json, clazz);
-        } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as bean!",exception);
-            exception.printStackTrace();
-            return null;
-        }
+    public static <T> T parserBean(String json, Class<T> clazz) throws JsonProcessingException {
+        return MAPPER.readValue(json, clazz);
     }
 
     /**
@@ -61,14 +51,8 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, CollectionType listType) {
-        try {
-            return MAPPER.readValue(json, listType);
-        } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as list of bean!",exception);
-            exception.printStackTrace();
-            return Collections.emptyList();
-        }
+    public static <T> List<T> parserList(String json, CollectionType listType) throws JsonProcessingException {
+        return MAPPER.readValue(json, listType);
     }
 
     /**
@@ -80,7 +64,7 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <Z extends List,T> List<T> parserList(String json, Class<Z> parserClazz, Class<T> clazz) {
+    public static <Z extends List,T> List<T> parserList(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonProcessingException {
         CollectionType listType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
         return parserList(json,listType);
     }
@@ -92,7 +76,7 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, Class<T> clazz) {
+    public static <T> List<T> parserList(String json, Class<T> clazz) throws JsonProcessingException {
         return parserList(json,List.class,clazz);
     }
 
@@ -103,14 +87,8 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, CollectionType setType) {
-        try {
-            return MAPPER.readValue(json, setType);
-        } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as set of bean!",exception);
-            exception.printStackTrace();
-            return Collections.emptySet();
-        }
+    public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonProcessingException {
+        return MAPPER.readValue(json, setType);
     }
 
     /**
@@ -122,7 +100,7 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <Z extends Set,T> Set<T> parserSet(String json, Class<Z> parserClazz, Class<T> clazz) {
+    public static <Z extends Set,T> Set<T> parserSet(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonProcessingException {
         CollectionType setType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
         return parserSet(json,setType);
     }
@@ -134,7 +112,7 @@ public class JsonUtils {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, Class<T> clazz) {
+    public static <T> Set<T> parserSet(String json, Class<T> clazz) throws JsonProcessingException {
         return parserSet(json,Set.class,clazz);
     }
 
@@ -146,14 +124,8 @@ public class JsonUtils {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, MapType mapType) {
-        try {
-            return MAPPER.readValue(json, mapType);
-        } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as map of bean!",exception);
-            exception.printStackTrace();
-            return Collections.emptyMap();
-        }
+    public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonProcessingException {
+        return MAPPER.readValue(json, mapType);
     }
 
     /**
@@ -167,7 +139,7 @@ public class JsonUtils {
      * @param <K> value类型
      * @return
      */
-    public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) {
+    public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonProcessingException {
         MapType mapType = MAPPER.getTypeFactory().constructMapType(parserClazz, keyClazz, valueClazz);
         return parserMap(json,mapType);
     }
@@ -181,7 +153,7 @@ public class JsonUtils {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, Class<T> keyClazz, Class<K> valueClazz) {
+    public static <T,K> Map<T, K> parserMap(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonProcessingException {
         return parserMap(json, Map.class,keyClazz,valueClazz);
     }
 
@@ -200,7 +172,7 @@ public class JsonUtils {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parserMapList(String json, Class<H> parserListClazz, Class<Y> parserMapClazz, Class<T> keyClazz, Class<K> valueClazz) {
+    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parserMapList(String json, Class<H> parserListClazz, Class<Y> parserMapClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonProcessingException {
         CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(parserListClazz, valueClazz);
         MapType mapType = MAPPER.getTypeFactory().constructMapType(parserMapClazz, keyClazz, collectionType.getRawClass());
         return parserMap(json,mapType);
@@ -216,7 +188,7 @@ public class JsonUtils {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <T,K> Map<T,List<K>> parserMapList(String json, Class<T> keyClazz, Class<K> valueClazz) {
+    public static <T,K> Map<T,List<K>> parserMapList(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonProcessingException {
         return parserMapList(json,List.class,Map.class,keyClazz,valueClazz);
     }
 
@@ -236,7 +208,7 @@ public class JsonUtils {
      * @param <K> 内层mapValue类型
      * @return Map<Z, Map<T, K>> BeanMapMap
      */
-    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) {
+    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonProcessingException {
         MapType contentType = MAPPER.getTypeFactory().constructMapType(contentMapClazz, contentKeyClazz,contentValueClazz);
         MapType mapType = MAPPER.getTypeFactory().constructMapType(wrapMapClazz, wrapKeyClazz, contentType.getRawClass());
         return parserMap(json,mapType);
@@ -253,7 +225,7 @@ public class JsonUtils {
      * @param <K> 内层mapValue类型
      * @return Map<Z,Map<T, K>> BeanMapMap
      */
-    public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) {
+    public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonProcessingException {
         return parserMapMap(json,Map.class,Map.class,wrapKeyClazz,contentKeyClazz,contentValueClazz);
     }
 

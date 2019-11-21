@@ -2,6 +2,8 @@ package cyan.tool.kit.common.flux.util.json;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
+import cyan.tool.kit.common.flux.helper.json.DeserializeHelper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,57 +16,53 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 10:59 2019/11/21
  */
+@Slf4j
 public class DeserializeUtils {
 
     /**
      * JsonParser 反序列化Map方法
      * @param parser JsonParser对象
      * @return Map<String, Object>
-     * @throws IOException
      */
-    public static Map<String, Object> deserializerBean(JsonParser parser) throws IOException {
-        JsonNode jsonNode = parser.getCodec().readTree(parser);
-        Map<String, Object> beanMap = new HashMap<>();
-        if (!jsonNode.isArray()) {
-            buildBeanMap(jsonNode, beanMap);
+    public static Map<String, Object> deserializerBean(JsonParser parser) {
+        try {
+            return DeserializeHelper.deserializerBean(parser);
+        } catch (IOException exception) {
+            log.error("It is failed during json to deserialize as map of bean fields!",exception);
+            exception.printStackTrace();
         }
-        return beanMap;
+        return Collections.emptyMap();
     }
 
     /**
      * JsonParser 反序列化List方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
      */
-    public static List<Object> deserializerList(JsonParser parser) throws IOException {
-        List<Object> resultList = new ArrayList<>();
-        JsonNode jsonNode = parser.getCodec().readTree(parser);
-        if (jsonNode.isArray()) {
-            for (JsonNode objectNode : jsonNode) {
-                resultList.add(objectNode);
-            }
+    public static List<Object> deserializerList(JsonParser parser) {
+        try {
+            return DeserializeHelper.deserializerList(parser);
+        } catch (IOException exception) {
+            log.error("It is failed during json to deserialize as list of bean!",exception);
+            exception.printStackTrace();
         }
-        return resultList;
+        return Collections.emptyList();
     }
 
     /**
      * JsonParser 反序列化BeanList方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
      */
-    public static List<Map<String, Object>> deserializerBeanList(JsonParser parser) throws IOException {
-        List<Map<String, Object>> resultList = new ArrayList<>();
-        JsonNode jsonNode = parser.getCodec().readTree(parser);
-        if (jsonNode.isArray()) {
-            for (JsonNode objectNode : jsonNode) {
-                Map<String, Object> beanMap = new HashMap<>();
-                buildBeanMap(objectNode, beanMap);
-                resultList.add(beanMap);
-            }
+    public static List<Map<String, Object>> deserializerBeanList(JsonParser parser) {
+        try {
+            return DeserializeHelper.deserializerBeanList(parser);
+        } catch (IOException exception) {
+            log.error("It is failed during json to deserialize as list map of bean fields!",exception);
+            exception.printStackTrace();
         }
-        return resultList;
+        return Collections.emptyList();
+
     }
 
 
@@ -72,19 +70,15 @@ public class DeserializeUtils {
      * JsonParser 反序列化Map方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
      */
-    public static Map<String, Object> deserializerMap(JsonParser parser) throws IOException {
-        JsonNode jsonNode = parser.getCodec().readTree(parser);
-        Map<String, Object> resultMap = new HashMap<>();
-        if (!jsonNode.isArray()) {
-            for (Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields(); iter.hasNext(); ) {
-                Map.Entry<String, JsonNode> entry = iter.next();
-                JsonNode valueNode = entry.getValue();
-                resultMap.put(entry.getKey(),valueNode);
-            }
+    public static Map<String, Object> deserializerMap(JsonParser parser) {
+        try {
+            return DeserializeHelper.deserializerMap(parser);
+        } catch (IOException exception) {
+            log.error("It is failed during json to deserialize as map of bean!",exception);
+            exception.printStackTrace();
         }
-        return resultMap;
+        return Collections.emptyMap();
     }
 
 
@@ -92,46 +86,14 @@ public class DeserializeUtils {
      * JsonParser 反序列化BeanMap方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
      */
-    public static Map<String,Map<String, Object>> deserializerBeanMap(JsonParser parser) throws IOException {
-        JsonNode jsonNode = parser.getCodec().readTree(parser);
-        Map<String, Map<String, Object>> dataMap = new HashMap<>();
-        if (!jsonNode.isArray()) {
-            for (Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields(); iter.hasNext(); ) {
-                Map.Entry<String, JsonNode> entry = iter.next();
-                Map<String, Object> beanMap = new HashMap<>();
-                JsonNode valueNode = entry.getValue();
-                buildBeanMap(valueNode,beanMap);
-                dataMap.put(entry.getKey(),beanMap);
-            }
+    public static Map<String,Map<String, Object>> deserializerBeanMap(JsonParser parser){
+        try {
+            return DeserializeHelper.deserializerBeanMap(parser);
+        } catch (IOException exception) {
+            log.error("It is failed during json to deserialize as map map of bean fields!",exception);
+            exception.printStackTrace();
         }
-        return dataMap;
-    }
-
-    /**
-     * 递归重组JSON对象
-     * @param jsonNode JsonNode数据
-     * @param beanMap 数据map集合
-     */
-    public static void buildBeanMap(JsonNode jsonNode, Map<String, Object> beanMap) {
-
-        for (Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields(); iter.hasNext(); ) {
-            Map.Entry<String, JsonNode> entry = iter.next();
-            JsonNode valueNode = entry.getValue();
-            if (valueNode.isTextual()) {
-                beanMap.put(entry.getKey(), valueNode.asText());
-            } else if (valueNode.isFloat() || valueNode.isDouble()) {
-                beanMap.put(entry.getKey(), valueNode.asDouble());
-            } else if (valueNode.isInt()) {
-                beanMap.put(entry.getKey(), valueNode.asInt());
-            } else if (valueNode.isLong()) {
-                beanMap.put(entry.getKey(), valueNode.asLong());
-            } else if (valueNode.isBoolean()) {
-                beanMap.put(entry.getKey(), valueNode.asBoolean());
-            }else {
-                beanMap.put(entry.getKey(),valueNode);
-            }
-        }
+        return Collections.emptyMap();
     }
 }
