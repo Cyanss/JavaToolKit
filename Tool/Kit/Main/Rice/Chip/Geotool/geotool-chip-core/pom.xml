@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>common-chip-core</artifactId>
+    <artifactId>geotool-chip-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>common-chip-core</name>
-    <description>core of common chip</description>
+    <name>geotool-chip-core</name>
+    <description>core of geotool chip</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -45,26 +45,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-shapefile</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geojson</artifactId>
             <version>LATEST</version>
         </dependency>
 
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
             <version>LATEST</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>common-chip-core</finalName>
+        <finalName>geotool-chip-core</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
