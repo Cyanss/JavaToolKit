@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>common-chip-core</artifactId>
+    <artifactId>chip-rice-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>common-chip-core</name>
-    <description>core of common chip</description>
+    <name>chip-rice-parent</name>
+    <description>parent of rice chip</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -49,10 +49,16 @@
             <artifactId>chip-rice-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>common-chip-core</finalName>
+        <finalName>chip-rice-parent</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -68,4 +74,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

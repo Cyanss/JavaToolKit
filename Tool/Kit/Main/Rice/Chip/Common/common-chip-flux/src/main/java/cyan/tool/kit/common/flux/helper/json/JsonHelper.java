@@ -137,7 +137,7 @@ public class JsonHelper {
      * @param <Z> Map类型
      * @param <T> key类型
      * @param <K> value类型
-     * @return
+     * @return Map<T, K>
      */
     public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonProcessingException {
         MapType mapType = MAPPER.getTypeFactory().constructMapType(parserClazz, keyClazz, valueClazz);

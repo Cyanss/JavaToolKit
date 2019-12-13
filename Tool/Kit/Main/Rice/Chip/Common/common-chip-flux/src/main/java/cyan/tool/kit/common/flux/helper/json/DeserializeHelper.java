@@ -20,7 +20,7 @@ public class DeserializeHelper {
      * JsonParser 反序列化Map方法
      * @param parser JsonParser对象
      * @return Map<String, Object>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static Map<String, Object> deserializerBean(JsonParser parser) throws IOException {
         JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -35,7 +35,7 @@ public class DeserializeHelper {
      * JsonParser 反序列化List方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static List<Object> deserializerList(JsonParser parser) throws IOException {
         List<Object> resultList = new ArrayList<>();
@@ -52,7 +52,7 @@ public class DeserializeHelper {
      * JsonParser 反序列化BeanList方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static List<Map<String, Object>> deserializerBeanList(JsonParser parser) throws IOException {
         List<Map<String, Object>> resultList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class DeserializeHelper {
      * JsonParser 反序列化Map方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static Map<String, Object> deserializerMap(JsonParser parser) throws IOException {
         JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -92,7 +92,7 @@ public class DeserializeHelper {
      * JsonParser 反序列化BeanMap方法
      * @param parser JsonParser对象
      * @return List<Map<String, Object>>
-     * @throws IOException
+     * @throws IOException IOException
      */
     public static Map<String,Map<String, Object>> deserializerBeanMap(JsonParser parser) throws IOException {
         JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -119,6 +119,9 @@ public class DeserializeHelper {
         for (Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields(); iter.hasNext(); ) {
             Map.Entry<String, JsonNode> entry = iter.next();
             JsonNode valueNode = entry.getValue();
+            if (valueNode.isNull()) {
+                continue;
+            }
             if (valueNode.isTextual()) {
                 beanMap.put(entry.getKey(), valueNode.asText());
             } else if (valueNode.isFloat() || valueNode.isDouble()) {

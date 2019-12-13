@@ -1,12 +1,13 @@
-package cyan.tool.kit.exception.core;
+package cyan.tool.kit.chip.parent;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class ExceptionChipCoreApplication {
+@SpringBootApplication
+public class ChipRiceParentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExceptionChipCoreApplication.class, args);
+        SpringApplication.run(ChipRiceParentApplication.class, args);
     }
 
 }
