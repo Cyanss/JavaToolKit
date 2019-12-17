@@ -1,6 +1,5 @@
 package cyan.tool.kit.chip.core.rice.rest;
 
-import cyan.tool.kit.chip.core.rice.bean.ErrorStatus;
 import cyan.tool.kit.chip.core.util.EmptyUtils;
 
 import java.util.Arrays;
@@ -33,12 +32,6 @@ public interface RestStatus {
      * @return Map<Integer,String>
      */
     Map<Integer,String> entry();
-
-    /**
-     * 转换bean
-     * @return ErrorStatus
-     */
-    ErrorStatus cast();
 
     /**
      * message集合 <message>

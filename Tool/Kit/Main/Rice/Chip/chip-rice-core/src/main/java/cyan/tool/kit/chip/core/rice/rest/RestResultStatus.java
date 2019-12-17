@@ -1,6 +1,5 @@
 package cyan.tool.kit.chip.core.rice.rest;
 
-import cyan.tool.kit.chip.core.rice.bean.ErrorStatus;
 import lombok.Getter;
 
 import java.util.Collections;
@@ -99,8 +98,4 @@ public enum RestResultStatus implements RestStatusEnum {
         return Collections.singletonMap(this.status,this.message);
     }
 
-    @Override
-    public ErrorStatus cast() {
-        return new ErrorStatus(this.status, this.message);
-    }
 }

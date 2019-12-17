@@ -1,9 +1,9 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
+import ch.qos.logback.core.status.ErrorStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestResult;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
-import cyan.tool.kit.chip.core.rice.bean.ErrorStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -197,8 +197,4 @@ public class DefaultException extends Exception implements RestStatus {
         return Collections.singletonMap(this.status,this.getMessage());
     }
 
-    @Override
-    public ErrorStatus cast() {
-        return new ErrorStatus(this.status,this.getMessage());
-    }
 }

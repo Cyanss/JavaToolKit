@@ -1,7 +1,6 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
-import cyan.tool.kit.chip.core.rice.bean.ErrorStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,7 +16,6 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class DefaultError extends Error {
-    private String message;
     private String name;
     private Integer domain;
     private String resource;
@@ -32,20 +30,79 @@ public class DefaultError extends Error {
         this.domain = domain;
     }
 
-    public DefaultError(String name, String message) {
+    public DefaultError(String message, String name) {
+        super(message);
         this.name = name;
-        this.message = message;
     }
 
-    public DefaultError(String name, Integer domain, String message) {
+    public DefaultError(String message, Throwable cause, String name) {
+        super(message, cause);
+        this.name = name;
+    }
+
+    public DefaultError(Throwable cause, String name) {
+        super(cause);
+        this.name = name;
+    }
+
+    public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String name) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.name = name;
+    }
+
+    public DefaultError(String message, String name, Integer domain) {
+        super(message);
         this.name = name;
         this.domain = domain;
-        this.message = message;
+    }
+
+    public DefaultError(String message, Throwable cause, String name, Integer domain) {
+        super(message, cause);
+        this.name = name;
+        this.domain = domain;
+    }
+
+    public DefaultError(Throwable cause, String name, Integer domain) {
+        super(cause);
+        this.name = name;
+        this.domain = domain;
+    }
+
+    public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String name, Integer domain) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.name = name;
+        this.domain = domain;
+    }
+
+    public DefaultError(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    private DefaultError(String message,DefaultError.Builder builder,Throwable cause) {
+        super(message,cause);
+        this.name = builder.name;
+        this.debug = builder.debug;
+        this.contents = builder.contents;
+    }
+
+    public DefaultError(Throwable cause) {
+        super(cause);
+    }
+
+    private DefaultError(DefaultError.Builder builder,Throwable cause) {
+        super(builder.message,cause);
+        this.name = builder.name;
+        this.debug = builder.debug;
+        this.contents = builder.contents;
+    }
+
+    public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     private DefaultError(DefaultError.Builder builder) {
+        super(builder.message);
         this.name = builder.name;
-        this.message = builder.message;
         this.debug = builder.debug;
         this.contents = builder.contents;
     }
