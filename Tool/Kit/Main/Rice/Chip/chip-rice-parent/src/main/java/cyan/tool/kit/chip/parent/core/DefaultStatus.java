@@ -1,6 +1,8 @@
-package cyan.tool.kit.exception.core.error;
+package cyan.tool.kit.chip.parent.core;
 
-import cyan.tool.kit.common.flux.util.base.EmptyUtils;
+import cyan.tool.kit.chip.flux.util.base.EmptyUtils;
+import cyan.tool.kit.chip.flux.util.exception.EnumUtils;
+import cyan.tool.kit.chip.flux.util.exception.RandomUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,13 +10,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * <p>IChipStatus</p>
- * @author an (snow22314@outlook.com)
+ * <p>RiceStatus</p>
+ * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 17:00 2019/12/13
+ * @date 14:07 2019/12/16
  */
-public interface IChipStatus {
+public interface DefaultStatus {
     /**
      * 获取错误码
      * @return Integer
@@ -29,17 +31,17 @@ public interface IChipStatus {
 
 
     /**
-     * 根据code获取枚举值
+     * 根据status获取枚举值
      * @param clazz 枚举类型
-     * @param code code值
+     * @param status status值
      * @param <T> 泛型
      * @return T
      */
-    static <T extends IChipStatus> T getEnum(Class<T> clazz, Integer code){
-        if (EmptyUtils.isNotEmpty(code)) {
+    static <T extends DefaultStatus> T getEnum(Class<T> clazz, Integer status){
+        if (EmptyUtils.isNotEmpty(status)) {
             List<T> enumList = Arrays.asList(clazz.getEnumConstants());
-            Map<Integer, T> errorMap = enumList.stream().collect(Collectors.toMap(IChipStatus::getStatus, error -> error));
-            return errorMap.get(code);
+            Map<Integer, T> errorMap = enumList.stream().collect(Collectors.toMap(DefaultStatus::getStatus, error -> error));
+            return errorMap.get(status);
         }
         return null;
     }
@@ -84,5 +86,4 @@ public interface IChipStatus {
                 new Object[] {status, message });
         return getEnum(clazz,randomEnumName);
     }
-
 }

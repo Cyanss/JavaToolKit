@@ -1,13 +1,13 @@
-package cyan.tool.kit.chip.parent;
+package cyan.tool.kit.chip.flux;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-public class ChipRiceParentApplication {
+public class ChipRiceFluxApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChipRiceParentApplication.class, args);
+        SpringApplication.run(ChipRiceFluxApplication.class, args);
     }
 
 }

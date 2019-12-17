@@ -1,5 +1,6 @@
 package cyan.tool.kit.exception.core.exception;
 
+import cyan.tool.kit.exception.core.exception.status.IChipStatus;
 import lombok.Getter;
 
 /**
@@ -10,5 +11,11 @@ import lombok.Getter;
  * @date 16:25 2019/12/13
  */
 @Getter
-public class ChipException extends RuntimeException{
+public class ChipException extends RuntimeException implements IChipStatus {
+
+
+    @Override
+    public Integer getStatus() {
+        return null;
+    }
 }
