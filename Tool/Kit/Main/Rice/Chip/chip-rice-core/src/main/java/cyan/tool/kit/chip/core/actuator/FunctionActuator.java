@@ -1,8 +1,8 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Stream;
 
 /**
  * <p>ActuatorFunction</p>
@@ -17,9 +17,9 @@ public interface FunctionActuator<T,R> {
      * 函数执行器
      * @param t 入参
      * @return R 返回值
-     * @throws Exception Exception异常
+     * @throws RestException RestException异常
      */
-    R actuate(T t) throws Exception;
+    R actuate(T t) throws RestException;
 
     default <V> FunctionActuator<V, R> compose(FunctionActuator<? super V, ? extends T> before) {
         Objects.requireNonNull(before);

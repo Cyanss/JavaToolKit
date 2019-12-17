@@ -1,5 +1,7 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Objects;
 @FunctionalInterface
 public interface BiConsumerActuator<T, U> {
 
-    void actuate(T t, U u) throws Exception;
+    void actuate(T t, U u) throws RestException;
 
     default BiConsumerActuator<T, U> andThen(BiConsumerActuator<? super T, ? super U> after) {
         Objects.requireNonNull(after);

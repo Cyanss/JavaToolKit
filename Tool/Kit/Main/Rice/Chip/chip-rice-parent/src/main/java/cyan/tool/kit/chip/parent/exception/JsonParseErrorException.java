@@ -1,8 +1,6 @@
 package cyan.tool.kit.chip.parent.exception;
 
-import cyan.tool.kit.chip.parent.core.DefaultException;
-import cyan.tool.kit.chip.parent.core.DefaultResultStatus;
-import cyan.tool.kit.chip.parent.core.DefaultError;
+import cyan.tool.kit.chip.parent.defaults.DefaultException;
 
 /**
  * <p>JsonParseErrorException</p>
@@ -13,6 +11,6 @@ import cyan.tool.kit.chip.parent.core.DefaultError;
  */
 public class JsonParseErrorException extends DefaultException {
     public JsonParseErrorException(String resource, String json, String message) {
-        super(DefaultResultStatus.JSON_PARSING_ERROR.getStatus(), DefaultResultStatus.JSON_PARSING_ERROR.getMessage(), DefaultError.jsonParseError(resource, json, message));
+//        super(DefaultResultStatus.JSON_PARSING_ERROR.getStatus(), DefaultResultStatus.JSON_PARSING_ERROR.getMessage(), DefaultError.jsonParseError(resource, json, message));
     }
 }

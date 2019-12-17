@@ -1,5 +1,7 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 /**
  * <p>SupplierActuator</p>
  * @author Cyan (snow22314@outlook.com)
@@ -10,5 +12,5 @@ package cyan.tool.kit.chip.core.actuator;
 @FunctionalInterface
 public interface SupplierActuator<T> {
 
-    T get() throws Exception;
+    T get() throws RestException;
 }

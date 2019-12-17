@@ -1,5 +1,7 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
 
 /**
@@ -15,9 +17,9 @@ public interface PredicateActuator<T> {
      * 函数执行器
      * @param m 入参
      * @return R 返回值
-     * @throws Exception Exception异常
+     * @throws RestException RestException异常
      */
-    Boolean actuate(T m) throws Exception;
+    Boolean actuate(T m) throws RestException;
 
 
     default PredicateActuator<T> and(PredicateActuator<? super T> other) {

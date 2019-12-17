@@ -1,9 +1,9 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * <p>ComparatorActuator</p>
@@ -15,7 +15,7 @@ import java.util.function.Function;
 @FunctionalInterface
 public interface ComparatorActuator<T>{
 
-    int compare(T o1, T o2) throws Exception;
+    int compare(T o1, T o2) throws RestException;
 
     boolean equals(Object obj);
 

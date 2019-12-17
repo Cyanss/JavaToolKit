@@ -1,8 +1,8 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**
  * <p>BiFunctionActuator</p>
@@ -13,7 +13,7 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface BiFunctionActuator<T, U, R> {
-    R actuate(T t, U u) throws Exception;
+    R actuate(T t, U u) throws RestException;
 
     default <V> BiFunctionActuator<T, U, V> andThen(FunctionActuator<? super R, ? extends V> after) {
         Objects.requireNonNull(after);

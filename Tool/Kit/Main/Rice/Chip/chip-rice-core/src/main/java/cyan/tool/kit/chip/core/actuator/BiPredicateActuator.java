@@ -1,7 +1,8 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
-import java.util.function.BiPredicate;
 
 /**
  * <p>BiPredicateActuator</p>
@@ -13,7 +14,7 @@ import java.util.function.BiPredicate;
 @FunctionalInterface
 public interface BiPredicateActuator<T, U> {
 
-    boolean actuate(T t, U u) throws Exception;
+    boolean actuate(T t, U u) throws RestException;
 
     default BiPredicateActuator<T, U> and(BiPredicateActuator<? super T, ? super U> other) {
         Objects.requireNonNull(other);

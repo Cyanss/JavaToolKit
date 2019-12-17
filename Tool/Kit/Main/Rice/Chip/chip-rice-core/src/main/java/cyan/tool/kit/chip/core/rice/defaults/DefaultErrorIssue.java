@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.parent.core;
+package cyan.tool.kit.chip.core.rice.defaults;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 10:17 2019/12/16
  */
 @Data
-public class DefaultErrorIssue {
+class DefaultErrorIssue {
     private String field;
     private String value;
     private String issue;

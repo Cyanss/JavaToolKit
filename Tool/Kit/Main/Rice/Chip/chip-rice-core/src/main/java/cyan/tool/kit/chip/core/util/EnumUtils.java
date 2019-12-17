@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.util.exception;
+package cyan.tool.kit.chip.core.util;
 
 
 import sun.reflect.ConstructorAccessor;

@@ -1,5 +1,7 @@
 package cyan.tool.kit.chip.core.actuator;
 
+import cyan.tool.kit.chip.core.rice.rest.RestException;
+
 import java.util.Objects;
 
 /**
@@ -13,9 +15,9 @@ public interface ConsumerActuator<T>{
     /**
      * 函数执行器
      * @param t 入参
-     * @throws Exception Exception异常
+     * @throws RestException RestException异常
      */
-    void actuate(T t) throws Exception;
+    void actuate(T t) throws RestException;
 
 
     default ConsumerActuator<T> andThen(ConsumerActuator<? super T> after) {
