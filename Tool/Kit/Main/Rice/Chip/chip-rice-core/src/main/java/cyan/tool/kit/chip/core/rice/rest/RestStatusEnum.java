@@ -54,4 +54,17 @@ public interface RestStatusEnum extends RestStatus {
                 new Object[] {status, message });
         return get(clazz,randomEnumName);
     }
+
+    /**
+     * 构建ErrorStatus
+     * @param status 状态码
+     * @param message 信息
+     * @return IChipStatus
+     */
+    static <T extends Enum<T>> T add(Class<T> clazz, Integer status, String message, String baseName) {
+        String randomEnumName = RandomUtils.randomEnum(status,baseName);
+        EnumUtils.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
+                new Object[] {status, message });
+        return get(clazz,randomEnumName);
+    }
 }

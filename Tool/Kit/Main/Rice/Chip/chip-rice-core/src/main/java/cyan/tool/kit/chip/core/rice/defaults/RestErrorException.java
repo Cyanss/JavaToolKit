@@ -1,4 +1,6 @@
-package cyan.tool.kit.chip.core.rice.rest;
+package cyan.tool.kit.chip.core.rice.defaults;
+
+import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
 /**
  * <p>RestError</p>

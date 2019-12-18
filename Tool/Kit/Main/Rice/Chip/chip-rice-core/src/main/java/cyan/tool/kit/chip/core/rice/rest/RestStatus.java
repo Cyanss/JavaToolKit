@@ -5,6 +5,7 @@ import cyan.tool.kit.chip.core.util.EmptyUtils;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -15,6 +16,12 @@ import java.util.stream.Collectors;
  * @date 14:07 2019/12/16
  */
 public interface RestStatus {
+
+    /**
+     * 获取名字
+     * @return String
+     */
+    String name();
     /**
      * 获取错误码
      * @return Integer
@@ -32,6 +39,17 @@ public interface RestStatus {
      * @return Map<Integer,String>
      */
     Map<Integer,String> entry();
+
+    /**
+     * pa
+     * @param clazz 枚举类型
+     * @param status status值
+     * @param <T> 泛型
+     * @return boolean
+     */
+    static <T extends RestStatus> boolean asserts(Class<T> clazz, Integer status) {
+        return Optional.ofNullable(get(clazz,status)).isPresent();
+    }
 
     /**
      * message集合 <message>

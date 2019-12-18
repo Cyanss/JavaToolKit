@@ -1,6 +1,6 @@
 package cyan.tool.kit.chip.core.actuator;
 
-import cyan.tool.kit.chip.core.rice.rest.RestException;
+import cyan.tool.kit.chip.core.rice.defaults.RestException;
 
 import java.io.Serializable;
 import java.util.Objects;

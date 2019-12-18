@@ -1,6 +1,5 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
-import ch.qos.logback.core.status.ErrorStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestResult;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
@@ -9,6 +8,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>RiceException</p>
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DefaultException extends Exception implements RestStatus {
+class DefaultException extends Exception implements RestStatus {
     protected DefaultError error;
     protected Integer status;
 
@@ -190,6 +190,11 @@ public class DefaultException extends Exception implements RestStatus {
 
     public final RestResult buildResult() {
         return RestResult.builder().status(this.status).message(getMessage()).data(this.error).build();
+    }
+
+    @Override
+    public String name() {
+        return Optional.ofNullable(this.error).map(DefaultError::getName).orElse("default_exception");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,12 +16,12 @@ import java.util.*;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DefaultError extends Error {
+class DefaultError extends Error {
     private String name;
     private Integer domain;
     private String resource;
     private String debug;
-    private List<DefaultErrorIssue> contents;
+    private List<DefaultErrorIssue> issues;
 
     public DefaultError() {
     }
@@ -78,33 +79,21 @@ public class DefaultError extends Error {
         super(message, cause);
     }
 
-    private DefaultError(String message,DefaultError.Builder builder,Throwable cause) {
-        super(message,cause);
-        this.name = builder.name;
-        this.debug = builder.debug;
-        this.contents = builder.contents;
-    }
 
     public DefaultError(Throwable cause) {
         super(cause);
     }
 
-    private DefaultError(DefaultError.Builder builder,Throwable cause) {
-        super(builder.message,cause);
-        this.name = builder.name;
-        this.debug = builder.debug;
-        this.contents = builder.contents;
-    }
 
     public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    private DefaultError(DefaultError.Builder builder) {
-        super(builder.message);
-        this.name = builder.name;
-        this.debug = builder.debug;
-        this.contents = builder.contents;
+    protected DefaultError(Builder builder) {
+        super(builder.getMessage());
+        this.name = builder.getName();
+        this.debug = builder.getDebug();
+        this.issues = builder.getIssues();
     }
 
     @Data
@@ -113,7 +102,7 @@ public class DefaultError extends Error {
         private String message;
         private String debug;
         private String resource;
-        private List<DefaultErrorIssue> contents;
+        private List<DefaultErrorIssue> issues;
 
         public Builder() {
         }
@@ -123,8 +112,8 @@ public class DefaultError extends Error {
             return this;
         }
 
-        public DefaultError.Builder name(RestResultStatus errorResult) {
-            this.name = errorResult.name();
+        public DefaultError.Builder name(RestStatus status) {
+            this.name = status.name();
             return this;
         }
 
@@ -134,8 +123,8 @@ public class DefaultError extends Error {
             return this;
         }
 
-        public DefaultError.Builder message(RestResultStatus errorResult) {
-            this.message = errorResult.getMessage();
+        public DefaultError.Builder message(RestStatus status) {
+            this.message = status.getMessage();
             return this;
         }
 
@@ -149,9 +138,9 @@ public class DefaultError extends Error {
             return this;
         }
 
-        public DefaultError.Builder add(DefaultErrorIssue content) {
-            this.contents = Optional.ofNullable(this.contents).orElseGet(ArrayList::new);
-            this.contents.add(content);
+        public DefaultError.Builder add(DefaultErrorIssue issue) {
+            this.issues = Optional.ofNullable(this.issues).orElseGet(ArrayList::new);
+            this.issues.add(issue);
             return this;
         }
 
@@ -160,8 +149,12 @@ public class DefaultError extends Error {
         }
     }
 
-    public static DefaultError timeoutError(String resource) {
+    public static DefaultError timeout(String resource) {
         return (new DefaultError.Builder()).resource(resource).message(RestResultStatus.TIME_OUT).build();
+    }
+
+    public static DefaultError timeout(String resource, String message) {
+        return (new DefaultError.Builder()).resource(resource).message(message).build();
     }
 
     public static DefaultError paramError(String resource, String field, String error) {

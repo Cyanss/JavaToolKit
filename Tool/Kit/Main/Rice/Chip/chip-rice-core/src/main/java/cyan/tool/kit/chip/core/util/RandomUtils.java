@@ -27,10 +27,14 @@ public class RandomUtils {
     }
 
 
-    public static synchronized String randomEnum(Integer code) {
+    public static synchronized String randomEnum(Integer status) {
         Random random = new Random();
         int length = random.nextInt(10);
-        return randomConst(1, length + MIN_LENGTH) + BASE_REGEX + code.toString();
+        return randomConst(1, length + MIN_LENGTH) + BASE_REGEX + status.toString();
+    }
+
+    public static synchronized String randomEnum(Integer status, String baseName) {
+        return baseName.toUpperCase() + "_" + randomEnum(status);
     }
 
     public static synchronized String randomConst(Integer regexLimit, Integer length) {
