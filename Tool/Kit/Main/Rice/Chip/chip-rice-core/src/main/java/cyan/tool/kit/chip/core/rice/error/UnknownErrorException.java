@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>UnknownErrorException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -41,5 +43,10 @@ public class UnknownErrorException extends RestErrorException {
     @Override
     public UnknownErrorException get() {
         return new UnknownErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.UNKNOWN_ERROR).getName();
     }
 }

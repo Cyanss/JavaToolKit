@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>TimeoutException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -45,6 +47,11 @@ public class TimeoutException extends RestErrorException {
     @Override
     public TimeoutException get() {
         return new TimeoutException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.TIME_OUT).getName();
     }
 
 }

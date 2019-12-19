@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>ServiceErrorException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -57,5 +59,10 @@ public class ServiceErrorException extends RestErrorException {
     @Override
     public ServiceErrorException get() {
         return new ServiceErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.SERVICE_ERROR).getName();
     }
 }

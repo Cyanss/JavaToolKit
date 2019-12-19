@@ -17,8 +17,9 @@ import java.util.Optional;
  * @date 18:10 2019/12/17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class RestError extends DefaultError implements RestStatus{
+    private String name;
     private Integer status;
 
     public RestError(Integer status, String message) {
@@ -27,32 +28,38 @@ public class RestError extends DefaultError implements RestStatus{
     }
 
     public RestError(Integer status, String message, String name, Integer domain) {
-        super(message, name, domain);
+        super(message, domain);
+        this.name = name;
         this.status = status;
     }
 
     public RestError(Integer status, String message, String name) {
-        super(message, name);
+        super(message);
+        this.name = name;
         this.status = status;
     }
 
     public RestError( Integer status, String message, String name, Throwable cause) {
-        super(message,name, cause);
+        super(message,cause);
+        this.name = name;
         this.status = status;
     }
 
     public RestError(RestStatus status, Throwable cause) {
-        super(status.getMessage(), status.getName(), cause);
+        super(status.getMessage(), cause);
+        this.name = status.getName();
         this.status = status.getStatus();
     }
 
     public RestError(Integer status, String message, String name, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, name, cause, enableSuppression, writableStackTrace);
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.name = name;
         this.status = status;
     }
 
     public RestError(Integer status, String message, String name, Integer domain, Throwable cause) {
-        super(message, name, domain, cause);
+        super(message, domain, cause);
+        this.name = name;
         this.status = status;
     }
 
@@ -74,6 +81,79 @@ public class RestError extends DefaultError implements RestStatus{
     private RestError(RestError.Builder builder) {
         super(builder);
         this.status = builder.getStatus();
+    }
+
+    public static RestError parser(RestStatus status) {
+        if (status instanceof RestError) {
+            return (RestError) status;
+        } else {
+            return RestError.error(status);
+        }
+    }
+
+    public static RestError parser(String message, RestStatus status) {
+        if (status instanceof RestError) {
+            return (RestError) status;
+        } else {
+            return RestError.error(message,status);
+        }
+    }
+
+    public static RestError parser(Integer status, RestStatus restStatus) {
+        if (restStatus instanceof RestError) {
+            return (RestError) restStatus;
+        } else {
+            return RestError.error(status,restStatus);
+        }
+    }
+
+    public static RestError parser(Integer status,String message,RestStatus restStatus) {
+        if (restStatus instanceof RestError) {
+            return (RestError) restStatus;
+        } else {
+            return RestError.error(status,message);
+        }
+    }
+
+
+    public static RestError parser(Throwable cause) {
+        if (cause instanceof RestError) {
+            return (RestError) cause;
+        } else if (cause instanceof RestException) {
+            return RestError.error((RestStatus) cause);
+        } else {
+            return RestError.error();
+        }
+    }
+
+    public static RestError parser(String message, Throwable cause) {
+        if (cause instanceof RestError) {
+            return (RestError) cause;
+        } else if (cause instanceof RestException) {
+            return RestError.error((RestStatus) cause);
+        } else {
+            return RestError.error(message);
+        }
+    }
+
+    public static RestError parser(Integer status, Throwable cause) {
+        if (cause instanceof RestError) {
+            return (RestError) cause;
+        } else if (cause instanceof RestException) {
+            return RestError.error((RestStatus) cause);
+        } else {
+            return RestError.error(status,cause.getMessage());
+        }
+    }
+
+    public static RestError parser(Integer status,String message,Throwable cause) {
+        if (cause instanceof RestError) {
+            return (RestError) cause;
+        } else if (cause instanceof RestException) {
+            return RestError.error((RestStatus) cause);
+        } else {
+            return RestError.error(status,message);
+        }
     }
 
     public static RestError error() {
@@ -172,6 +252,7 @@ public class RestError extends DefaultError implements RestStatus{
 
     @Data
     public static class Builder extends DefaultError.Builder {
+        private String name;
         private Integer status;
 
         public Builder() {
@@ -180,7 +261,18 @@ public class RestError extends DefaultError implements RestStatus{
 
         private Builder(RestStatus status) {
             super(status);
+            this.name = status.getName();
             this.status = status.getStatus();
+        }
+
+        public RestError.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public RestError.Builder name(RestStatus status) {
+            this.name = status.getName();
+            return this;
         }
 
         public RestError.Builder status(Integer status) {
@@ -190,16 +282,6 @@ public class RestError extends DefaultError implements RestStatus{
 
         public RestError.Builder status(RestStatus status) {
             this.status = status.getStatus();
-            return this;
-        }
-
-        public RestError.Builder name(String name) {
-            super.name(name);
-            return this;
-        }
-
-        public RestError.Builder name(RestStatus status) {
-            super.name(status.getName());
             return this;
         }
 

@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>ParseError</p>
  * @author Cyan (snow22314@outlook.com)
@@ -65,5 +67,10 @@ public class ParseErrorException extends RestErrorException {
     @Override
     public ParseErrorException get() {
         return new ParseErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.PARSE_ERROR).getName();
     }
 }

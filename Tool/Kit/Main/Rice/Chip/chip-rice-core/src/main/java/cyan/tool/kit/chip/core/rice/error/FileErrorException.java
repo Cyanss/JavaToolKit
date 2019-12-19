@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>FileErrorException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -62,5 +64,10 @@ public class FileErrorException extends RestErrorException {
     @Override
     public FileErrorException get() {
         return new FileErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.FILE_ERROR).getName();
     }
 }

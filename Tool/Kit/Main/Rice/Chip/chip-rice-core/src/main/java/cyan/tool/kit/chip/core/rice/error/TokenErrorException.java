@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>TokenErrorException</p>
  * @version V.0.0.1
@@ -69,5 +71,10 @@ public class TokenErrorException extends RestErrorException {
     @Override
     public TokenErrorException get() {
         return new TokenErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.TOKEN_ERROR).getName();
     }
 }

@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>ParamException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -49,6 +51,11 @@ public class ParamErrorException extends RestErrorException {
     @Override
     public ParamErrorException get() {
         return new ParamErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.PARAM_ERROR).getName();
     }
 
 }

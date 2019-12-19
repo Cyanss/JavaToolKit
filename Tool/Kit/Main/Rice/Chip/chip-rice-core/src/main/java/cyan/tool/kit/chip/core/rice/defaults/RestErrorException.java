@@ -4,6 +4,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -13,7 +14,7 @@ import java.util.function.Supplier;
  * @group cyan.tool.kit
  * @date 17:27 2019/12/17
  */
-public class RestErrorException extends DefaultException {
+public class RestErrorException extends RestException {
 
     public RestErrorException() {
     }
@@ -31,11 +32,15 @@ public class RestErrorException extends DefaultException {
     }
 
     public RestErrorException(RestError error) {
-        super((DefaultError) error);
+        super(error);
     }
 
     public RestErrorException(Integer status, RestError error) {
-        super(status,(DefaultError) error);
+        super(status, error);
+    }
+
+    public RestErrorException(String message, RestError error) {
+        super(message, error);
     }
 
     public RestErrorException(RestStatus status, RestError error) {
@@ -43,11 +48,15 @@ public class RestErrorException extends DefaultException {
     }
 
     public RestErrorException(RestError error, Throwable cause) {
-        super((DefaultError) error, cause);
+        super(error, cause);
     }
 
     public RestErrorException(Integer status, RestError error, Throwable cause) {
-        super(status, (DefaultError) error, cause);
+        super(status, error, cause);
+    }
+
+    public RestErrorException(String message, RestError error, Throwable cause) {
+        super(message, error, cause);
     }
 
     public RestErrorException(RestStatus status, RestError error, Throwable cause) {
@@ -55,11 +64,15 @@ public class RestErrorException extends DefaultException {
     }
 
     public RestErrorException(RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super((DefaultError) error, cause, enableSuppression, writableStackTrace);
+        super(error, cause, enableSuppression, writableStackTrace);
     }
 
     public RestErrorException(Integer status, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(status, (DefaultError) error, cause, enableSuppression, writableStackTrace);
+        super(status, error, cause, enableSuppression, writableStackTrace);
+    }
+
+    public RestErrorException(String message, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, error, cause, enableSuppression, writableStackTrace);
     }
 
     public RestErrorException(RestStatus status, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
@@ -67,7 +80,12 @@ public class RestErrorException extends DefaultException {
     }
 
     @Override
-    public DefaultException get() {
+    public RestErrorException get() {
         return new RestErrorException(RestResultStatus.UNKNOWN_ERROR);
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable(this.error).map(RestError::getName).orElse("rest error exception");
     }
 }

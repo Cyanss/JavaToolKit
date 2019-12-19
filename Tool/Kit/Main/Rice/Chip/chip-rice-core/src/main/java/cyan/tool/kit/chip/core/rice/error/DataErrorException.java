@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>DataErrorException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -33,6 +35,11 @@ public class DataErrorException extends RestErrorException {
     @Override
     public DataErrorException get() {
         return new DataErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.DATA_ERROR).getName();
     }
 
 }

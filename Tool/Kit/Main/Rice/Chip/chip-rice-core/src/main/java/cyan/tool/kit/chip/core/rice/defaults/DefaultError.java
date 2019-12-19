@@ -17,7 +17,6 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 class DefaultError extends Error {
-    private String name;
     private Integer domain;
     private String resource;
     private String debug;
@@ -30,59 +29,39 @@ class DefaultError extends Error {
         super(message);
     }
 
-    public DefaultError(String message, String name, Integer domain) {
+    public DefaultError(String message, Integer domain) {
         super(message);
-        this.name = name;
         this.domain = domain;
     }
 
-    public DefaultError(String message, String name) {
-        super(message);
-        this.name = name;
-    }
 
-    public DefaultError(String message,  String name, Throwable cause) {
+    public DefaultError(String message, Throwable cause) {
         super(message, cause);
-        this.name = name;
     }
 
-    public DefaultError(String message, String name, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.name = name;
     }
 
-    public DefaultError(String message, String name, Integer domain,Throwable cause) {
+    public DefaultError(String message, Integer domain,Throwable cause) {
         super(message, cause);
-        this.name = name;
         this.domain = domain;
     }
 
 
     public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String name, Integer domain) {
         super(message, cause, enableSuppression, writableStackTrace);
-        this.name = name;
         this.domain = domain;
-    }
-
-    public DefaultError(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-
-    public DefaultError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     protected DefaultError(Builder builder) {
         super(builder.getMessage());
-        this.name = builder.getName();
         this.debug = builder.getDebug();
         this.issues = builder.getIssues();
     }
 
     @Data
     public static class Builder {
-        private String name;
         private String message;
         private String debug;
         private String resource;
@@ -92,21 +71,8 @@ class DefaultError extends Error {
         }
 
         public Builder(RestStatus status) {
-            this.name = status.getName();
             this.message = status.getMessage();
         }
-
-
-        public DefaultError.Builder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public DefaultError.Builder name(RestStatus status) {
-            this.name = status.getName();
-            return this;
-        }
-
 
         public DefaultError.Builder message(String message) {
             if (message != null && message.length() > 0) {

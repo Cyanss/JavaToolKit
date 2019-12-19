@@ -12,7 +12,7 @@ public class ChipRiceFluxApplication {
         try {
             throw new RestErrorException();
         } catch (RestErrorException e) {
-            throw new RestException((RestStatus) e);
+            throw new RestException(e);
         }
 //        SpringApplication.run(ChipRiceFluxApplication.class, args);
     }

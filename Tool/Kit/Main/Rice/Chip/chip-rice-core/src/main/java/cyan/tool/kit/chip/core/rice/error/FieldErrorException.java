@@ -5,6 +5,8 @@ import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.Optional;
+
 /**
  * <p>FieldErrorException</p>
  * @author Cyan (snow22314@outlook.com)
@@ -48,5 +50,10 @@ public class FieldErrorException extends RestErrorException {
     @Override
     public FieldErrorException get() {
         return new FieldErrorException();
+    }
+
+    @Override
+    public String getName() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.FIELD_ERROR).getName();
     }
 }

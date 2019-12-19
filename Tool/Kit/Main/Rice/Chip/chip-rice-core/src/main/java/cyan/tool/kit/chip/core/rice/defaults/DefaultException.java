@@ -21,183 +21,206 @@ import java.util.function.Supplier;
 @Data
 @EqualsAndHashCode(callSuper = false)
 class DefaultException extends Exception implements RestStatus, Supplier {
-    protected DefaultError error;
+    protected RestError error;
     protected Integer status;
-
-
-    public DefaultException(Supplier<RestStatus> supplier) {
-        super(supplier.get().getMessage());
-        this.status = supplier.get().getStatus();
-    }
 
     public DefaultException() {
         super(RestResultStatus.FAILED.getMessage());
+        this.error = RestError.error(RestResultStatus.FAILED);
         this.status = RestResultStatus.FAILED.getStatus();
+    }
+
+    public DefaultException(Supplier<RestStatus> supplier) {
+        super(supplier.get().getMessage());
+        this.error = RestError.parser(supplier.get());
+        this.status = supplier.get().getStatus();
     }
 
     public DefaultException(String message) {
         super(message);
+        this.error = RestError.error(RestResultStatus.FAILED);
         this.status = RestResultStatus.FAILED.getStatus();
     }
 
     public DefaultException(Integer status) {
         super(RestResultStatus.FAILED.getMessage());
+        this.error = RestError.error(RestResultStatus.FAILED);
         this.status = status;
-    }
-
-    public DefaultException(DefaultError error) {
-        super(error.getMessage());
-        this.error = new DefaultError();
-        this.status = RestResultStatus.FAILED.getStatus();
-        this.error = error;
     }
 
 
     public DefaultException(RestStatus status) {
         super(status.getMessage());
+        this.error = RestError.parser(status);
         this.status = status.getStatus();
+    }
+
+    public DefaultException(RestError error) {
+        super(error.getMessage());
+        this.error = error;
+        this.status = error.getStatus();
     }
 
     public DefaultException(Throwable cause) {
         super(RestResultStatus.FAILED.getMessage(), cause);
+        this.error = RestError.parser(cause);
         this.status = RestResultStatus.FAILED.getStatus();
     }
 
     public DefaultException(Integer status, String message) {
         super(message);
+        this.error = RestError.error(status,message);
+        this.status = status;
+    }
+    
+
+    public DefaultException(Integer status, RestStatus restStatus) {
+        super(restStatus.getMessage());
+        this.error = RestError.parser(status,restStatus);
         this.status = status;
     }
 
-    public DefaultException(Integer status, DefaultError error) {
+    public DefaultException(Integer status, RestError error) {
         super(error.getMessage());
-        this.error = new DefaultError();
-        this.status = status;
         this.error = error;
-    }
-
-    public DefaultException(Integer status, RestStatus riceStatus) {
-        super(riceStatus.getMessage());
         this.status = status;
     }
 
     public DefaultException(Integer status, Throwable cause) {
         super(RestResultStatus.FAILED.getMessage(), cause);
+        this.error = RestError.parser(status,cause);
         this.status = status;
     }
 
     public DefaultException(String message, RestStatus status) {
         super(message);
+        this.error = RestError.parser(message,status);
         this.status = status.getStatus();
     }
 
-    public DefaultException(RestStatus status, DefaultError error) {
+    public DefaultException(String message, RestError error) {
+        super(message);
+        this.error = error;
+        this.status = error.getStatus();
+    }
+
+    public DefaultException(RestStatus status, RestError error) {
         super(status.getMessage());
-        this.error = new DefaultError();
         this.status = status.getStatus();
         this.error = error;
     }
 
     public DefaultException(String message, Throwable cause) {
         super(message, cause);
+        this.error = RestError.parser(message,cause);
     }
 
-    public DefaultException(DefaultError error, Throwable cause) {
-        super(error.getMessage(), cause);
-        this.error = new DefaultError();
-        this.status = RestResultStatus.FAILED.getStatus();
-        this.error = error;
-    }
 
     public DefaultException(RestStatus status, Throwable cause) {
         super(status.getMessage(), cause);
+        this.error = RestError.parser(status);
         this.status = status.getStatus();
     }
 
-    public DefaultException(int status, String message, DefaultError error) {
+    public DefaultException(Integer status, String message, RestError error) {
         super(message);
-        this.error = new DefaultError();
         this.status = status;
         this.error = error;
     }
 
     public DefaultException(Integer status, String message, Throwable cause) {
         super(message, cause);
+        this.error = RestError.parser(status, message, cause);
         this.status = status;
     }
 
-    public DefaultException(Integer status, DefaultError error, Throwable cause) {
-        super(error.getMessage(), cause);
-        this.error = new DefaultError();
-        this.status = status;
-        this.error = error;
-    }
-
-    public DefaultException(Integer status, RestStatus riceStatus, Throwable cause) {
-        super(riceStatus.getMessage(), cause);
-        this.status = status;
-    }
-
-    public DefaultException(String message, RestStatus riceStatus, Throwable cause) {
-        super(message, cause);
-        this.status = riceStatus.getStatus();
-    }
-
-    public DefaultException(RestStatus status, DefaultError error, Throwable cause) {
-        super(status.getMessage(), cause);
-        this.error = new DefaultError();
-        this.status = status.getStatus();
-        this.error = error;
-    }
-
-    public DefaultException(Integer status, RestStatus restStatus, DefaultError error, Throwable cause) {
+    public DefaultException(Integer status, RestStatus restStatus, Throwable cause) {
         super(restStatus.getMessage(), cause);
-        this.error = new DefaultError();
+        this.error = RestError.parser(status,restStatus);
+        this.status = status;
+    }
+
+    public DefaultException(Integer status, RestError error, Throwable cause) {
+        super(error.getMessage(), cause);
+        this.error = error;
+        this.status = status;
+    }
+
+    public DefaultException(String message, RestStatus status, Throwable cause) {
+        super(message, cause);
+        this.error = RestError.parser(message,status);
+        this.status = status.getStatus();
+    }
+
+    public DefaultException(String message, RestError error, Throwable cause) {
+        super(message, cause);
+        this.error = error;
+        this.status = error.getStatus();
+    }
+
+    public DefaultException(RestStatus status, RestError error,  Throwable cause) {
+        super(status.getMessage(), cause);
+        this.error = error;
+        this.status = status.getStatus();
+    }
+
+    public DefaultException(Integer status, RestStatus restStatus, RestError error, Throwable cause) {
+        super(restStatus.getMessage(), cause);
         this.status = status;
         this.error = error;
     }
 
     public DefaultException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+        this.error = RestError.parser(message,cause);
         this.status = RestResultStatus.FAILED.getStatus();
     }
 
-    public DefaultException(DefaultError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(error.getMessage(), cause, enableSuppression, writableStackTrace);
-        this.error = new DefaultError();
-        this.status = RestResultStatus.FAILED.getStatus();
-        this.error = error;
-    }
 
     public DefaultException(RestStatus status, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(status.getMessage(), cause, enableSuppression, writableStackTrace);
+        this.error = RestError.parser(status);
         this.status = status.getStatus();
+    }
+
+    public DefaultException(RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(error.getMessage(), cause, enableSuppression, writableStackTrace);
+        this.error = error;
+        this.status = error.getStatus();
     }
 
     public DefaultException(Integer status, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+        this.error = RestError.error(status,message);
         this.status = status;
     }
 
-    public DefaultException(Integer status, DefaultError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DefaultException(Integer status, RestStatus restStatus, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(restStatus.getMessage(), cause, enableSuppression, writableStackTrace);
+        this.error = RestError.parser(status,restStatus);
+        this.status = status;
+    }
+    public DefaultException(Integer status, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(error.getMessage(), cause, enableSuppression, writableStackTrace);
-        this.error = new DefaultError();
-        this.status = status;
         this.error = error;
+        this.status = status;
     }
 
-    public DefaultException(Integer status, RestStatus riceStatus, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(riceStatus.getMessage(), cause, enableSuppression, writableStackTrace);
-        this.status = status;
-    }
 
     public DefaultException(String message, RestStatus status, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+        this.error = RestError.parser(message,status);
         this.status = status.getStatus();
     }
 
-    public DefaultException(RestStatus status, DefaultError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DefaultException(String message, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.error = error;
+        this.status = error.getStatus();
+    }
+
+    public DefaultException(RestStatus status, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(status.getMessage(), cause, enableSuppression, writableStackTrace);
-        this.error = new DefaultError();
         this.status = status.getStatus();
         this.error = error;
     }
@@ -208,7 +231,7 @@ class DefaultException extends Exception implements RestStatus, Supplier {
 
     @Override
     public String getName() {
-        return Optional.ofNullable(this.error).map(DefaultError::getName).orElse("default_exception");
+        return Optional.ofNullable(this.error).map(RestError::getName).orElse("default exception");
     }
 
     @Override
