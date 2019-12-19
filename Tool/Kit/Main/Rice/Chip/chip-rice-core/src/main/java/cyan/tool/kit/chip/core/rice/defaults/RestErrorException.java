@@ -1,6 +1,5 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
-import com.sun.org.apache.regexp.internal.RE;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
