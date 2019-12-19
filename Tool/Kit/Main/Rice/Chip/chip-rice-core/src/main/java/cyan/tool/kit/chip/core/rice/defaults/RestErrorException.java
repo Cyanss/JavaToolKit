@@ -1,5 +1,6 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
+import com.sun.org.apache.regexp.internal.RE;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
@@ -53,5 +54,10 @@ public class RestErrorException extends DefaultException {
 
     public RestErrorException(RestStatus status, RestError error, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(status, error, cause, enableSuppression, writableStackTrace);
+    }
+
+    @Override
+    public DefaultException get() {
+        return new RestErrorException(RestResultStatus.UNKNOWN_ERROR);
     }
 }

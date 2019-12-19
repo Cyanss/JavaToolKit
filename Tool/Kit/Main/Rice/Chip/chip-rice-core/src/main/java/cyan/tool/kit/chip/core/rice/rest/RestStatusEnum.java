@@ -1,10 +1,5 @@
 package cyan.tool.kit.chip.core.rice.rest;
 
-
-import cyan.tool.kit.chip.core.util.EmptyUtils;
-import cyan.tool.kit.chip.core.util.EnumUtils;
-import cyan.tool.kit.chip.core.util.RandomUtils;
-
 /**
  * <p>RiceStatus</p>
  * @author Cyan (snow22314@outlook.com)
@@ -22,7 +17,7 @@ public interface RestStatusEnum extends RestStatus {
      * @return T
      */
     static <T extends Enum<T>> T get(Class<T> clazz, String name){
-        if (EmptyUtils.isNotEmpty(name)) {
+        if (name != null && name.length() > 0) {
             return Enum.valueOf(clazz,name);
         }
         return null;
@@ -36,7 +31,7 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, String name, Integer status, String message) {
-        EnumUtils.addEnum(clazz, name, new Class[] {Integer.class, String.class },
+        EnumFlux.addEnum(clazz, name, new Class[] {Integer.class, String.class },
                 new Object[] {status, message});
         return get(clazz,name);
     }
@@ -49,8 +44,8 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, Integer status, String message) {
-        String randomEnumName = RandomUtils.randomEnum(status);
-        EnumUtils.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
+        String randomEnumName = RandomFlux.randomEnum(status);
+        EnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
                 new Object[] {status, message });
         return get(clazz,randomEnumName);
     }
@@ -62,8 +57,8 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, Integer status, String message, String baseName) {
-        String randomEnumName = RandomUtils.randomEnum(status,baseName);
-        EnumUtils.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
+        String randomEnumName = RandomFlux.randomEnum(status,baseName);
+        EnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
                 new Object[] {status, message });
         return get(clazz,randomEnumName);
     }

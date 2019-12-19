@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.util;
+package cyan.tool.kit.chip.core.rice.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,26 +6,13 @@ import java.util.Random;
 import java.util.UUID;
 
 
-public class RandomUtils {
+class RandomFlux {
     private static final String BASE_SYMBOL = "!@#$%^&*()[]{}\";:+~·=-/,.<>?\\|";
     private static final String BASE_STRING_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String BASE_STRING_LOWER = BASE_STRING_UPPER.toLowerCase();
     private static final String BASE_REGEX = "_";
     private static final String BASE_NUMBER = "0123456789";
     private static final Integer MIN_LENGTH = 3;
-
-    public static synchronized String uuid() {
-        return UUID.randomUUID().toString().replaceAll("-","");
-    }
-
-    public static synchronized Long randomLong() {
-       return System.currentTimeMillis() + (long) ((int) (Math.random() * 10000));
-    }
-
-    public static synchronized Double randomDouble() {
-        return System.currentTimeMillis() + Math.random();
-    }
-
 
     public static synchronized String randomEnum(Integer status) {
         Random random = new Random();
@@ -55,7 +42,7 @@ public class RandomUtils {
         List<Integer> indexList = new ArrayList<>(regexLimit);
         for(int i = 0; i < regexLimit; i++){
             int regexIndex = random.nextInt(length - 1);
-            if (EmptyUtils.isNotEmpty(regexIndex) && !indexList.contains(regexIndex)) {
+            if (regexIndex > 0 && !indexList.contains(regexIndex)) {
                 stringBuilder.replace(regexIndex,regexIndex,regex);
                 indexList.add(regexIndex);
             } else {

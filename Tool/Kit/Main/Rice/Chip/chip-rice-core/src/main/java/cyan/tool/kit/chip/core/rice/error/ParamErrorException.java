@@ -14,35 +14,41 @@ import cyan.tool.kit.chip.core.rice.rest.RestStatus;
  */
 public class ParamErrorException extends RestErrorException {
 
-    public ParamErrorException(Integer status) {
-        super(RestError.error(status,RestResultStatus.PARAM_ERROR));
-    }
-    public ParamErrorException(String error) {
-        super(RestError.error(RestResultStatus.PARAM_ERROR,error));
+    public ParamErrorException() {
+        super(RestResultStatus.PARAM_ERROR,RestError.error(RestResultStatus.PARAM_ERROR));
     }
 
     public ParamErrorException(RestResultStatus status) {
         super(status);
     }
 
+    public ParamErrorException(String error) {
+        super(RestResultStatus.PARAM_ERROR,RestError.error(RestResultStatus.PARAM_ERROR,error));
+    }
+
     public ParamErrorException(RestStatus status) {
         super(RestResultStatus.PARAM_ERROR, RestError.error(status));
     }
 
-    public ParamErrorException(String filed, String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(filed, error));
+    public ParamErrorException(String param, String error) {
+        super(RestResultStatus.PARAM_ERROR, RestError.error(param, error));
     }
 
-    public ParamErrorException(String filed, Object value, String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(filed, value, error));
+    public ParamErrorException(String param, Object value, String error) {
+        super(RestResultStatus.PARAM_ERROR, RestError.error(param, value, error));
     }
 
-    public ParamErrorException(String filed, RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(filed, status));
+    public ParamErrorException(String param, RestStatus status) {
+        super(RestResultStatus.PARAM_ERROR, RestError.error(param, status));
     }
 
-    public ParamErrorException(String filed, Object value, RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(filed, value, status));
+    public ParamErrorException(String param, Object value, RestStatus status) {
+        super(RestResultStatus.PARAM_ERROR, RestError.error(param, value, status));
+    }
+
+    @Override
+    public ParamErrorException get() {
+        return new ParamErrorException();
     }
 
 }

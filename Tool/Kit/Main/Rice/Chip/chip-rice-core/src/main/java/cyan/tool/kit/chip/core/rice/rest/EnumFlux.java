@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.util;
+package cyan.tool.kit.chip.core.rice.rest;
 
 
 import sun.reflect.ConstructorAccessor;
@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class EnumUtils {
+class EnumFlux {
 
     private static final String MODIFIERS = "modifiers";
     private static final String ENUM_CONSTANT_DIRECTORY = "enumConstantDirectory";

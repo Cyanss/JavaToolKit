@@ -18,12 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class DefaultExceptionAdvice {
 
     @ResponseBody
-    @ExceptionHandler(value = DefaultError.class)
-    public ResponseEntity defaultErrorHandler(DefaultError error) {
-        return ResponseEntity.ok(new DefaultException(error).buildResult());
-    }
-
-    @ResponseBody
     @ExceptionHandler(value = Error.class)
     public ResponseEntity errorHandler(Error error) {
         if (error instanceof DefaultError) {
@@ -32,12 +26,6 @@ public class DefaultExceptionAdvice {
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(RestResult.error(-1, error.getMessage()));
         }
-    }
-
-    @ResponseBody
-    @ExceptionHandler(value = DefaultException.class)
-    public ResponseEntity defaultExceptionHandler(DefaultException exception) {
-        return ResponseEntity.ok(exception.buildResult());
     }
 
     @ResponseBody

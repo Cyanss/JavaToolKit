@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.util;
+package cyan.tool.kit.chip.flux.util.base;
 
 import java.util.*;
 

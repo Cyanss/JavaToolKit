@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * <p>RiceException</p>
@@ -19,9 +20,14 @@ import java.util.Optional;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-class DefaultException extends Exception implements RestStatus {
+class DefaultException extends Exception implements RestStatus, Supplier {
     protected DefaultError error;
     protected Integer status;
+
+
+    public DefaultException(Supplier supplier) {
+        supplier.get();
+    }
 
     public DefaultException() {
         super(RestResultStatus.FAILED.getMessage());
@@ -209,4 +215,8 @@ class DefaultException extends Exception implements RestStatus {
         return Collections.singletonMap(this.status,this.getMessage());
     }
 
+    @Override
+    public DefaultException get() {
+        return new DefaultException();
+    }
 }

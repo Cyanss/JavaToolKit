@@ -14,50 +14,56 @@ import cyan.tool.kit.chip.core.rice.rest.RestStatus;
  */
 public class ParseErrorException extends RestErrorException {
 
-    public ParseErrorException(Integer status) {
-        super(RestError.error(status,RestResultStatus.PARSE_ERROR));
-    }
-    public ParseErrorException(String error) {
-        super(RestError.error(RestResultStatus.PARSE_ERROR,error));
+    public ParseErrorException() {
+        super(RestResultStatus.PARSE_ERROR,RestError.error(RestResultStatus.PARSE_ERROR));
     }
 
     public ParseErrorException(RestResultStatus status) {
         super(status);
     }
 
+    public ParseErrorException(String error) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(RestResultStatus.PARSE_ERROR, error));
+    }
+
     public ParseErrorException(RestStatus status) {
         super(RestResultStatus.PARSE_ERROR, RestError.error(status));
     }
 
-    public ParseErrorException(String filed, String error) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(filed, error));
+    public ParseErrorException(String property, String error) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(property, error));
     }
 
-    public ParseErrorException(String filed, Object value, String error) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(filed, value, error));
+    public ParseErrorException(String property, Object parser, String error) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(property, parser, error));
     }
 
-    public ParseErrorException(String filed, RestStatus status) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(filed, status));
+    public ParseErrorException(String property, RestStatus status) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(property, status));
     }
 
-    public ParseErrorException(String filed, Object value, RestStatus status) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(filed, value, status));
+    public ParseErrorException(String property, Object parser, RestStatus status) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(property, parser, status));
     }
 
     public ParseErrorException(String resource, String field, String error) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(resource,field,error));
+        super(RestResultStatus.PARSE_ERROR, RestError.error(resource, field, error));
     }
 
     public ParseErrorException(String resource, String field, RestStatus status) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(resource,field,status));
+        super(RestResultStatus.PARSE_ERROR, RestError.error(resource, field, status));
     }
 
-    public ParseErrorException(String resource, String field, Object value, String error) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(resource,field, value,RestResultStatus.PARSE_ERROR, error));
+    public ParseErrorException(String resource, String field, Object parser, String error) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(resource, field, parser, RestResultStatus.PARSE_ERROR, error));
     }
 
-    public ParseErrorException(String resource, String field, Object value, RestStatus status) {
-        super(RestResultStatus.PARSE_ERROR, RestError.error(resource,field, value, status));
+    public ParseErrorException(String resource, String field, Object parser, RestStatus status) {
+        super(RestResultStatus.PARSE_ERROR, RestError.error(resource, field, parser, status));
+    }
+
+    @Override
+    public ParseErrorException get() {
+        return new ParseErrorException();
     }
 }

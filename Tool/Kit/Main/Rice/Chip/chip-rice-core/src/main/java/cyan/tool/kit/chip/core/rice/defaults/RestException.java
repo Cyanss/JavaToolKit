@@ -1,5 +1,7 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
+import cyan.tool.kit.chip.core.rice.error.UnknownErrorException;
+import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
 /**
@@ -80,5 +82,11 @@ public class RestException extends DefaultException {
 
     public RestException(String message, RestStatus status, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, status, cause, enableSuppression, writableStackTrace);
+    }
+
+
+    @Override
+    public RestException get() {
+        return new RestException(RestResultStatus.UNKNOWN_ERROR);
     }
 }

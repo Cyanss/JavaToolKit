@@ -61,10 +61,11 @@ public enum RestResultStatus implements RestStatusEnum {
     SERVICE_ERROR(10400, "服务器错误"),
     SERVICE_UNAVAILABLE(10401, "服务不可用"),
 
-    OBJECT_ERROR(10500, "对象错误"),
-    OBJECT_IS_NULL(10501, "对象为空"),
-    OBJECT_NOT_EXIST(10502, "对象不存在"),
-    OBJECT_IS_EXIST(10503, "对象已存在"),
+    /** field */
+    FIELD_ERROR(10500, "对象错误"),
+    FIELD_IS_NULL(10501, "对象为空"),
+    FIELD_NOT_EXIST(10502, "对象不存在"),
+    FIELD_IS_EXIST(10503, "对象已存在"),
     /** name */
     NAME_ERROR(10510, "名称错误"),
     NAME_IS_NULL(10511, "名称为空"),
