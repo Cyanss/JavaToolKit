@@ -32,6 +32,10 @@ public class TokenErrorException extends RestErrorException {
         super(RestResultStatus.TOKEN_ERROR, RestError.error(status));
     }
 
+    public TokenErrorException(RestStatus status, String error) {
+        super(RestResultStatus.TIME_OUT, RestError.error(status, error));
+    }
+
     public TokenErrorException(String auth, String error) {
         super(RestResultStatus.TOKEN_ERROR, RestError.error(null, auth, null, RestResultStatus.TOKEN_ERROR, error));
     }

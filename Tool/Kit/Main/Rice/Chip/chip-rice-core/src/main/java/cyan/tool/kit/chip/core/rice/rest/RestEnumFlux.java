@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-class EnumFlux {
+class RestEnumFlux {
 
     private static final String MODIFIERS = "modifiers";
     private static final String ENUM_CONSTANT_DIRECTORY = "enumConstantDirectory";

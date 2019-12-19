@@ -28,6 +28,10 @@ public class ResourceErrorException extends RestErrorException {
         super(RestResultStatus.RESOURCE_ERROR, RestError.error(RestResultStatus.RESOURCE_ERROR,error));
     }
 
+    public ResourceErrorException(RestStatus status, String error) {
+        super(RestResultStatus.RESOURCE_ERROR,RestError.error(status, error));
+    }
+
     public ResourceErrorException(RestStatus status) {
         super(RestResultStatus.RESOURCE_ERROR, RestError.error(status));
     }

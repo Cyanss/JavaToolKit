@@ -1,23 +1,28 @@
-package cyan.tool.kit.chip.flux.util.json;
+package cyan.tool.kit.chip.flux.rice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import cyan.tool.kit.chip.core.rice.defaults.RestError;
+import cyan.tool.kit.chip.core.rice.error.ParseErrorException;
+import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * <p>JsonUtils</p>
- *
+ * <p>RiceJsonFlux</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 18:25 2019/11/20
+ * @date 17:42 2019/12/19
  */
 @Slf4j
-public class JsonUtils {
+public class RiceJsonFlux {
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -27,13 +32,12 @@ public class JsonUtils {
      * @param <T> 目标类型
      * @return String json字符串
      */
-    public static <T> String parserJson(T target) {
+    public static <T> String parserJson(T target) throws ParseErrorException {
         try {
             return MAPPER.writeValueAsString(target);
         } catch (JsonProcessingException exception) {
             log.error("It is failed during bean to parse as json!",exception);
-            exception.printStackTrace();
-            return null;
+            throw new ParseErrorException(RestError.error(exception.getMessage()));
         }
     }
 
@@ -49,7 +53,7 @@ public class JsonUtils {
             return MAPPER.readValue(json, clazz);
         } catch (JsonProcessingException exception) {
             log.error("It is failed during json to parse as bean!",exception);
-            exception.printStackTrace();
+            throw new ParseErrorException(clazz.getName(),json,RestResultStatus.JSON_PARSE_BEAN,RestError.error(exception.getMessage()));
             return null;
         }
     }
@@ -256,5 +260,4 @@ public class JsonUtils {
     public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) {
         return parserMapMap(json,Map.class,Map.class,wrapKeyClazz,contentKeyClazz,contentValueClazz);
     }
-
 }

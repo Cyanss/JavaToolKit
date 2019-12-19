@@ -9,7 +9,7 @@ import java.util.UUID;
  * @group cyan.tool.kit
  * @date 11:34 2019/12/19
  */
-public class RandomUtils {
+public class RiceRandomUtils {
     private static final String BASE_SYMBOL = "!@#$%^&*()[]{}\";:+~·=-/,.<>?\\|";
     private static final String BASE_STRING_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String BASE_STRING_LOWER = BASE_STRING_UPPER.toLowerCase();

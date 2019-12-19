@@ -32,6 +32,10 @@ public class DataErrorException extends RestErrorException {
         super(RestResultStatus.DATA_ERROR, RestError.error(status));
     }
 
+    public DataErrorException(RestStatus status, String error) {
+        super(RestResultStatus.DATA_ERROR,RestError.error(status, error));
+    }
+
     @Override
     public DataErrorException get() {
         return new DataErrorException();

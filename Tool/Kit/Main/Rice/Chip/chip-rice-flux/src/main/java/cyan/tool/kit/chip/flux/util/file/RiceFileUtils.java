@@ -10,14 +10,14 @@ import java.nio.channels.FileChannel;
 import java.util.Map;
 
 @Slf4j
-public class FileUtils {
+public class RiceFileUtils {
 
     public static File createFile(String path) {
         return createFile(path);
     }
 
     public static File createFile(String path, Map<String, String> nameMap) {
-        return createFile(new File(path + "/" + nameMap.get(NameUtils.NAME) + nameMap.get(NameUtils.EXT)));
+        return createFile(new File(path + "/" + nameMap.get(RiceNameUtils.NAME) + nameMap.get(RiceNameUtils.EXT)));
     }
 
     public static File createFile(String path, String name, String ext) {

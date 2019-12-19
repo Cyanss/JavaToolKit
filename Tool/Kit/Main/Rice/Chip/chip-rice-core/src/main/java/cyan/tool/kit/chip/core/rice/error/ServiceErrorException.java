@@ -32,6 +32,10 @@ public class ServiceErrorException extends RestErrorException {
         super(RestResultStatus.SERVICE_ERROR, RestError.error(status));
     }
 
+    public ServiceErrorException(RestStatus status, String error) {
+        super(RestResultStatus.SERVICE_ERROR, RestError.error(status, error));
+    }
+
     public ServiceErrorException(String service, String error) {
         super(RestResultStatus.SERVICE_ERROR, RestError.error( service, RestResultStatus.SERVICE_ERROR, error));
     }

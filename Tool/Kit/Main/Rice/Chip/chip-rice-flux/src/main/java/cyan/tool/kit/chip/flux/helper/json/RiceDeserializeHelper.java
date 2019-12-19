@@ -14,7 +14,7 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 10:59 2019/11/21
  */
-public class DeserializeHelper {
+public class RiceDeserializeHelper {
 
     /**
      * JsonParser 反序列化Map方法

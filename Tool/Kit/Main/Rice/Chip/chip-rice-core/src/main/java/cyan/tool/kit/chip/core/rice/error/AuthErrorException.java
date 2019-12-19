@@ -20,12 +20,20 @@ public class AuthErrorException extends RestErrorException {
         super(RestResultStatus.AUTH_ERROR, RestError.error(RestResultStatus.AUTH_ERROR));
     }
 
-    public AuthErrorException(RestStatus status) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(status));
+    public AuthErrorException(RestResultStatus status) {
+        super(status);
     }
 
     public AuthErrorException(String error) {
         super(RestResultStatus.AUTH_ERROR, RestError.error(RestResultStatus.AUTH_ERROR, error));
+    }
+
+    public AuthErrorException(RestStatus status) {
+        super(RestResultStatus.AUTH_ERROR, RestError.error(status));
+    }
+
+    public AuthErrorException(RestStatus status, String error) {
+        super(RestResultStatus.AUTH_ERROR,RestError.error(status, error));
     }
 
     public AuthErrorException(String user, String error) {

@@ -2,12 +2,12 @@ package cyan.tool.kit.chip.flux.util.file;
 
 
 import cyan.tool.kit.chip.flux.util.exception.RandomUtils;
-import cyan.tool.kit.chip.flux.util.json.JsonUtils;
+import cyan.tool.kit.chip.flux.util.json.RcieJsonUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class NameUtils {
+public class RiceNameUtils {
     public static final String UUID = "uuid";
     public static final String NAME = "name";
     public static final String EXT = "ext";
@@ -124,11 +124,11 @@ public class NameUtils {
     public static void main(String[] args) {
         String s = buildAliasName("511_test", "ext");
         Map<String, String> map = analysisAliasName(s);
-        System.out.println(JsonUtils.parserJson(map));
+        System.out.println(RcieJsonUtils.parserJson(map));
 
         String s1 = buildFileName("aa_test", "ext");
         Map<String, String> maps = analysisFileName(s1);
-        System.out.println(JsonUtils.parserJson(maps));
+        System.out.println(RcieJsonUtils.parserJson(maps));
     }
 
 

@@ -24,19 +24,23 @@ public class FieldErrorException extends RestErrorException {
     }
 
     public FieldErrorException(String error) {
-        super(RestResultStatus.FIELD_ERROR,RestError.error(RestResultStatus.FIELD_ERROR, error));
+        super(RestResultStatus.FIELD_ERROR, RestError.error(RestResultStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(RestStatus status) {
         super(RestResultStatus.FIELD_ERROR, RestError.error(status));
     }
 
+    public FieldErrorException(RestStatus status, String error) {
+        super(RestResultStatus.FIELD_ERROR,RestError.error(status, error));
+    }
+
     public FieldErrorException(String filed, String error) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, error));
+        super(RestResultStatus.FIELD_ERROR, RestError.error(filed,RestResultStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(String filed, Object value, String error) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, value, error));
+        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, value, RestResultStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(String filed, RestStatus status) {

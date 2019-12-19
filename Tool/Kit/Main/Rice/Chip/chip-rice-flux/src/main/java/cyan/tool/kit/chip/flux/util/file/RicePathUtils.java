@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 
-public class PathUtils {
+public class RicePathUtils {
 
     public static String getRootPath() {
         File file;

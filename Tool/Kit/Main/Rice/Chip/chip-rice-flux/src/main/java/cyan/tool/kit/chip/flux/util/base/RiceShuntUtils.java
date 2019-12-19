@@ -10,7 +10,7 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 10:26 2019/11/21
  */
-public class ShuntUtils {
+public class RiceShuntUtils {
     /**
      * 数据归类分拣
      * @param key  分拣依据

@@ -1,7 +1,7 @@
 package cyan.tool.kit.chip.flux.util.json;
 
 import com.fasterxml.jackson.core.JsonParser;
-import cyan.tool.kit.chip.flux.helper.json.DeserializeHelper;
+import cyan.tool.kit.chip.flux.helper.json.RiceDeserializeHelper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 10:59 2019/11/21
  */
 @Slf4j
-public class DeserializeUtils {
+public class RiceDeserializeUtils {
 
     /**
      * JsonParser 反序列化Map方法
@@ -27,7 +27,7 @@ public class DeserializeUtils {
      */
     public static Map<String, Object> deserializerBean(JsonParser parser) {
         try {
-            return DeserializeHelper.deserializerBean(parser);
+            return RiceDeserializeHelper.deserializerBean(parser);
         } catch (IOException exception) {
             log.error("It is failed during json to deserialize as map of bean fields!",exception);
             exception.printStackTrace();
@@ -42,7 +42,7 @@ public class DeserializeUtils {
      */
     public static List<Object> deserializerList(JsonParser parser) {
         try {
-            return DeserializeHelper.deserializerList(parser);
+            return RiceDeserializeHelper.deserializerList(parser);
         } catch (IOException exception) {
             log.error("It is failed during json to deserialize as list of bean!",exception);
             exception.printStackTrace();
@@ -57,7 +57,7 @@ public class DeserializeUtils {
      */
     public static List<Map<String, Object>> deserializerBeanList(JsonParser parser) {
         try {
-            return DeserializeHelper.deserializerBeanList(parser);
+            return RiceDeserializeHelper.deserializerBeanList(parser);
         } catch (IOException exception) {
             log.error("It is failed during json to deserialize as list map of bean fields!",exception);
             exception.printStackTrace();
@@ -74,7 +74,7 @@ public class DeserializeUtils {
      */
     public static Map<String, Object> deserializerMap(JsonParser parser) {
         try {
-            return DeserializeHelper.deserializerMap(parser);
+            return RiceDeserializeHelper.deserializerMap(parser);
         } catch (IOException exception) {
             log.error("It is failed during json to deserialize as map of bean!",exception);
             exception.printStackTrace();
@@ -90,7 +90,7 @@ public class DeserializeUtils {
      */
     public static Map<String,Map<String, Object>> deserializerBeanMap(JsonParser parser){
         try {
-            return DeserializeHelper.deserializerBeanMap(parser);
+            return RiceDeserializeHelper.deserializerBeanMap(parser);
         } catch (IOException exception) {
             log.error("It is failed during json to deserialize as map map of bean fields!",exception);
             exception.printStackTrace();

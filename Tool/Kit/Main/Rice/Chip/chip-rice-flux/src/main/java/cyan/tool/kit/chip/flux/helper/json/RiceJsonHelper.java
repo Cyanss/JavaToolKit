@@ -19,7 +19,7 @@ import java.util.Set;
  * @group cyan.tool.kit
  * @date 18:25 2019/11/20
  */
-public class JsonHelper {
+public class RiceJsonHelper {
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
 

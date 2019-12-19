@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.UUID;
 
 
-class RandomFlux {
+class RestRandomFlux {
     private static final String BASE_SYMBOL = "!@#$%^&*()[]{}\";:+~·=-/,.<>?\\|";
     private static final String BASE_STRING_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String BASE_STRING_LOWER = BASE_STRING_UPPER.toLowerCase();

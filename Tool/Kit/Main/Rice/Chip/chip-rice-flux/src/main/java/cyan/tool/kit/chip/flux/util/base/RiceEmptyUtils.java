@@ -10,7 +10,7 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 9:57 2019/11/21
  */
-public class EmptyUtils {
+public class RiceEmptyUtils {
 
     public static Boolean isNotEmpty(Object object) {
         if (object == null) {

@@ -6,7 +6,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
-public class StreamUtils {
+public class RiceStreamUtils {
 
     /**
      * request请求的输入流转换为String

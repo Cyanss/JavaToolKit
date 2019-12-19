@@ -31,7 +31,7 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, String name, Integer status, String message) {
-        EnumFlux.addEnum(clazz, name, new Class[] {Integer.class, String.class },
+        RestEnumFlux.addEnum(clazz, name, new Class[] {Integer.class, String.class },
                 new Object[] {status, message});
         return get(clazz,name);
     }
@@ -44,8 +44,8 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, Integer status, String message) {
-        String randomEnumName = RandomFlux.randomEnum(status);
-        EnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
+        String randomEnumName = RestRandomFlux.randomEnum(status);
+        RestEnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
                 new Object[] {status, message });
         return get(clazz,randomEnumName);
     }
@@ -57,8 +57,8 @@ public interface RestStatusEnum extends RestStatus {
      * @return IChipStatus
      */
     static <T extends Enum<T>> T add(Class<T> clazz, Integer status, String message, String baseName) {
-        String randomEnumName = RandomFlux.randomEnum(status,baseName);
-        EnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
+        String randomEnumName = RestRandomFlux.randomEnum(status,baseName);
+        RestEnumFlux.addEnum(clazz, randomEnumName, new Class[] {Integer.class, String.class},
                 new Object[] {status, message });
         return get(clazz,randomEnumName);
     }
