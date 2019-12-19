@@ -12,10 +12,14 @@ import lombok.Data;
 @Data
 class DefaultErrorIssue {
     private String field;
-    private String value;
+    private Object value;
     private String issue;
 
     public DefaultErrorIssue() {
+    }
+
+    protected DefaultErrorIssue(String issue) {
+        this.issue = issue;
     }
 
     public DefaultErrorIssue(String field, String issue) {
@@ -23,7 +27,7 @@ class DefaultErrorIssue {
         this.issue = issue;
     }
 
-    public DefaultErrorIssue(String field, String value, String issue) {
+    public DefaultErrorIssue(String field, Object value, String issue) {
         this.field = field;
         this.value = value;
         this.issue = issue;

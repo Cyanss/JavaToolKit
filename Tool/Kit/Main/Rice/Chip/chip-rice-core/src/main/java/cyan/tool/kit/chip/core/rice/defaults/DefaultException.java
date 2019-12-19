@@ -142,6 +142,13 @@ class DefaultException extends Exception implements RestStatus {
         this.error = error;
     }
 
+    public DefaultException(Integer status, RestStatus restStatus, DefaultError error, Throwable cause) {
+        super(restStatus.getMessage(), cause);
+        this.error = new DefaultError();
+        this.status = status;
+        this.error = error;
+    }
+
     public DefaultException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.status = RestResultStatus.FAILED.getStatus();
@@ -193,7 +200,7 @@ class DefaultException extends Exception implements RestStatus {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return Optional.ofNullable(this.error).map(DefaultError::getName).orElse("default_exception");
     }
 

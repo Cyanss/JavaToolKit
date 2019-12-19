@@ -18,6 +18,7 @@ public enum RestResultStatus implements RestStatusEnum {
     SUCCESS(200, "成功"),
     FAILED(400, "失败"),
     /** timeout */
+    UNKNOWN_ERROR(9999,"未知错误"),
     TIME_OUT(10000, "访问超时"),
     /** base */
     PARAM_ERROR(10010, "参数错误"),
@@ -92,6 +93,11 @@ public enum RestResultStatus implements RestStatusEnum {
         this.message = message;
     }
 
+
+    @Override
+    public String getName() {
+        return this.name().toLowerCase().replace("_"," ");
+    }
 
     @Override
     public Map<Integer, String> entry() {

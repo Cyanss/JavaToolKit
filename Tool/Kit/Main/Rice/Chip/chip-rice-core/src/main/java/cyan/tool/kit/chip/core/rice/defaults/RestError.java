@@ -2,7 +2,6 @@ package cyan.tool.kit.chip.core.rice.defaults;
 
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
-import cyan.tool.kit.chip.core.rice.rest.RestStatusEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,15 +18,16 @@ import java.util.Optional;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RestError extends DefaultError implements RestStatus {
+public class RestError extends DefaultError implements RestStatus{
     private Integer status;
 
-    public RestError(Integer status) {
+    public RestError(Integer status, String message) {
+        super(message);
         this.status = status;
     }
 
-    public RestError(Integer status, String name, Integer domain) {
-        super(name, domain);
+    public RestError(Integer status, String message, String name, Integer domain) {
+        super(message, name, domain);
         this.status = status;
     }
 
@@ -37,32 +37,22 @@ public class RestError extends DefaultError implements RestStatus {
     }
 
     public RestError( Integer status, String message, String name, Throwable cause) {
-        super(message, cause, name);
+        super(message,name, cause);
         this.status = status;
     }
 
     public RestError(RestStatus status, Throwable cause) {
-        super(cause, status.name());
+        super(status.getMessage(), status.getName(), cause);
         this.status = status.getStatus();
     }
 
-    public RestError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, String name, Integer status) {
-        super(message, cause, enableSuppression, writableStackTrace, name);
-        this.status = status;
-    }
-
-    public RestError(Integer status, String message, String name, Integer domain) {
-        super(message, name, domain);
+    public RestError(Integer status, String message, String name, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, name, cause, enableSuppression, writableStackTrace);
         this.status = status;
     }
 
     public RestError(Integer status, String message, String name, Integer domain, Throwable cause) {
-        super(message, cause, name, domain);
-        this.status = status;
-    }
-
-    public RestError(Integer status, String name, Integer domain, Throwable cause) {
-        super(cause, name, domain);
+        super(message, name, domain, cause);
         this.status = status;
     }
 
@@ -76,12 +66,7 @@ public class RestError extends DefaultError implements RestStatus {
         this.status = status;
     }
 
-    public RestError( Integer status,Throwable cause) {
-        super(cause);
-        this.status = status;
-    }
-
-    public RestError(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Integer status) {
+    public RestError(Integer status, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.status = status;
     }
@@ -89,59 +74,94 @@ public class RestError extends DefaultError implements RestStatus {
     private RestError(RestError.Builder builder) {
         super(builder);
         this.status = builder.getStatus();
-
     }
 
-    public static RestError timeout(Integer status, String message) {
-        Optional<RestResultStatus> option = Optional.ofNullable(RestStatus.get(RestResultStatus.class, status));
-        RestStatusEnum.add(RestResultStatus.class, status, message,RestResultStatus.TIME_OUT.name());
-        return (new Builder()).status(option.map((resultStatus) -> RestResultStatus.TIME_OUT.getStatus()).orElse(status)).message(message).build();
+    public static RestError error() {
+        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).add(new RestErrorIssue(RestResultStatus.UNKNOWN_ERROR)).build();
     }
 
-    public static RestError timeout(RestStatus status) {
-        return (new Builder()).status(RestResultStatus.TIME_OUT).message(status).build();
+    public static RestError error(String field) {
+        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).add(new RestErrorIssue(field, RestResultStatus.UNKNOWN_ERROR)).build();
     }
 
-    public static RestError timeout(String resource, RestStatus status) {
-        return (new Builder()).status(RestResultStatus.TIME_OUT).resource(resource).message(status).build();
+    public static RestError error(String field, String error) {
+        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, RestResultStatus.UNKNOWN_ERROR, error)).build();
     }
 
-    public static RestError paramError(String resource, String field, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.PARAM_ERROR).resource(resource).message(RestResultStatus.PARAM_ERROR).add(new RestErrorIssue(field, error)).build();
+    public static RestError error(String field, Object value, String error) {
+        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, value, RestResultStatus.UNKNOWN_ERROR, error)).build();
     }
 
-    public static RestError parseError(String resource, String json, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.PARSE_ERROR).resource(resource).message(RestResultStatus.PARSE_ERROR).add(new RestErrorIssue(json, error)).build();
+    public static RestError error(RestStatus status) {
+        return (new RestError.Builder(status)).add(new RestErrorIssue(status)).build();
     }
 
-    public static RestError resourceError(String field, String id, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.RESOURCE_ERROR).message(RestResultStatus.RESOURCE_ERROR).add(new RestErrorIssue(field, id, error)).build();
+    public static RestError error(String field, RestStatus status) {
+        return (new RestError.Builder(status)).resource(field).add(new RestErrorIssue(field, status)).build();
     }
 
-    public static RestError fileError(String resource, String file, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.FILE_ERROR).resource(resource).message(RestResultStatus.FILE_ERROR).add(new RestErrorIssue(file, error)).build();
+    public static RestError error(Integer status, String error) {
+        return (new Builder()).status(status).message(error).add(new RestErrorIssue(status,error)).build();
     }
 
-    public static RestError authError(String resource, String user, String auth, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.AUTH_ERROR).resource(resource).message(RestResultStatus.AUTH_ERROR).add(new RestErrorIssue(user, auth, error)).build();
+    public static RestError error(Integer status, RestStatus restStatus) {
+        return (new Builder(restStatus)).status(status).add(new RestErrorIssue(status,restStatus)).build();
     }
 
-    public static RestError tokenError(String resource, String user, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.TOKEN_ERROR).resource(resource).message(RestResultStatus.TOKEN_ERROR).add(new RestErrorIssue(resource, user, error)).build();
+    public static RestError error(RestStatus status, String error) {
+        return (new RestError.Builder(status)).message(error).add(new RestErrorIssue(status,error)).build();
     }
 
-    public static RestError serviceError(String resource, String service, String error) {
-        return (new RestError.Builder()).name(RestResultStatus.SERVICE_ERROR).resource(resource).message(RestResultStatus.SERVICE_ERROR).add(new RestErrorIssue(resource, service, error)).build();
+    public static RestError error(String field, Integer status, String error) {
+        return (new RestError.Builder()).status(status).resource(field).message(error).add(new RestErrorIssue(field, status, error)).build();
     }
 
-    public static DefaultError dataError(String resource, String data, String error) {
-        return (new DefaultError.Builder()).name(RestResultStatus.DATA_ERROR).resource(resource).message(RestResultStatus.DATA_ERROR).add(new DefaultErrorIssue(resource, data, error)).build();
+    public static RestError error(String field, Object value, Integer status, String error) {
+        return (new RestError.Builder()).status(status).resource(field).message(error).add(new RestErrorIssue(field, value, status, error)).build();
     }
 
+    public static RestError error(String field, RestStatus status, String error) {
+        return (new RestError.Builder(status)).resource(field).message(error).add(new RestErrorIssue(field, status, error)).build();
+    }
 
-    @Override
-    public String name() {
-        return getName();
+    public static RestError error(String field, RestStatus restStatus, Integer status, String error) {
+        return (new Builder(restStatus)).status(status).resource(field).add(new RestErrorIssue(field, status, error)).build();
+    }
+
+    public static RestError error(String field,  Object value, RestStatus status) {
+        return (new RestError.Builder(status)).resource(field).add(new RestErrorIssue(field, value,status)).build();
+    }
+
+    public static RestError error(String field,  Object value, RestStatus status, String error) {
+        return (new RestError.Builder(status)).resource(field).message(error).add(new RestErrorIssue(field, value,status,error)).build();
+    }
+
+    public static RestError error(String field, Object value, RestStatus restStatus, Integer status, String error) {
+        return (new Builder(restStatus)).status(status).resource(field).add(new RestErrorIssue(field, value, status, error)).build();
+    }
+
+    public static RestError error(String resource, String field, RestStatus restStatus) {
+        return (new RestError.Builder(restStatus)).resource(resource).add(new RestErrorIssue(field, restStatus)).build();
+    }
+
+    public static RestError error(String resource, String field, RestStatus restStatus, String error) {
+        return (new RestError.Builder(restStatus)).resource(resource).message(error).add(new RestErrorIssue(field, restStatus,error)).build();
+    }
+
+    public static RestError error(String resource, String field, Object value, RestStatus restStatus) {
+        return (new RestError.Builder(restStatus)).resource(resource).add(new RestErrorIssue(field, value, restStatus)).build();
+    }
+
+    public static RestError error(String resource, String field, Object value, RestStatus restStatus, String error) {
+        return (new RestError.Builder(restStatus)).resource(resource).message(error).add(new RestErrorIssue(field, value, restStatus, error)).build();
+    }
+
+    public static RestError error(String resource, String field, RestStatus restStatus, Integer status, String error) {
+        return (new RestError.Builder(restStatus)).status(status).resource(resource).add(new RestErrorIssue(field, status, error)).build();
+    }
+
+    public static RestError error(String resource, String field, Object value, RestStatus restStatus, Integer status, String error) {
+        return (new RestError.Builder(restStatus)).status(status).resource(resource).add(new RestErrorIssue(field, value, status, error)).build();
     }
 
     @Override
@@ -153,6 +173,15 @@ public class RestError extends DefaultError implements RestStatus {
     @Data
     public static class Builder extends DefaultError.Builder {
         private Integer status;
+
+        public Builder() {
+            super();
+        }
+
+        private Builder(RestStatus status) {
+            super(status);
+            this.status = status.getStatus();
+        }
 
         public RestError.Builder status(Integer status) {
             this.status = status;
@@ -170,7 +199,7 @@ public class RestError extends DefaultError implements RestStatus {
         }
 
         public RestError.Builder name(RestStatus status) {
-            super.name(status.name());
+            super.name(status.getName());
             return this;
         }
 
@@ -181,7 +210,6 @@ public class RestError extends DefaultError implements RestStatus {
 
         public RestError.Builder message(RestStatus status) {
             super.message(status.getMessage());
-            this.status = status.getStatus();
             return this;
         }
 

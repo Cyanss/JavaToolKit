@@ -15,19 +15,19 @@ import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 public class TimeoutException extends RestErrorException {
 
     public TimeoutException(Integer status, String message) {
-        super(RestResultStatus.TIME_OUT, RestError.timeout(status,message));
-    }
-
-    public TimeoutException(String resource) {
-        super(RestResultStatus.TIME_OUT, RestError.timeout(resource));
+        super(RestResultStatus.TIME_OUT, RestError.error(status,message));
     }
 
     public TimeoutException(RestStatus status) {
-        super(RestResultStatus.TIME_OUT, RestError.timeout(status));
+        super(RestResultStatus.TIME_OUT, RestError.error(status));
+    }
+
+    public TimeoutException(String resource) {
+        super(RestResultStatus.TIME_OUT, RestError.error(resource));
     }
 
     public TimeoutException(String resource, RestStatus status) {
-        super(RestResultStatus.TIME_OUT, RestError.timeout(resource, status));
+        super(RestResultStatus.TIME_OUT, RestError.error(resource, status));
     }
 
 

@@ -21,7 +21,7 @@ public interface RestStatus {
      * 获取名字
      * @return String
      */
-    String name();
+    String getName();
     /**
      * 获取错误码
      * @return Integer
@@ -41,21 +41,10 @@ public interface RestStatus {
     Map<Integer,String> entry();
 
     /**
-     * pa
-     * @param clazz 枚举类型
-     * @param status status值
-     * @param <T> 泛型
-     * @return boolean
-     */
-    static <T extends RestStatus> boolean asserts(Class<T> clazz, Integer status) {
-        return Optional.ofNullable(get(clazz,status)).isPresent();
-    }
-
-    /**
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<T> enums(Class<T> clazz) {
+    static <T extends RestStatus> List<T> values(Class<T> clazz) {
         return Arrays.asList(clazz.getEnumConstants());
     }
 
@@ -63,26 +52,36 @@ public interface RestStatus {
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<Map<Integer,String>> entries(Class<T> clazz) {
-        return enums(clazz).stream().map(RestStatus::entry).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<Map<Integer,String>> entry(Class<T> clazz) {
+        return values(clazz).stream().map(RestStatus::entry).distinct().collect(Collectors.toList());
     }
 
     /**
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<Integer> statuses(Class<T> clazz) {
-        return enums(clazz).stream().map(RestStatus::getStatus).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<Integer> status(Class<T> clazz) {
+        return values(clazz).stream().map(RestStatus::getStatus).distinct().collect(Collectors.toList());
     }
 
     /**
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<String> messages(Class<T> clazz) {
-        return enums(clazz).stream().map(RestStatus::getMessage).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<String> message(Class<T> clazz) {
+        return values(clazz).stream().map(RestStatus::getMessage).distinct().collect(Collectors.toList());
     }
 
+    /**
+     * pa
+     * @param clazz 枚举类型
+     * @param status status值
+     * @param <T> 泛型
+     * @return boolean
+     */
+    static <T extends RestStatus> Boolean confirm(Class<T> clazz, Integer status) {
+        return Optional.ofNullable(get(clazz,status)).isPresent();
+    }
 
 
     /**
@@ -93,12 +92,9 @@ public interface RestStatus {
      * @return T
      */
     static <T extends RestStatus> T get(Class<T> clazz, Integer status){
-        if (EmptyUtils.isNotEmpty(status)) {
-            List<T> enumList = Arrays.asList(clazz.getEnumConstants());
-            Map<Integer, T> errorMap = enumList.stream().collect(Collectors.toMap(RestStatus::getStatus, error -> error));
-            return errorMap.get(status);
-        }
-        return null;
+        List<T> enumList = Arrays.asList(clazz.getEnumConstants());
+        Map<Integer, T> errorMap = enumList.stream().collect(Collectors.toMap(RestStatus::getStatus, error -> error));
+        return errorMap.get(status);
     }
 
 }
