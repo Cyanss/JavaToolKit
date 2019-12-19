@@ -1,8 +1,9 @@
 package cyan.tool.kit.chip.core.rice.defaults;
 
-import cyan.tool.kit.chip.core.rice.error.UnknownErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
+
+import java.util.function.Supplier;
 
 /**
  * <p>RestException</p>
@@ -14,6 +15,14 @@ import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 public class RestException extends DefaultException {
 
     public RestException() {
+    }
+
+    public RestException(Supplier<RestStatus> supplier) {
+        super(supplier.get());
+    }
+
+    public RestException(RestError error) {
+        super((RestStatus) error);
     }
 
     public RestException(String message) {

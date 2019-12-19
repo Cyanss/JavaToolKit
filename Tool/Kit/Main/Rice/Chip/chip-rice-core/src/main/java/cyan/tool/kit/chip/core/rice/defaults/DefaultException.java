@@ -25,8 +25,9 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     protected Integer status;
 
 
-    public DefaultException(Supplier supplier) {
-        supplier.get();
+    public DefaultException(Supplier<RestStatus> supplier) {
+        super(supplier.get().getMessage());
+        this.status = supplier.get().getStatus();
     }
 
     public DefaultException() {

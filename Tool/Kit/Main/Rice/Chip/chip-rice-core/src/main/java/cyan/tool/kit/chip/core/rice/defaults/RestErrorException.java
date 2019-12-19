@@ -4,6 +4,8 @@ import com.sun.org.apache.regexp.internal.RE;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 
+import java.util.function.Supplier;
+
 /**
  * <p>RestError</p>
  * @author Cyan (snow22314@outlook.com)
@@ -14,6 +16,14 @@ import cyan.tool.kit.chip.core.rice.rest.RestStatus;
 public class RestErrorException extends DefaultException {
 
     public RestErrorException() {
+    }
+
+    public RestErrorException(Supplier<RestStatus> supplier) {
+        super(supplier.get());
+    }
+
+    public RestErrorException(RestStatus status) {
+        super(status);
     }
 
     public RestErrorException(RestResultStatus status) {
