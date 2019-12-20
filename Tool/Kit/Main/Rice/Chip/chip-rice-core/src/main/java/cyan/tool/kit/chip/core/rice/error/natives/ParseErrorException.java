@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ParseErrorException extends RestErrorException {
 
     public ParseErrorException() {
-        super(RestResultStatus.PARSE_ERROR,RestError.error(RestResultStatus.PARSE_ERROR));
+        super(RestResultStatus.PARSE_ERROR);
     }
 
     public ParseErrorException(RestResultStatus status) {

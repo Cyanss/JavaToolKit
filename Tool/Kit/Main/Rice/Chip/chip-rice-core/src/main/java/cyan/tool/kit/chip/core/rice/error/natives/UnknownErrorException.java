@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UnknownErrorException extends RestErrorException {
 
     public UnknownErrorException() {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(RestResultStatus.UNKNOWN_ERROR));
+        super(RestResultStatus.UNKNOWN_ERROR);
     }
 
     public UnknownErrorException(RestResultStatus status) {

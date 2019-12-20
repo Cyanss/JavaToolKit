@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class TokenErrorException extends RestErrorException {
 
     public TokenErrorException() {
-        super(RestResultStatus.TOKEN_ERROR, RestError.error(RestResultStatus.TOKEN_ERROR));
+        super(RestResultStatus.TOKEN_ERROR);
     }
 
     public TokenErrorException(RestResultStatus status) {

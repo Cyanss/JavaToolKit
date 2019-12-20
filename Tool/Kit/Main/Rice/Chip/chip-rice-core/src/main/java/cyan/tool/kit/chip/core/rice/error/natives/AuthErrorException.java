@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class AuthErrorException extends RestErrorException {
 
     public AuthErrorException() {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(RestResultStatus.AUTH_ERROR));
+        super(RestResultStatus.AUTH_ERROR);
     }
 
     public AuthErrorException(RestResultStatus status) {

@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class DataErrorException extends RestErrorException {
     
     public DataErrorException() {
-        super(RestResultStatus.DATA_ERROR, RestError.error(RestResultStatus.DATA_ERROR));
+        super(RestResultStatus.DATA_ERROR);
     }
 
     public DataErrorException(RestResultStatus status) {
@@ -29,11 +29,11 @@ public class DataErrorException extends RestErrorException {
     }
 
     public DataErrorException(RestStatus status) {
-        super(status);
+        super(RestResultStatus.DATA_ERROR,RestError.error(status));
     }
 
     public DataErrorException(RestStatus status, String error) {
-        super(status,RestError.error(status, error));
+        super(RestResultStatus.DATA_ERROR,RestError.error(status, error));
     }
 
     @Override

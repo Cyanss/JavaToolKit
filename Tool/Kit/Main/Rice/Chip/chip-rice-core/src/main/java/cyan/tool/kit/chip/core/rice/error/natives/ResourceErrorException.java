@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.core.rice.error;
+package cyan.tool.kit.chip.core.rice.error.natives;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ResourceErrorException extends RestErrorException {
 
     public ResourceErrorException() {
-        super(RestResultStatus.RESOURCE_ERROR,RestError.error(RestResultStatus.RESOURCE_ERROR));
+        super(RestResultStatus.RESOURCE_ERROR);
     }
 
     public ResourceErrorException(RestResultStatus status) {
