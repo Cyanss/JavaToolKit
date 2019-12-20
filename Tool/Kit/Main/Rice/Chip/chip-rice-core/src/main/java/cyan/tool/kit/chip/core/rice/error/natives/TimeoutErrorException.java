@@ -14,43 +14,43 @@ import java.util.Optional;
  * @group cyan.tool.kit
  * @date 8:34 2019/12/17
  */
-public class TimeoutException extends RestErrorException {
+public class TimeoutErrorException extends RestErrorException {
 
-    public TimeoutException() {
+    public TimeoutErrorException() {
         super(RestResultStatus.TIME_OUT);
     }
 
-    public TimeoutException(RestResultStatus status) {
+    public TimeoutErrorException(RestResultStatus status) {
         super(status);
     }
 
-    public TimeoutException(String error) {
+    public TimeoutErrorException(String error) {
         super(RestResultStatus.TIME_OUT, RestError.error(error));
     }
 
-    public TimeoutException(RestStatus status) {
+    public TimeoutErrorException(RestStatus status) {
         super(RestResultStatus.TIME_OUT, RestError.error(status));
     }
 
-    public TimeoutException(RestStatus status, String error) {
+    public TimeoutErrorException(RestStatus status, String error) {
         super(RestResultStatus.TIME_OUT, RestError.error(status, error));
     }
 
-    public TimeoutException(String resource, String error) {
+    public TimeoutErrorException(String resource, String error) {
         super(RestResultStatus.TIME_OUT, RestError.error(resource,error));
     }
 
-    public TimeoutException(String resource, RestStatus status) {
+    public TimeoutErrorException(String resource, RestStatus status) {
         super(RestResultStatus.TIME_OUT, RestError.error(resource, status));
     }
 
-    public TimeoutException(String resource, RestStatus status, String error) {
+    public TimeoutErrorException(String resource, RestStatus status, String error) {
         super(RestResultStatus.TIME_OUT, RestError.error(resource, status, error));
     }
 
     @Override
-    public TimeoutException get() {
-        return new TimeoutException();
+    public TimeoutErrorException get() {
+        return new TimeoutErrorException();
     }
 
     @Override

@@ -2,7 +2,11 @@ package cyan.tool.kit.chip.core.rice.error.supply;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
+import cyan.tool.kit.chip.core.rice.error.natives.UnknownErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.chip.core.rice.rest.RestStatus;
+
+import java.util.Optional;
 
 /**
  * <p>ForbiddenException</p>
@@ -12,7 +16,21 @@ import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
  * @date 9:28 2019/12/20
  */
 public class ForbiddenException extends RestErrorException {
+    public ForbiddenException() {
+        super(RestResultStatus.AUTH_FORBIDDEN);
+    }
+
     public ForbiddenException(String resource, String user, String auth) {
         super(RestResultStatus.AUTH_FORBIDDEN, RestError.error(resource, user, auth,RestResultStatus.AUTH_FORBIDDEN));
+    }
+
+    @Override
+    public ForbiddenException get() {
+        return new ForbiddenException();
+    }
+
+    @Override
+    public String getName() {
+        return RestResultStatus.AUTH_FORBIDDEN.getName();
     }
 }
