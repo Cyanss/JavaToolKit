@@ -70,6 +70,10 @@ public class RestException extends DefaultException {
         super(message, cause);
     }
 
+    public RestException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public RestException(RestStatus status, Throwable cause) {
         super(status, cause);
     }

@@ -29,11 +29,11 @@ public class DataErrorException extends RestErrorException {
     }
 
     public DataErrorException(RestStatus status) {
-        super(RestResultStatus.DATA_ERROR, RestError.error(status));
+        super(status);
     }
 
     public DataErrorException(RestStatus status, String error) {
-        super(RestResultStatus.DATA_ERROR,RestError.error(status, error));
+        super(status,RestError.error(status, error));
     }
 
     @Override
