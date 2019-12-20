@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 13:32 2019/12/16
  */
 @Getter
-public enum RestResultStatus implements RestStatusEnum {
+public enum RestResultStatus implements RestStatus {
 
     SUCCESS(200, "成功"),
     FAILED(400, "失败"),
