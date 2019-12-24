@@ -17,6 +17,10 @@ public class ParamMissingException extends RestErrorException {
         super(RestResultStatus.PARAM_MISSING);
     }
 
+    public ParamMissingException(String field) {
+        super(RestResultStatus.PARAM_MISSING, RestError.error(field, RestResultStatus.PARAM_MISSING));
+    }
+
     public ParamMissingException(String resource, String field) {
         super(RestResultStatus.PARAM_MISSING, RestError.error(resource, field, RestResultStatus.PARAM_MISSING));
     }

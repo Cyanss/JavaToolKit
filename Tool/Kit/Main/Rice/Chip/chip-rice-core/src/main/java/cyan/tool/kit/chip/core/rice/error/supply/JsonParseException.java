@@ -17,6 +17,10 @@ public class JsonParseException extends RestErrorException {
         super(RestResultStatus.JSON_PARSE_ERROR);
     }
 
+    public JsonParseException(String resource, String json) {
+        super(RestResultStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestResultStatus.JSON_PARSE_ERROR));
+    }
+
     public JsonParseException(String resource, String json, String message) {
         super(RestResultStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestResultStatus.JSON_PARSE_ERROR, message));
     }

@@ -16,6 +16,10 @@ public class ForbiddenException extends RestErrorException {
         super(RestResultStatus.AUTH_FORBIDDEN);
     }
 
+    public ForbiddenException(String user) {
+        super(RestResultStatus.AUTH_FORBIDDEN, RestError.error(null, user, RestResultStatus.AUTH_FORBIDDEN));
+    }
+
     public ForbiddenException(String resource, String user, String auth) {
         super(RestResultStatus.AUTH_FORBIDDEN, RestError.error(resource, user, auth,RestResultStatus.AUTH_FORBIDDEN));
     }
