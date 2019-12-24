@@ -34,9 +34,8 @@ public enum RestResultStatus implements RestStatus {
 
     /** resource */
     RESOURCE_ERROR(10200, "资源错误"),
-    RESOURCE_NOT_EXIST(10201, "资源不存在"),
-    RESOURCE_IS_EXIST(10202, "资源已经存在"),
-    RESOURCE_UNAVAILABLE(10203, "资源不可用"),
+    RESOURCE_NOT_FOUND(10201, "资源不存在"),
+    RESOURCE_UNAVAILABLE(10202, "资源不可用"),
 
     /** file */
     FILE_ERROR(10210, "文件错误"),
@@ -60,29 +59,35 @@ public enum RestResultStatus implements RestStatus {
     SERVICE_UNAVAILABLE(10401, "服务不可用"),
 
     /** field */
-    FIELD_ERROR(10500, "对象错误"),
-    FIELD_IS_NULL(10501, "对象为空"),
+    FIELD_ERROR(10500, "字段错误"),
+    FIELD_IS_NULL(10501, "字段为空"),
     FIELD_NOT_EXIST(10502, "对象不存在"),
     FIELD_IS_EXIST(10503, "对象已存在"),
     /** name */
     NAME_ERROR(10510, "名称错误"),
     NAME_IS_NULL(10511, "名称为空"),
-    NAME_NOT_EXIST(10512, "名称不存在"),
-    NAME_IS_EXIST(10513, "名称已存在"),
-    NAME_REPEATED(10514, "名称重复"),
+    NAME_REPEATED(10512, "名称重复"),
     /** id */
     ID_ERROR(10520, "Id错误"),
     ID_IS_NULL(10521, "Id为空"),
-    ID_NOT_EXIST(10522, "Id不存在"),
-    ID_IS_EXIST(10523, "Id已存在"),
-    ID_REPEATED(10524, "Id重复"),
+    ID_REPEATED(10522, "Id重复"),
     /** data */
     DATA_ERROR(10600, "数据错误"),
     DATA_CREATE_FAILED(10601, "数据创建失败"),
     DATA_UPDATE_FAILED(10602, "数据更新失败"),
     DATA_DELETE_FAILED(10603, "数据删除失败"),
     DATA_QUERY_FAILED(10604, "数据查询失败"),
-    DATA_TRANSFORM_FAILED(10605, "数据转换失败");
+    DATA_TRANSFORM_FAILED(10605, "数据转换失败"),
+
+    /** data all */
+    DATA_ALL_ERROR(10610, "数据批量处理错误"),
+    DATA_INSERT_ALL_FAILED(10611, "数据批量插入失败"),
+    DATA_UPDATE_ALL_FAILED(10612, "数据批量更新失败"),
+    DATA_SAVE_ALL_FAILED(10613, "数据批量保存失败"),
+    DATA_DELETE_ALL_FAILED(10614, "数据批量删除失败"),
+    DATA_QUERY_ALL_FAILED(10615, "数据批量查询失败"),
+    ;
+
     ;
     private final Integer status;
     private final String message;

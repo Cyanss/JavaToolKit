@@ -2,11 +2,7 @@ package cyan.tool.kit.chip.core.rice.error.supply;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.chip.core.rice.error.natives.TimeoutErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
-import cyan.tool.kit.chip.core.rice.rest.RestStatus;
-
-import java.util.Optional;
 
 /**
  * <p>TimeoutException</p>

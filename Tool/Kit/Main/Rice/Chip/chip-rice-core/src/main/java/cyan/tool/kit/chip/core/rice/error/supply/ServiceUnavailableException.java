@@ -2,11 +2,7 @@ package cyan.tool.kit.chip.core.rice.error.supply;
 
 import cyan.tool.kit.chip.core.rice.defaults.RestError;
 import cyan.tool.kit.chip.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.chip.core.rice.error.natives.TimeoutErrorException;
 import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
-import cyan.tool.kit.chip.core.rice.rest.RestStatus;
-
-import java.util.Optional;
 
 /**
  * <p>ServiceUnavailableException</p>
@@ -18,6 +14,10 @@ import java.util.Optional;
 public class ServiceUnavailableException extends RestErrorException {
     public ServiceUnavailableException() {
         super(RestResultStatus.SERVICE_UNAVAILABLE);
+    }
+
+    public ServiceUnavailableException(String service) {
+        super(RestResultStatus.SERVICE_UNAVAILABLE, RestError.error(service, RestResultStatus.SERVICE_UNAVAILABLE));
     }
 
     public ServiceUnavailableException(String resource, String service, String error) {
