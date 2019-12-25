@@ -1,7 +1,6 @@
 package cyan.tool.kit.chip.flux.util.file;
 
-
-import cyan.tool.kit.chip.flux.util.exception.RandomUtils;
+import cyan.tool.kit.chip.flux.util.base.RiceRandomUtils;
 import cyan.tool.kit.chip.flux.util.json.RcieJsonUtils;
 
 import java.util.HashMap;
@@ -87,7 +86,7 @@ public class RiceNameUtils {
     }
 
     public static String buildAliasName(String name,String ext) {
-        String uuid = RandomUtils.uuid();
+        String uuid = RiceRandomUtils.uuid();
         return uuid + "_" + name+"." + ext;
     }
 

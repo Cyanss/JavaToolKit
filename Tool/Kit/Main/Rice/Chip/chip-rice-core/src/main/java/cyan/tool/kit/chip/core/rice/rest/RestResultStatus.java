@@ -31,6 +31,8 @@ public enum RestResultStatus implements RestStatus {
     JSON_PARSE_LIST(10112, "JSON解析为List出错"),
     JSON_PARSE_SET(10113, "JSON解析为Set出错"),
     JSON_PARSE_MAP(10114, "JSON解析为Map出错"),
+    /** deserialize */
+    JSON_DESERIALIZE_ERROR(10120, "JSON反序列化错误"),
 
     /** resource */
     RESOURCE_ERROR(10200, "资源错误"),
