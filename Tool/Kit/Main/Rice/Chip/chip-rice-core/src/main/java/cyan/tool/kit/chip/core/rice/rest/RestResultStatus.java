@@ -45,6 +45,9 @@ public enum RestResultStatus implements RestStatus {
     FILE_IS_EXIST(10212, "文件已经存在"),
     FILE_UNAVAILABLE(10213, "文件不可用"),
 
+    FILE_CREATE_ERROR(10214, "文件创建错误"),
+    FILE_COPY_ERROR(10215, "文件复制错误"),
+
     /** access */
     AUTH_ERROR(10300, "权限错误"),
     AUTH_DENIED(10302, "拒绝访问"),
@@ -88,6 +91,11 @@ public enum RestResultStatus implements RestStatus {
     DATA_SAVE_ALL_FAILED(10613, "数据批量保存失败"),
     DATA_DELETE_ALL_FAILED(10614, "数据批量删除失败"),
     DATA_QUERY_ALL_FAILED(10615, "数据批量查询失败"),
+
+    /** service */
+    STREAM_ERROR(10400, "数据流错误"),
+    STREAM_READ_ERROR(10401, "数据流读取错误"),
+    STREAM_WRITE_ERROR(10401, "数据流写入错误"),
     ;
 
     ;

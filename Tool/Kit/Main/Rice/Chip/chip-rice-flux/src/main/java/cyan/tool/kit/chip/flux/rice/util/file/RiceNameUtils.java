@@ -1,7 +1,7 @@
-package cyan.tool.kit.chip.flux.util.file;
+package cyan.tool.kit.chip.flux.rice.util.file;
 
-import cyan.tool.kit.chip.flux.util.base.RiceRandomUtils;
-import cyan.tool.kit.chip.flux.util.json.RcieJsonUtils;
+import cyan.tool.kit.chip.flux.rice.util.base.RiceRandomUtils;
+import cyan.tool.kit.chip.flux.rice.util.json.RiceJsonUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class RiceNameUtils {
      * @param fileNameString 文件名
      * @return Map<String,String>
      */
-    public static Map<String,String> analysisFileName(String fileNameString) {
+    public static Map<String,String> parseFileName(String fileNameString) {
         Map<String,String> fileNameMap = new HashMap<>();
         String [] result = new String[2];
         if (fileNameString.contains(".")) {
@@ -56,9 +56,9 @@ public class RiceNameUtils {
      * @param fileNameString 文件名
      * @return Map<String,String>
      */
-    public static Map<String,String> analysisAliasName(String fileNameString) {
+    public static Map<String,String> parseAliasName(String fileNameString) {
         Map<String,String> AliasNameMap = new HashMap<>();
-        Map<String, String> nameMap = analysisFileName(fileNameString);
+        Map<String, String> nameMap = parseFileName(fileNameString);
         String fileName = nameMap.get(NAME);
         String [] result = new String[2];
         if (fileName.contains("_")) {
@@ -96,7 +96,7 @@ public class RiceNameUtils {
      * @param sliceNameString 分片文件名
      * @return Map<String,String>
      */
-    public static Map<String,String> analysisSliceName(String sliceNameString) {
+    public static Map<String,String> parseSliceName(String sliceNameString) {
         Map<String,String> sliceMap = new HashMap<>();
         String [] result = new String[2];
         if (sliceNameString.contains("_")) {
@@ -122,12 +122,12 @@ public class RiceNameUtils {
 
     public static void main(String[] args) {
         String s = buildAliasName("511_test", "ext");
-        Map<String, String> map = analysisAliasName(s);
-        System.out.println(RcieJsonUtils.parserJson(map));
+        Map<String, String> map = parseAliasName(s);
+        System.out.println(RiceJsonUtils.parserJson(map));
 
         String s1 = buildFileName("aa_test", "ext");
-        Map<String, String> maps = analysisFileName(s1);
-        System.out.println(RcieJsonUtils.parserJson(maps));
+        Map<String, String> maps = parseFileName(s1);
+        System.out.println(RiceJsonUtils.parserJson(maps));
     }
 
 

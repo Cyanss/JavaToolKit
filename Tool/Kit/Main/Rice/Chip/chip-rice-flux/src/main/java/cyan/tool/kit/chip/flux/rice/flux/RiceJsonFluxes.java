@@ -1,26 +1,30 @@
-package cyan.tool.kit.chip.flux.rice;
+package cyan.tool.kit.chip.flux.rice.flux;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import cyan.tool.kit.chip.core.rice.error.often.json.JsonParseBeanException;
+import cyan.tool.kit.chip.core.rice.error.often.json.JsonParseListException;
+import cyan.tool.kit.chip.core.rice.error.often.json.JsonParseMapException;
+import cyan.tool.kit.chip.core.rice.error.often.json.JsonParseSetException;
 import cyan.tool.kit.chip.core.rice.error.supply.JsonParseException;
-import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- * <p>RiceJsonFlux</p>
+ * <p>JsonHelper</p>
+ *
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 17:42 2019/12/19
+ * @date 18:25 2019/11/20
  */
-@Slf4j
-public class RiceJsonFlux {
+public class RiceJsonFluxes {
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -34,8 +38,7 @@ public class RiceJsonFlux {
         try {
             return MAPPER.writeValueAsString(target);
         } catch (JsonProcessingException exception) {
-            log.error("It is failed during bean to parse as json!",exception);
-            throw new JsonParseException(target.getClass().getName(), target.toString(), exception.getMessage());
+            throw new JsonParseException(target.getClass().getName(), exception.getMessage());
         }
     }
 
@@ -46,13 +49,13 @@ public class RiceJsonFlux {
      * @param <T> bean类型
      * @return T Bean
      */
-    public static <T> T parserBean(String json, Class<T> clazz) throws JsonParseException {
+    public static <T> T parserBean(String json, Class<T> clazz) throws JsonParseBeanException {
         try {
             return MAPPER.readValue(json, clazz);
         } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as bean!",exception);
-            throw new JsonParseException(json, clazz.getName(),RestResultStatus.JSON_PARSE_BEAN,exception.getMessage());
+            throw new JsonParseBeanException(json,clazz.getName(), exception.getMessage());
         }
+
     }
 
     /**
@@ -62,13 +65,13 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, CollectionType listType) throws JsonParseException {
+    public static <T> List<T> parserList(String json, CollectionType listType) throws JsonParseListException {
         try {
             return MAPPER.readValue(json, listType);
         } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as list of bean!",exception);
-            throw new JsonParseException(json, listType.getTypeName(),RestResultStatus.JSON_PARSE_LIST,exception.getMessage());
+            throw new JsonParseListException(json,listType.getRawClass().getName(), exception.getMessage());
         }
+
     }
 
     /**
@@ -80,7 +83,7 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <Z extends List,T> List<T> parserList(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseException {
+    public static <Z extends List,T> List<T> parserList(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseListException {
         CollectionType listType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
         return parserList(json,listType);
     }
@@ -92,7 +95,7 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, Class<T> clazz) throws JsonParseException {
+    public static <T> List<T> parserList(String json, Class<T> clazz) throws JsonParseListException {
         return parserList(json,List.class,clazz);
     }
 
@@ -103,12 +106,11 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonParseException {
+    public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonParseSetException {
         try {
             return MAPPER.readValue(json, setType);
         } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as set of bean!",exception);
-            throw new JsonParseException(json, setType.getTypeName(),RestResultStatus.JSON_PARSE_SET,exception.getMessage());
+            throw new JsonParseSetException(json,setType.getRawClass().getName(), exception.getMessage());
         }
     }
 
@@ -121,7 +123,7 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <Z extends Set,T> Set<T> parserSet(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseException {
+    public static <Z extends Set,T> Set<T> parserSet(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseSetException {
         CollectionType setType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
         return parserSet(json,setType);
     }
@@ -133,7 +135,7 @@ public class RiceJsonFlux {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, Class<T> clazz) throws JsonParseException {
+    public static <T> Set<T> parserSet(String json, Class<T> clazz) throws JsonParseSetException {
         return parserSet(json,Set.class,clazz);
     }
 
@@ -145,12 +147,11 @@ public class RiceJsonFlux {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonParseException {
+    public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonParseMapException {
         try {
             return MAPPER.readValue(json, mapType);
         } catch (JsonProcessingException exception) {
-            log.error("It is failed during json to parse as map of bean!",exception);
-            throw new JsonParseException(json, mapType.getTypeName(),RestResultStatus.JSON_PARSE_MAP, exception.getMessage());
+            throw new JsonParseMapException(json,mapType.getRawClass().getName(), exception.getMessage());
         }
     }
 
@@ -163,9 +164,9 @@ public class RiceJsonFlux {
      * @param <Z> Map类型
      * @param <T> key类型
      * @param <K> value类型
-     * @return
+     * @return Map<T, K>
      */
-    public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseException {
+    public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
         MapType mapType = MAPPER.getTypeFactory().constructMapType(parserClazz, keyClazz, valueClazz);
         return parserMap(json,mapType);
     }
@@ -179,7 +180,7 @@ public class RiceJsonFlux {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseException {
+    public static <T,K> Map<T, K> parserMap(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
         return parserMap(json, Map.class,keyClazz,valueClazz);
     }
 
@@ -198,7 +199,7 @@ public class RiceJsonFlux {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parserMapList(String json, Class<H> parserListClazz, Class<Y> parserMapClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseException {
+    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parserMapList(String json, Class<H> parserListClazz, Class<Y> parserMapClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
         CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(parserListClazz, valueClazz);
         MapType mapType = MAPPER.getTypeFactory().constructMapType(parserMapClazz, keyClazz, collectionType.getRawClass());
         return parserMap(json,mapType);
@@ -214,7 +215,7 @@ public class RiceJsonFlux {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <T,K> Map<T,List<K>> parserMapList(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseException {
+    public static <T,K> Map<T,List<K>> parserMapList(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
         return parserMapList(json,List.class,Map.class,keyClazz,valueClazz);
     }
 
@@ -234,7 +235,7 @@ public class RiceJsonFlux {
      * @param <K> 内层mapValue类型
      * @return Map<Z, Map<T, K>> BeanMapMap
      */
-    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseException {
+    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
         MapType contentType = MAPPER.getTypeFactory().constructMapType(contentMapClazz, contentKeyClazz,contentValueClazz);
         MapType mapType = MAPPER.getTypeFactory().constructMapType(wrapMapClazz, wrapKeyClazz, contentType.getRawClass());
         return parserMap(json,mapType);
@@ -251,7 +252,8 @@ public class RiceJsonFlux {
      * @param <K> 内层mapValue类型
      * @return Map<Z,Map<T, K>> BeanMapMap
      */
-    public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseException {
+    public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
         return parserMapMap(json,Map.class,Map.class,wrapKeyClazz,contentKeyClazz,contentValueClazz);
     }
+
 }

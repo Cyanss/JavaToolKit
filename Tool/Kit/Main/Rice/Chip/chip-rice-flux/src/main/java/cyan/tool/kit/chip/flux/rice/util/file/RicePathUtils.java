@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.util.file;
+package cyan.tool.kit.chip.flux.rice.util.file;
 
 import org.springframework.util.ResourceUtils;
 
@@ -9,18 +9,16 @@ import java.io.FileNotFoundException;
 public class RicePathUtils {
 
     public static String getRootPath() {
-        File file;
-        String path = null;
         try {
-            file = new File(ResourceUtils.getURL("classpath:").getPath());
+            File file = new File(ResourceUtils.getURL("classpath:").getPath());
             if(!file.exists()) {
                 file = new File("");
             }
-            path = file.getAbsolutePath();
+            return file.getAbsolutePath();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return path;
+        return null;
     }
 
     public static String getChildPath(String childName) {
