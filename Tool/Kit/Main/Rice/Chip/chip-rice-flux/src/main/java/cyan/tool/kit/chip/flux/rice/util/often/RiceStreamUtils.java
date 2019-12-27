@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.rice.util.file;
+package cyan.tool.kit.chip.flux.rice.util.often;
 
 import cyan.tool.kit.chip.core.rice.error.often.StreamReadException;
 import cyan.tool.kit.chip.core.rice.error.often.StreamWriteException;

@@ -1,7 +1,7 @@
-package cyan.tool.kit.chip.flux.rice.util.file;
+package cyan.tool.kit.chip.flux.rice.util.often;
 
-import cyan.tool.kit.chip.flux.rice.util.base.RiceRandomUtils;
-import cyan.tool.kit.chip.flux.rice.util.json.RiceJsonUtils;
+import cyan.tool.kit.chip.flux.rice.util.natives.RiceRandomUtils;
+import cyan.tool.kit.chip.flux.rice.util.supply.RiceJsonUtils;
 
 import java.util.HashMap;
 import java.util.Map;

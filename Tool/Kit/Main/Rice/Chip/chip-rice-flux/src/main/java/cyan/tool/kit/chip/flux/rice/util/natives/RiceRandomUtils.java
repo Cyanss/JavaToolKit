@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.rice.util.base;
+package cyan.tool.kit.chip.flux.rice.util.natives;
 
 import java.util.UUID;
 

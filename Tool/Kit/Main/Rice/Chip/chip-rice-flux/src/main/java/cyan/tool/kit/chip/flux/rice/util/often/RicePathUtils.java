@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.rice.util.file;
+package cyan.tool.kit.chip.flux.rice.util.often;
 
 import org.springframework.util.ResourceUtils;
 

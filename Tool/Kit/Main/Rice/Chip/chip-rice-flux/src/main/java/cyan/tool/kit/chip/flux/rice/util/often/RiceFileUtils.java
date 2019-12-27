@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.rice.util.file;
+package cyan.tool.kit.chip.flux.rice.util.often;
 
 import cyan.tool.kit.chip.core.rice.error.often.FileCopyException;
 import cyan.tool.kit.chip.core.rice.error.often.FileCreateException;
@@ -6,7 +6,6 @@ import cyan.tool.kit.chip.flux.rice.flux.RiceFileFluxes;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 @Slf4j

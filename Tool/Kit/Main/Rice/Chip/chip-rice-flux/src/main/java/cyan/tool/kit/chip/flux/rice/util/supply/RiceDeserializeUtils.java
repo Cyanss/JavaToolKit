@@ -1,4 +1,4 @@
-package cyan.tool.kit.chip.flux.rice.util.json;
+package cyan.tool.kit.chip.flux.rice.util.supply;
 
 import com.fasterxml.jackson.core.JsonParser;
 import cyan.tool.kit.chip.core.rice.error.supply.JsonDeserializeException;
