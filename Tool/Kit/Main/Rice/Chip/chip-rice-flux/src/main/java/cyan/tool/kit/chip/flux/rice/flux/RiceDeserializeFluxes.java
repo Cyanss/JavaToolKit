@@ -18,13 +18,6 @@ import java.util.*;
  */
 public class RiceDeserializeFluxes {
 
-    /**
-     * JsonParser 反序列化Map方法
-     *
-     * @param parser JsonParser对象
-     * @return Map<String, Object>
-     * @throws JsonDeserializeException JsonDeserializeException
-     */
     public static Map<String, Object> deserializerBean(JsonParser parser) throws JsonDeserializeException {
         try {
             JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -39,13 +32,6 @@ public class RiceDeserializeFluxes {
 
     }
 
-    /**
-     * JsonParser 反序列化List方法
-     *
-     * @param parser JsonParser对象
-     * @return List<Map < String, Object>>
-     * @throws JsonDeserializeException JsonDeserializeException
-     */
     public static List<Object> deserializerList(JsonParser parser) throws JsonDeserializeException {
         try {
             List<Object> resultList = new ArrayList<>();
@@ -62,13 +48,6 @@ public class RiceDeserializeFluxes {
 
     }
 
-    /**
-     * JsonParser 反序列化BeanList方法
-     *
-     * @param parser JsonParser对象
-     * @return List<Map < String, Object>>
-     * @throws JsonDeserializeException JsonDeserializeException
-     */
     public static List<Map<String, Object>> deserializerBeanList(JsonParser parser) throws JsonDeserializeException {
         try {
             List<Map<String, Object>> resultList = new ArrayList<>();
@@ -87,14 +66,6 @@ public class RiceDeserializeFluxes {
 
     }
 
-
-    /**
-     * JsonParser 反序列化Map方法
-     *
-     * @param parser JsonParser对象
-     * @return List<Map < String, Object>>
-     * @throws JsonDeserializeException JsonDeserializeException
-     */
     public static Map<String, Object> deserializerMap(JsonParser parser) throws JsonDeserializeException {
         try {
             JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -113,14 +84,6 @@ public class RiceDeserializeFluxes {
 
     }
 
-
-    /**
-     * JsonParser 反序列化BeanMap方法
-     *
-     * @param parser JsonParser对象
-     * @return List<Map < String, Object>>
-     * @throws JsonDeserializeException JsonDeserializeException
-     */
     public static Map<String, Map<String, Object>> deserializerBeanMap(JsonParser parser) throws JsonDeserializeException {
         try {
             JsonNode jsonNode = parser.getCodec().readTree(parser);
@@ -141,14 +104,7 @@ public class RiceDeserializeFluxes {
 
     }
 
-    /**
-     * 递归重组JSON对象
-     *
-     * @param jsonNode JsonNode数据
-     * @param beanMap  数据map集合
-     */
     public static void buildBeanMap(JsonNode jsonNode, Map<String, Object> beanMap) {
-
         for (Iterator<Map.Entry<String, JsonNode>> iter = jsonNode.fields(); iter.hasNext(); ) {
             Map.Entry<String, JsonNode> entry = iter.next();
             JsonNode valueNode = entry.getValue();

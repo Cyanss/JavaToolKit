@@ -13,19 +13,15 @@ import cyan.tool.kit.chip.core.rice.rest.RestResultStatus;
  */
 public class NameNullException extends RestErrorException {
     public NameNullException() {
-        super(RestResultStatus.NAME_IS_NULL);
-    }
-
-    public NameNullException(Object value) {
-        super(RestResultStatus.NAME_IS_NULL, RestError.error("name",value,RestResultStatus.NAME_IS_NULL));
+        super(RestResultStatus.NAME_IS_NULL, RestError.error("Name",RestResultStatus.NAME_IS_NULL));
     }
 
     public NameNullException(String message) {
-        super(RestResultStatus.NAME_IS_NULL, RestError.error("name",RestResultStatus.NAME_IS_NULL,message));
+        super(RestResultStatus.NAME_IS_NULL, RestError.error("Name",RestResultStatus.NAME_IS_NULL,message));
     }
 
-    public NameNullException(String field, Object value,String message) {
-        super(RestResultStatus.NAME_IS_NULL, RestError.error(field,value,RestResultStatus.NAME_IS_NULL,message));
+    public NameNullException(String field, String message) {
+        super(RestResultStatus.NAME_IS_NULL, RestError.error(field, RestResultStatus.NAME_IS_NULL,message));
     }
 
     @Override
