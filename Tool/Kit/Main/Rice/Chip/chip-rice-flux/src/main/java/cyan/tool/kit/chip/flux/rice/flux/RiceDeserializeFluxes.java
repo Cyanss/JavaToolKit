@@ -3,7 +3,6 @@ package cyan.tool.kit.chip.flux.rice.flux;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import cyan.tool.kit.chip.core.rice.error.supply.JsonDeserializeException;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.*;
