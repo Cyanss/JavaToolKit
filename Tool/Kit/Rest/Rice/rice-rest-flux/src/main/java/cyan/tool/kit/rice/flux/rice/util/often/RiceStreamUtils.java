@@ -1,8 +1,8 @@
 package cyan.tool.kit.rice.flux.rice.util.often;
 
 
-import cyan.tool.kit.rest.core.rice.error.often.StreamReadException;
-import cyan.tool.kit.rest.core.rice.error.often.StreamWriteException;
+import cyan.tool.kit.rice.core.rice.error.often.StreamReadException;
+import cyan.tool.kit.rice.core.rice.error.often.StreamWriteException;
 import cyan.tool.kit.rice.flux.rice.flux.RiceStreamFluxes;
 import lombok.extern.slf4j.Slf4j;
 

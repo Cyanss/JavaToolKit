@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.flux.rice.flux;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
-import cyan.tool.kit.rest.core.rice.error.supply.JsonDeserializeException;
+import cyan.tool.kit.rice.core.rice.error.supply.JsonDeserializeException;
 
 import java.io.IOException;
 import java.util.*;

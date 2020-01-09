@@ -2,11 +2,11 @@ package cyan.tool.kit.rice.flux.rice.util.supply;
 
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
-import cyan.tool.kit.rest.core.rice.error.often.json.JsonParseBeanException;
-import cyan.tool.kit.rest.core.rice.error.often.json.JsonParseListException;
-import cyan.tool.kit.rest.core.rice.error.often.json.JsonParseMapException;
-import cyan.tool.kit.rest.core.rice.error.often.json.JsonParseSetException;
-import cyan.tool.kit.rest.core.rice.error.supply.JsonParseException;
+import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseBeanException;
+import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseListException;
+import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseMapException;
+import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseSetException;
+import cyan.tool.kit.rice.core.rice.error.supply.JsonParseException;
 import cyan.tool.kit.rice.flux.rice.flux.RiceJsonFluxes;
 import lombok.extern.slf4j.Slf4j;
 

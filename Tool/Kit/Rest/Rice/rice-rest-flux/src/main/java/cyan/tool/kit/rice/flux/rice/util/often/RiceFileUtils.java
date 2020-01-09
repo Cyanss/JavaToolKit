@@ -1,7 +1,7 @@
 package cyan.tool.kit.rice.flux.rice.util.often;
 
-import cyan.tool.kit.rest.core.rice.error.often.FileCopyException;
-import cyan.tool.kit.rest.core.rice.error.often.FileCreateException;
+import cyan.tool.kit.rice.core.rice.error.often.FileCopyException;
+import cyan.tool.kit.rice.core.rice.error.often.FileCreateException;
 import cyan.tool.kit.rice.flux.rice.flux.RiceFileFluxes;
 import lombok.extern.slf4j.Slf4j;
 

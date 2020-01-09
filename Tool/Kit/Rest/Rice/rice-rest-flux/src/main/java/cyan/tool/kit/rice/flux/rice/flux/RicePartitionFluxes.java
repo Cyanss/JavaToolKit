@@ -1,9 +1,9 @@
 package cyan.tool.kit.rice.flux.rice.flux;
 
 import com.google.common.collect.Lists;
-import cyan.tool.kit.rest.core.actuator.ConsumerActuator;
-import cyan.tool.kit.rest.core.actuator.FunctionActuator;
-import cyan.tool.kit.rest.core.rice.defaults.RestException;
+import cyan.tool.kit.rice.core.actuator.ConsumerActuator;
+import cyan.tool.kit.rice.core.actuator.FunctionActuator;
+import cyan.tool.kit.rice.core.rice.defaults.RestException;
 import cyan.tool.kit.rice.flux.rice.util.natives.RiceEmptyUtils;
 
 import java.util.ArrayList;

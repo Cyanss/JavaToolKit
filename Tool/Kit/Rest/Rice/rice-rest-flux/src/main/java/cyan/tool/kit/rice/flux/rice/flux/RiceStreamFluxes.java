@@ -1,7 +1,7 @@
 package cyan.tool.kit.rice.flux.rice.flux;
 
-import cyan.tool.kit.rest.core.rice.error.often.StreamReadException;
-import cyan.tool.kit.rest.core.rice.error.often.StreamWriteException;
+import cyan.tool.kit.rice.core.rice.error.often.StreamReadException;
+import cyan.tool.kit.rice.core.rice.error.often.StreamWriteException;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 

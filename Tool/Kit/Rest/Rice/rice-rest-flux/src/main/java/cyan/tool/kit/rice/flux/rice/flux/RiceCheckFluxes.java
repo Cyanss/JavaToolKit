@@ -1,12 +1,12 @@
 package cyan.tool.kit.rice.flux.rice.flux;
 
-import cyan.tool.kit.rest.core.rice.defaults.RestError;
-import cyan.tool.kit.rest.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rest.core.rice.defaults.RestException;
-import cyan.tool.kit.rest.core.rice.error.often.FieldNullException;
-import cyan.tool.kit.rest.core.rice.error.often.IdNullException;
-import cyan.tool.kit.rest.core.rice.error.supply.ParamMissingException;
-import cyan.tool.kit.rest.core.rice.rest.RestStatus;
+import cyan.tool.kit.rice.core.rice.defaults.RestError;
+import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
+import cyan.tool.kit.rice.core.rice.defaults.RestException;
+import cyan.tool.kit.rice.core.rice.error.often.FieldNullException;
+import cyan.tool.kit.rice.core.rice.error.often.IdNullException;
+import cyan.tool.kit.rice.core.rice.error.supply.ParamMissingException;
+import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.List;
 import java.util.Optional;

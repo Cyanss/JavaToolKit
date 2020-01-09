@@ -1,7 +1,7 @@
 package cyan.tool.kit.rice.flux.rice.util.supply;
 
 import com.fasterxml.jackson.core.JsonParser;
-import cyan.tool.kit.rest.core.rice.error.supply.JsonDeserializeException;
+import cyan.tool.kit.rice.core.rice.error.supply.JsonDeserializeException;
 import cyan.tool.kit.rice.flux.rice.flux.RiceDeserializeFluxes;
 import lombok.extern.slf4j.Slf4j;
 
