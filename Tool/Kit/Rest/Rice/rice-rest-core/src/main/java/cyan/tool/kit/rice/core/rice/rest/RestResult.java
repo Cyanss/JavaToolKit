@@ -45,15 +45,15 @@ public class RestResult<T> {
     }
 
     public static <T> RestResult<T> success() {
-        return (new RestResult.Builder<T>()).status(RestResultStatus.SUCCESS.getStatus()).build();
+        return (new RestResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).build();
     }
 
     public static <T> RestResult<T> success(String message) {
-        return (new RestResult.Builder<T>()).status(RestResultStatus.SUCCESS.getStatus()).message(message).build();
+        return (new RestResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).build();
     }
 
     public static <T> RestResult<T> success(String message, T data) {
-        return (new RestResult.Builder<T>()).status(RestResultStatus.SUCCESS.getStatus()).message(message).data(data).build();
+        return (new RestResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).data(data).build();
     }
 
     public static <T> RestResult<T> error(int status, String message, T data) {

@@ -46,7 +46,7 @@
     <dependencies>
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>rice-rest-core</artifactId>
+            <artifactId>chip-rice-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

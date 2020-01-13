@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,51 +17,51 @@ import java.util.Optional;
 public class FileErrorException extends RestErrorException {
 
     public FileErrorException() {
-        super(RestResultStatus.FILE_ERROR);
+        super(RestErrorStatus.FILE_ERROR);
     }
 
-    public FileErrorException(RestResultStatus status) {
+    public FileErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public FileErrorException(String error) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(RestResultStatus.FILE_ERROR,error));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(RestErrorStatus.FILE_ERROR,error));
     }
 
     public FileErrorException(RestStatus status) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(status));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(status));
     }
 
     public FileErrorException(RestStatus status, String error) {
-        super(RestResultStatus.FILE_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.FILE_ERROR,RestError.error(status, error));
     }
 
     public FileErrorException(String file, Object value) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, value, RestResultStatus.FILE_ERROR));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, value, RestErrorStatus.FILE_ERROR));
     }
 
     public FileErrorException(String file, String error) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, RestResultStatus.FILE_ERROR, error));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, RestErrorStatus.FILE_ERROR, error));
     }
 
     public FileErrorException(String file, Object value, String error) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, value, RestResultStatus.FILE_ERROR, error));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, value, RestErrorStatus.FILE_ERROR, error));
     }
 
     public FileErrorException(String file, RestStatus status) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, status));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, status));
     }
 
     public FileErrorException(String file, Object value, RestStatus status) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, value, status));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, value, status));
     }
 
     public FileErrorException(String file, RestStatus status, String error) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, status, error));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, status, error));
     }
 
     public FileErrorException(String file, Object value, RestStatus status, String error) {
-        super(RestResultStatus.FILE_ERROR, RestError.error(file, value, status, error));
+        super(RestErrorStatus.FILE_ERROR, RestError.error(file, value, status, error));
     }
 
 
@@ -72,6 +72,6 @@ public class FileErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.FILE_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FILE_ERROR).getName();
     }
 }

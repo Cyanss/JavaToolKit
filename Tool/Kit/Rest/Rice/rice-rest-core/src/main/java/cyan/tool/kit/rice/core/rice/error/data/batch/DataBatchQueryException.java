@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data.batch;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataBatchQueryException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataBatchQueryException extends RestErrorException {
     public DataBatchQueryException() {
-        super(RestResultStatus.DATA_QUERY_ALL_FAILED);
+        super(RestErrorStatus.DATA_QUERY_ALL_FAILED);
     }
 
     public DataBatchQueryException(String resource) {
-        super(RestResultStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, RestResultStatus.DATA_QUERY_ALL_FAILED));
+        super(RestErrorStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, RestErrorStatus.DATA_QUERY_ALL_FAILED));
     }
 
     public DataBatchQueryException(String resource, String message) {
-        super(RestResultStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, RestResultStatus.DATA_QUERY_ALL_FAILED, message));
+        super(RestErrorStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, RestErrorStatus.DATA_QUERY_ALL_FAILED, message));
     }
 
     public DataBatchQueryException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, value, RestResultStatus.DATA_QUERY_ALL_FAILED, message));
+        super(RestErrorStatus.DATA_QUERY_ALL_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_QUERY_ALL_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataBatchQueryException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_QUERY_ALL_FAILED.getName();
+        return RestErrorStatus.DATA_QUERY_ALL_FAILED.getName();
     }
 }

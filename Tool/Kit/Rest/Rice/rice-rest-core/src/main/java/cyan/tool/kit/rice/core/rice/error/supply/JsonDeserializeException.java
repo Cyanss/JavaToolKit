@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>JsonDeserializeException</p>
@@ -14,11 +14,11 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class JsonDeserializeException extends RestErrorException {
     public JsonDeserializeException() {
-        super(RestResultStatus.JSON_DESERIALIZE_ERROR);
+        super(RestErrorStatus.JSON_DESERIALIZE_ERROR);
     }
 
     public JsonDeserializeException(String message) {
-        super(RestResultStatus.JSON_DESERIALIZE_ERROR, RestError.error(RestResultStatus.JSON_DESERIALIZE_ERROR, message));
+        super(RestErrorStatus.JSON_DESERIALIZE_ERROR, RestError.error(RestErrorStatus.JSON_DESERIALIZE_ERROR, message));
     }
 
     @Override
@@ -28,6 +28,6 @@ public class JsonDeserializeException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.JSON_DESERIALIZE_ERROR.getName();
+        return RestErrorStatus.JSON_DESERIALIZE_ERROR.getName();
     }
 }

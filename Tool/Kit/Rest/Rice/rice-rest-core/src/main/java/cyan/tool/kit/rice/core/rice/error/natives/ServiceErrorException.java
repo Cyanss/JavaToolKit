@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,47 +17,47 @@ import java.util.Optional;
 public class ServiceErrorException extends RestErrorException {
     
     public ServiceErrorException() {
-        super(RestResultStatus.SERVICE_ERROR);
+        super(RestErrorStatus.SERVICE_ERROR);
     }
 
-    public ServiceErrorException(RestResultStatus status) {
+    public ServiceErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public ServiceErrorException(String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(RestResultStatus.SERVICE_ERROR, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(RestErrorStatus.SERVICE_ERROR, error));
     }
 
     public ServiceErrorException(RestStatus status) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(status));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(status));
     }
 
     public ServiceErrorException(RestStatus status, String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(status, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(status, error));
     }
 
     public ServiceErrorException(String service, String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error( service, RestResultStatus.SERVICE_ERROR, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error( service, RestErrorStatus.SERVICE_ERROR, error));
     }
     
     public ServiceErrorException(String service, RestStatus status) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(service, status));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(service, status));
     }
 
     public ServiceErrorException(String service, RestStatus status, String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error( service, status, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error( service, status, error));
     }
 
     public ServiceErrorException(String resource, String service, RestStatus status) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(resource, service, status));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(resource, service, status));
     }
 
     public ServiceErrorException(String resource, String service, String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(resource, service, RestResultStatus.SERVICE_ERROR, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(resource, service, RestErrorStatus.SERVICE_ERROR, error));
     }
 
     public ServiceErrorException(String resource, String service, RestStatus status, String error) {
-        super(RestResultStatus.SERVICE_ERROR, RestError.error(resource, service, status, error));
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(resource, service, status, error));
     }
 
     @Override
@@ -67,6 +67,6 @@ public class ServiceErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.SERVICE_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.SERVICE_ERROR).getName();
     }
 }

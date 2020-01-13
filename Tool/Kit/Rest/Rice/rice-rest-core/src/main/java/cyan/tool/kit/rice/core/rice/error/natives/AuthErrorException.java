@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,59 +17,59 @@ import java.util.Optional;
 public class AuthErrorException extends RestErrorException {
 
     public AuthErrorException() {
-        super(RestResultStatus.AUTH_ERROR);
+        super(RestErrorStatus.AUTH_ERROR);
     }
 
-    public AuthErrorException(RestResultStatus status) {
+    public AuthErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public AuthErrorException(String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(RestResultStatus.AUTH_ERROR, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(RestErrorStatus.AUTH_ERROR, error));
     }
 
     public AuthErrorException(RestStatus status) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(status));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(status));
     }
 
     public AuthErrorException(RestStatus status, String error) {
-        super(RestResultStatus.AUTH_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.AUTH_ERROR,RestError.error(status, error));
     }
 
     public AuthErrorException(String user, String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(null, user, null, RestResultStatus.AUTH_ERROR, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(null, user, null, RestErrorStatus.AUTH_ERROR, error));
     }
 
     public AuthErrorException(String user, Object auth) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(null, user, auth, RestResultStatus.AUTH_ERROR));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(null, user, auth, RestErrorStatus.AUTH_ERROR));
     }
 
     public AuthErrorException(String user, Object auth, RestStatus status) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(null, user, auth, status));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(null, user, auth, status));
     }
 
     public AuthErrorException(String user, Object auth, String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(null, user, auth, RestResultStatus.AUTH_ERROR, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(null, user, auth, RestErrorStatus.AUTH_ERROR, error));
     }
 
     public AuthErrorException(String user, Object auth, RestStatus status, String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(null, user, auth, status, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(null, user, auth, status, error));
     }
 
     public AuthErrorException(String resource, String user, Object auth) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(resource, user, auth, RestResultStatus.AUTH_ERROR));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(resource, user, auth, RestErrorStatus.AUTH_ERROR));
     }
 
     public AuthErrorException(String resource, String user, Object auth, RestStatus status) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(resource, user, auth, status));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(resource, user, auth, status));
     }
 
     public AuthErrorException(String resource, String user, Object auth, String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(resource, user, auth, RestResultStatus.AUTH_ERROR, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(resource, user, auth, RestErrorStatus.AUTH_ERROR, error));
     }
 
     public AuthErrorException(String resource, String user, Object auth, RestStatus status, String error) {
-        super(RestResultStatus.AUTH_ERROR, RestError.error(resource, user, auth, status, error));
+        super(RestErrorStatus.AUTH_ERROR, RestError.error(resource, user, auth, status, error));
     }
 
     @Override
@@ -79,6 +79,6 @@ public class AuthErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.AUTH_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.AUTH_ERROR).getName();
     }
 }

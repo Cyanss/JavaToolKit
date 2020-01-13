@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>ServiceUnavailableException</p>
@@ -13,15 +13,15 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class ServiceUnavailableException extends RestErrorException {
     public ServiceUnavailableException() {
-        super(RestResultStatus.SERVICE_UNAVAILABLE);
+        super(RestErrorStatus.SERVICE_UNAVAILABLE);
     }
 
     public ServiceUnavailableException(String service) {
-        super(RestResultStatus.SERVICE_UNAVAILABLE, RestError.error(service, RestResultStatus.SERVICE_UNAVAILABLE));
+        super(RestErrorStatus.SERVICE_UNAVAILABLE, RestError.error(service, RestErrorStatus.SERVICE_UNAVAILABLE));
     }
 
     public ServiceUnavailableException(String resource, String service, String error) {
-        super(RestResultStatus.SERVICE_UNAVAILABLE, RestError.error(resource, service, null, RestResultStatus.SERVICE_UNAVAILABLE, error));
+        super(RestErrorStatus.SERVICE_UNAVAILABLE, RestError.error(resource, service, null, RestErrorStatus.SERVICE_UNAVAILABLE, error));
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ServiceUnavailableException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.SERVICE_UNAVAILABLE.getName();
+        return RestErrorStatus.SERVICE_UNAVAILABLE.getName();
     }
 }

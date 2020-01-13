@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -18,47 +18,47 @@ import java.util.Optional;
 public class StreamErrorException  extends RestErrorException {
 
     public StreamErrorException() {
-        super(RestResultStatus.STREAM_ERROR);
+        super(RestErrorStatus.STREAM_ERROR);
     }
 
-    public StreamErrorException(RestResultStatus status) {
+    public StreamErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public StreamErrorException(String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(RestResultStatus.STREAM_ERROR, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(RestErrorStatus.STREAM_ERROR, error));
     }
 
     public StreamErrorException(RestStatus status) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(status));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(status));
     }
 
     public StreamErrorException(RestStatus status, String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(status, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(status, error));
     }
 
     public StreamErrorException(String resource, String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error( resource, RestResultStatus.STREAM_ERROR, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error( resource, RestErrorStatus.STREAM_ERROR, error));
     }
 
     public StreamErrorException(String resource, RestStatus status) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(resource, status));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(resource, status));
     }
 
     public StreamErrorException(String service, RestStatus status, String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error( service, status, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error( service, status, error));
     }
 
     public StreamErrorException(String resource, String service, RestStatus status) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(resource, service, status));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(resource, service, status));
     }
 
     public StreamErrorException(String resource, String service, String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(resource, service, RestResultStatus.STREAM_ERROR, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(resource, service, RestErrorStatus.STREAM_ERROR, error));
     }
 
     public StreamErrorException(String resource, String service, RestStatus status, String error) {
-        super(RestResultStatus.STREAM_ERROR, RestError.error(resource, service, status, error));
+        super(RestErrorStatus.STREAM_ERROR, RestError.error(resource, service, status, error));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class StreamErrorException  extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.STREAM_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.STREAM_ERROR).getName();
     }
 }
 

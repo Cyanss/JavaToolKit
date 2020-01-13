@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>FieldInvalidException</p>
@@ -14,19 +14,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
 public class ParamInvalidException extends RestErrorException {
 
     public ParamInvalidException() {
-        super(RestResultStatus.PARAM_INVALID);
+        super(RestErrorStatus.PARAM_INVALID);
     }
 
     public ParamInvalidException(String field) {
-        super(RestResultStatus.PARAM_INVALID, RestError.error(field, RestResultStatus.PARAM_INVALID));
+        super(RestErrorStatus.PARAM_INVALID, RestError.error(field, RestErrorStatus.PARAM_INVALID));
     }
 
     public ParamInvalidException(String field, String value) {
-        super(RestResultStatus.PARAM_INVALID, RestError.error(field, value,RestResultStatus.PARAM_INVALID));
+        super(RestErrorStatus.PARAM_INVALID, RestError.error(field, value, RestErrorStatus.PARAM_INVALID));
     }
 
     public ParamInvalidException(String resource, String field, String value, String message) {
-        super(RestResultStatus.PARAM_INVALID, RestError.error(resource, field, value,RestResultStatus.PARAM_INVALID,message));
+        super(RestErrorStatus.PARAM_INVALID, RestError.error(resource, field, value, RestErrorStatus.PARAM_INVALID,message));
     }
 
     @Override
@@ -36,6 +36,6 @@ public class ParamInvalidException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.PARAM_INVALID.getName();
+        return RestErrorStatus.PARAM_INVALID.getName();
     }
 }

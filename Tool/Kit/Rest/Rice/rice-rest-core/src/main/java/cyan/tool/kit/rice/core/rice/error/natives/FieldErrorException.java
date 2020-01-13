@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -16,39 +16,39 @@ import java.util.Optional;
  */
 public class FieldErrorException extends RestErrorException {
     public FieldErrorException() {
-        super(RestResultStatus.FIELD_ERROR);
+        super(RestErrorStatus.FIELD_ERROR);
     }
 
-    public FieldErrorException(RestResultStatus status) {
+    public FieldErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public FieldErrorException(String error) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(RestResultStatus.FIELD_ERROR, error));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(RestErrorStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(RestStatus status) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(status));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(status));
     }
 
     public FieldErrorException(RestStatus status, String error) {
-        super(RestResultStatus.FIELD_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.FIELD_ERROR,RestError.error(status, error));
     }
 
     public FieldErrorException(String filed, String error) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed,RestResultStatus.FIELD_ERROR, error));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(filed, RestErrorStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(String filed, Object value, String error) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, value, RestResultStatus.FIELD_ERROR, error));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(filed, value, RestErrorStatus.FIELD_ERROR, error));
     }
 
     public FieldErrorException(String filed, RestStatus status) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, status));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(filed, status));
     }
 
     public FieldErrorException(String filed, Object value, RestStatus status) {
-        super(RestResultStatus.FIELD_ERROR, RestError.error(filed, value, status));
+        super(RestErrorStatus.FIELD_ERROR, RestError.error(filed, value, status));
     }
 
     @Override
@@ -58,6 +58,6 @@ public class FieldErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.FIELD_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FIELD_ERROR).getName();
     }
 }

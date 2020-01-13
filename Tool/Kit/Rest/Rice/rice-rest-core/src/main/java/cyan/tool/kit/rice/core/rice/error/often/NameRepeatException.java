@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.often;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>RepeatNameException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class NameRepeatException extends RestErrorException {
     public NameRepeatException() {
-        super(RestResultStatus.NAME_REPEATED);
+        super(RestErrorStatus.NAME_REPEATED);
     }
 
     public NameRepeatException(Object value) {
-        super(RestResultStatus.NAME_REPEATED, RestError.error("name",value,RestResultStatus.NAME_REPEATED));
+        super(RestErrorStatus.NAME_REPEATED, RestError.error("name",value, RestErrorStatus.NAME_REPEATED));
     }
 
     public NameRepeatException(String message) {
-        super(RestResultStatus.NAME_REPEATED, RestError.error("name",RestResultStatus.NAME_REPEATED,message));
+        super(RestErrorStatus.NAME_REPEATED, RestError.error("name", RestErrorStatus.NAME_REPEATED,message));
     }
 
     public NameRepeatException(String field, Object value,String message) {
-        super(RestResultStatus.NAME_REPEATED, RestError.error(field,value,RestResultStatus.NAME_REPEATED,message));
+        super(RestErrorStatus.NAME_REPEATED, RestError.error(field,value, RestErrorStatus.NAME_REPEATED,message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class NameRepeatException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.NAME_REPEATED.getName();
+        return RestErrorStatus.NAME_REPEATED.getName();
     }
 }

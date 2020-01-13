@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data.batch;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataBatchUpdateException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataBatchUpdateException extends RestErrorException {
     public DataBatchUpdateException() {
-        super(RestResultStatus.DATA_UPDATE_ALL_FAILED);
+        super(RestErrorStatus.DATA_UPDATE_ALL_FAILED);
     }
 
     public DataBatchUpdateException(String resource) {
-        super(RestResultStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, RestResultStatus.DATA_UPDATE_ALL_FAILED));
+        super(RestErrorStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, RestErrorStatus.DATA_UPDATE_ALL_FAILED));
     }
 
     public DataBatchUpdateException(String resource, String message) {
-        super(RestResultStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, RestResultStatus.DATA_UPDATE_ALL_FAILED, message));
+        super(RestErrorStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, RestErrorStatus.DATA_UPDATE_ALL_FAILED, message));
     }
 
     public DataBatchUpdateException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, value, RestResultStatus.DATA_UPDATE_ALL_FAILED, message));
+        super(RestErrorStatus.DATA_UPDATE_ALL_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_UPDATE_ALL_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataBatchUpdateException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_UPDATE_ALL_FAILED.getName();
+        return RestErrorStatus.DATA_UPDATE_ALL_FAILED.getName();
     }
 }

@@ -4,7 +4,7 @@ import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
 import cyan.tool.kit.rice.core.rice.defaults.RestException;
 import cyan.tool.kit.rice.core.rice.error.often.FieldNullException;
-import cyan.tool.kit.rice.core.rice.error.often.IdNullException;
+import cyan.tool.kit.rice.core.rice.error.often.IdentityNullException;
 import cyan.tool.kit.rice.core.rice.error.supply.ParamMissingException;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
@@ -22,11 +22,11 @@ import java.util.Optional;
 public class RiceCheckFluxes {
 
     public static void checkNullId(Long id) throws RestException {
-        Optional.ofNullable(id).orElseThrow(IdNullException::new);
+        Optional.ofNullable(id).orElseThrow(IdentityNullException::new);
     }
 
     public static void checkNullId(Long id,String message) throws RestException {
-        Optional.ofNullable(id).orElseThrow(() ->new IdNullException(message));
+        Optional.ofNullable(id).orElseThrow(() ->new IdentityNullException(message));
     }
 
     public static <T> void checkNullObject(T object) throws RestException {

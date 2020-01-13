@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataQueryException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataQueryException extends RestErrorException {
     public DataQueryException() {
-        super(RestResultStatus.DATA_QUERY_FAILED);
+        super(RestErrorStatus.DATA_QUERY_FAILED);
     }
 
     public DataQueryException(String resource) {
-        super(RestResultStatus.DATA_QUERY_FAILED, RestError.error(resource,RestResultStatus.DATA_QUERY_FAILED));
+        super(RestErrorStatus.DATA_QUERY_FAILED, RestError.error(resource, RestErrorStatus.DATA_QUERY_FAILED));
     }
 
     public DataQueryException(String resource, String message) {
-        super(RestResultStatus.DATA_QUERY_FAILED, RestError.error(resource,RestResultStatus.DATA_QUERY_FAILED,message));
+        super(RestErrorStatus.DATA_QUERY_FAILED, RestError.error(resource, RestErrorStatus.DATA_QUERY_FAILED,message));
     }
 
     public DataQueryException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_QUERY_FAILED, RestError.error(resource,value,RestResultStatus.DATA_QUERY_FAILED,message));
+        super(RestErrorStatus.DATA_QUERY_FAILED, RestError.error(resource,value, RestErrorStatus.DATA_QUERY_FAILED,message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataQueryException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_QUERY_FAILED.getName();
+        return RestErrorStatus.DATA_QUERY_FAILED.getName();
     }
 }

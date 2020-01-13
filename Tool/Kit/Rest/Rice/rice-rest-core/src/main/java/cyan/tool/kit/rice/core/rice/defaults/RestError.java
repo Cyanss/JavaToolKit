@@ -1,6 +1,6 @@
 package cyan.tool.kit.rice.core.rice.defaults;
 
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -156,19 +156,19 @@ public class RestError extends DefaultError implements RestStatus {
     }
 
     public static RestError error() {
-        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).add(new RestErrorIssue(RestResultStatus.UNKNOWN_ERROR)).build();
+        return (new RestError.Builder(RestErrorStatus.UNKNOWN_ERROR)).add(new RestErrorIssue(RestErrorStatus.UNKNOWN_ERROR)).build();
     }
 
     public static RestError error(String field) {
-        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).add(new RestErrorIssue(field, RestResultStatus.UNKNOWN_ERROR)).build();
+        return (new RestError.Builder(RestErrorStatus.UNKNOWN_ERROR)).resource(field).add(new RestErrorIssue(field, RestErrorStatus.UNKNOWN_ERROR)).build();
     }
 
     public static RestError error(String field, String error) {
-        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, RestResultStatus.UNKNOWN_ERROR, error)).build();
+        return (new RestError.Builder(RestErrorStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, RestErrorStatus.UNKNOWN_ERROR, error)).build();
     }
 
     public static RestError error(String field, Object value, String error) {
-        return (new RestError.Builder(RestResultStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, value, RestResultStatus.UNKNOWN_ERROR, error)).build();
+        return (new RestError.Builder(RestErrorStatus.UNKNOWN_ERROR)).resource(field).message(error).add(new RestErrorIssue(field, value, RestErrorStatus.UNKNOWN_ERROR, error)).build();
     }
 
     public static RestError error(RestStatus status) {

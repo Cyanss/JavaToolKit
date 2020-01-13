@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,39 +17,39 @@ import java.util.Optional;
 public class ParamErrorException extends RestErrorException {
 
     public ParamErrorException() {
-        super(RestResultStatus.PARAM_ERROR);
+        super(RestErrorStatus.PARAM_ERROR);
     }
 
-    public ParamErrorException(RestResultStatus status) {
+    public ParamErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public ParamErrorException(String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(RestResultStatus.PARAM_ERROR,error));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(RestErrorStatus.PARAM_ERROR,error));
     }
 
     public ParamErrorException(RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(status));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(status));
     }
 
     public ParamErrorException(RestStatus status, String error) {
-        super(RestResultStatus.PARAM_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.PARAM_ERROR,RestError.error(status, error));
     }
 
     public ParamErrorException(String param, String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(param,RestResultStatus.PARAM_ERROR, error));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(param, RestErrorStatus.PARAM_ERROR, error));
     }
 
     public ParamErrorException(String param, Object value, String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(param, value, RestResultStatus.PARAM_ERROR, error));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(param, value, RestErrorStatus.PARAM_ERROR, error));
     }
 
     public ParamErrorException(String param, RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(param, status));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(param, status));
     }
 
     public ParamErrorException(String param, Object value, RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(param, value, status));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(param, value, status));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ParamErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.PARAM_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.PARAM_ERROR).getName();
     }
 
 }

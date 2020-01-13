@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>ResourceNotFoundException</p>
@@ -13,11 +13,11 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class ResourceNotFoundException extends RestErrorException {
     public ResourceNotFoundException() {
-        super(RestResultStatus.RESOURCE_NOT_FOUND);
+        super(RestErrorStatus.RESOURCE_NOT_FOUND);
     }
 
     public ResourceNotFoundException(String resource) {
-        super(RestResultStatus.RESOURCE_NOT_FOUND, RestError.error(resource, RestResultStatus.RESOURCE_NOT_FOUND));
+        super(RestErrorStatus.RESOURCE_NOT_FOUND, RestError.error(resource, RestErrorStatus.RESOURCE_NOT_FOUND));
     }
 
     @Override
@@ -27,6 +27,6 @@ public class ResourceNotFoundException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.RESOURCE_NOT_FOUND.getName();
+        return RestErrorStatus.RESOURCE_NOT_FOUND.getName();
     }
 }

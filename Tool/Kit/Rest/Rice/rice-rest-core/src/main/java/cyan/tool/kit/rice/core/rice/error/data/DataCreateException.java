@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataCreateException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataCreateException extends RestErrorException {
     public DataCreateException() {
-        super(RestResultStatus.DATA_CREATE_FAILED);
+        super(RestErrorStatus.DATA_CREATE_FAILED);
     }
 
     public DataCreateException(String resource) {
-        super(RestResultStatus.DATA_CREATE_FAILED, RestError.error(resource, RestResultStatus.DATA_CREATE_FAILED));
+        super(RestErrorStatus.DATA_CREATE_FAILED, RestError.error(resource, RestErrorStatus.DATA_CREATE_FAILED));
     }
 
     public DataCreateException(String resource, String message) {
-        super(RestResultStatus.DATA_CREATE_FAILED, RestError.error(resource, RestResultStatus.DATA_CREATE_FAILED, message));
+        super(RestErrorStatus.DATA_CREATE_FAILED, RestError.error(resource, RestErrorStatus.DATA_CREATE_FAILED, message));
     }
 
     public DataCreateException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_CREATE_FAILED, RestError.error(resource, value, RestResultStatus.DATA_CREATE_FAILED, message));
+        super(RestErrorStatus.DATA_CREATE_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_CREATE_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataCreateException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_CREATE_FAILED.getName();
+        return RestErrorStatus.DATA_CREATE_FAILED.getName();
     }
 }

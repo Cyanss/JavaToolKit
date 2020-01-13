@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataUpdateException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataUpdateException extends RestErrorException {
     public DataUpdateException() {
-        super(RestResultStatus.DATA_UPDATE_FAILED);
+        super(RestErrorStatus.DATA_UPDATE_FAILED);
     }
 
     public DataUpdateException(String resource) {
-        super(RestResultStatus.DATA_UPDATE_FAILED, RestError.error(resource, RestResultStatus.DATA_UPDATE_FAILED));
+        super(RestErrorStatus.DATA_UPDATE_FAILED, RestError.error(resource, RestErrorStatus.DATA_UPDATE_FAILED));
     }
 
     public DataUpdateException(String resource, String message) {
-        super(RestResultStatus.DATA_UPDATE_FAILED, RestError.error(resource, RestResultStatus.DATA_UPDATE_FAILED, message));
+        super(RestErrorStatus.DATA_UPDATE_FAILED, RestError.error(resource, RestErrorStatus.DATA_UPDATE_FAILED, message));
     }
 
     public DataUpdateException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_UPDATE_FAILED, RestError.error(resource, value, RestResultStatus.DATA_UPDATE_FAILED, message));
+        super(RestErrorStatus.DATA_UPDATE_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_UPDATE_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataUpdateException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_UPDATE_FAILED.getName();
+        return RestErrorStatus.DATA_UPDATE_FAILED.getName();
     }
 }

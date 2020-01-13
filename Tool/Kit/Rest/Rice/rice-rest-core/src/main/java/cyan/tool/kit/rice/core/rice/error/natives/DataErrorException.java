@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,23 +17,23 @@ import java.util.Optional;
 public class DataErrorException extends RestErrorException {
     
     public DataErrorException() {
-        super(RestResultStatus.DATA_ERROR);
+        super(RestErrorStatus.DATA_ERROR);
     }
 
-    public DataErrorException(RestResultStatus status) {
+    public DataErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public DataErrorException(String error) {
-        super(RestResultStatus.DATA_ERROR, RestError.error(RestResultStatus.DATA_ERROR, error));
+        super(RestErrorStatus.DATA_ERROR, RestError.error(RestErrorStatus.DATA_ERROR, error));
     }
 
     public DataErrorException(RestStatus status) {
-        super(RestResultStatus.DATA_ERROR,RestError.error(status));
+        super(RestErrorStatus.DATA_ERROR,RestError.error(status));
     }
 
     public DataErrorException(RestStatus status, String error) {
-        super(RestResultStatus.DATA_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.DATA_ERROR,RestError.error(status, error));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DataErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.DATA_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.DATA_ERROR).getName();
     }
 
 }

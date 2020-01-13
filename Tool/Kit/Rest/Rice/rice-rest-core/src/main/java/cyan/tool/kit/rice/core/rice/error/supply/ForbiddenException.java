@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>ForbiddenException</p>
@@ -13,15 +13,15 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class ForbiddenException extends RestErrorException {
     public ForbiddenException() {
-        super(RestResultStatus.AUTH_FORBIDDEN);
+        super(RestErrorStatus.AUTH_FORBIDDEN);
     }
 
     public ForbiddenException(String user) {
-        super(RestResultStatus.AUTH_FORBIDDEN, RestError.error(null, user, RestResultStatus.AUTH_FORBIDDEN));
+        super(RestErrorStatus.AUTH_FORBIDDEN, RestError.error(null, user, RestErrorStatus.AUTH_FORBIDDEN));
     }
 
     public ForbiddenException(String resource, String user, String auth) {
-        super(RestResultStatus.AUTH_FORBIDDEN, RestError.error(resource, user, auth,RestResultStatus.AUTH_FORBIDDEN));
+        super(RestErrorStatus.AUTH_FORBIDDEN, RestError.error(resource, user, auth, RestErrorStatus.AUTH_FORBIDDEN));
     }
 
     @Override
@@ -31,6 +31,6 @@ public class ForbiddenException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.AUTH_FORBIDDEN.getName();
+        return RestErrorStatus.AUTH_FORBIDDEN.getName();
     }
 }

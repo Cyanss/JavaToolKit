@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.often;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>StreamWriteException</p>
@@ -14,15 +14,15 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class StreamWriteException extends RestErrorException {
     public StreamWriteException() {
-        super(RestResultStatus.STREAM_WRITE_ERROR);
+        super(RestErrorStatus.STREAM_WRITE_ERROR);
     }
 
     public StreamWriteException(String message) {
-        super(RestResultStatus.STREAM_WRITE_ERROR, RestError.error(RestResultStatus.STREAM_WRITE_ERROR, message));
+        super(RestErrorStatus.STREAM_WRITE_ERROR, RestError.error(RestErrorStatus.STREAM_WRITE_ERROR, message));
     }
 
     public StreamWriteException(String resource, String message) {
-        super(RestResultStatus.STREAM_WRITE_ERROR, RestError.error(resource, RestResultStatus.STREAM_WRITE_ERROR, message));
+        super(RestErrorStatus.STREAM_WRITE_ERROR, RestError.error(resource, RestErrorStatus.STREAM_WRITE_ERROR, message));
     }
 
     @Override
@@ -32,6 +32,6 @@ public class StreamWriteException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.STREAM_WRITE_ERROR.getName();
+        return RestErrorStatus.STREAM_WRITE_ERROR.getName();
     }
 }

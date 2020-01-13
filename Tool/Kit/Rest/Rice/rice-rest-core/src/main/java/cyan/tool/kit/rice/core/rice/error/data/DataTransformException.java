@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataTransformException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataTransformException extends RestErrorException {
     public DataTransformException() {
-        super(RestResultStatus.DATA_TRANSFORM_FAILED);
+        super(RestErrorStatus.DATA_TRANSFORM_FAILED);
     }
 
     public DataTransformException(String resource) {
-        super(RestResultStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, RestResultStatus.DATA_TRANSFORM_FAILED));
+        super(RestErrorStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, RestErrorStatus.DATA_TRANSFORM_FAILED));
     }
 
     public DataTransformException(String resource, String message) {
-        super(RestResultStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, RestResultStatus.DATA_TRANSFORM_FAILED, message));
+        super(RestErrorStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, RestErrorStatus.DATA_TRANSFORM_FAILED, message));
     }
 
     public DataTransformException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, value, RestResultStatus.DATA_TRANSFORM_FAILED, message));
+        super(RestErrorStatus.DATA_TRANSFORM_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_TRANSFORM_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataTransformException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_TRANSFORM_FAILED.getName();
+        return RestErrorStatus.DATA_TRANSFORM_FAILED.getName();
     }
 }

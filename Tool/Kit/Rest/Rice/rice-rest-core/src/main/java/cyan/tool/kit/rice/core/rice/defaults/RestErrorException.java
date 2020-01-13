@@ -1,6 +1,6 @@
 package cyan.tool.kit.rice.core.rice.defaults;
 
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class RestErrorException extends RestException {
 
     public RestErrorException() {
-        super(RestResultStatus.UNKNOWN_ERROR);
+        super(RestErrorStatus.UNKNOWN_ERROR);
     }
 
     public RestErrorException(Supplier<RestStatus> supplier) {
@@ -27,7 +27,7 @@ public class RestErrorException extends RestException {
         super(status);
     }
 
-    public RestErrorException(RestResultStatus status) {
+    public RestErrorException(RestErrorStatus status) {
         super(status, RestError.error(status));
     }
 
@@ -81,7 +81,7 @@ public class RestErrorException extends RestException {
 
     @Override
     public RestErrorException get() {
-        return new RestErrorException(RestResultStatus.UNKNOWN_ERROR);
+        return new RestErrorException();
     }
 
     @Override

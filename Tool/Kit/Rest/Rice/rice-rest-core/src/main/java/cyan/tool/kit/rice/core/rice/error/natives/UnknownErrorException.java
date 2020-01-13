@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,31 +17,31 @@ import java.util.Optional;
 public class UnknownErrorException extends RestErrorException {
 
     public UnknownErrorException() {
-        super(RestResultStatus.UNKNOWN_ERROR);
+        super(RestErrorStatus.UNKNOWN_ERROR);
     }
 
-    public UnknownErrorException(RestResultStatus status) {
+    public UnknownErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public UnknownErrorException(String error) {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(RestResultStatus.UNKNOWN_ERROR, error));
+        super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(RestErrorStatus.UNKNOWN_ERROR, error));
     }
 
     public UnknownErrorException(RestStatus status) {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(status));
+        super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(status));
     }
 
     public UnknownErrorException(RestStatus status, String error) {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(status, error));
+        super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(status, error));
     }
 
     public UnknownErrorException(String target, String error) {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(target, RestResultStatus.UNKNOWN_ERROR, error));
+        super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(target, RestErrorStatus.UNKNOWN_ERROR, error));
     }
 
     public UnknownErrorException(String target, RestStatus status) {
-        super(RestResultStatus.UNKNOWN_ERROR, RestError.error(target, status));
+        super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(target, status));
     }
 
     @Override
@@ -51,6 +51,6 @@ public class UnknownErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.UNKNOWN_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.UNKNOWN_ERROR).getName();
     }
 }

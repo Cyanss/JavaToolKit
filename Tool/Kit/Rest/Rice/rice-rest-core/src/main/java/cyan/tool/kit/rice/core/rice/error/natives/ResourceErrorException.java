@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.natives;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -17,35 +17,35 @@ import java.util.Optional;
 public class ResourceErrorException extends RestErrorException {
 
     public ResourceErrorException() {
-        super(RestResultStatus.RESOURCE_ERROR);
+        super(RestErrorStatus.RESOURCE_ERROR);
     }
 
-    public ResourceErrorException(RestResultStatus status) {
+    public ResourceErrorException(RestErrorStatus status) {
         super(status);
     }
 
     public ResourceErrorException(String error) {
-        super(RestResultStatus.RESOURCE_ERROR, RestError.error(RestResultStatus.RESOURCE_ERROR,error));
+        super(RestErrorStatus.RESOURCE_ERROR, RestError.error(RestErrorStatus.RESOURCE_ERROR,error));
     }
 
     public ResourceErrorException(RestStatus status, String error) {
-        super(RestResultStatus.RESOURCE_ERROR,RestError.error(status, error));
+        super(RestErrorStatus.RESOURCE_ERROR,RestError.error(status, error));
     }
 
     public ResourceErrorException(RestStatus status) {
-        super(RestResultStatus.RESOURCE_ERROR, RestError.error(status));
+        super(RestErrorStatus.RESOURCE_ERROR, RestError.error(status));
     }
 
     public ResourceErrorException(String resource, String error) {
-        super(RestResultStatus.RESOURCE_ERROR, RestError.error(resource, RestResultStatus.RESOURCE_ERROR, error));
+        super(RestErrorStatus.RESOURCE_ERROR, RestError.error(resource, RestErrorStatus.RESOURCE_ERROR, error));
     }
 
     public ResourceErrorException(String resource, RestStatus status) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(resource, status));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(resource, status));
     }
 
     public ResourceErrorException(String resource, RestStatus status, String error) {
-        super(RestResultStatus.PARAM_ERROR, RestError.error(resource, status, error));
+        super(RestErrorStatus.PARAM_ERROR, RestError.error(resource, status, error));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ResourceErrorException extends RestErrorException {
 
     @Override
     public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestResultStatus.PARAM_ERROR).getName();
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.PARAM_ERROR).getName();
     }
 
 }

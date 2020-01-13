@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.data;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>DataDeleteException</p>
@@ -13,19 +13,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class DataDeleteException extends RestErrorException {
     public DataDeleteException() {
-        super(RestResultStatus.DATA_DELETE_FAILED);
+        super(RestErrorStatus.DATA_DELETE_FAILED);
     }
 
     public DataDeleteException(String resource) {
-        super(RestResultStatus.DATA_DELETE_FAILED, RestError.error(resource, RestResultStatus.DATA_DELETE_FAILED));
+        super(RestErrorStatus.DATA_DELETE_FAILED, RestError.error(resource, RestErrorStatus.DATA_DELETE_FAILED));
     }
 
     public DataDeleteException(String resource, String message) {
-        super(RestResultStatus.DATA_DELETE_FAILED, RestError.error(resource, RestResultStatus.DATA_DELETE_FAILED, message));
+        super(RestErrorStatus.DATA_DELETE_FAILED, RestError.error(resource, RestErrorStatus.DATA_DELETE_FAILED, message));
     }
 
     public DataDeleteException(String resource, Object value, String message) {
-        super(RestResultStatus.DATA_DELETE_FAILED, RestError.error(resource, value, RestResultStatus.DATA_DELETE_FAILED, message));
+        super(RestErrorStatus.DATA_DELETE_FAILED, RestError.error(resource, value, RestErrorStatus.DATA_DELETE_FAILED, message));
     }
 
     @Override
@@ -35,6 +35,6 @@ public class DataDeleteException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.DATA_DELETE_FAILED.getName();
+        return RestErrorStatus.DATA_DELETE_FAILED.getName();
     }
 }

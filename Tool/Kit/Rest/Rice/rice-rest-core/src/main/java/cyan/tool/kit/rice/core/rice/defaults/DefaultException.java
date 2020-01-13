@@ -1,7 +1,7 @@
 package cyan.tool.kit.rice.core.rice.defaults;
 
 import cyan.tool.kit.rice.core.rice.rest.RestResult;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,9 +25,9 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     protected Integer status;
 
     public DefaultException() {
-        super(RestResultStatus.FAILED.getMessage());
-        this.error = RestError.error(RestResultStatus.FAILED);
-        this.status = RestResultStatus.FAILED.getStatus();
+        super(RestErrorStatus.FAILED.getMessage());
+        this.error = RestError.error(RestErrorStatus.FAILED);
+        this.status = RestErrorStatus.FAILED.getStatus();
     }
 
     public DefaultException(Supplier<RestStatus> supplier) {
@@ -38,13 +38,13 @@ class DefaultException extends Exception implements RestStatus, Supplier {
 
     public DefaultException(String message) {
         super(message);
-        this.error = RestError.error(RestResultStatus.FAILED);
-        this.status = RestResultStatus.FAILED.getStatus();
+        this.error = RestError.error(RestErrorStatus.FAILED);
+        this.status = RestErrorStatus.FAILED.getStatus();
     }
 
     public DefaultException(Integer status) {
-        super(RestResultStatus.FAILED.getMessage());
-        this.error = RestError.error(RestResultStatus.FAILED);
+        super(RestErrorStatus.FAILED.getMessage());
+        this.error = RestError.error(RestErrorStatus.FAILED);
         this.status = status;
     }
 
@@ -62,9 +62,9 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     }
 
     public DefaultException(Throwable cause) {
-        super(RestResultStatus.FAILED.getMessage(), cause);
+        super(RestErrorStatus.FAILED.getMessage(), cause);
         this.error = RestError.parser(cause);
-        this.status = RestResultStatus.FAILED.getStatus();
+        this.status = RestErrorStatus.FAILED.getStatus();
     }
 
     public DefaultException(Integer status, String message) {
@@ -87,7 +87,7 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     }
 
     public DefaultException(Integer status, Throwable cause) {
-        super(RestResultStatus.FAILED.getMessage(), cause);
+        super(RestErrorStatus.FAILED.getMessage(), cause);
         this.error = RestError.parser(status,cause);
         this.status = status;
     }
@@ -173,7 +173,7 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     public DefaultException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.error = RestError.parser(message,cause);
-        this.status = RestResultStatus.FAILED.getStatus();
+        this.status = RestErrorStatus.FAILED.getStatus();
     }
 
 

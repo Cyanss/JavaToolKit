@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>TimeoutException</p>
@@ -14,11 +14,11 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
 public class TimeoutException extends RestErrorException {
 
     public TimeoutException() {
-        super(RestResultStatus.TIME_OUT);
+        super(RestErrorStatus.TIME_OUT);
     }
 
     public TimeoutException(String resource) {
-        super(RestResultStatus.TIME_OUT, RestError.error(resource,RestResultStatus.TIME_OUT));
+        super(RestErrorStatus.TIME_OUT, RestError.error(resource, RestErrorStatus.TIME_OUT));
     }
 
     @Override
@@ -28,6 +28,6 @@ public class TimeoutException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.TIME_OUT.getName();
+        return RestErrorStatus.TIME_OUT.getName();
     }
 }

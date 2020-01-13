@@ -2,7 +2,7 @@ package cyan.tool.kit.chip.core.error;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 import java.util.Optional;
@@ -16,17 +16,20 @@ import java.util.function.Supplier;
  * @date 13:32 2020/1/9
  */
 public class RiceException extends RestException {
+    public RiceException() {
+        super(RestErrorStatus.UNKNOWN_ERROR);
+    }
 
     public RiceException(Supplier<RestStatus> supplier) {
         super(supplier);
     }
 
     public RiceException(String message) {
-        super(message,RestResultStatus.UNKNOWN_ERROR);
+        super(message,RestErrorStatus.UNKNOWN_ERROR);
     }
 
     public RiceException(Integer status) {
-        super(status,RestResultStatus.UNKNOWN_ERROR);
+        super(status,RestErrorStatus.UNKNOWN_ERROR);
     }
 
     public RiceException(RestStatus status) {
@@ -42,7 +45,7 @@ public class RiceException extends RestException {
     }
 
     public RiceException get() {
-        return new RiceException(RestResultStatus.UNKNOWN_ERROR);
+        return new RiceException();
     }
 
     public String getName() {

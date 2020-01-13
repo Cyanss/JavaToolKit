@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 13:32 2019/12/16
  */
 @Getter
-public enum RestResultStatus implements RestStatus {
+public enum RestErrorStatus implements RestStatus {
 
     SUCCESS(200, "成功"),
     FAILED(400, "失败"),
@@ -72,10 +72,10 @@ public enum RestResultStatus implements RestStatus {
     NAME_ERROR(10510, "名称错误"),
     NAME_IS_NULL(10511, "名称为空"),
     NAME_REPEATED(10512, "名称重复"),
-    /** id */
-    ID_ERROR(10520, "Id错误"),
-    ID_IS_NULL(10521, "Id为空"),
-    ID_REPEATED(10522, "Id重复"),
+    /** IDENTITY */
+    IDENTITY_ERROR(10520, "Id错误"),
+    IDENTITY_IS_NULL(10521, "Id为空"),
+    IDENTITY_REPEATED(10522, "Id重复"),
     /** data */
     DATA_ERROR(10600, "数据错误"),
     DATA_CREATE_FAILED(10601, "数据创建失败"),
@@ -102,7 +102,7 @@ public enum RestResultStatus implements RestStatus {
     private final Integer status;
     private final String message;
 
-    RestResultStatus(Integer status, String message) {
+    RestErrorStatus(Integer status, String message) {
         this.status = status;
         this.message = message;
     }

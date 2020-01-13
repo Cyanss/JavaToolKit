@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.often;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>FileCreateException</p>
@@ -14,15 +14,15 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
  */
 public class FileCreateException extends RestErrorException {
     public FileCreateException() {
-        super(RestResultStatus.FILE_CREATE_ERROR);
+        super(RestErrorStatus.FILE_CREATE_ERROR);
     }
 
     public FileCreateException(String message) {
-        super(RestResultStatus.FILE_CREATE_ERROR, RestError.error(RestResultStatus.FILE_CREATE_ERROR, message));
+        super(RestErrorStatus.FILE_CREATE_ERROR, RestError.error(RestErrorStatus.FILE_CREATE_ERROR, message));
     }
 
     public FileCreateException(String resource, String message) {
-        super(RestResultStatus.FILE_CREATE_ERROR, RestError.error(resource, RestResultStatus.FILE_CREATE_ERROR, message));
+        super(RestErrorStatus.FILE_CREATE_ERROR, RestError.error(resource, RestErrorStatus.FILE_CREATE_ERROR, message));
     }
 
     @Override
@@ -32,6 +32,6 @@ public class FileCreateException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.FILE_CREATE_ERROR.getName();
+        return RestErrorStatus.FILE_CREATE_ERROR.getName();
     }
 }

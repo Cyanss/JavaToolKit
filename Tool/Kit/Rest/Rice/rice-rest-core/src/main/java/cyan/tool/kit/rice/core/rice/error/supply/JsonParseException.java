@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 import cyan.tool.kit.rice.core.rice.rest.RestStatus;
 
 /**
@@ -14,19 +14,19 @@ import cyan.tool.kit.rice.core.rice.rest.RestStatus;
  */
 public class JsonParseException extends RestErrorException {
     public JsonParseException() {
-        super(RestResultStatus.JSON_PARSE_ERROR);
+        super(RestErrorStatus.JSON_PARSE_ERROR);
     }
 
     public JsonParseException(String resource, String json) {
-        super(RestResultStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestResultStatus.JSON_PARSE_ERROR));
+        super(RestErrorStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestErrorStatus.JSON_PARSE_ERROR));
     }
 
     public JsonParseException(String resource, String json, String message) {
-        super(RestResultStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestResultStatus.JSON_PARSE_ERROR, message));
+        super(RestErrorStatus.JSON_PARSE_ERROR, RestError.error(resource, json, RestErrorStatus.JSON_PARSE_ERROR, message));
     }
 
     public JsonParseException(String resource, String json, String className, String message) {
-        super(RestResultStatus.JSON_PARSE_ERROR, RestError.error(resource, json, className, RestResultStatus.JSON_PARSE_ERROR, message));
+        super(RestErrorStatus.JSON_PARSE_ERROR, RestError.error(resource, json, className, RestErrorStatus.JSON_PARSE_ERROR, message));
     }
 
     public JsonParseException(String resource, String json, RestStatus status, String message) {
@@ -44,6 +44,6 @@ public class JsonParseException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.JSON_PARSE_ERROR.getName();
+        return RestErrorStatus.JSON_PARSE_ERROR.getName();
     }
 }

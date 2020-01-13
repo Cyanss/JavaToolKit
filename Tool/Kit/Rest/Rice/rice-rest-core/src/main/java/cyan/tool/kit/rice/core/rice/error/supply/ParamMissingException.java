@@ -2,7 +2,7 @@ package cyan.tool.kit.rice.core.rice.error.supply;
 
 import cyan.tool.kit.rice.core.rice.defaults.RestError;
 import cyan.tool.kit.rice.core.rice.defaults.RestErrorException;
-import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
+import cyan.tool.kit.rice.core.rice.rest.RestErrorStatus;
 
 /**
  * <p>ParamMissingException</p>
@@ -14,15 +14,15 @@ import cyan.tool.kit.rice.core.rice.rest.RestResultStatus;
 public class ParamMissingException extends RestErrorException {
 
     public ParamMissingException() {
-        super(RestResultStatus.PARAM_MISSING);
+        super(RestErrorStatus.PARAM_MISSING);
     }
 
     public ParamMissingException(String field) {
-        super(RestResultStatus.PARAM_MISSING, RestError.error(field, RestResultStatus.PARAM_MISSING));
+        super(RestErrorStatus.PARAM_MISSING, RestError.error(field, RestErrorStatus.PARAM_MISSING));
     }
 
     public ParamMissingException(String resource, String field) {
-        super(RestResultStatus.PARAM_MISSING, RestError.error(resource, field, RestResultStatus.PARAM_MISSING));
+        super(RestErrorStatus.PARAM_MISSING, RestError.error(resource, field, RestErrorStatus.PARAM_MISSING));
     }
 
     @Override
@@ -32,6 +32,6 @@ public class ParamMissingException extends RestErrorException {
 
     @Override
     public String getName() {
-        return RestResultStatus.PARAM_MISSING.getName();
+        return RestErrorStatus.PARAM_MISSING.getName();
     }
 }
