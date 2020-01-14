@@ -2,6 +2,8 @@ package cyan.tool.kit.generate.core.identity.worker;
 
 import cyan.tool.kit.generate.core.error.IdentityWorkerException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,18 +15,20 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-class IdentityWorkerArtificial extends IdentityWorker{
+class IdentityWorkerArtificial implements IdentityWorker{
+    private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
+    private Long lastTag = IdentityWorkerConfig.TAG;
+    private Long sequence = IdentityWorkerConfig.SEQUENCE;
     public IdentityWorkerArtificial() {
-        super();
     }
 
     public IdentityWorkerArtificial(Long sequence) {
-        super();
         if (sequence > IdentityWorkerConfig.SEQUENCE) {
             this.sequence = sequence;
         }
     }
 
+    @Override
     public synchronized Long generate(Long tag) throws IdentityWorkerException {
         long time = new IdentityWorkerTime().getTime();
         if(tag < IdentityWorkerConfig.SEQUENCE){

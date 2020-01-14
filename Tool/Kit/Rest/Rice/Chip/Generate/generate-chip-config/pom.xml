@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>rice-rest-parent</artifactId>
+    <artifactId>generate-chip-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rice-rest-parent</name>
-    <description>parent of rest rice</description>
+    <name>generate-chip-config</name>
+    <description>config of generate chip</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -46,19 +46,20 @@
     <dependencies>
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>rice-rest-flux</artifactId>
+            <artifactId>generate-chip-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
             <version>LATEST</version>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>rice-rest-parent</finalName>
+        <finalName>generate-chip-config</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

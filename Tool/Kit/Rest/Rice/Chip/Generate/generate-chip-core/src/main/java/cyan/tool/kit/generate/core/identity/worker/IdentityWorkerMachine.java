@@ -15,26 +15,32 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Data
 @Slf4j
-class IdentityWorkerMachine extends IdentityWorker{
+class IdentityWorkerMachine implements IdentityWorker{
+    private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
+    private Long lastTag = IdentityWorkerConfig.TAG;
+    private Long sequence = IdentityWorkerConfig.SEQUENCE;
     private Long workerId;
     private Long centerId;
 
-    public IdentityWorkerMachine(Long workerId, Long centerId) throws IdentityErrorException {
-        super();
+    public IdentityWorkerMachine(Long workerId, Long centerId) throws IdentityWorkerException {
         if (workerId == null || workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
             log.error("worker Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_WORKER_ID,IdentityWorkerConfig.MIN_WORKER_ID);
-            throw new IdentityErrorException(IdentityErrorStatus.WORKER_ID_INVALID);
+            throw new IdentityWorkerException(IdentityErrorStatus.WORKER_ID_INVALID);
         }
         if (centerId == null || centerId > IdentityWorkerConfig.MAX_CENTER_ID || centerId < IdentityWorkerConfig.MIN_CENTER_ID) {
             log.error("center Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_CENTER_ID,IdentityWorkerConfig.MIN_CENTER_ID);
-            throw new IdentityErrorException(IdentityErrorStatus.CENTER_ID_INVALID);
+            throw new IdentityWorkerException(IdentityErrorStatus.CENTER_ID_INVALID);
         }
         this.workerId = workerId;
         this.centerId = centerId;
     }
 
-    public synchronized Long generate() throws IdentityWorkerException {
+    @Override
+    public synchronized Long generate(Long date) throws IdentityWorkerException {
         Long time = new IdentityWorkerTime().getTime();
+        if (date != null) {
+            time = new IdentityWorkerTime(date).getTime();
+        }
 
         if (time < this.lastTime) {
             log.error("clock is moving backwards. Rejecting requests until {}", this.lastTime);

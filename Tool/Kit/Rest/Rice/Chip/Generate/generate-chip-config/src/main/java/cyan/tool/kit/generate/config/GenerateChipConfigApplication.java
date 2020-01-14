@@ -1,13 +1,13 @@
-package cyan.tool.kit.generate.core;
+package cyan.tool.kit.generate.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GenerateChipCoreApplication {
+public class GenerateChipConfigApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GenerateChipCoreApplication.class, args);
+        SpringApplication.run(GenerateChipConfigApplication.class, args);
     }
 
 }

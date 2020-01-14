@@ -1,7 +1,10 @@
 package cyan.tool.kit.generate.core.identity.worker;
 
+import cyan.tool.kit.generate.core.error.IdentityWorkerException;
 import cyan.tool.kit.rice.core.rice.error.natives.IdentityErrorException;
-import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>IdentityWorker</p>
@@ -11,26 +14,19 @@ import lombok.Data;
  * @date 9:06 2020/1/13
  */
 
-public class IdentityWorker {
-    Long lastTime;
-    Long lastTag;
-    Long sequence;
+public interface IdentityWorker {
 
-    IdentityWorker(){
-        this.lastTime = IdentityWorkerConfig.TIMESTAMP;
-        this.lastTag = IdentityWorkerConfig.TAG;
-        this.sequence = IdentityWorkerConfig.SEQUENCE;
-    }
+    Long generate(Long arg) throws IdentityWorkerException;
 
-    public static IdentityWorker get() {
+    static IdentityWorker get() {
         return new IdentityWorkerArtificial();
     }
 
-    public static IdentityWorker get(Long sequence) {
+    static IdentityWorker get(Long sequence) {
         return new IdentityWorkerArtificial(sequence);
     }
 
-    public static IdentityWorker get(Long workerId, Long centerId) throws IdentityErrorException {
+    static IdentityWorker get(Long workerId, Long centerId) throws IdentityWorkerException {
         return new IdentityWorkerMachine(workerId,centerId);
     }
 }
