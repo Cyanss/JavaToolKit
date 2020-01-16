@@ -1,12 +1,8 @@
 package cyan.tool.kit.generate;
 
-import cyan.tool.kit.generate.core.error.IdentityWorkerException;
-import cyan.tool.kit.generate.core.configure.GeneratePropertyConfigure;
-import cyan.tool.kit.generate.core.identity.IdentityErrorStatus;
-import cyan.tool.kit.generate.core.identity.IdentityGenerate;
-import cyan.tool.kit.generate.core.identity.worker.IdentityWorker;
-import cyan.tool.kit.generate.core.property.IdentityProperties;
-import cyan.tool.kit.rice.core.rice.defaults.RestException;
+import cyan.tool.kit.generate.starter.error.IdentityWorkerException;
+import cyan.tool.kit.generate.starter.identity.IdentityGenerate;
+import cyan.tool.kit.generate.starter.property.IdentityProperties;
 import cyan.tool.kit.rice.flux.rice.util.supply.RiceJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
