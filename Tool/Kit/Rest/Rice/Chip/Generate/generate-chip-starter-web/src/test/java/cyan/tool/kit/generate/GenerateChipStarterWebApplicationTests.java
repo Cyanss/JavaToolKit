@@ -21,10 +21,11 @@ class GenerateChipStarterWebApplicationTests {
         long count = 1L;
         while (count < 100) {
 
-            Long generate = IdentityGenerate.generate(count);
+            Long generate = IdentityGenerate.generate();
             log.info("【{}】 id: {}",count,generate);
             count++;
         }
+
     }
 
 }
