@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "cyan.tool.kit.generate.identity.workerId",
+      "type": "java.lang.String",
+      "description": "Description for cyan.tool.kit.generate.identity.workerId."
+    },
+    {
+      "name": "cyan.tool.kit.generate.identity.centerId",
+      "type": "java.lang.String",
+      "description": "Description for cyan.tool.kit.generate.identity.centerId."
+    }
+  ] }

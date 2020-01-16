@@ -29,6 +29,6 @@ class IdentityWorkerConfig {
     private static final Integer SEQUENCE_BIT_SIZE = 12;
     static final Integer ALL_BIT_SIZE = TIMESTAMP_BIT_SIZE + REGION_BIT_SIZE + SEQUENCE_BIT_SIZE;
 
-    static final Long TAG = 1L;
+    static final Long DEFAULT_TAG = 1L;
 
 }

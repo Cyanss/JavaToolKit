@@ -32,7 +32,7 @@ public class RestErrorException extends RestException {
     }
 
     public RestErrorException(RestError error) {
-        super(error);
+        super((RestStatus) error);
     }
 
     public RestErrorException(Integer status, RestError error) {

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b5f18757-c3ff-4655-aa19-3bebd4b7717c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/configure/GenerateAutoConfigure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/IdentityFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/IdentityGenerate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/property/GenerateProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/property/IdentityProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/resources/META-INF/additional-spring-configuration-metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/resources/META-INF/spring.factories" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Common/common-chip/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Common/common-chip/common-chip.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Common/common-chip/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Common/common-chip/src/main/java/cyan/tool/kit/common/CommonChipApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Common/common-chip/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/java/cyan/tool/kit/generate/config/GenerateChipConfigApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/java/cyan/tool/kit/generate/config/auto/GenerateAutoConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/java/cyan/tool/kit/generate/config/identity/IdentityFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/java/cyan/tool/kit/generate/config/identity/IdentityGenerate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/java/cyan/tool/kit/generate/config/property/GenerateProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-config/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/IdentityErrorStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/IdentityErrorStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerArtificial.java" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerArtificial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/../generate-chip-core/src/main/java/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate-chip/generate-chip.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../generate.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/DefaultError.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/DefaultError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/DefaultException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/DefaultException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestError.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestErrorException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestErrorException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../rice-rest-core/src/main/java/cyan/tool/kit/rice/core/rice/defaults/RestException.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileColors">
+    <fileColor scope="Non-Project Files (Material Default)" color="2E3C43" />
+    <fileColor scope="Non-Project Files (Material Darker)" color="323232" />
+    <fileColor scope="Non-Project Files (Material Lighter)" color="eae8e8" />
+    <fileColor scope="Non-Project Files (Material Palenight)" color="2f2e43" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Singleton" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/config/property/GenerateProperties.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/config/auto/GenerateAutoConfig.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/config/identity/IdentityFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/config/identity/IdentityGenerate.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/identity/IdentityFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/configure/GenerateAutoConfigure.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/property/IdentityGenerateProperties.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/META-INF/additional-spring-configuration-metadata.json" />
+        <option value="$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/property/GenerateProperties.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\Maven\LocalWarehouse" />
+        <option name="mavenHome" value="D:/Maven/apache-maven-3.6.0" />
+        <option name="userSettingsFile" value="D:\Maven\apache-maven-3.6.0\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-479" />
+    <option name="y" value="233" />
+    <option name="width" value="1940" />
+    <option name="height" value="926" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="CatdeaLogs" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1579142117947" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.IdentityFactory">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IdentityFactory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="cyan.tool.kit.generate.parent.identity.IdentityFactory" />
+      <module name="generate-chip-parent" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cyan.tool.kit.generate.parent.identity.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenerateChipConfigApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="generate-chip-parent" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="cyan.tool.kit.generate.parent.GenerateChipConfigApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.IdentityFactory" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b5f18757-c3ff-4655-aa19-3bebd4b7717c" name="Default Changelist" comment="" />
+      <created>1578899759526</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1578899759526</updated>
+      <workItem from="1578899764658" duration="5464000" />
+      <workItem from="1578963613576" duration="6559000" />
+      <workItem from="1579137922323" duration="127000" />
+      <workItem from="1579138117514" duration="1948000" />
+      <workItem from="1579142235564" duration="1865000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="15963000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-479" y="233" width="1940" height="926" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Designer" order="0" />
+      <window_info id="Image Layers" order="1" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="UI Designer" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Web" order="5" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="6" sideWeight="0.49902913" visible="true" weight="0.13829787" />
+      <window_info id="Structure" order="7" sideWeight="0.5009709" side_tool="true" weight="0.20797873" />
+      <window_info anchor="bottom" id="Spring" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Docker" order="2" show_stripe_button="false" />
+      <window_info anchor="bottom" id="ConsoleMavenPlugin" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Java Enterprise" order="5" />
+      <window_info anchor="bottom" id="JProfiler" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Message" order="9" />
+      <window_info anchor="bottom" id="Find" order="10" weight="0.32962137" />
+      <window_info anchor="bottom" id="Run" order="11" weight="0.3841146" />
+      <window_info anchor="bottom" id="Debug" order="12" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="13" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="14" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="15" />
+      <window_info anchor="bottom" id="Graph Database Console" order="16" />
+      <window_info anchor="bottom" id="Messages" order="17" weight="0.3294271" />
+      <window_info anchor="right" id="Maven" order="0" visible="true" weight="0.3292553" />
+      <window_info anchor="right" id="Palette" order="1" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Bean Validation" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="7" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="8" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="9" weight="0.25" />
+      <window_info anchor="right" id="Graph Database" order="10" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/config/identity/tEST.java" />
+    <entry file="jar://D:/Java/jdk1.8.0_92/src.zip!/java/util/IdentityHashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="209" column="26" selection-start-line="209" selection-start-column="26" selection-end-line="209" selection-end-column="26" />
+          <folding>
+            <element signature="e#8408#8409#0" expanded="true" />
+            <element signature="e#8446#8447#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/project/l2118i/sparktrain/src/main/java/com/imooc/spark/kafka/KafkaClientApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/project/l2118i/sparktrain/src/main/java/com/imooc/spark/project/utils/HBaseUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cyan/tool/kit/generate-chip-core/0.0.1-SNAPSHOT/generate-chip-core-0.0.1-SNAPSHOT.jar!/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerArtificial.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2701">
+          <caret line="11" column="21" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/cyan/tool/kit/generate/config/GenerateChipConfigApplicationTests.java" />
+    <entry file="jar://D:/Java/jdk1.8.0_92/src.zip!/java/util/HashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="486" column="11" selection-start-line="486" selection-start-column="11" selection-end-line="486" selection-end-column="11" />
+          <folding>
+            <element signature="e#19072#19073#0" expanded="true" />
+            <element signature="e#19130#19131#0" expanded="true" />
+            <element signature="e#19296#19297#0" expanded="true" />
+            <element signature="e#19379#19380#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cyan/tool/kit/rice-rest-core/0.0.1-SNAPSHOT/rice-rest-core-0.0.1-SNAPSHOT.jar!/cyan/tool/kit/rice/core/rice/error/natives/IdentityErrorException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cyan/tool/kit/generate-chip-core/0.0.1-SNAPSHOT/generate-chip-core-0.0.1-SNAPSHOT.jar!/cyan/tool/kit/generate/core/error/IdentityWorkerException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="14" column="52" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cyan/tool/kit/generate-chip-core/0.0.1-SNAPSHOT/generate-chip-core-0.0.1-SNAPSHOT.jar!/cyan/tool/kit/generate/core/identity/worker/IdentityWorkerMachine.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/cyan/tool/kit/generate-chip-core/0.0.1-SNAPSHOT/generate-chip-core-0.0.1-SNAPSHOT.jar!/cyan/tool/kit/generate/core/identity/worker/IdentityWorker.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/configure/GenerateAutoConfigure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/identity/IdentityGenerate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/additional-spring-configuration-metadata.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/property/IdentityProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/property/GenerateProperties.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cyan/tool/kit/generate/parent/identity/IdentityFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider editor-type-id="MavenHelperPluginDependencyAnalyzer" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="47" column="44" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring (generate-chip-parent)|Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Bundled Protobuf Distribution</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>generate-chip-parent</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: ch.qos.logback:logback-classic:1.2.3</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

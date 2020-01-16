@@ -48,7 +48,6 @@ class DefaultException extends Exception implements RestStatus, Supplier {
         this.status = status;
     }
 
-
     public DefaultException(RestStatus status) {
         super(status.getMessage());
         this.error = RestError.parser(status);

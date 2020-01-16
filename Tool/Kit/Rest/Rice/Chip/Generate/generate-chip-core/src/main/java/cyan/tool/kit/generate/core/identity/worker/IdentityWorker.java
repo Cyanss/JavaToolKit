@@ -1,7 +1,7 @@
 package cyan.tool.kit.generate.core.identity.worker;
 
 import cyan.tool.kit.generate.core.error.IdentityWorkerException;
-import cyan.tool.kit.rice.core.rice.error.natives.IdentityErrorException;
+import cyan.tool.kit.rice.core.rice.defaults.RestError;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,18 +15,41 @@ import java.util.Map;
  */
 
 public interface IdentityWorker {
+    Map<WorkerType,IdentityWorker> IDENTITY_WORKER_MAP = new HashMap<>();
 
     Long generate(Long arg) throws IdentityWorkerException;
 
+    static IdentityWorker get(WorkerType workerType) {
+       return IDENTITY_WORKER_MAP.get(workerType);
+    }
+
     static IdentityWorker get() {
-        return new IdentityWorkerArtificial();
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.TAG_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.TAG_WORKER);
+        } else {
+            return new IdentityWorkerArtificial();
+        }
     }
 
     static IdentityWorker get(Long sequence) {
-        return new IdentityWorkerArtificial(sequence);
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.TAG_SEQUENCE_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.TAG_SEQUENCE_WORKER);
+        } else {
+            return new IdentityWorkerArtificial(sequence);
+        }
     }
 
-    static IdentityWorker get(Long workerId, Long centerId) throws IdentityWorkerException {
-        return new IdentityWorkerMachine(workerId,centerId);
+    static IdentityWorker get(Long workerId, Long centerId) throws RestError {
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.CENTER_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.CENTER_WORKER);
+        } else {
+            return new IdentityWorkerMachine(workerId,centerId);
+        }
+    }
+
+    enum WorkerType {
+        TAG_WORKER,
+        TAG_SEQUENCE_WORKER,
+        CENTER_WORKER
     }
 }

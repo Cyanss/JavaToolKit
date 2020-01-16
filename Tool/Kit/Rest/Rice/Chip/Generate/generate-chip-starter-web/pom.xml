@@ -2,12 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.2.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>generate-chip-core</artifactId>
+    <artifactId>generate-chip-starter-web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>generate-chip-core</name>
-    <description>core of generate chip</description>
+    <name>generate-chip-starter-web</name>
+    <description>web starter of generate chip</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -46,20 +51,41 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>LATEST</version>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>chip-rice-core</artifactId>
+            <artifactId>generate-chip-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>generate-chip-core</finalName>
+        <finalName>generate-chip-starter-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

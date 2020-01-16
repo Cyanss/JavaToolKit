@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * <p>BaseError</p>
@@ -17,13 +18,55 @@ import java.util.Map;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestError extends DefaultError implements RestStatus {
-    private String name;
-    private Integer status;
+public class RestError extends DefaultError implements RestStatus, Supplier {
+    protected String name;
+    protected Integer status;
+
+    public RestError() {
+        super(RestErrorStatus.UNKNOWN_ERROR.getMessage());
+        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.status = RestErrorStatus.UNKNOWN_ERROR.getStatus();
+    }
+
+    public RestError(Supplier<RestStatus> supplier) {
+        super(supplier.get().getMessage());
+        this.name = supplier.get().getName();
+        this.status = supplier.get().getStatus();
+    }
+
+    public RestError(RestStatus status) {
+        super(status.getMessage());
+        this.name = status.getName();
+        this.status = status.getStatus();
+    }
+
+    public RestError(String message) {
+        super(message);
+        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.status = RestErrorStatus.UNKNOWN_ERROR.getStatus();
+    }
+
+    public RestError(Integer status) {
+        super(RestErrorStatus.UNKNOWN_ERROR.getMessage());
+        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.status = status;
+    }
 
     public RestError(Integer status, String message) {
         super(message);
         this.status = status;
+    }
+
+    public RestError(Integer status, RestStatus restStatus) {
+        super(restStatus.getMessage());
+        this.name = restStatus.getName();
+        this.status = status;
+    }
+
+    public RestError(String message, RestStatus status) {
+        super(message);
+        this.name = status.getName();
+        this.status = status.getStatus();
     }
 
     public RestError(Integer status, String message, String name, Integer domain) {
@@ -38,16 +81,21 @@ public class RestError extends DefaultError implements RestStatus {
         this.status = status;
     }
 
-    public RestError( Integer status, String message, String name, Throwable cause) {
-        super(message,cause);
-        this.name = name;
-        this.status = status;
+    public RestError(String message, Throwable cause) {
+        super(message, cause);
     }
+
 
     public RestError(RestStatus status, Throwable cause) {
         super(status.getMessage(), cause);
         this.name = status.getName();
         this.status = status.getStatus();
+    }
+
+    public RestError( Integer status, String message, String name, Throwable cause) {
+        super(message,cause);
+        this.name = name;
+        this.status = status;
     }
 
     public RestError(Integer status, String message, String name, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
@@ -246,6 +294,11 @@ public class RestError extends DefaultError implements RestStatus {
     @Override
     public Map<Integer, String> entry() {
         return Collections.singletonMap(this.status,this.getMessage());
+    }
+
+    @Override
+    public Object get() {
+        return new RestError();
     }
 
 

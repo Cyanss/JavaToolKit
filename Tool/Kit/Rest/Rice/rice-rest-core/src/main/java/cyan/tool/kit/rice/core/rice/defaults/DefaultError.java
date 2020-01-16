@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * <p>RiceError</p>
@@ -16,10 +17,10 @@ import java.util.*;
 @Data
 @EqualsAndHashCode(callSuper = false)
 class DefaultError extends Error {
-    private Integer domain;
-    private String resource;
-    private String debug;
-    private List<DefaultErrorIssue> issues;
+    protected Integer domain;
+    protected String resource;
+    protected String debug;
+    protected List<DefaultErrorIssue> issues;
 
     public DefaultError() {
     }

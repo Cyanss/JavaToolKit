@@ -1,8 +1,8 @@
 package cyan.tool.kit.generate.core.identity.worker;
 
+import cyan.tool.kit.generate.core.error.IdentityWorkerError;
 import cyan.tool.kit.generate.core.error.IdentityWorkerException;
 import cyan.tool.kit.generate.core.identity.IdentityErrorStatus;
-import cyan.tool.kit.rice.core.rice.error.natives.IdentityErrorException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,22 +17,23 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class IdentityWorkerMachine implements IdentityWorker{
     private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
-    private Long lastTag = IdentityWorkerConfig.TAG;
+    private Long lastTag = IdentityWorkerConfig.DEFAULT_TAG;
     private Long sequence = IdentityWorkerConfig.SEQUENCE;
     private Long workerId;
     private Long centerId;
 
-    public IdentityWorkerMachine(Long workerId, Long centerId) throws IdentityWorkerException {
+    public IdentityWorkerMachine(Long workerId, Long centerId) throws IdentityWorkerError {
         if (workerId == null || workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
             log.error("worker Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_WORKER_ID,IdentityWorkerConfig.MIN_WORKER_ID);
-            throw new IdentityWorkerException(IdentityErrorStatus.WORKER_ID_INVALID);
+            throw new IdentityWorkerError(IdentityErrorStatus.WORKER_ID_INVALID);
         }
         if (centerId == null || centerId > IdentityWorkerConfig.MAX_CENTER_ID || centerId < IdentityWorkerConfig.MIN_CENTER_ID) {
             log.error("center Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_CENTER_ID,IdentityWorkerConfig.MIN_CENTER_ID);
-            throw new IdentityWorkerException(IdentityErrorStatus.CENTER_ID_INVALID);
+            throw new IdentityWorkerError(IdentityErrorStatus.CENTER_ID_INVALID);
         }
         this.workerId = workerId;
         this.centerId = centerId;
+        IDENTITY_WORKER_MAP.put(WorkerType.CENTER_WORKER,this);
     }
 
     @Override
@@ -47,7 +48,7 @@ class IdentityWorkerMachine implements IdentityWorker{
             throw new IdentityWorkerException("{} milliseconds is error time" + (this.lastTime- time));
         }
         if (this.lastTime.equals(time)) {
-            this.sequence = (this.sequence + IdentityWorkerConfig.TAG) & IdentityWorkerConfig.SEQUENCE_MASK;
+            this.sequence = (this.sequence + IdentityWorkerConfig.DEFAULT_TAG) & IdentityWorkerConfig.SEQUENCE_MASK;
             if (this.sequence.equals(IdentityWorkerConfig.SEQUENCE)) {
                 time = IdentityWorkerTime.next(this.lastTime);
             }

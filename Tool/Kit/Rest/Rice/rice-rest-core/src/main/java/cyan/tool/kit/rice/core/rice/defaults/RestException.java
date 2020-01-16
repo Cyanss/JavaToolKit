@@ -24,7 +24,7 @@ public class RestException extends DefaultException {
     }
 
     public RestException(RestError error) {
-        super(error);
+        super((RestStatus)error);
     }
 
     public RestException(String message) {
