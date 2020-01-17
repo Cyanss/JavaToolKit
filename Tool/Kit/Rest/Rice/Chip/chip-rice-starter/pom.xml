@@ -4,10 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>chip-rice-core</artifactId>
+    <artifactId>chip-rice-starter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>chip-rice-core</name>
-    <description>core of rice chip</description>
+    <name>chip-rice-starter</name>
+    <description>starter of chip rice</description>
+
 
     <properties>
         <java.version>1.8</java.version>
@@ -46,13 +47,25 @@
     <dependencies>
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>rice-rest-core</artifactId>
+            <artifactId>chip-rice-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>chip-rice-core</finalName>
+        <finalName>chip-rice-starter</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -68,5 +81,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

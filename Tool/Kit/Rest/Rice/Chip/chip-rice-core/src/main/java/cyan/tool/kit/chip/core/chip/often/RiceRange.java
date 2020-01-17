@@ -2,11 +2,10 @@ package cyan.tool.kit.chip.core.chip.often;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import cyan.tool.kit.rice.flux.rice.util.supply.RiceJsonUtils;
 import lombok.Getter;
 import lombok.NonNull;
 
-import java.util.*;
+import java.util.Objects;
 
 /**
  * <p>RiceRange</p>
@@ -93,15 +92,5 @@ public class RiceRange<T extends Number> {
         } else {
             return Short.compare(src.range().shortValue(),target.range().shortValue());
         }
-    }
-
-
-    public static void main(String[] args) {
-        List<RiceRange<Double>> rangeList = Arrays.asList(new RiceRange<>(0.7,0.8),new RiceRange<>(0.1,0.3));
-        System.out.println(RiceJsonUtils.parserJson(rangeList));
-        rangeList.sort(RiceRange::compare);
-        System.out.println(RiceJsonUtils.parserJson(rangeList));
-        Collections.reverse(rangeList);
-        System.out.println(RiceJsonUtils.parserJson(rangeList));
     }
 }
