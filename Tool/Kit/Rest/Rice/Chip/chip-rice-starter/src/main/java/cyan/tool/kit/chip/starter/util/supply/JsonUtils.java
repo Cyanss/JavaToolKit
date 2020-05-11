@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import cyan.tool.kit.chip.starter.flux.supply.JsonFluxes;
+import cyan.tool.kit.chip.starter.util.natives.EmptyUtils;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseBeanException;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseListException;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseMapException;
@@ -34,6 +35,9 @@ public class JsonUtils {
      * @return String json字符串
      */
     public static <T> String parserJson(T target) {
+        if(EmptyUtils.isEmpty(target)) {
+            return null;
+        }
         try {
             return JsonFluxes.parserJson(target);
         } catch (JsonParseException exception) {
@@ -51,6 +55,9 @@ public class JsonUtils {
      * @return T Bean
      */
     public static <T> T parserBean(String json, Class<T> clazz) {
+        if(EmptyUtils.isEmpty(json)) {
+            return null;
+        }
         try {
             return JsonFluxes.parserBean(json, clazz);
         } catch (JsonParseBeanException exception) {
@@ -68,6 +75,9 @@ public class JsonUtils {
      * @return List<T> BeanList
      */
     public static <T> List<T> parserList(String json, CollectionType listType) {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptyList();
+        }
         try {
             return JsonFluxes.parserList(json,listType);
         } catch (JsonParseListException exception) {
@@ -110,6 +120,9 @@ public class JsonUtils {
      * @return Set<T> BeanSet
      */
     public static <T> Set<T> parserSet(String json, CollectionType setType) {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptySet();
+        }
         try {
             return JsonFluxes.parserSet(json,setType);
         } catch (JsonParseSetException exception) {
@@ -153,6 +166,9 @@ public class JsonUtils {
      * @return Map<T, K> BeanMap
      */
     public static <T,K> Map<T, K> parserMap(String json, MapType mapType) {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptyMap();
+        }
         try {
             return JsonFluxes.parserMap(json, mapType);
         } catch (JsonParseMapException exception) {
@@ -172,6 +188,9 @@ public class JsonUtils {
      * @return List<T> BeanList
      */
     public static <T> T[] parserArray(String json, ArrayType arrayType) {
+        if(EmptyUtils.isEmpty(json)) {
+            return null;
+        }
         try {
             return JsonFluxes.parserArray(json, arrayType);
         } catch (JsonParseListException exception) {

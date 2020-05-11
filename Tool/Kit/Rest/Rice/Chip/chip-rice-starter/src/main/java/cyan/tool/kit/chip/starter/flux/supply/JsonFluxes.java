@@ -6,12 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import cyan.tool.kit.chip.starter.util.natives.EmptyUtils;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseBeanException;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseListException;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseMapException;
 import cyan.tool.kit.rice.core.rice.error.often.json.JsonParseSetException;
 import cyan.tool.kit.rice.core.rice.error.supply.JsonParseException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +37,9 @@ public class JsonFluxes {
      * @return String json字符串
      */
     public static <T> String parserJson(T target) throws JsonParseException {
+        if(EmptyUtils.isEmpty(target)) {
+            return null;
+        }
         try {
             return MAPPER.writeValueAsString(target);
         } catch (JsonProcessingException exception) {
@@ -50,6 +55,9 @@ public class JsonFluxes {
      * @return T Bean
      */
     public static <T> T parserBean(String json, Class<T> clazz) throws JsonParseBeanException {
+        if(EmptyUtils.isEmpty(json)) {
+            return null;
+        }
         try {
             return MAPPER.readValue(json, clazz);
         } catch (JsonProcessingException exception) {
@@ -67,6 +75,9 @@ public class JsonFluxes {
      * @return List<T> BeanList
      */
     public static <T> T[] parserArray(String json, ArrayType arrayType) throws JsonParseListException {
+        if(EmptyUtils.isEmpty(json)) {
+            return null;
+        }
         try {
             return MAPPER.readValue(json, arrayType);
         } catch (JsonProcessingException exception) {
@@ -96,6 +107,9 @@ public class JsonFluxes {
      * @return List<T> BeanList
      */
     public static <T> List<T> parserList(String json, CollectionType listType) throws JsonParseListException {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptyList();
+        }
         try {
             return MAPPER.readValue(json, listType);
         } catch (JsonProcessingException exception) {
@@ -137,6 +151,9 @@ public class JsonFluxes {
      * @return Set<T> BeanSet
      */
     public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonParseSetException {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptySet();
+        }
         try {
             return MAPPER.readValue(json, setType);
         } catch (JsonProcessingException exception) {
@@ -178,6 +195,9 @@ public class JsonFluxes {
      * @return Map<T, K> BeanMap
      */
     public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonParseMapException {
+        if(EmptyUtils.isEmpty(json)) {
+            return Collections.emptyMap();
+        }
         try {
             return MAPPER.readValue(json, mapType);
         } catch (JsonProcessingException exception) {

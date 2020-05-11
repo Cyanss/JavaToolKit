@@ -35,8 +35,8 @@ public class StreamFluxes {
     public static byte[] readByte(InputStream inputStream) throws StreamReadException {
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            byte[] buffer = new byte[1024];
             int length;
+            byte[] buffer = new byte[1024];
             while ((length = inputStream.read(buffer)) != -1) {
                 byteArrayOutputStream.write(buffer, 0, length);
             }

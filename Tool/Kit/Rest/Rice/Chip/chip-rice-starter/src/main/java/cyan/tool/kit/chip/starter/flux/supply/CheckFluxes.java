@@ -49,6 +49,7 @@ public class CheckFluxes {
     public static <T> void checkMissField(T object, String field) throws RestException {
         Optional.ofNullable(object).orElseThrow(() ->new ParamMissingException(field));
     }
+
     public static void checkComparerTrue(Boolean comparer, RestStatus status, String message) throws RestException {
         if (comparer) {
             throw new RestErrorException(message, RestError.error(status,message));

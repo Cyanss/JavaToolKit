@@ -124,20 +124,4 @@ public class CipherFluxes {
             throw new CodingException(e.getMessage(), CodingErrorStatus.ENCODING_INVALID);
         }
     }
-
-
-    public static void main(String[] args) throws RiceException, UnsupportedEncodingException {
-//        String string = "字";
-//        String encrypt = encrypt(string);
-//        System.out.println("encrypt: " +encrypt);
-//        String decrypt = decrypt(encrypt);
-//        System.out.println("decrypt: " +decrypt);
-
-        String hex = "中";
-        byte[] parse = HexUtils.parse(hex);
-        String parse1 = HexUtils.parse(parse);
-        System.out.println("hex: " + parse1);
-    }
-
-
 }
