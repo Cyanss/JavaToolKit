@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cyan.tool.kit.generate.starter.configure.GenerateAutoConfigure
