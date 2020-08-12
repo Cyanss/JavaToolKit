@@ -1,0 +1,21 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.identity",
+      "sourceType": "cyan.toolkit.rest.configure.IdentityProperties",
+      "type": "cyan.toolkit.rest.configure.IdentityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.identity.worker-id",
+      "type": "java.lang.Long",
+      "description": "worker-id."
+    },
+    {
+      "name": "cyan.toolkit.identity.center-id",
+      "type": "java.lang.Long",
+      "description": "center-id."
+    }
+  ]
+}
