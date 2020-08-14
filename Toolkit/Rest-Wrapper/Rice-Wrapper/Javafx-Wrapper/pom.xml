@@ -5,16 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>Rice-Path</artifactId>
+    <artifactId>Javafx-Path</artifactId>
     <version>0.0.1.RELEASE</version>
     <modules>
-        <module>Rice-Rooter</module>
-        <module>Cloud-Wrapper</module>
-        <module>Javafx-Wrapper</module>
+        <module>Javafx-Rooter</module>
     </modules>
-    <name>Rice-Wrapper</name>
+    <name>Javafx-Wrapper</name>
     <packaging>pom</packaging>
-    <description>Rice</description>
+    <description>Javafx</description>
 
     <properties>
         <java.version>1.8</java.version>

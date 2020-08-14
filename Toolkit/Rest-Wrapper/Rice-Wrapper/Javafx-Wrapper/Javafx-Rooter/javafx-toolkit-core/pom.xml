@@ -2,30 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cyan.tool.kit</groupId>
-    <artifactId>Rice-Path</artifactId>
-    <version>0.0.1.RELEASE</version>
-    <modules>
-        <module>Rice-Rooter</module>
-        <module>Cloud-Wrapper</module>
-        <module>Javafx-Wrapper</module>
-    </modules>
-    <name>Rice-Wrapper</name>
-    <packaging>pom</packaging>
-    <description>Rice</description>
+    <parent>
+        <artifactId>javafx-toolkit-starter-parent</artifactId>
+        <groupId>cyan.tool.kit</groupId>
+        <version>0.0.1.RELEASE</version>
+    </parent>
+    <artifactId>javafx-toolkit-core</artifactId>
+    <version>${toolkit.version}</version>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <description>the core of javafx toolkit</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <jdk.version>1.8</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
-		<toolkit.version>0.0.1-SNAPSHOT</toolkit.version>
     </properties>
 
     <repositories>
@@ -56,6 +48,27 @@
         </repository>
     </repositories>
 
+    <dependencies>
+        <dependency>
+            <groupId>cyan.tool.kit</groupId>
+            <artifactId>rice-toolkit-starter</artifactId>
+            <version>${toolkit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>de.roskenet</groupId>
+            <artifactId>springboot-javafx-support</artifactId>
+            <version>${javafx-support.version}</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <resources>
@@ -79,4 +92,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
