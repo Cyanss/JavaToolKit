@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cyan.toolkit.rest.configure.IdentityAutoConfigure
