@@ -18,12 +18,12 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 9:13 2020/8/17
  */
 @ComponentScan(basePackages = "cyan.toolkit")
-public class ViewStarter extends AbstractJavaFxApplicationSupport implements InitializingBean {
+public class ViewManager extends AbstractJavaFxApplicationSupport implements InitializingBean {
 
     private static ConfigurableApplicationContext APPLICATION_CONTEXT;
     public static Scene SCENE;
     public static Stage PRIMARY_STAGE;
-    public static ViewStarter INSTANCE;
+    public static ViewManager INSTANCE;
 
     @Override
     public void afterPropertiesSet() {
@@ -72,6 +72,6 @@ public class ViewStarter extends AbstractJavaFxApplicationSupport implements Ini
 
 
     public static void start(Class<? extends JavaFxView> window, String[] args) {
-        launch(ViewStarter.class, window, new JavaFxSplash(), args);
+        launch(ViewManager.class, window, new JavaFxSplash(), args);
     }
 }
