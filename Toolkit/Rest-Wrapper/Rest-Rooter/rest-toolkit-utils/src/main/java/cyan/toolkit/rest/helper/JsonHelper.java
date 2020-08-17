@@ -11,7 +11,7 @@ import cyan.toolkit.rest.error.json.JsonParseListException;
 import cyan.toolkit.rest.error.json.JsonParseMapException;
 import cyan.toolkit.rest.error.json.JsonParseSetException;
 import cyan.toolkit.rest.error.supply.JsonParseException;
-import cyan.toolkit.rest.util.EmptyUtils;
+import cyan.toolkit.rest.util.GeneralUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +37,7 @@ public class JsonHelper {
      * @return String json字符串
      */
     public static <T> String parserJson(T target) throws JsonParseException {
-        if(EmptyUtils.isEmpty(target)) {
+        if(GeneralUtils.isEmpty(target)) {
             return null;
         }
         try {
@@ -55,7 +55,7 @@ public class JsonHelper {
      * @return T Bean
      */
     public static <T> T parserBean(String json, Class<T> clazz) throws JsonParseBeanException {
-        if(EmptyUtils.isEmpty(json)) {
+        if(GeneralUtils.isEmpty(json)) {
             return null;
         }
         try {
@@ -75,7 +75,7 @@ public class JsonHelper {
      * @return List<T> BeanList
      */
     public static <T> T[] parserArray(String json, ArrayType arrayType) throws JsonParseListException {
-        if(EmptyUtils.isEmpty(json)) {
+        if(GeneralUtils.isEmpty(json)) {
             return null;
         }
         try {
@@ -107,7 +107,7 @@ public class JsonHelper {
      * @return List<T> BeanList
      */
     public static <T> List<T> parserList(String json, CollectionType listType) throws JsonParseListException {
-        if(EmptyUtils.isEmpty(json)) {
+        if(GeneralUtils.isEmpty(json)) {
             return Collections.emptyList();
         }
         try {
@@ -151,7 +151,7 @@ public class JsonHelper {
      * @return Set<T> BeanSet
      */
     public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonParseSetException {
-        if(EmptyUtils.isEmpty(json)) {
+        if(GeneralUtils.isEmpty(json)) {
             return Collections.emptySet();
         }
         try {
@@ -195,7 +195,7 @@ public class JsonHelper {
      * @return Map<T, K> BeanMap
      */
     public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonParseMapException {
-        if(EmptyUtils.isEmpty(json)) {
+        if(GeneralUtils.isEmpty(json)) {
             return Collections.emptyMap();
         }
         try {

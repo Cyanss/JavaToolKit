@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import cyan.toolkit.rest.actuator.ConsumerActuator;
 import cyan.toolkit.rest.actuator.FunctionActuator;
 import cyan.toolkit.rest.RestException;
-import cyan.toolkit.rest.util.EmptyUtils;
+import cyan.toolkit.rest.util.GeneralUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +29,7 @@ public class PartitionHelper {
      * @return List<T> 实体集合
      */
     public static <K,T> List<T> query(List<K> idList, Integer maxSize, FunctionActuator<List<K>, List<T>> function) throws RestException {
-        if (EmptyUtils.isEmpty(idList)) {
+        if (GeneralUtils.isEmpty(idList)) {
             return Collections.emptyList();
         }
         List<T> entityList;
@@ -54,7 +54,7 @@ public class PartitionHelper {
      * @return Integer 数量
      */
     public static <T> Boolean insert(List<T> modelList, Integer maxSize, FunctionActuator<List<T>,Integer> function) throws RestException {
-        if (EmptyUtils.isEmpty(modelList)) {
+        if (GeneralUtils.isEmpty(modelList)) {
             return true;
         }
         Integer resultSize = 0;
@@ -92,7 +92,7 @@ public class PartitionHelper {
      * @return Integer 数量
      */
     public static <T> Boolean update(List<T> modelList, Integer maxSize, FunctionActuator<List<T>, Integer> function) throws RestException {
-        if (EmptyUtils.isEmpty(modelList)) {
+        if (GeneralUtils.isEmpty(modelList)) {
             return true;
         }
         /* 数据分段处理 */
@@ -120,7 +120,7 @@ public class PartitionHelper {
      * @throws RestException SDM模块异常
      */
     public static <K> void delete(List<K> idList, Integer maxSize, ConsumerActuator<List<K>> consumer) throws RestException {
-        if (EmptyUtils.isEmpty(idList)) {
+        if (GeneralUtils.isEmpty(idList)) {
             return;
         }
         if (idList.size() > maxSize) {

@@ -1,6 +1,5 @@
-package cyan.toolkit.cloud.configure;
+package cyan.toolkit.javafx.configure;
 
-import cyan.toolkit.javafx.configure.HttpClientInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

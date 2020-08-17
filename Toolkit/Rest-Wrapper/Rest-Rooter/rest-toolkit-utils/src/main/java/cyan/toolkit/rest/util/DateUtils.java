@@ -147,7 +147,7 @@ public class DateUtils {
     }
 
     private static DateFormat getDateFormat(String pattern) {
-        if (EmptyUtils.isEmpty(pattern)) {
+        if (GeneralUtils.isEmpty(pattern)) {
             throw new IllegalArgumentException("pattern不能为空！");
         }
         Map<String, DateFormat> dateFormatMap = DATE_FORMAT_THREAD_LOCAL.get();

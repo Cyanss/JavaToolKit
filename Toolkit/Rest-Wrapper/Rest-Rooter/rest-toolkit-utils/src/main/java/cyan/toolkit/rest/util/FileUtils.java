@@ -3,7 +3,6 @@ package cyan.toolkit.rest.util;
 import cyan.toolkit.rest.error.often.FileCopyException;
 import cyan.toolkit.rest.error.often.FileCreateException;
 import cyan.toolkit.rest.helper.FileHelper;
-import cyan.toolkit.rest.util.NameUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -196,7 +195,7 @@ public class FileUtils {
      */
     public static void close(Closeable... closeableArray) {
         List<Closeable> closeableList = Arrays.stream(closeableArray).filter(Objects::nonNull).collect(Collectors.toList());
-        if (EmptyUtils.isNotEmpty(closeableList)) {
+        if (GeneralUtils.isNotEmpty(closeableList)) {
             closeableList.forEach(closeable -> {
                 try {
                     closeable.close();
@@ -230,20 +229,20 @@ public class FileUtils {
      */
     public static void close(Thread... threadArray) {
         List<Thread> threadList = Arrays.stream(threadArray).filter(Objects::nonNull).filter(Thread::isAlive).collect(Collectors.toList());
-        if (EmptyUtils.isNotEmpty(threadList)) {
+        if (GeneralUtils.isNotEmpty(threadList)) {
             threadList.forEach(Thread::interrupt);
         }
     }
 
     public static String ext(String name,boolean isAll){
-        if(EmptyUtils.isEmpty(name)){
+        if(GeneralUtils.isEmpty(name)){
             return "";
         }
         return name.substring(isAll ? name.lastIndexOf(".") :name.lastIndexOf(".")+1);
     }
 
     public static String filename(final String originalName){
-        if(EmptyUtils.isEmpty(originalName)){
+        if(GeneralUtils.isEmpty(originalName)){
             return "";
         }
         return originalName.substring(0,originalName.lastIndexOf("."));

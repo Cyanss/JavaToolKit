@@ -37,6 +37,10 @@ public class JavaFxException extends RestException {
         super(status);
     }
 
+    public JavaFxException(Integer status, String message) {
+        super(status, message);
+    }
+
     public JavaFxException(Integer status, RestStatus restStatus) {
         super(status, restStatus);
     }

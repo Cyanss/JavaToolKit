@@ -10,9 +10,9 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 9:57 2019/11/21
  */
-public class EmptyUtils {
+public class GeneralUtils {
 
-    public static Boolean isNotEmpty(Object object) {
+    public static boolean isNotEmpty(Object object) {
         if (object == null) {
             return false;
         } else if (object instanceof Integer) {
@@ -34,13 +34,13 @@ public class EmptyUtils {
         } else if (object instanceof Iterator) {
             return ((Iterator)object).hasNext();
         } else if (object.getClass().isArray()) {
-            return Collections.singletonList(object).size() > 0;
+            return Arrays.asList((Object[]) object).size() > 0;
         } else {
             return true;
         }
     }
 
-    public static Boolean isEmpty(Object object) {
+    public static boolean isEmpty(Object object) {
         if (object == null) {
             return true;
         } else if (object instanceof Integer) {
@@ -62,7 +62,7 @@ public class EmptyUtils {
         } else if (object instanceof Iterator) {
             return !((Iterator)object).hasNext();
         } else if (object.getClass().isArray()) {
-            return Collections.singletonList(object).size() == 0;
+            return Arrays.asList((Object[]) object).size() == 0;
         } else {
             return false;
         }

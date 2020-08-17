@@ -1,6 +1,6 @@
 package cyan.toolkit.javafx;
 
-import cyan.toolkit.rest.util.EmptyUtils;
+import cyan.toolkit.rest.util.GeneralUtils;
 import javafx.scene.control.TextField;
 
 /**
@@ -27,7 +27,7 @@ public class NumberField extends TextField {
         /** 替换非数字字符 */
         if (!text.matches("[A-Za-z]") && !text.matches("[\\\\!\"#$%&()*+,./:;<=>?@\\[\\]^_{|}~]+")) {
             String value = this.getText();
-            if (EmptyUtils.isNotEmpty(value)) {
+            if (GeneralUtils.isNotEmpty(value)) {
                 if (minValue <= Integer.valueOf(value) && Integer.valueOf(value) <= maxValue) {
                     super.replaceText(start,end,text);
                 }else if (minValue > Integer.valueOf(value)) {
@@ -48,7 +48,7 @@ public class NumberField extends TextField {
         /** 替换非数字字符 */
         if (!text.matches("[A-Za-z]") && !text.matches("[\\\\!\"#$%&()*+,./:;<=>?@\\[\\]^_{|}~]+")) {
             String value = this.getText();
-            if (EmptyUtils.isNotEmpty(value)) {
+            if (GeneralUtils.isNotEmpty(value)) {
                 if (minValue <= Integer.valueOf(value) && Integer.valueOf(value) <= maxValue) {
                     super.replaceSelection(text);
                 }else if (minValue > Integer.valueOf(value)) {

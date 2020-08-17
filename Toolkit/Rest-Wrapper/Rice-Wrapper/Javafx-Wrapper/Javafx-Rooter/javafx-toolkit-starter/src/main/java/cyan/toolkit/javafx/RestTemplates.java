@@ -1,14 +1,12 @@
 package cyan.toolkit.javafx;
 
 import cyan.toolkit.cloud.JavaFxException;
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.error.json.JsonParseBeanException;
 import cyan.toolkit.rest.error.often.FieldNullException;
-import cyan.toolkit.rest.error.supply.ResourceNotFoundException;
-import cyan.toolkit.rest.util.EmptyUtils;
+import cyan.toolkit.rest.util.GeneralUtils;
 import cyan.toolkit.rest.util.JsonUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,24 +128,24 @@ public class RestTemplates implements InitializingBean {
 
     public static <T> T parser(String response, Class<T> clazz) throws RestException {
         /** 解析返回体，返回token */
-        if (EmptyUtils.isEmpty(response)) {
-            throw new JavaFxException(RestResult.ResultCode.SERVICE_UNAVAILABLE, "请求无数据返回！");
+        if (GeneralUtils.isEmpty(response)) {
+            throw new FieldNullException("response","请求无数据返回！");
         }
         RestResult result = JsonUtils.parserBean(response, RestResult.class);
-        if (EmptyUtils.isEmpty(result)) {
+        if (GeneralUtils.isEmpty(result)) {
             throw new JsonParseBeanException(response,"请求数据解析错误！[Response]: ".concat(response));
         }
         if (!RestErrorStatus.SUCCESS.getStatus().equals(result.getStatus())) {
-            throw new JavaFxException(result.getStatus().shortValue(), "请求返回错误，[Message]: " + result.getMessage());
+            throw new JavaFxException(result.getStatus(), "请求返回错误，[Message]: " + result.getMessage());
         }
         Object data = result.getData();
-        if (EmptyUtils.isEmpty(data)) {
+        if (GeneralUtils.isEmpty(data)) {
             throw new FieldNullException("data","请求返回数据为空！[Message]: ".concat(result.getMessage()));
         }
         String login = JsonUtils.parserJson(data);
         T bean = JsonUtils.parserBean(login, clazz);
-        if (EmptyUtils.isEmpty(bean)) {
-            throw new JavaFxException(RestResult.ResultCode.JSON_PARSE_ERROR, "请求数据解析错误！[Data]: " + JsonUtils.parserJson(data));
+        if (GeneralUtils.isEmpty(bean)) {
+            throw new JsonParseBeanException(login,"请求数据解析错误！[Data]: ".concat(String.valueOf(data)));
         }
         return bean;
     }

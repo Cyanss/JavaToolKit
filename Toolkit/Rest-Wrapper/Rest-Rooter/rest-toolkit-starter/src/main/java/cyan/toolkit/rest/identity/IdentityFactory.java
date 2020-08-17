@@ -2,10 +2,8 @@ package cyan.toolkit.rest.identity;
 
 import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.configure.IdentityProperties;
-import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import cyan.toolkit.rest.identity.worker.IdentityWorker;
 import cyan.toolkit.rest.identity.worker.WorkerType;
-import cyan.toolkit.rest.util.EmptyUtils;
 import cyan.toolkit.rest.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

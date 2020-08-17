@@ -1,0 +1,16 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.javafx",
+      "sourceType": "cyan.toolkit.javafx.configure.JavaFxStarterProperties",
+      "type": "cyan.toolkit.javafx.configure.JavaFxStarterProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.javafx.local-cache",
+      "type": "java.lang.String",
+      "description": "local cache path ."
+    }
+  ]
+}

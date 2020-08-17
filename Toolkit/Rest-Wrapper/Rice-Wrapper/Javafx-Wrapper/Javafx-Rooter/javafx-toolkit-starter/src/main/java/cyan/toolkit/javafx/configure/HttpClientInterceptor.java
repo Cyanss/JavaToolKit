@@ -8,6 +8,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponents;
@@ -27,7 +28,8 @@ import java.util.Map;
 @Component
 public class HttpClientInterceptor implements ClientHttpRequestInterceptor {
     @Override
-    public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution execution) throws IOException {
+    @NonNull
+    public ClientHttpResponse intercept(@NonNull HttpRequest httpRequest, @NonNull byte[] bytes, @NonNull ClientHttpRequestExecution execution) throws IOException {
         String url = httpRequest.getURI().getPath();
         log.debug("[HttpRequest]-Url:     {}",url);
         HttpMethod method = httpRequest.getMethod();
