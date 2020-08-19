@@ -6,12 +6,12 @@ import java.util.Objects;
 
 /**
  * <p>ActuatorFunction</p>
- * @author liuqingpo(snow22314 @ outlook.com)
+ * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 10:13 2019/12/16
+ * @date 11:38 2019/12/16
  */
-//@FunctionalInterface
+@FunctionalInterface
 public interface FunctionActuator<T,R> {
     /**
      * 函数执行器

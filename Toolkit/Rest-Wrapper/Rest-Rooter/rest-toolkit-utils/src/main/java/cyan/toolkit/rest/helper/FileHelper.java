@@ -13,7 +13,7 @@ import java.nio.channels.FileChannel;
 import java.util.Map;
 
 /**
- * <p>RiceFileHelper</p>
+ * <p>FileHelper</p>
  *
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1

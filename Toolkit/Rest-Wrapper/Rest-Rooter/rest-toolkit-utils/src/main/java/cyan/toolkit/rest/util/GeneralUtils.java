@@ -3,7 +3,7 @@ package cyan.toolkit.rest.util;
 import java.util.*;
 
 /**
- * <p>EmptyUtils</p>
+ * <p>GeneralUtils</p>
  *
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1

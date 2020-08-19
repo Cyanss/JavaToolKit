@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * <p>BaseError</p>
+ * <p>RestError</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

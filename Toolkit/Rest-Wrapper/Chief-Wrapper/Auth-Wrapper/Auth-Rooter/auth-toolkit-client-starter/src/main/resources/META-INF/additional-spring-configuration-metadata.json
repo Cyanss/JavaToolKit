@@ -1,0 +1,21 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.image",
+      "sourceType": "cyan.toolkit.image.configure.ImageStarterProperties",
+      "type": "cyan.toolkit.image.configure.ImageStarterProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.image.active",
+      "type": "java.lang.String",
+      "description": "active ."
+    },
+    {
+      "name": "cyan.toolkit.image.path",
+      "type": "java.lang.String",
+      "description": "path ."
+    }
+  ]
+}

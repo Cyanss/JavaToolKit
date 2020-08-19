@@ -10,7 +10,7 @@
 	<version>${dt.version}</version>
 	<name>${project.artifactId}</name>
 	<packaging>war</packaging>
-	<description>the web of rest toolkit</description>
+	<description>the web of brief toolkit</description>
 
 	<properties>
 		<java.version>1.8</java.version>

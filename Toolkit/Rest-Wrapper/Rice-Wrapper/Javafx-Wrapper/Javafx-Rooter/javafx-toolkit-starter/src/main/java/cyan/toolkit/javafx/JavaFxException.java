@@ -1,4 +1,4 @@
-package cyan.toolkit.cloud;
+package cyan.toolkit.javafx;
 
 
 import cyan.toolkit.rest.RestError;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * <p>RiceException</p>
+ * <p>JavaFxException</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

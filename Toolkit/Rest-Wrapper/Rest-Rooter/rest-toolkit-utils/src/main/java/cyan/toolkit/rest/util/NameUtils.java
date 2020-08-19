@@ -4,6 +4,14 @@ package cyan.toolkit.rest.util;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * <p>NameUtils</p>
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 14:07 2019/12/16
+ */
 public class NameUtils {
     public static final String UUID = "uuid";
     public static final String NAME = "name";

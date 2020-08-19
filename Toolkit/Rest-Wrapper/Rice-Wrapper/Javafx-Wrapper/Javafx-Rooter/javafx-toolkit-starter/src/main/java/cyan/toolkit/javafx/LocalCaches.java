@@ -19,10 +19,10 @@ import java.util.Properties;
 
 /**
  * <p>ToolCacheManager</p>
- * @author liuqingpo(snow22314 @ outlook.com)
- * @version V.1.0.1
- * @company 苏州中科蓝迪公司所有(c) 2016-2021
- * @date created on 10:21 2020/7/22
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 14:12 2020/8/14
  */
 @Slf4j
 @Component

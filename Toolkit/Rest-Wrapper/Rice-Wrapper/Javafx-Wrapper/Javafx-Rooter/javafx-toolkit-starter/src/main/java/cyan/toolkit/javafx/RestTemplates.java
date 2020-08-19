@@ -1,6 +1,5 @@
 package cyan.toolkit.javafx;
 
-import cyan.toolkit.cloud.JavaFxException;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestResult;

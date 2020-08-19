@@ -6,7 +6,7 @@ import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
- * <p>LoggerHelper</p>
+ * <p>LoggerUtils</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

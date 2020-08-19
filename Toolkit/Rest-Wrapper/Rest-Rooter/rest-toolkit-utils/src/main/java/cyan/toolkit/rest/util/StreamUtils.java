@@ -10,6 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
+/**
+ * <p>StreamUtils</p>
+ *
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 10:26 2019/11/21
+ */
 @Slf4j
 public class StreamUtils {
 

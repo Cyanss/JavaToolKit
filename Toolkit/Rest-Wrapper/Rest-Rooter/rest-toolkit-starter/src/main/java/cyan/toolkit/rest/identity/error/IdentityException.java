@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * <p>GenerateException</p>
+ * <p>IdentityException</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

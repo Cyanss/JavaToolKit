@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * <p>GxAlertHelper 弹窗</p>
+ * <p>JavaFxAlerts</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

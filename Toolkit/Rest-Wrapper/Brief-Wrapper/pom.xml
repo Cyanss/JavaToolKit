@@ -9,6 +9,7 @@
     <version>0.0.1.RELEASE</version>
     <modules>
         <module>Brief-Rooter</module>
+        <module>Image-Wrapper</module>
     </modules>
     <name>Brief-Wrapper</name>
     <packaging>pom</packaging>

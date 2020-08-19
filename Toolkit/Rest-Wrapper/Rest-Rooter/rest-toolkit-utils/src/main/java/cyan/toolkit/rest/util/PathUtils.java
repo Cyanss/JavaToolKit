@@ -5,7 +5,13 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-
+/**
+ * <p>PathUtils</p>
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 14:07 2019/12/16
+ */
 public class PathUtils {
 
     public static String getRootPath() {

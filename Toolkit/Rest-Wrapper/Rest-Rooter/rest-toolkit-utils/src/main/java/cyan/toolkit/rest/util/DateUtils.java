@@ -12,10 +12,10 @@ import java.util.Map;
 
 /**
  * <p>DateUtils</p>
- * @author liuqingpo(snow22314@outlook.com)
- * @version V.1.0.1
- * @company 苏州中科蓝迪公司所有(c)2016-2021
- * @date created on 上午 11:57 2019-7-16
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 9:15 2019/12/26
  */
 @Slf4j
 public class DateUtils {

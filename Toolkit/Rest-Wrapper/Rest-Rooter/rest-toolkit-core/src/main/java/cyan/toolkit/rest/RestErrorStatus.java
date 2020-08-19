@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * <p>RiceStatus</p>
+ * <p>RestErrorStatus</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

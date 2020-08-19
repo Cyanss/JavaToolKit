@@ -16,6 +16,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * <p>FileUtils</p>
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 9:15 2019/12/26
+ */
 @Slf4j
 public class FileUtils {
 

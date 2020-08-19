@@ -12,11 +12,11 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * <p>GxPartitionUtils</p>
- * @author liuqingpo(snow22314 @ outlook.com)
- * @version V.1.0.1
- * @company 苏州中科蓝迪公司所有(c) 2016-2021
- * @date created on 17:50 2019/12/5
+ * <p>PartitionHelper</p>
+ * @author Cyan (snow22314@outlook.com)
+ * @version V.0.0.1
+ * @group cyan.tool.kit
+ * @date 18:25 2019/11/20
  */
 public class PartitionHelper {
 
