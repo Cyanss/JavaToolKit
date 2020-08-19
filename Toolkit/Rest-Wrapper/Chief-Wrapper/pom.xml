@@ -9,6 +9,7 @@
     <version>0.0.1.RELEASE</version>
     <modules>
         <module>Chief-Rooter</module>
+        <module>Image-Wrapper</module>
     </modules>
     <name>Chief-Wrapper</name>
     <packaging>pom</packaging>

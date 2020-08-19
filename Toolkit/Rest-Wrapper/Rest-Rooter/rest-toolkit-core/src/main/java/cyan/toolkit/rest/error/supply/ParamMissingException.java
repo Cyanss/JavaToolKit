@@ -26,8 +26,8 @@ public class ParamMissingException extends RestErrorException {
     }
 
     @Override
-    public ForbiddenException get() {
-        return new ForbiddenException();
+    public ParamMissingException get() {
+        return new ParamMissingException();
     }
 
     @Override

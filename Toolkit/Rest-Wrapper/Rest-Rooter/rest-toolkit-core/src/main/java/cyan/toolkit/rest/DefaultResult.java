@@ -61,6 +61,14 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).data(data).build();
     }
 
+    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(String message) {
+        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.FAILED.getStatus()).message(message).build();
+    }
+
+    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(String message, T data) {
+        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.FAILED.getStatus()).message(message).data(data).build();
+    }
+
     public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(Integer status, String message, T data) {
         return (new DefaultResult.Builder<T,S>()).status(status).message(message).data(data).build();
     }

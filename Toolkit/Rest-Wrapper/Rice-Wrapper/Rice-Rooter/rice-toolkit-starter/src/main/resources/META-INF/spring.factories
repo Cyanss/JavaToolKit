@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=cyan.toolkit.rest.configure.RestStarterAutoConfigure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cyan.toolkit.rice.configure.RiceStarterAutoConfigure

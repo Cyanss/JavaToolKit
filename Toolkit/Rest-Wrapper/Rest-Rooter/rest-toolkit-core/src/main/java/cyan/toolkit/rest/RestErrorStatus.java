@@ -63,6 +63,11 @@ public enum RestErrorStatus implements RestStatus {
     SERVICE_ERROR(10400, "服务器错误"),
     SERVICE_UNAVAILABLE(10401, "服务不可用"),
 
+    /** config */
+    CONFIG_ERROR(10410, "配置错误"),
+    CONFIG_INVALID(10411, "配置无效"),
+    CONFIG_UNAVAILABLE(10412, "配置不可用"),
+
     /** field */
     FIELD_ERROR(10500, "字段错误"),
     FIELD_IS_NULL(10501, "字段为空"),
@@ -92,10 +97,11 @@ public enum RestErrorStatus implements RestStatus {
     DATA_DELETE_ALL_FAILED(10614, "数据批量删除失败"),
     DATA_QUERY_ALL_FAILED(10615, "数据批量查询失败"),
 
-    /** service */
-    STREAM_ERROR(10400, "数据流错误"),
-    STREAM_READ_ERROR(10401, "数据流读取错误"),
-    STREAM_WRITE_ERROR(10401, "数据流写入错误"),
+    /** stream */
+    STREAM_ERROR(10620, "数据流错误"),
+    STREAM_READ_ERROR(10621, "数据流读取错误"),
+    STREAM_WRITE_ERROR(10622, "数据流写入错误"),
+    STREAM_TRANSFER_ERROR(10623, "数据流迁移错误"),
     ;
 
     ;

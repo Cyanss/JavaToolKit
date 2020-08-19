@@ -37,6 +37,10 @@ public class RiceException extends RestException {
         super(status);
     }
 
+    public RiceException(Integer status, String message) {
+        super(status, message);
+    }
+
     public RiceException(Integer status, RestStatus restStatus) {
         super(status, restStatus);
     }

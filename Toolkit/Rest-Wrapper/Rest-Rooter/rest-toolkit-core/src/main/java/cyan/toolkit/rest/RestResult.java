@@ -66,6 +66,14 @@ public class RestResult<T> extends DefaultResult<T,RestResult<T>> {
         return ResponseEntity.ok((new RestResult.Builder<T>()).status(status.getStatus()).message(status.getMessage()).data(data).build());
     }
 
+    public static <T> ResponseEntity<RestResult<T>> error(String message) {
+        return ResponseEntity.ok((new RestResult.Builder<T>()).status(RestErrorStatus.FAILED.getStatus()).message(message).build());
+    }
+
+    public static <T> ResponseEntity<RestResult<T>> error(String message, T data) {
+        return ResponseEntity.ok((new RestResult.Builder<T>()).status(RestErrorStatus.FAILED.getStatus()).message(message).data(data).build());
+    }
+
     public static <T> ResponseEntity<RestResult<T>> error(Integer status, String message, T data) {
         return ResponseEntity.ok((new RestResult.Builder<T>()).status(status).message(message).data(data).build());
     }

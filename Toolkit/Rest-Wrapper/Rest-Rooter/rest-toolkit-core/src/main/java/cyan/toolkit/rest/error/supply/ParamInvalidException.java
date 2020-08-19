@@ -30,8 +30,8 @@ public class ParamInvalidException extends RestErrorException {
     }
 
     @Override
-    public ForbiddenException get() {
-        return new ForbiddenException();
+    public ParamInvalidException get() {
+        return new ParamInvalidException();
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * <p>JavaFxViewStater</p>
+ * <p>ViewManager</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit

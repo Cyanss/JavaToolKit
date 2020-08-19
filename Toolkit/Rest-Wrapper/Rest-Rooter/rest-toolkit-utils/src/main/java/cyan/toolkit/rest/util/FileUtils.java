@@ -234,11 +234,11 @@ public class FileUtils {
         }
     }
 
-    public static String ext(String name,boolean isAll){
+    public static String extension(String name){
         if(GeneralUtils.isEmpty(name)){
-            return "";
+            return null;
         }
-        return name.substring(isAll ? name.lastIndexOf(".") :name.lastIndexOf(".")+1);
+        return name.substring(name.lastIndexOf("."));
     }
 
     public static String filename(final String originalName){

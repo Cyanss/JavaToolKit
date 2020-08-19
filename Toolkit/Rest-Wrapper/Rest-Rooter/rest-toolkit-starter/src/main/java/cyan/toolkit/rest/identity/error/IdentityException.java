@@ -36,6 +36,10 @@ public class IdentityException extends RestException {
         super(status);
     }
 
+    public IdentityException(Integer status, String message) {
+        super(status, message);
+    }
+
     public IdentityException(Integer status, RestStatus restStatus) {
         super(status, restStatus);
     }

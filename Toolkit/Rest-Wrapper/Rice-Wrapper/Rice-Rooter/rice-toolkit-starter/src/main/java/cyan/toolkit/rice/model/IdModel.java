@@ -3,6 +3,7 @@ package cyan.toolkit.rice.model;
 import cyan.toolkit.rest.util.JsonUtils;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 14:00 2020/8/14
  */
-public class IdModel <T extends IdModel<T>>{
+public class IdModel<T extends IdModel<T>> implements Serializable {
     private Long id;
 
     public IdModel() {

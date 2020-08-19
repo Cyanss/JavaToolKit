@@ -2,6 +2,7 @@ package cyan.toolkit.rest.util;
 
 
 import cyan.toolkit.rest.error.often.StreamReadException;
+import cyan.toolkit.rest.error.often.StreamTransferException;
 import cyan.toolkit.rest.error.often.StreamWriteException;
 import cyan.toolkit.rest.helper.StreamHelper;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,15 @@ import java.io.*;
 
 @Slf4j
 public class StreamUtils {
+
+    public static void transfer(InputStream inputStream, OutputStream outputStream) {
+        try {
+            StreamHelper.transfer(inputStream,outputStream);
+        } catch (StreamTransferException exception) {
+            log.error("It is failed during transferring from inputStream to outputStream!", exception);
+            exception.printStackTrace();
+        }
+    }
 
     public static String read(InputStream inputStream) {
         try {

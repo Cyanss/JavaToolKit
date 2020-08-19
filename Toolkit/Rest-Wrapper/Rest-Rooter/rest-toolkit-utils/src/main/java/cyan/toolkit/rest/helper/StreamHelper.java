@@ -1,6 +1,7 @@
 package cyan.toolkit.rest.helper;
 
 import cyan.toolkit.rest.error.often.StreamReadException;
+import cyan.toolkit.rest.error.often.StreamTransferException;
 import cyan.toolkit.rest.error.often.StreamWriteException;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,19 @@ import java.nio.charset.StandardCharsets;
  * @date 9:15 2019/12/26
  */
 public class StreamHelper {
+
+    public static void transfer(InputStream inputStream, OutputStream outputStream) throws StreamTransferException {
+        try {
+            int length;
+            byte[] buffer = new byte[1024];
+            while((length = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, length);
+                outputStream.flush();
+            }
+        } catch (IOException exception) {
+            throw new StreamTransferException(exception.getMessage());
+        }
+    }
 
     public static String read(InputStream inputStream) throws StreamReadException {
         try {
