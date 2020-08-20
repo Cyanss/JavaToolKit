@@ -9,7 +9,7 @@
     <version>0.0.1.RELEASE</version>
     <modules>
         <module>rest-toolkit-core</module>
-        <module>rest-toolkit-utils</module>
+        <module>rest-toolkit-common</module>
         <module>rest-toolkit-starter</module>
         <module>rest-toolkit-web</module>
     </modules>

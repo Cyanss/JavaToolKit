@@ -8,11 +8,11 @@
         <groupId>cyan.tool.kit</groupId>
         <version>0.0.1.RELEASE</version>
     </parent>
-    <artifactId>rest-toolkit-utils</artifactId>
+    <artifactId>rest-toolkit-common</artifactId>
     <version>${toolkit.version}</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <description>the utils of rest toolkit</description>
+    <description>the common of rest toolkit</description>
 
     <properties>
         <java.version>1.8</java.version>

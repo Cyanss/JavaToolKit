@@ -1,5 +1,6 @@
 package cyan.toolkit.image.base64;
 
+import cyan.toolkit.rest.util.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
@@ -25,12 +26,12 @@ public class Base64MultipartFile implements MultipartFile {
 
     @Override
     public String getName() {
-        return System.currentTimeMillis() + Math.random() + "." + this.header.split("/")[1];
+        return RandomUtils.randomDouble() + "." + this.header.split("/")[1];
     }
 
     @Override
     public String getOriginalFilename() {
-        return System.currentTimeMillis() + (int)Math.random() * 10000 + "." + this.header.split("/")[1];
+        return RandomUtils.randomLong() + "." + this.header.split("/")[1];
     }
 
     @Override
