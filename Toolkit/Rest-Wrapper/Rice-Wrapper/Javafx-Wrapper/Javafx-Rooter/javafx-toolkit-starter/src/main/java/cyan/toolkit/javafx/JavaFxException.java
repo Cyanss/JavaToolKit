@@ -53,7 +53,7 @@ public class JavaFxException extends RestException {
         return new JavaFxException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("rice exception");
     }
 }

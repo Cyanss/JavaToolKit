@@ -71,7 +71,7 @@ public class FileErrorException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FILE_ERROR).getName();
+    public String name() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FILE_ERROR).name();
     }
 }

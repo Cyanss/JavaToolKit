@@ -30,7 +30,7 @@ public class ForbiddenException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.AUTH_FORBIDDEN.getName();
+    public String name() {
+        return RestErrorStatus.AUTH_FORBIDDEN.name();
     }
 }

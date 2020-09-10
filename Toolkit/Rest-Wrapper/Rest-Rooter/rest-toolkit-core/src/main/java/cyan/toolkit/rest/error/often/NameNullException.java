@@ -30,7 +30,7 @@ public class NameNullException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.NAME_IS_NULL.getName();
+    public String name() {
+        return RestErrorStatus.NAME_IS_NULL.name();
     }
 }

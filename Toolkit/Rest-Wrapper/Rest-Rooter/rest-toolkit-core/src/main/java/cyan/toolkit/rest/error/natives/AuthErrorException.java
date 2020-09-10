@@ -78,7 +78,7 @@ public class AuthErrorException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.AUTH_ERROR).getName();
+    public String name() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.AUTH_ERROR).name();
     }
 }

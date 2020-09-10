@@ -34,7 +34,7 @@ public class DataQueryException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_QUERY_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_QUERY_FAILED.name();
     }
 }

@@ -46,7 +46,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
-        <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		<toolkit.version>0.0.1-SNAPSHOT</toolkit.version>
         <guava.version>29.0-jre</guava.version>
     </properties>

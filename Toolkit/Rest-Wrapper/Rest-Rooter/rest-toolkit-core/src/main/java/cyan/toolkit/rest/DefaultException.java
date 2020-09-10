@@ -226,13 +226,8 @@ class DefaultException extends Exception implements RestStatus, Supplier {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("default exception");
-    }
-
-    @Override
-    public Map<Integer, String> entry() {
-        return Collections.singletonMap(this.status,this.getMessage());
     }
 
     @Override

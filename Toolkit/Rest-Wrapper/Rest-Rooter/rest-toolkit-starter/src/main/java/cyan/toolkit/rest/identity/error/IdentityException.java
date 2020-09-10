@@ -52,7 +52,7 @@ public class IdentityException extends RestException {
         return new IdentityException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("generate exception");
     }
 }

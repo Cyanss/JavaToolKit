@@ -33,10 +33,6 @@ public enum IdentityErrorStatus implements RestStatus {
         return this.name().toLowerCase().replace("_", " ");
     }
 
-    public Map<Integer, String> entry() {
-        return Collections.singletonMap(this.status, this.message);
-    }
-
     public Integer getStatus() {
         return this.status;
     }

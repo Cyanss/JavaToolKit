@@ -34,8 +34,8 @@ public class DataBatchDeleteException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_DELETE_ALL_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_DELETE_ALL_FAILED.name();
     }
 }
 

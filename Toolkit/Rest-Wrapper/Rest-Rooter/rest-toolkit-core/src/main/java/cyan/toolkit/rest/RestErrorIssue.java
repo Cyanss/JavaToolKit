@@ -24,7 +24,7 @@ public class RestErrorIssue extends DefaultErrorIssue implements RestStatus {
     }
 
     public RestErrorIssue(RestStatus status) {
-        super(status.getName(),status.getMessage());
+        super(status.name(),status.getMessage());
         this.status = status.getStatus();
     }
 
@@ -74,7 +74,7 @@ public class RestErrorIssue extends DefaultErrorIssue implements RestStatus {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.getField()).orElse("rest error issue");
     }
 
@@ -85,6 +85,6 @@ public class RestErrorIssue extends DefaultErrorIssue implements RestStatus {
 
     @Override
     public Map<Integer, String> entry() {
-        return Collections.singletonMap(this.status, getIssue());
+        return Collections.singletonMap(this.getStatus(), getIssue());
     }
 }

@@ -34,7 +34,7 @@ public class IdentityRepeatException extends IdentityErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.IDENTITY_REPEATED.getName();
+    public String name() {
+        return RestErrorStatus.IDENTITY_REPEATED.name();
     }
 }

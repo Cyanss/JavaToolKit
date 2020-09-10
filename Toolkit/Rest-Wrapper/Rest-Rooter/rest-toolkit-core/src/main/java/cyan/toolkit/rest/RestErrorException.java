@@ -82,7 +82,7 @@ public class RestErrorException extends RestException {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("rest error exception");
     }
 }

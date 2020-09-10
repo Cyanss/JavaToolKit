@@ -26,7 +26,7 @@ public class ResourceNotFoundException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.RESOURCE_NOT_FOUND.getName();
+    public String name() {
+        return RestErrorStatus.RESOURCE_NOT_FOUND.name();
     }
 }

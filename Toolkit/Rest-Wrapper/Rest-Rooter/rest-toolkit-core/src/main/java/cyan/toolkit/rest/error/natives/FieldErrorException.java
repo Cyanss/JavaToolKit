@@ -57,7 +57,7 @@ public class FieldErrorException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FIELD_ERROR).getName();
+    public String name() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FIELD_ERROR).name();
     }
 }

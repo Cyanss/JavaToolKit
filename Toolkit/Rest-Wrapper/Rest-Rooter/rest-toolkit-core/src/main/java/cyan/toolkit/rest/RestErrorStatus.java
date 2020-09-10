@@ -2,9 +2,6 @@ package cyan.toolkit.rest;
 
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.Map;
-
 /**
  * <p>RestErrorStatus</p>
  * @author Cyan (snow22314@outlook.com)
@@ -111,17 +108,6 @@ public enum RestErrorStatus implements RestStatus {
     RestErrorStatus(Integer status, String message) {
         this.status = status;
         this.message = message;
-    }
-
-
-    @Override
-    public String getName() {
-        return this.name().toLowerCase().replace("_"," ");
-    }
-
-    @Override
-    public Map<Integer, String> entry() {
-        return Collections.singletonMap(this.status,this.message);
     }
 
 }

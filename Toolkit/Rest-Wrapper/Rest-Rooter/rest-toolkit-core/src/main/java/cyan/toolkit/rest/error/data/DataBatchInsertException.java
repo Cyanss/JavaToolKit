@@ -34,7 +34,7 @@ public class DataBatchInsertException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_INSERT_ALL_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_INSERT_ALL_FAILED.name();
     }
 }

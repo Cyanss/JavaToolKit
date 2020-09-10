@@ -7,7 +7,7 @@
 		<version>0.0.1.RELEASE</version>
 	</parent>
 	<artifactId>cloud-toolkit-feign-web</artifactId>
-	<version>${dt.version}</version>
+	<version>${toolkit.version}</version>
 	<name>${project.artifactId}</name>
 	<packaging>war</packaging>
 	<description>the web of cloud feign toolkit</description>
@@ -58,6 +58,11 @@
             </resource>
         </resources>
 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

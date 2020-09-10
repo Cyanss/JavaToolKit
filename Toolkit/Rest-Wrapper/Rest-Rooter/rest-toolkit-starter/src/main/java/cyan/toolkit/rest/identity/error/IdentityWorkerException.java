@@ -36,7 +36,7 @@ public class IdentityWorkerException extends IdentityException {
         return new IdentityWorkerException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("identity worker exception");
     }
 }

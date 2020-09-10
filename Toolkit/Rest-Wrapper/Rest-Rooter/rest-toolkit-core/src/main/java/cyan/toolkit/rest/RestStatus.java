@@ -1,9 +1,6 @@
 package cyan.toolkit.rest;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,7 +17,7 @@ public interface RestStatus {
      * 获取名字
      * @return String
      */
-    String getName();
+    String name();
     /**
      * 获取错误码
      * @return Integer
@@ -37,7 +34,9 @@ public interface RestStatus {
      * 枚举信息 <status,message>
      * @return Map<Integer,String>
      */
-    Map<Integer,String> entry();
+    default Map<Integer,String> entry() {
+        return Collections.singletonMap(this.getStatus(),this.getMessage());
+    }
 
     /**
      *

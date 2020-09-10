@@ -34,7 +34,7 @@ public class DataBatchSaveException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_SAVE_ALL_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_SAVE_ALL_FAILED.name();
     }
 }

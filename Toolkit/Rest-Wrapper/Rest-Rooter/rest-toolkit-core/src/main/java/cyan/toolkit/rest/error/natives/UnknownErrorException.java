@@ -50,7 +50,7 @@ public class UnknownErrorException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.UNKNOWN_ERROR).getName();
+    public String name() {
+        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.UNKNOWN_ERROR).name();
     }
 }

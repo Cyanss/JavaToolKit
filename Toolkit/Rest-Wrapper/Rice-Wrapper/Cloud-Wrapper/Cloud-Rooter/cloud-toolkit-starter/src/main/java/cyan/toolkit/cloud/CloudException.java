@@ -49,7 +49,7 @@ public class CloudException extends RestException {
         return new CloudException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("rice exception");
     }
 }

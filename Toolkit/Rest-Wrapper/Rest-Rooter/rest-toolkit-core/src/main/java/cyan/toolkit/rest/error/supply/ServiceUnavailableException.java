@@ -30,7 +30,7 @@ public class ServiceUnavailableException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.SERVICE_UNAVAILABLE.getName();
+    public String name() {
+        return RestErrorStatus.SERVICE_UNAVAILABLE.name();
     }
 }

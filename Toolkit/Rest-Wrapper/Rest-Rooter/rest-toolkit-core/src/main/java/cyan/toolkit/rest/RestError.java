@@ -22,31 +22,31 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
 
     public RestError() {
         super(RestErrorStatus.UNKNOWN_ERROR.getMessage());
-        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.name = RestErrorStatus.UNKNOWN_ERROR.name();
         this.status = RestErrorStatus.UNKNOWN_ERROR.getStatus();
     }
 
     public RestError(Supplier<RestStatus> supplier) {
         super(supplier.get().getMessage());
-        this.name = supplier.get().getName();
+        this.name = supplier.get().name();
         this.status = supplier.get().getStatus();
     }
 
     public RestError(RestStatus status) {
         super(status.getMessage());
-        this.name = status.getName();
+        this.name = status.name();
         this.status = status.getStatus();
     }
 
     public RestError(String message) {
         super(message);
-        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.name = RestErrorStatus.UNKNOWN_ERROR.name();
         this.status = RestErrorStatus.UNKNOWN_ERROR.getStatus();
     }
 
     public RestError(Integer status) {
         super(RestErrorStatus.UNKNOWN_ERROR.getMessage());
-        this.name = RestErrorStatus.UNKNOWN_ERROR.getName();
+        this.name = RestErrorStatus.UNKNOWN_ERROR.name();
         this.status = status;
     }
 
@@ -57,13 +57,13 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
 
     public RestError(Integer status, RestStatus restStatus) {
         super(restStatus.getMessage());
-        this.name = restStatus.getName();
+        this.name = restStatus.name();
         this.status = status;
     }
 
     public RestError(String message, RestStatus status) {
         super(message);
-        this.name = status.getName();
+        this.name = status.name();
         this.status = status.getStatus();
     }
 
@@ -86,7 +86,7 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
 
     public RestError(RestStatus status, Throwable cause) {
         super(status.getMessage(), cause);
-        this.name = status.getName();
+        this.name = status.name();
         this.status = status.getStatus();
     }
 
@@ -291,8 +291,8 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
     }
 
     @Override
-    public Map<Integer, String> entry() {
-        return Collections.singletonMap(this.status,this.getMessage());
+    public String name() {
+        return this.getName();
     }
 
     @Override
@@ -311,7 +311,7 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
 
         private Builder(RestStatus status) {
             super(status);
-            this.name = status.getName();
+            this.name = status.name();
             this.status = status.getStatus();
         }
 
@@ -321,7 +321,7 @@ public class RestError extends DefaultError implements RestStatus, Supplier {
         }
 
         public RestError.Builder name(RestStatus status) {
-            this.name = status.getName();
+            this.name = status.name();
             return this;
         }
 

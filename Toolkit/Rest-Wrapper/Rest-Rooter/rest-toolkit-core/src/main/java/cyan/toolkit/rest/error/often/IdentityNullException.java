@@ -29,7 +29,7 @@ public class IdentityNullException extends IdentityErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.IDENTITY_IS_NULL.getName();
+    public String name() {
+        return RestErrorStatus.IDENTITY_IS_NULL.name();
     }
 }

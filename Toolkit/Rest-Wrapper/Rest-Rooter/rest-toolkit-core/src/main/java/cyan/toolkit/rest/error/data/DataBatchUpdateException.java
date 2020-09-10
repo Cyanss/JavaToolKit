@@ -34,7 +34,7 @@ public class DataBatchUpdateException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_UPDATE_ALL_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_UPDATE_ALL_FAILED.name();
     }
 }

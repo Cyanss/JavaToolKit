@@ -31,7 +31,7 @@ public class FileCreateException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.FILE_CREATE_ERROR.getName();
+    public String name() {
+        return RestErrorStatus.FILE_CREATE_ERROR.name();
     }
 }

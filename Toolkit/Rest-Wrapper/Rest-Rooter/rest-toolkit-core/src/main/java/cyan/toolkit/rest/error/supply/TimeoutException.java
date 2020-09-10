@@ -27,7 +27,7 @@ public class TimeoutException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.TIME_OUT.getName();
+    public String name() {
+        return RestErrorStatus.TIME_OUT.name();
     }
 }

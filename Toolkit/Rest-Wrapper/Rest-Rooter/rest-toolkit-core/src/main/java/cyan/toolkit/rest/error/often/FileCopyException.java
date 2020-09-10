@@ -31,7 +31,7 @@ public class FileCopyException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.FILE_COPY_ERROR.getName();
+    public String name() {
+        return RestErrorStatus.FILE_COPY_ERROR.name();
     }
 }

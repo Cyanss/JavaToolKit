@@ -34,7 +34,7 @@ public class DataCreateException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.DATA_CREATE_FAILED.getName();
+    public String name() {
+        return RestErrorStatus.DATA_CREATE_FAILED.name();
     }
 }

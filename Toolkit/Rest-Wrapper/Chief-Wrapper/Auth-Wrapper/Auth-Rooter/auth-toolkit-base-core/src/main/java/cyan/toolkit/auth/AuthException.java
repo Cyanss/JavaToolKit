@@ -53,7 +53,7 @@ public class AuthException extends RestException {
         return new AuthException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("auth exception");
     }
 }

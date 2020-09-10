@@ -53,7 +53,7 @@ public class RiceException extends RestException {
         return new RiceException();
     }
 
-    public String getName() {
+    public String name() {
         return Optional.ofNullable(this.error).map(RestError::getName).orElse("rice exception");
     }
 }

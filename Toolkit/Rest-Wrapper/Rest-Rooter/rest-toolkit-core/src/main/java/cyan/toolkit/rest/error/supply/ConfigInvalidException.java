@@ -35,7 +35,7 @@ public class ConfigInvalidException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.CONFIG_INVALID.getName();
+    public String name() {
+        return RestErrorStatus.CONFIG_INVALID.name();
     }
 }

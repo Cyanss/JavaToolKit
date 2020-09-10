@@ -31,7 +31,7 @@ public class ParamMissingException extends RestErrorException {
     }
 
     @Override
-    public String getName() {
-        return RestErrorStatus.PARAM_MISSING.getName();
+    public String name() {
+        return RestErrorStatus.PARAM_MISSING.name();
     }
 }
