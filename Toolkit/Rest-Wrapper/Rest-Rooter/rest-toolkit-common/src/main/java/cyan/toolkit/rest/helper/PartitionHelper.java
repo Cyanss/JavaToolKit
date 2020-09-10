@@ -5,7 +5,7 @@ import com.google.common.collect.Lists;
 import cyan.toolkit.rest.actuator.ConsumerActuator;
 import cyan.toolkit.rest.actuator.FunctionActuator;
 import cyan.toolkit.rest.RestException;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

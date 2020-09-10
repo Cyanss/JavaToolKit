@@ -1,6 +1,6 @@
 package cyan.toolkit.javafx.configure;
 
-import cyan.toolkit.rest.util.JsonUtils;
+import cyan.toolkit.rest.util.common.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;

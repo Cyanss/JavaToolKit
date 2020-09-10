@@ -1,6 +1,6 @@
 package cyan.toolkit.rice.time;
 
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 
 import java.time.Duration;
 import java.time.Instant;

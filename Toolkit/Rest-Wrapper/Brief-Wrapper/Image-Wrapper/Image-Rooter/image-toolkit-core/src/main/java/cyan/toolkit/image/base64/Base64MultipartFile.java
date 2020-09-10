@@ -1,6 +1,6 @@
 package cyan.toolkit.image.base64;
 
-import cyan.toolkit.rest.util.RandomUtils;
+import cyan.toolkit.rest.util.often.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;

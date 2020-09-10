@@ -1,6 +1,6 @@
 package cyan.toolkit.rice.model;
 
-import cyan.toolkit.rest.util.JsonUtils;
+import cyan.toolkit.rest.util.common.JsonUtils;
 
 import java.io.Serializable;
 import java.util.Objects;

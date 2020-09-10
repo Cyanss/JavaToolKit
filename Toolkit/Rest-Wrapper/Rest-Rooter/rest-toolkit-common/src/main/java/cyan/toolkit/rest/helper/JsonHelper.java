@@ -11,7 +11,7 @@ import cyan.toolkit.rest.error.json.JsonParseListException;
 import cyan.toolkit.rest.error.json.JsonParseMapException;
 import cyan.toolkit.rest.error.json.JsonParseSetException;
 import cyan.toolkit.rest.error.supply.JsonParseException;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 
 import java.util.Collections;
 import java.util.List;

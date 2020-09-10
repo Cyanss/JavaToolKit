@@ -1,8 +1,8 @@
 package cyan.toolkit.javafx;
 
 import cyan.toolkit.javafx.configure.JavaFxStarterProperties;
-import cyan.toolkit.rest.util.FileUtils;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.FileUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

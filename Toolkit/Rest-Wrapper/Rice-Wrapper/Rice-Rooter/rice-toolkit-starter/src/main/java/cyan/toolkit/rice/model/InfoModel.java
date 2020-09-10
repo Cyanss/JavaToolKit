@@ -1,8 +1,6 @@
 package cyan.toolkit.rice.model;
 
-import cyan.toolkit.rest.util.JsonUtils;
-
-import java.util.Objects;
+import cyan.toolkit.rest.util.common.JsonUtils;
 
 /**
  * <p>InfoModel</p>

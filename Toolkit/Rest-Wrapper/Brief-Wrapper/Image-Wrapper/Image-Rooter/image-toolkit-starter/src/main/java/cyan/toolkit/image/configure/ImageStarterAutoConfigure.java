@@ -2,24 +2,18 @@ package cyan.toolkit.image.configure;
 
 import cyan.toolkit.image.ImageManager;
 import cyan.toolkit.image.ImageService;
-import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.error.supply.ConfigInvalidException;
 import cyan.toolkit.rest.error.supply.ServiceUnavailableException;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.lang.NonNull;
-
-import javax.annotation.PostConstruct;
-import java.util.Map;
 
 /**
  * <p>ImageStarterAutoConfigure</p>

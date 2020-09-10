@@ -1,6 +1,6 @@
 package cyan.toolkit.javafx;
 
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import javafx.scene.control.TextField;
 
 /**

@@ -6,16 +6,13 @@ import cyan.toolkit.image.model.ImageInfo;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.error.often.FieldNullException;
-import cyan.toolkit.rest.util.GeneralUtils;
-import org.apache.logging.log4j.util.Base64Util;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 /**

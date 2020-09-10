@@ -1,14 +1,11 @@
 package cyan.toolkit.image;
 
-import cyan.toolkit.rest.util.FileUtils;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.FileUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * <p>ImageManager</p>

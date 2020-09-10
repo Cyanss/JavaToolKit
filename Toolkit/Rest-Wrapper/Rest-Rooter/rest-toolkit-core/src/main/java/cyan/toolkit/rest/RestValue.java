@@ -28,7 +28,21 @@ public interface RestValue<K,V> extends RestKey<K> {
     Map<K,V> entry();
 
     /**
-     * message集合 <message>
+     * 通过key获取
+     * @param key key
+     * @return RestValue<K,V>
+     */
+    RestValue<K,V> parseKey(K key);
+
+    /**
+     * 通过value获取
+     * @param value value
+     * @return RestValue<K,V>
+     */
+    RestValue<K,V> parseValue(V value);
+
+    /**
+     * 枚举集合 <message>
      * @return Set<String>
      */
     static <T extends RestValue<K,V>,K,V> List<T> list(Class<T> clazz) {
@@ -36,7 +50,7 @@ public interface RestValue<K,V> extends RestKey<K> {
     }
 
     /**
-     * message集合 <message>
+     * 枚举Map集合 <message>
      * @return Set<String>
      */
     static <T extends RestValue<K,V>,K,V> List<Map<K,V>> entry(Class<T> clazz) {
@@ -45,7 +59,7 @@ public interface RestValue<K,V> extends RestKey<K> {
 
 
     /**
-     * message集合 <message>
+     * 枚举值集合 <message>
      * @return Set<String>
      */
     static <T extends RestValue<K,V>,K,V> List<V> value(Class<T> clazz) {
@@ -53,7 +67,7 @@ public interface RestValue<K,V> extends RestKey<K> {
     }
 
     /**
-     * pa
+     *
      * @param clazz 枚举类型
      * @param key key值
      * @param <T> 泛型

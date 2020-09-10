@@ -3,7 +3,7 @@ package cyan.toolkit.rice.time.serialize;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rice.time.TimeInstant;
 import org.springframework.stereotype.Component;
 

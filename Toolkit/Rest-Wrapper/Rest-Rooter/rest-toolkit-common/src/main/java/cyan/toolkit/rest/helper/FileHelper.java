@@ -3,7 +3,7 @@ package cyan.toolkit.rest.helper;
 
 import cyan.toolkit.rest.error.often.FileCopyException;
 import cyan.toolkit.rest.error.often.FileCreateException;
-import cyan.toolkit.rest.util.NameUtils;
+import cyan.toolkit.rest.util.often.NameUtils;
 
 import java.io.File;
 import java.io.FileInputStream;

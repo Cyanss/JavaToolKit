@@ -1,10 +1,10 @@
 package cyan.toolkit.rest.identity;
 
 import cyan.toolkit.rest.RestError;
-import cyan.toolkit.rest.configure.IdentityProperties;
+import cyan.toolkit.rest.configure.RestIdentityProperties;
 import cyan.toolkit.rest.identity.worker.IdentityWorker;
 import cyan.toolkit.rest.identity.worker.WorkerType;
-import cyan.toolkit.rest.util.JsonUtils;
+import cyan.toolkit.rest.util.common.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class IdentityFactory implements InitializingBean {
 
     @Autowired
-    private IdentityProperties properties;
+    private RestIdentityProperties properties;
 
     private static IdentityFactory instance = null;
 

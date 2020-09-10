@@ -2,8 +2,13 @@
   "groups": [
     {
       "name": "cyan.toolkit.identity",
-      "sourceType": "cyan.toolkit.rest.configure.IdentityProperties",
-      "type": "cyan.toolkit.rest.configure.IdentityProperties"
+      "sourceType": "cyan.toolkit.rest.configure.RestIdentityProperties",
+      "type": "cyan.toolkit.rest.configure.RestIdentityProperties"
+    },
+    {
+      "name": "cyan.toolkit.intercept",
+      "sourceType": "cyan.toolkit.rest.configure.RestInterceptProperties",
+      "type": "cyan.toolkit.rest.configure.RestInterceptProperties"
     }
   ],
   "properties": [
@@ -16,6 +21,62 @@
       "name": "cyan.toolkit.identity.center-id",
       "type": "java.lang.Long",
       "description": "center-id."
+    },
+    {
+      "name": "cyan.toolkit.intercept.enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept enable."
+    },
+    {
+      "name": "cyan.toolkit.intercept.log-enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept log enable."
+    },
+    {
+      "name": "cyan.toolkit.intercept.bean-enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept bean enable."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.intercept.enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept close."
+        },
+        {
+          "value": true,
+          "description": "intercept open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.intercept.log-enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept log close."
+        },
+        {
+          "value": true,
+          "description": "intercept log open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.intercept.bean-enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept bean close."
+        },
+        {
+          "value": true,
+          "description": "intercept bean open."
+        }
+      ]
     }
   ]
 }

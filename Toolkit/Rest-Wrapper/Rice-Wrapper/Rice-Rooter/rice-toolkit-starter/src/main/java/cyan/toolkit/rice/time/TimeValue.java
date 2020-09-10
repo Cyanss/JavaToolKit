@@ -1,6 +1,6 @@
 package cyan.toolkit.rice.time;
 
-import cyan.toolkit.rest.util.GeneralUtils;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import org.springframework.lang.NonNull;
 
 import java.time.Duration;
