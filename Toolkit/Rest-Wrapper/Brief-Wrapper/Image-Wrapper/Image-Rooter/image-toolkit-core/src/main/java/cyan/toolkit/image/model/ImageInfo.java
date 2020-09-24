@@ -1,6 +1,6 @@
 package cyan.toolkit.image.model;
 
-import cyan.toolkit.rice.model.UuidModel;
+import cyan.toolkit.rice.model.IdModel;
 
 /**
  * <p>ImageInfo</p>
@@ -9,7 +9,7 @@ import cyan.toolkit.rice.model.UuidModel;
  * @group cyan.tool.kit
  * @date 10:48 2020/8/18
  */
-public class ImageInfo extends UuidModel<ImageInfo> {
+public class ImageInfo extends IdModel<String> {
     private String name;
     private String extension;
     private String path;
@@ -20,8 +20,8 @@ public class ImageInfo extends UuidModel<ImageInfo> {
     public ImageInfo() {
     }
 
-    public ImageInfo(String uuid) {
-        super(uuid);
+    public ImageInfo(String id) {
+        super(id);
     }
 
     public ImageInfo(ImageInfo.Builder builder) {
@@ -83,7 +83,7 @@ public class ImageInfo extends UuidModel<ImageInfo> {
         this.height = height;
     }
 
-    public static class Builder extends UuidModel.Builder {
+    public static class Builder extends IdModel.Builder<String> {
         protected String name;
         protected String extension;
         protected String path;
@@ -94,8 +94,8 @@ public class ImageInfo extends UuidModel<ImageInfo> {
         public Builder() {
         }
 
-        public ImageInfo.Builder uuid(String uuid) {
-            super.uuid(uuid);
+        public ImageInfo.Builder id(String id) {
+            super.id(id);
             return this;
         }
 

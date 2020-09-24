@@ -2,6 +2,8 @@ package cyan.toolkit.rest;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>DefaultErrorIssue</p>
  * @author Cyan (snow22314@outlook.com)
@@ -10,7 +12,7 @@ import lombok.Data;
  * @date 10:17 2019/12/16
  */
 @Data
-class DefaultErrorIssue {
+class DefaultErrorIssue implements Serializable {
     protected String field;
     protected Object value;
     protected String issue;

@@ -31,6 +31,10 @@ public class IdentityErrorException extends RestErrorException {
         super(RestErrorStatus.IDENTITY_ERROR, RestError.error(status));
     }
 
+    public IdentityErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public IdentityErrorException(RestStatus status, String error) {
         super(RestErrorStatus.IDENTITY_ERROR,RestError.error(status, error));
     }

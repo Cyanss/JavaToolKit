@@ -26,7 +26,7 @@ public class RestInterceptHolder {
             Map.Entry<String, String[]> entry = iterator.next();
             requestMap.put(entry.getKey(), entry.getValue()[0]);
         }
-        return JsonUtils.parserJson(requestMap);
+        return JsonUtils.parseJson(requestMap);
     }
 
     public static String getRequestBody(HttpServletRequest request) throws IOException {

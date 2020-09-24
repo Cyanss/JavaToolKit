@@ -41,7 +41,7 @@ public class IdentityFactory implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        log.debug("identity properties: {}", JsonUtils.parserJson(properties));
+        log.debug("identity properties: {}", JsonUtils.parseJson(properties));
         IdentityWorker.get();
         IdentityWorker.get(properties.getWorkerId(),properties.getCenterId());
         instance = this;

@@ -3,6 +3,7 @@ package cyan.toolkit.rest;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>RiceStatus</p>
@@ -44,7 +45,7 @@ public interface RestStatus {
      * @param <T> T
      * @return List<T>
      */
-    static <T extends RestStatus> List<T> list(Class<T> clazz) {
+    static <T extends RestStatus> List<T> lists(Class<T> clazz) {
         return Arrays.asList(clazz.getEnumConstants());
     }
 
@@ -52,24 +53,24 @@ public interface RestStatus {
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<Map<Integer,String>> entry(Class<T> clazz) {
-        return list(clazz).stream().map(RestStatus::entry).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<Map<Integer,String>> entries(Class<T> clazz) {
+        return lists(clazz).stream().map(RestStatus::entry).distinct().collect(Collectors.toList());
     }
 
     /**
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<Integer> status(Class<T> clazz) {
-        return list(clazz).stream().map(RestStatus::getStatus).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<Integer> statuses(Class<T> clazz) {
+        return lists(clazz).stream().map(RestStatus::getStatus).distinct().collect(Collectors.toList());
     }
 
     /**
      * message集合 <message>
      * @return Set<String>
      */
-    static <T extends RestStatus> List<String> message(Class<T> clazz) {
-        return list(clazz).stream().map(RestStatus::getMessage).distinct().collect(Collectors.toList());
+    static <T extends RestStatus> List<String> messages(Class<T> clazz) {
+        return lists(clazz).stream().map(RestStatus::getMessage).distinct().collect(Collectors.toList());
     }
 
     /**
@@ -80,7 +81,7 @@ public interface RestStatus {
      * @return boolean
      */
     static <T extends RestStatus> Boolean confirm(Class<T> clazz, Integer status) {
-        return Optional.ofNullable(map(clazz,status)).isPresent();
+        return Optional.ofNullable(parseStatus(clazz,status)).isPresent();
     }
 
 
@@ -91,10 +92,9 @@ public interface RestStatus {
      * @param <T> 泛型
      * @return T
      */
-    static <T extends RestStatus> T map(Class<T> clazz, Integer status){
+    static <T extends RestStatus> T parseStatus(Class<T> clazz, Integer status){
         if (status != null && clazz.isEnum()) {
-            List<T> enumList = Arrays.asList(clazz.getEnumConstants());
-            Map<Integer, T> errorMap = enumList.stream().collect(Collectors.toMap(RestStatus::getStatus, Function.identity()));
+            Map<Integer, T> errorMap = Stream.of(clazz.getEnumConstants()).collect(Collectors.toMap(RestStatus::getStatus, Function.identity()));
             return errorMap.get(status);
         }
         return null;

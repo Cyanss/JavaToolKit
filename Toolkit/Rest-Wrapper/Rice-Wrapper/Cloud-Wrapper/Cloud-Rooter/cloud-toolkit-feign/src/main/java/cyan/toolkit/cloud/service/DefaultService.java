@@ -1,6 +1,5 @@
 package cyan.toolkit.cloud.service;
 
-import cyan.toolkit.rest.DefaultResult;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rice.model.InfoModel;
 import org.springframework.cloud.openfeign.FeignClient;

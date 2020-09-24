@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 public class JavaFxStarterAutoConfigure {
 
     @Autowired
+    private JavaFxStarterProperties properties;
+    @Autowired
     private HttpClientInterceptor httpClientInterceptor;
 
     public JavaFxStarterAutoConfigure() {
@@ -29,7 +31,10 @@ public class JavaFxStarterAutoConfigure {
     @Bean
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getInterceptors().add(httpClientInterceptor);
+        JavaFxStarterProperties.RestInfo restInfo = properties.getRestInfo();
+        if (restInfo.getEnable()) {
+            restTemplate.getInterceptors().add(httpClientInterceptor);
+        }
         return restTemplate;
     }
 }

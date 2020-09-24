@@ -1,10 +1,9 @@
 package cyan.toolkit.rest;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>RiceValue</p>
@@ -25,27 +24,15 @@ public interface RestValue<K,V> extends RestKey<K> {
      * 枚举信息 <status,message>
      * @return Map<Integer,String>
      */
-    Map<K,V> entry();
-
-    /**
-     * 通过key获取
-     * @param key key
-     * @return RestValue<K,V>
-     */
-    RestValue<K,V> parseKey(K key);
-
-    /**
-     * 通过value获取
-     * @param value value
-     * @return RestValue<K,V>
-     */
-    RestValue<K,V> parseValue(V value);
+    default Map<K,V> entry() {
+        return Collections.singletonMap(this.getKey(),this.getValue());
+    }
 
     /**
      * 枚举集合 <message>
      * @return Set<String>
      */
-    static <T extends RestValue<K,V>,K,V> List<T> list(Class<T> clazz) {
+    static <T extends RestValue<K,V>,K,V> List<T> lists(Class<T> clazz) {
         return Arrays.asList(clazz.getEnumConstants());
     }
 
@@ -53,8 +40,8 @@ public interface RestValue<K,V> extends RestKey<K> {
      * 枚举Map集合 <message>
      * @return Set<String>
      */
-    static <T extends RestValue<K,V>,K,V> List<Map<K,V>> entry(Class<T> clazz) {
-        return list(clazz).stream().map(RestValue::entry).distinct().collect(Collectors.toList());
+    static <T extends RestValue<K,V>,K,V> List<Map<K,V>> entries(Class<T> clazz) {
+        return lists(clazz).stream().map(RestValue::entry).distinct().collect(Collectors.toList());
     }
 
 
@@ -62,8 +49,8 @@ public interface RestValue<K,V> extends RestKey<K> {
      * 枚举值集合 <message>
      * @return Set<String>
      */
-    static <T extends RestValue<K,V>,K,V> List<V> value(Class<T> clazz) {
-        return list(clazz).stream().map(RestValue::getValue).distinct().collect(Collectors.toList());
+    static <T extends RestValue<K,V>,K,V> List<V> values(Class<T> clazz) {
+        return lists(clazz).stream().map(RestValue::getValue).distinct().collect(Collectors.toList());
     }
 
     /**
@@ -74,24 +61,36 @@ public interface RestValue<K,V> extends RestKey<K> {
      * @return boolean
      */
     static <T extends RestValue<K,V>,K,V> Boolean confirm(Class<T> clazz, K key) {
-        return Optional.ofNullable(map(clazz,key)).isPresent();
+        return Optional.ofNullable(parserKey(clazz,key)).isPresent();
     }
 
 
     /**
-     * 根据status获取枚举值
-     * @param clazz 枚举类型
-     * @param key status值
-     * @param <T> 泛型
-     * @return T
+     * 通过key获取
+     * @param key key
+     * @return RestValue<K,V>
      */
-    static <T extends RestValue<K,V>,K,V> T map(Class<T> clazz, K key){
-       if (key != null && clazz.isEnum()) {
-           List<T> enumList = Arrays.asList(clazz.getEnumConstants());
-           Map<K, T> riceMap = enumList.stream().collect(Collectors.toMap(RestKey::getKey, rice -> rice));
-           return riceMap.get(key);
-       }
-       return null;
+    static <T extends RestValue<K,V>,K,V> T parserKey(Class<T> clazz, K key){
+        if (key != null && clazz.isEnum()) {
+            Map<K, T> restValueMap = Stream.of(clazz.getEnumConstants()).collect(Collectors.toMap(RestKey::getKey, Function.identity()));
+            return restValueMap.get(key);
+        }
+        return null;
+    }
+
+
+
+    /**
+     * 通过value获取
+     * @param value value
+     * @return RestValue<K,V>
+     */
+    static <T extends RestValue<K,V>,K,V> T parserValue(Class<T> clazz, V value){
+        if (value != null && clazz.isEnum()) {
+            Map<V, T> restValueMap =Stream.of(clazz.getEnumConstants()).collect(Collectors.toMap(RestValue::getValue, Function.identity()));
+            return restValueMap.get(value);
+        }
+        return null;
     }
     
 }

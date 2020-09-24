@@ -9,7 +9,7 @@ import cyan.toolkit.rest.util.common.JsonUtils;
  * @group cyan.tool.kit
  * @date 14:04 2020/8/14
  */
-public class InfoModel<T extends InfoModel<T>> extends IdModel<T> {
+public class InfoModel<I> extends IdModel<I> {
     /** 名称 */
     private String name;
     /** 描述信息 */
@@ -18,11 +18,11 @@ public class InfoModel<T extends InfoModel<T>> extends IdModel<T> {
     public InfoModel() {
     }
 
-    public InfoModel(Long id) {
+    public InfoModel(I id) {
         super(id);
     }
 
-    public InfoModel(InfoModel.Builder builder) {
+    public InfoModel(InfoModel.Builder<I> builder) {
         super(builder);
         this.name = builder.name;
         this.description = builder.description;
@@ -46,33 +46,33 @@ public class InfoModel<T extends InfoModel<T>> extends IdModel<T> {
 
     @Override
     public String toString() {
-        return JsonUtils.parserJson(this);
+        return JsonUtils.parseJson(this);
     }
 
-    public static class Builder extends IdModel.Builder {
+    public static class Builder<I> extends IdModel.Builder<I> {
         protected String name;
         protected String description;
 
         public Builder() {
         }
 
-        public InfoModel.Builder id(Long id) {
+        public InfoModel.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public InfoModel.Builder name(String name) {
+        public InfoModel.Builder<I> name(String name) {
             this.name = name;
             return this;
         }
 
-        public InfoModel.Builder description(String description) {
+        public InfoModel.Builder<I> description(String description) {
             this.description = description;
             return this;
         }
 
-        public InfoModel build() {
-            return new InfoModel(this);
+        public InfoModel<I> build() {
+            return new InfoModel<>(this);
         }
     }
 }

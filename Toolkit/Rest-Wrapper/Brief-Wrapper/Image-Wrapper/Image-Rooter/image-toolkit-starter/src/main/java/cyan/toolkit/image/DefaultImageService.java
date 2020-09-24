@@ -40,7 +40,7 @@ final class DefaultImageService implements ImageService {
         String uuid = RandomUtils.uuid();
         ImageInfo imageInfo;
         try {
-            String uuidPath = ImageManager.uuid(uuid);
+            String uuidPath = ImageManager.id(uuid);
             String imagePath = uuidPath.concat(File.separator).concat(filename);
             FileOutputStream outputStream = new FileOutputStream(new File(imagePath));
             StreamUtils.transfer(file.getInputStream(), outputStream);
@@ -50,7 +50,7 @@ final class DefaultImageService implements ImageService {
                 throw new ImageException("图片格式错误！", new ParamInvalidException());
             }
             ImageInfo.Builder builder = new ImageInfo.Builder();
-            builder.uuid(uuid).extension(extension).name(filename).size(size).path(imagePath);
+            builder.id(uuid).extension(extension).name(filename).size(size).path(imagePath);
             FileOutputStream fileOutputStream = new FileOutputStream(new File(metaPath));
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             imageInfo = new ImageInfo(builder);
@@ -85,7 +85,7 @@ final class DefaultImageService implements ImageService {
     @Override
     public ImageInfo info(String uuid) throws ImageException {
         try {
-            String uuidPath = ImageManager.uuid(uuid);
+            String uuidPath = ImageManager.id(uuid);
             String metaPath = uuidPath.concat(File.separator).concat(uuid).concat(".meta");
             FileInputStream metaInputStream = new FileInputStream(new File(metaPath));
             ObjectInputStream objectInputStream = new ObjectInputStream(metaInputStream);

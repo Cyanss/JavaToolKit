@@ -43,10 +43,10 @@ public class ImageManager {
         IMAGE_SERVICE_HOLDER = ImageManager.getApplicationContext().getBeansOfType(ImageService.class);
     }
 
-    public static String uuid(String uuid) {
+    public static String id(String id) {
         String defaultPath = "default";
-        if (GeneralUtils.isNotEmpty(uuid)) {
-            defaultPath = uuid;
+        if (GeneralUtils.isNotEmpty(id)) {
+            defaultPath = id;
         }
         return FileUtils.createPath(IMAGE_PATH, defaultPath);
 

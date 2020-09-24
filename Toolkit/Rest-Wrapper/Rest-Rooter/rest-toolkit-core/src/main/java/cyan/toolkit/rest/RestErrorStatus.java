@@ -25,9 +25,10 @@ public enum RestErrorStatus implements RestStatus {
     PARSE_ERROR(10100, "解析错误"),
     JSON_PARSE_ERROR(10110, "JSON解析错误"),
     JSON_PARSE_BEAN(10111, "JSON解析为Bean出错"),
-    JSON_PARSE_LIST(10112, "JSON解析为List出错"),
-    JSON_PARSE_SET(10113, "JSON解析为Set出错"),
-    JSON_PARSE_MAP(10114, "JSON解析为Map出错"),
+    JSON_PARSE_CONVERT(10112, "JSON解析转换类型出错"),
+    JSON_PARSE_LIST(10113, "JSON解析为List出错"),
+    JSON_PARSE_SET(10114, "JSON解析为Set出错"),
+    JSON_PARSE_MAP(10115, "JSON解析为Map出错"),
     /** deserialize */
     JSON_DESERIALIZE_ERROR(10120, "JSON反序列化错误"),
 
@@ -65,6 +66,11 @@ public enum RestErrorStatus implements RestStatus {
     CONFIG_INVALID(10411, "配置无效"),
     CONFIG_UNAVAILABLE(10412, "配置不可用"),
 
+
+    CONVERT_ERROR(10420, "转换错误"),
+    CONVERT_TYPE_UNSUPPORTED(10421, "转换类型不支持"),
+    CONVERT_TYPE_UNKNOWN(10422, "转换类型未知"),
+
     /** field */
     FIELD_ERROR(10500, "字段错误"),
     FIELD_IS_NULL(10501, "字段为空"),
@@ -101,7 +107,6 @@ public enum RestErrorStatus implements RestStatus {
     STREAM_TRANSFER_ERROR(10623, "数据流迁移错误"),
     ;
 
-    ;
     private final Integer status;
     private final String message;
 

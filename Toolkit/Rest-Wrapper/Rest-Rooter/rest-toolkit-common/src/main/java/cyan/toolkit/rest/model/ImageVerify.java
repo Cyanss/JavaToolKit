@@ -1,5 +1,7 @@
 package cyan.toolkit.rest.model;
 
+import org.springframework.lang.NonNull;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -90,7 +92,7 @@ public class ImageVerify<T extends ImageVerify<T>> implements Serializable {
         public Builder() {
         }
 
-        public ImageVerify.Builder content(String content) {
+        public ImageVerify.Builder content(@NonNull String content) {
             this.content = content;
             return this;
         }

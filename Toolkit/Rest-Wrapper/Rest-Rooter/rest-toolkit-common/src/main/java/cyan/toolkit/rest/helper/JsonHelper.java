@@ -6,10 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
-import cyan.toolkit.rest.error.json.JsonParseBeanException;
-import cyan.toolkit.rest.error.json.JsonParseListException;
-import cyan.toolkit.rest.error.json.JsonParseMapException;
-import cyan.toolkit.rest.error.json.JsonParseSetException;
+import cyan.toolkit.rest.error.ClassUnsupportedException;
+import cyan.toolkit.rest.error.json.*;
+import cyan.toolkit.rest.error.natives.ConvertErrorException;
 import cyan.toolkit.rest.error.supply.JsonParseException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 
@@ -36,7 +35,7 @@ public class JsonHelper {
      * @param <T> 目标类型
      * @return String json字符串
      */
-    public static <T> String parserJson(T target) throws JsonParseException {
+    public static <T> String parseJson(T target) throws JsonParseException {
         if(GeneralUtils.isEmpty(target)) {
             return null;
         }
@@ -54,7 +53,7 @@ public class JsonHelper {
      * @param <T> bean类型
      * @return T Bean
      */
-    public static <T> T parserBean(String json, Class<T> clazz) throws JsonParseBeanException {
+    public static <T> T parseBean(String json, Class<T> clazz) throws JsonParseBeanException {
         if(GeneralUtils.isEmpty(json)) {
             return null;
         }
@@ -66,7 +65,6 @@ public class JsonHelper {
 
     }
 
-
     /**
      * json字符串解析为BeanList
      * @param json json字符串数据
@@ -74,7 +72,7 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> T[] parserArray(String json, ArrayType arrayType) throws JsonParseListException {
+    public static <T> T[] parseArray(String json, ArrayType arrayType) throws JsonParseListException {
         if(GeneralUtils.isEmpty(json)) {
             return null;
         }
@@ -94,9 +92,9 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <Z extends List,T> T[] parserArray(String json, Class<T> clazz) throws JsonParseListException {
+    public static <Z extends List,T> T[] parseArray(String json, Class<T> clazz) throws JsonParseListException {
         ArrayType arrayType = MAPPER.getTypeFactory().constructArrayType(clazz);
-        return parserArray(json,arrayType);
+        return parseArray(json,arrayType);
     }
 
     /**
@@ -106,7 +104,7 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, CollectionType listType) throws JsonParseListException {
+    public static <T> List<T> parseList(String json, CollectionType listType) throws JsonParseListException {
         if(GeneralUtils.isEmpty(json)) {
             return Collections.emptyList();
         }
@@ -121,15 +119,15 @@ public class JsonHelper {
     /**
      * json字符串解析为BeanList
      * @param json json字符串数据
-     * @param parserClazz List类
+     * @param parseClazz List类
      * @param clazz Bean类
      * @param <Z> List类型
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <Z extends List,T> List<T> parserList(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseListException {
-        CollectionType listType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
-        return parserList(json,listType);
+    public static <Z extends List,T> List<T> parseList(String json, Class<Z> parseClazz, Class<T> clazz) throws JsonParseListException {
+        CollectionType listType = MAPPER.getTypeFactory().constructCollectionType(parseClazz, clazz);
+        return parseList(json,listType);
     }
 
     /**
@@ -139,8 +137,8 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return List<T> BeanList
      */
-    public static <T> List<T> parserList(String json, Class<T> clazz) throws JsonParseListException {
-        return parserList(json,List.class,clazz);
+    public static <T> List<T> parseList(String json, Class<T> clazz) throws JsonParseListException {
+        return parseList(json,List.class,clazz);
     }
 
     /**
@@ -150,7 +148,7 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, CollectionType setType) throws JsonParseSetException {
+    public static <T> Set<T> parseSet(String json, CollectionType setType) throws JsonParseSetException {
         if(GeneralUtils.isEmpty(json)) {
             return Collections.emptySet();
         }
@@ -164,15 +162,15 @@ public class JsonHelper {
     /**
      * json字符串解析为BeanSet
      * @param json json字符串数据
-     * @param parserClazz Set类
+     * @param parseClazz Set类
      * @param clazz Bean类
      * @param <Z> Set类型
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <Z extends Set,T> Set<T> parserSet(String json, Class<Z> parserClazz, Class<T> clazz) throws JsonParseSetException {
-        CollectionType setType = MAPPER.getTypeFactory().constructCollectionType(parserClazz, clazz);
-        return parserSet(json,setType);
+    public static <Z extends Set,T> Set<T> parseSet(String json, Class<Z> parseClazz, Class<T> clazz) throws JsonParseSetException {
+        CollectionType setType = MAPPER.getTypeFactory().constructCollectionType(parseClazz, clazz);
+        return parseSet(json,setType);
     }
 
     /**
@@ -182,8 +180,8 @@ public class JsonHelper {
      * @param <T> Bean类型
      * @return Set<T> BeanSet
      */
-    public static <T> Set<T> parserSet(String json, Class<T> clazz) throws JsonParseSetException {
-        return parserSet(json,Set.class,clazz);
+    public static <T> Set<T> parseSet(String json, Class<T> clazz) throws JsonParseSetException {
+        return parseSet(json,Set.class,clazz);
     }
 
     /**
@@ -194,7 +192,7 @@ public class JsonHelper {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, MapType mapType) throws JsonParseMapException {
+    public static <T,K> Map<T, K> parseMap(String json, MapType mapType) throws JsonParseMapException {
         if(GeneralUtils.isEmpty(json)) {
             return Collections.emptyMap();
         }
@@ -208,7 +206,7 @@ public class JsonHelper {
     /**
      * json字符串解析为BeanMap
      * @param json json字符串数据
-     * @param parserClazz Map类
+     * @param parseClazz Map类
      * @param keyClazz key类
      * @param valueClazz value类
      * @param <Z> Map类型
@@ -216,9 +214,9 @@ public class JsonHelper {
      * @param <K> value类型
      * @return Map<T, K>
      */
-    public static <Z extends Map,T,K> Map<T, K> parserMap(String json, Class<Z> parserClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
-        MapType mapType = MAPPER.getTypeFactory().constructMapType(parserClazz, keyClazz, valueClazz);
-        return parserMap(json,mapType);
+    public static <Z extends Map,T,K> Map<T, K> parseMap(String json, Class<Z> parseClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
+        MapType mapType = MAPPER.getTypeFactory().constructMapType(parseClazz, keyClazz, valueClazz);
+        return parseMap(json,mapType);
     }
 
     /**
@@ -230,8 +228,8 @@ public class JsonHelper {
      * @param <K> value类型
      * @return Map<T, K> BeanMap
      */
-    public static <T,K> Map<T, K> parserMap(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
-        return parserMap(json, Map.class,keyClazz,valueClazz);
+    public static <T,K> Map<T, K> parseMap(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
+        return parseMap(json, Map.class,keyClazz,valueClazz);
     }
 
 
@@ -239,8 +237,8 @@ public class JsonHelper {
      *
      * json字符串解析为BeanMapList
      * @param json json字符串数据
-     * @param parserListClazz List类
-     * @param parserMapClazz Map类
+     * @param parseListClazz List类
+     * @param parseMapClazz Map类
      * @param keyClazz key类
      * @param valueClazz value类
      * @param <H> List类型
@@ -249,10 +247,10 @@ public class JsonHelper {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parserMapList(String json, Class<H> parserListClazz, Class<Y> parserMapClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
-        CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(parserListClazz, valueClazz);
-        MapType mapType = MAPPER.getTypeFactory().constructMapType(parserMapClazz, keyClazz, collectionType.getRawClass());
-        return parserMap(json,mapType);
+    public static <H extends List,Y extends Map,T,K> Map<T,List<K>> parseMapList(String json, Class<H> parseListClazz, Class<Y> parseMapClazz, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
+        CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(parseListClazz, valueClazz);
+        MapType mapType = MAPPER.getTypeFactory().constructMapType(parseMapClazz, keyClazz, collectionType.getRawClass());
+        return parseMap(json,mapType);
     }
 
     /**
@@ -264,10 +262,10 @@ public class JsonHelper {
      * @param <K>               内层mapValue类型
      * @return Map<Z, Map < T, K>> BeanMapMap
      */
-    public static <Z extends List, Y extends Map, T, K> List<Map<T, K>> parserListMap(String json, Class<Z> wrapKeyClazz, Class<Y> contentMapClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseListException {
+    public static <Z extends List, Y extends Map, T, K> List<Map<T, K>> parseListMap(String json, Class<Z> wrapKeyClazz, Class<Y> contentMapClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseListException {
         MapType contentType = MAPPER.getTypeFactory().constructMapType(contentMapClazz, contentKeyClazz, contentValueClazz);
         CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(wrapKeyClazz, contentType.getRawClass());
-        return parserList(json, collectionType);
+        return parseList(json, collectionType);
     }
 
     /**
@@ -279,10 +277,10 @@ public class JsonHelper {
      * @param <K>               内层mapValue类型
      * @return Map<Z, Map < T, K>> BeanMapMap
      */
-    public static <T, K> List<Map<T, K>> parserListMap(String json, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseListException {
+    public static <T, K> List<Map<T, K>> parseListMap(String json, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseListException {
         MapType contentType = MAPPER.getTypeFactory().constructMapType(Map.class, contentKeyClazz, contentValueClazz);
         CollectionType collectionType = MAPPER.getTypeFactory().constructCollectionType(List.class, contentType.getRawClass());
-        return parserList(json, collectionType);
+        return parseList(json, collectionType);
     }
 
     /**
@@ -295,8 +293,8 @@ public class JsonHelper {
      * @param <K> value类型
      * @return Map<T,List<K>> BeanMapList
      */
-    public static <T,K> Map<T,List<K>> parserMapList(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
-        return parserMapList(json,List.class,Map.class,keyClazz,valueClazz);
+    public static <T,K> Map<T,List<K>> parseMapList(String json, Class<T> keyClazz, Class<K> valueClazz) throws JsonParseMapException {
+        return parseMapList(json,List.class,Map.class,keyClazz,valueClazz);
     }
 
     /**
@@ -315,10 +313,10 @@ public class JsonHelper {
      * @param <K> 内层mapValue类型
      * @return Map<Z, Map<T, K>> BeanMapMap
      */
-    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
+    public static<H extends Map,Y extends Map,Z,T,K> Map<Z, Map<T, K>> parseMapMap(String json, Class<H> wrapMapClazz, Class<Y> contentMapClazz, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
         MapType contentType = MAPPER.getTypeFactory().constructMapType(contentMapClazz, contentKeyClazz,contentValueClazz);
         MapType mapType = MAPPER.getTypeFactory().constructMapType(wrapMapClazz, wrapKeyClazz, contentType.getRawClass());
-        return parserMap(json,mapType);
+        return parseMap(json,mapType);
     }
 
     /**
@@ -332,8 +330,24 @@ public class JsonHelper {
      * @param <K> 内层mapValue类型
      * @return Map<Z,Map<T, K>> BeanMapMap
      */
-    public static <Z,T,K> Map<Z, Map<T, K>> parserMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
-        return parserMapMap(json,Map.class,Map.class,wrapKeyClazz,contentKeyClazz,contentValueClazz);
+    public static <Z,T,K> Map<Z, Map<T, K>> parseMapMap(String json, Class<Z> wrapKeyClazz, Class<T> contentKeyClazz, Class<K> contentValueClazz) throws JsonParseMapException {
+        return parseMapMap(json,Map.class,Map.class,wrapKeyClazz,contentKeyClazz,contentValueClazz);
+    }
+
+
+    public static <T> T parseConvert(Object value, Class<T> clazz) throws ClassUnsupportedException {
+        if(GeneralUtils.isEmpty(value)) {
+            return null;
+        }
+        try {
+            if (value.getClass().equals(clazz)) {
+                return MAPPER.convertValue(value, clazz);
+            } else {
+                throw new ClassUnsupportedException(value.getClass().getName(),clazz.getName());
+            }
+        } catch (Exception exception) {
+            throw new ClassUnsupportedException(value.getClass().getName(),clazz.getName(), exception.getMessage());
+        }
     }
 
 }

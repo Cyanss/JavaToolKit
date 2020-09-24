@@ -3,6 +3,7 @@ package cyan.toolkit.rest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import java.util.function.Supplier;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-class DefaultException extends Exception implements RestStatus, Supplier {
+class DefaultException extends Exception implements RestStatus, Supplier,Serializable {
     protected RestError error;
     protected Integer status;
 

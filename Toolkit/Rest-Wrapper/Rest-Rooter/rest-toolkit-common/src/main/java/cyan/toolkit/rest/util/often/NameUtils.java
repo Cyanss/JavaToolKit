@@ -152,11 +152,11 @@ public class NameUtils {
     public static void main(String[] args) {
         String s = buildAliasName("511_test", "ext");
         Map<String, String> map = parseAliasName(s);
-        System.out.println(JsonUtils.parserJson(map));
+        System.out.println(JsonUtils.parseJson(map));
 
         String s1 = buildFileName("aa_test", "ext");
         Map<String, String> maps = parseFileName(s1);
-        System.out.println(JsonUtils.parserJson(maps));
+        System.out.println(JsonUtils.parseJson(maps));
     }
 
 

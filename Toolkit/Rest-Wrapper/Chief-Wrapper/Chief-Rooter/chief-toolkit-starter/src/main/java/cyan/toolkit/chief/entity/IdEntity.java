@@ -9,18 +9,53 @@ import javax.persistence.Id;
  * @group cyan.tool.kit
  * @date 11:10 2020/8/20
  */
-public class IdEntity extends TimeEntity{
+public class IdEntity<I,D> extends TimeEntity<D>{
     @Id
-    protected Long id;
+    protected I id;
 
     public IdEntity() {
     }
 
-    public Long getId() {
+    public IdEntity(I id) {
+        this.id = id;
+    }
+
+    public IdEntity(IdEntity.Builder<I,D> builder) {
+        super(builder);
+        this.id = builder.id;
+    }
+
+    public I getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(I id) {
         this.id = id;
+    }
+
+    public static class Builder<I,D> extends TimeEntity.Builder<D> {
+        protected I id;
+
+        public Builder() {
+        }
+
+        public IdEntity.Builder<I,D> id(I id) {
+            this.id = id;
+            return this;
+        }
+
+        public IdEntity.Builder<I,D> createTime(D createTime) {
+            this.createTime = createTime;
+            return this;
+        }
+
+        public IdEntity.Builder<I,D> updateTime(D updateTime) {
+            this.updateTime = updateTime;
+            return this;
+        }
+
+        public IdEntity<I,D> build() {
+            return new IdEntity<>(this);
+        }
     }
 }

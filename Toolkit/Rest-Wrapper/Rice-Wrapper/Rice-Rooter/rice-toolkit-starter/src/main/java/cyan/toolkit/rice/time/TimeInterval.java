@@ -13,7 +13,7 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 8:37 2020/8/20
  */
-public class TimeInterval implements TimeValue<TimeInterval> {
+public class TimeInterval implements TimeValue {
     private Instant start;
     private Instant end;
     private Duration duration;

@@ -130,7 +130,7 @@ public class RestTemplates implements InitializingBean {
         if (GeneralUtils.isEmpty(response)) {
             throw new FieldNullException("response","请求无数据返回！");
         }
-        RestResult result = JsonUtils.parserBean(response, RestResult.class);
+        RestResult result = JsonUtils.parseBean(response, RestResult.class);
         if (GeneralUtils.isEmpty(result)) {
             throw new JsonParseBeanException(response,"请求数据解析错误！[Response]: ".concat(response));
         }
@@ -141,8 +141,8 @@ public class RestTemplates implements InitializingBean {
         if (GeneralUtils.isEmpty(data)) {
             throw new FieldNullException("data","请求返回数据为空！[Message]: ".concat(result.getMessage()));
         }
-        String login = JsonUtils.parserJson(data);
-        T bean = JsonUtils.parserBean(login, clazz);
+        String login = JsonUtils.parseJson(data);
+        T bean = JsonUtils.parseBean(login, clazz);
         if (GeneralUtils.isEmpty(bean)) {
             throw new JsonParseBeanException(login,"请求数据解析错误！[Data]: ".concat(String.valueOf(data)));
         }

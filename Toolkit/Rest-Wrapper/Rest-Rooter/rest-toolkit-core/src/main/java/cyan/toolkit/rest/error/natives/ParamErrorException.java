@@ -32,6 +32,10 @@ public class ParamErrorException extends RestErrorException {
         super(RestErrorStatus.PARAM_ERROR, RestError.error(status));
     }
 
+    public ParamErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public ParamErrorException(RestStatus status, String error) {
         super(RestErrorStatus.PARAM_ERROR,RestError.error(status, error));
     }

@@ -63,7 +63,7 @@
 
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>rice-toolkit-starter</artifactId>
+            <artifactId>chief-toolkit-core</artifactId>
             <version>${toolkit.version}</version>
         </dependency>
     </dependencies>

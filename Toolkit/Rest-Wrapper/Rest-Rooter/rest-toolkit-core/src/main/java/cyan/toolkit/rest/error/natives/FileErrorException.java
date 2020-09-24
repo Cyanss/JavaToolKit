@@ -32,6 +32,10 @@ public class FileErrorException extends RestErrorException {
         super(RestErrorStatus.FILE_ERROR, RestError.error(status));
     }
 
+    public FileErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public FileErrorException(RestStatus status, String error) {
         super(RestErrorStatus.FILE_ERROR,RestError.error(status, error));
     }

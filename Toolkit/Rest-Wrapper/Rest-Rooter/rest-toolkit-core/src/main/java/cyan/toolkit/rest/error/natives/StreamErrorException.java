@@ -33,6 +33,10 @@ public class StreamErrorException  extends RestErrorException {
         super(RestErrorStatus.STREAM_ERROR, RestError.error(status));
     }
 
+    public StreamErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public StreamErrorException(RestStatus status, String error) {
         super(RestErrorStatus.STREAM_ERROR, RestError.error(status, error));
     }

@@ -1,5 +1,6 @@
 package cyan.toolkit.chief.mapper;
 
+import cyan.toolkit.chief.entity.InfoEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,13 +12,13 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:36 2020/9/8
  */
-public interface InfoMapper<T> extends IdMapper<T> {
+public interface InfoMapper<I,D,E extends InfoEntity<I,D>> extends IdMapper<I,D,InfoEntity<I,D>> {
     /**
      * 根据名称判断是否存在
      * @param name 对象名称
      * @return List<T> 查询的数据集合
      */
-    List<T> findByName(@Param("name") String name);
+    List<E> findByName(@Param("name") String name);
 
     /**
      * 根据id和名称判断是否存在
@@ -25,5 +26,5 @@ public interface InfoMapper<T> extends IdMapper<T> {
      * @param id 对象id
      * @return List<T> 查询的数据集合
      */
-    List<T> findByNameAndNotId(@Param("name") String name, @Param("id") Long id);
+    List<E> findByNameAndNotId(@Param("name") String name, @Param("id") I id);
 }

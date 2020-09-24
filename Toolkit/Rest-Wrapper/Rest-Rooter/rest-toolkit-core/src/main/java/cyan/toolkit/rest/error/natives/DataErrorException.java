@@ -32,6 +32,10 @@ public class DataErrorException extends RestErrorException {
         super(RestErrorStatus.DATA_ERROR,RestError.error(status));
     }
 
+    public DataErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public DataErrorException(RestStatus status, String error) {
         super(RestErrorStatus.DATA_ERROR,RestError.error(status, error));
     }

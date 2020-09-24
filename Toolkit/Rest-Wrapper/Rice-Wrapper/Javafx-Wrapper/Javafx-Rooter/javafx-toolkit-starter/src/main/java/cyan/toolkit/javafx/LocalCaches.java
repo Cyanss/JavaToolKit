@@ -39,7 +39,7 @@ public class LocalCaches implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        String localCache = properties.getLocalCache();
+        String localCache = properties.getLocalCache().getPath();
         if (localCache.endsWith(DEFAULT_EXT)) {
             CACHE_PATH = localCache;
         } else {

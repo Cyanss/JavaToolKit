@@ -18,7 +18,7 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestResult<T> extends DefaultResult<T,RestResult<T>> {
+public class RestResult<T> extends DefaultResult<T> {
     @JsonFormat(
             pattern = "yyyy-MM-dd HH:mm:ss",
             timezone = "GMT+8"
@@ -94,7 +94,7 @@ public class RestResult<T> extends DefaultResult<T,RestResult<T>> {
         return new RestResult.Builder<>();
     }
 
-    public static class Builder<T> extends DefaultResult.Builder<T,RestResult<T>> {
+    public static class Builder<T> extends DefaultResult.Builder<T> {
         protected Date time;
 
         public Builder() {

@@ -32,6 +32,10 @@ public class ParseErrorException extends RestErrorException {
         super(RestErrorStatus.PARSE_ERROR, RestError.error(status));
     }
 
+    public ParseErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public ParseErrorException(RestStatus status, String error) {
         super(RestErrorStatus.PARSE_ERROR,RestError.error(status, error));
     }

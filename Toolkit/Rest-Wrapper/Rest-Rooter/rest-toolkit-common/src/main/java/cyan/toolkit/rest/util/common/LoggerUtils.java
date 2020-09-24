@@ -1,5 +1,6 @@
 package cyan.toolkit.rest.util.common;
 
+import cyan.toolkit.rest.RestStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.FormattingTuple;
@@ -30,6 +31,14 @@ public class LoggerUtils {
         DEFAULT_LOGGER.info(format,throwable);
     }
 
+    public static void info(RestStatus status) {
+        DEFAULT_LOGGER.info(status.getMessage());
+    }
+
+    public static void info(RestStatus status, Throwable throwable) {
+        DEFAULT_LOGGER.info(status.getMessage(),throwable);
+    }
+
     public static void debug(String message, Object ... append) {
         FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, append);
         String format = formattingTuple.getMessage();
@@ -42,6 +51,14 @@ public class LoggerUtils {
         DEFAULT_LOGGER.debug(format,throwable);
     }
 
+    public static void debug(RestStatus status) {
+        DEFAULT_LOGGER.debug(status.getMessage());
+    }
+
+    public static void debug(RestStatus status, Throwable throwable) {
+        DEFAULT_LOGGER.debug(status.getMessage(),throwable);
+    }
+
     public static void warn(String message, Object ... append) {
         FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, append);
         String format = formattingTuple.getMessage();
@@ -51,7 +68,15 @@ public class LoggerUtils {
     public static void warn(String message, Throwable throwable, Object ... append) {
         FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, append,throwable);
         String format = formattingTuple.getMessage();
-        DEFAULT_LOGGER.debug(format,throwable);
+        DEFAULT_LOGGER.warn(format,throwable);
+    }
+
+    public static void warn(RestStatus status) {
+        DEFAULT_LOGGER.warn(status.getMessage());
+    }
+
+    public static void warn(RestStatus status, Throwable throwable) {
+        DEFAULT_LOGGER.warn(status.getMessage(),throwable);
     }
 
     public static void error(String message, Object ... append) {
@@ -66,15 +91,11 @@ public class LoggerUtils {
         DEFAULT_LOGGER.error(format,throwable);
     }
 
-    public static void error(Integer status, String message, Object ... append) {
-        FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, append);
-        String format = formattingTuple.getMessage();
-        DEFAULT_LOGGER.error("status: ".concat(String.valueOf(status)).concat(", message: ").concat(format));
+    public static void error(RestStatus status) {
+        DEFAULT_LOGGER.error(status.getMessage());
     }
 
-    public static void error(Integer status, String message, Throwable throwable, Object ... append) {
-        FormattingTuple formattingTuple = MessageFormatter.arrayFormat(message, append, throwable);
-        String format = formattingTuple.getMessage();
-        DEFAULT_LOGGER.error("status: ".concat(String.valueOf(status)).concat(", message: ").concat(format).concat(", error: ").concat(throwable.getMessage()), throwable);
+    public static void error(RestStatus status, Throwable throwable) {
+        DEFAULT_LOGGER.error(status.getMessage(),throwable);
     }
 }

@@ -32,6 +32,10 @@ public class TimeoutErrorException extends RestErrorException {
         super(RestErrorStatus.TIME_OUT, RestError.error(status));
     }
 
+    public TimeoutErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public TimeoutErrorException(RestStatus status, String error) {
         super(RestErrorStatus.TIME_OUT, RestError.error(status, error));
     }

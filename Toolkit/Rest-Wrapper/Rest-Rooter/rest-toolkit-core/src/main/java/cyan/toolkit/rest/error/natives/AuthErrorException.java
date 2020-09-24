@@ -32,6 +32,10 @@ public class AuthErrorException extends RestErrorException {
         super(RestErrorStatus.AUTH_ERROR, RestError.error(status));
     }
 
+    public AuthErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public AuthErrorException(RestStatus status, String error) {
         super(RestErrorStatus.AUTH_ERROR,RestError.error(status, error));
     }

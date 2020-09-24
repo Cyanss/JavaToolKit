@@ -8,9 +8,29 @@
   ],
   "properties": [
     {
-      "name": "cyan.toolkit.javafx.local-cache",
+      "name": "cyan.toolkit.javafx.local-cache.path",
       "type": "java.lang.String",
       "description": "local cache path ."
+    },
+    {
+      "name": "cyan.toolkit.javafx.rest-info.enable",
+      "type": "java.lang.Boolean",
+      "description": "rest info enable ."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.javafx.rest-info.enable",
+      "values": [
+        {
+          "value": false,
+          "description": "rest info log enable false."
+        },
+        {
+          "value": true,
+          "description": "rest info log enable true."
+        }
+      ]
     }
   ]
 }

@@ -2,7 +2,10 @@ package cyan.toolkit.rest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>RestKey</p>
@@ -36,9 +39,24 @@ public interface RestKey<K> {
      * K 集合 <K>
      * @return Set<K>
      */
-    static <T extends RestKey<K>,K> List<K> key(Class<T> clazz) {
+    static <T extends RestKey<K>,K> List<K> keys(Class<T> clazz) {
         return values(clazz).stream().map(RestKey::getKey).distinct().collect(Collectors.toList());
     }
+    /**
+     * 根据status获取枚举值
+     * @param clazz 枚举类型
+     * @param key status值
+     * @param <T> 泛型
+     * @return T
+     */
+    static <T extends RestValue<K,V>,K,V> T parseKey(Class<T> clazz, K key){
+        if (key != null && clazz.isEnum()) {
+            Map<K, T> restValueMap = Stream.of(clazz.getEnumConstants()).collect(Collectors.toMap(RestKey::getKey, Function.identity()));
+            return restValueMap.get(key);
+        }
+        return null;
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package cyan.toolkit.rest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.Optional;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-class DefaultError extends Error {
+class DefaultError extends Error implements Serializable {
     protected Integer domain;
     protected String resource;
     protected String debug;

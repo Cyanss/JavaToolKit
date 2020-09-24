@@ -17,15 +17,15 @@ public class NameRepeatException extends RestErrorException {
     }
 
     public NameRepeatException(Object value) {
-        super(RestErrorStatus.NAME_REPEATED, RestError.error("name",value, RestErrorStatus.NAME_REPEATED));
+        super(RestErrorStatus.NAME_REPEATED, RestError.error("name", value, RestErrorStatus.NAME_REPEATED));
     }
 
-    public NameRepeatException(String message) {
-        super(RestErrorStatus.NAME_REPEATED, RestError.error("name", RestErrorStatus.NAME_REPEATED,message));
+    public NameRepeatException(String resource, Object value) {
+        super(RestErrorStatus.NAME_REPEATED, RestError.error(resource,"name", value, RestErrorStatus.NAME_REPEATED));
     }
 
-    public NameRepeatException(String field, Object value,String message) {
-        super(RestErrorStatus.NAME_REPEATED, RestError.error(field,value, RestErrorStatus.NAME_REPEATED,message));
+    public NameRepeatException(String resource, Object value, String message) {
+        super(RestErrorStatus.NAME_REPEATED, RestError.error(resource, "name", value, RestErrorStatus.NAME_REPEATED,message));
     }
 
     @Override

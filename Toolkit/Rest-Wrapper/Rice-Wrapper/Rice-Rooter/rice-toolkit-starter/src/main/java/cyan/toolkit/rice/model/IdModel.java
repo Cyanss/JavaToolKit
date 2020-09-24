@@ -12,25 +12,25 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 14:00 2020/8/14
  */
-public class IdModel<T extends IdModel<T>> implements Serializable {
-    private Long id;
+public class IdModel<I> implements Serializable {
+    private I id;
 
     public IdModel() {
     }
 
-    public IdModel(Long id) {
+    public IdModel(I id) {
         this.id = id;
     }
 
-    public IdModel(IdModel.Builder builder) {
+    public IdModel(IdModel.Builder<I> builder) {
         this.id = builder.id;
     }
 
-    public Long getId() {
+    public I getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(I id) {
         this.id = id;
     }
 
@@ -49,22 +49,22 @@ public class IdModel<T extends IdModel<T>> implements Serializable {
 
     @Override
     public String toString() {
-        return JsonUtils.parserJson(this);
+        return JsonUtils.parseJson(this);
     }
 
-    public static class Builder {
-        protected Long id;
+    public static class Builder<I> {
+        protected I id;
 
         public Builder() {
         }
 
-        public IdModel.Builder id(Long id) {
+        public IdModel.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public IdModel build() {
-            return new IdModel(this);
+        public IdModel<I> build() {
+            return new IdModel<>(this);
         }
     }
 }

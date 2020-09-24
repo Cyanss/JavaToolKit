@@ -32,6 +32,10 @@ public class UnknownErrorException extends RestErrorException {
         super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(status));
     }
 
+    public UnknownErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public UnknownErrorException(RestStatus status, String error) {
         super(RestErrorStatus.UNKNOWN_ERROR, RestError.error(status, error));
     }

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @date 13:26 2019/12/16
  */
 @Data
-public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializable {
+public class DefaultResult<T> implements Serializable {
     private Integer status;
     private String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -27,7 +27,7 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         this.status = status;
         this.message = message;
     }
-    public DefaultResult(DefaultResult.Builder<T,S> builder) {
+    public DefaultResult(DefaultResult.Builder<T> builder) {
         this(builder.status, builder.message, builder.data);
     }
 
@@ -37,59 +37,59 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         this.data = data;
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success() {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.SUCCESS.getStatus()).build();
+    public static <T> DefaultResult<T> success() {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success(T data) {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.SUCCESS.getStatus()).data(data).build();
+    public static <T> DefaultResult<T> success(T data) {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success(String message) {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).build();
+    public static <T> DefaultResult<T> success(String message) {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success(String message, T data) {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).data(data).build();
+    public static <T> DefaultResult<T> success(String message, T data) {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.SUCCESS.getStatus()).message(message).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success(RestStatus status) {
-        return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).build();
+    public static <T> DefaultResult<T> success(RestStatus status) {
+        return (new DefaultResult.Builder<T>()).status(status.getStatus()).message(status.getMessage()).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> success(RestStatus status, T data) {
-        return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).data(data).build();
+    public static <T> DefaultResult<T> success(RestStatus status, T data) {
+        return (new DefaultResult.Builder<T>()).status(status.getStatus()).message(status.getMessage()).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(String message) {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.FAILED.getStatus()).message(message).build();
+    public static <T> DefaultResult<T> fail(String message) {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.FAILED.getStatus()).message(message).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(String message, T data) {
-        return (new DefaultResult.Builder<T,S>()).status(RestErrorStatus.FAILED.getStatus()).message(message).data(data).build();
+    public static <T> DefaultResult<T> fail(String message, T data) {
+        return (new DefaultResult.Builder<T>()).status(RestErrorStatus.FAILED.getStatus()).message(message).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(Integer status, String message, T data) {
-        return (new DefaultResult.Builder<T,S>()).status(status).message(message).data(data).build();
+    public static <T> DefaultResult<T> fail(Integer status, String message, T data) {
+        return (new DefaultResult.Builder<T>()).status(status).message(message).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(Integer status, String message) {
-        return (new DefaultResult.Builder<T,S>()).status(status).message(message).build();
+    public static <T> DefaultResult<T> fail(Integer status, String message) {
+        return (new DefaultResult.Builder<T>()).status(status).message(message).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(RestStatus status) {
-        return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).build();
+    public static <T> DefaultResult<T> fail(RestStatus status) {
+        return (new DefaultResult.Builder<T>()).status(status.getStatus()).message(status.getMessage()).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(RestStatus status, T data) {
-        return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).data(data).build();
+    public static <T> DefaultResult<T> fail(RestStatus status, T data) {
+        return (new DefaultResult.Builder<T>()).status(status.getStatus()).message(status.getMessage()).data(data).build();
     }
 
-    public static <T,S extends DefaultResult<T,S>> DefaultResult.Builder<T,S> defaultBuilder() {
+    public static <T> DefaultResult.Builder<T> defaultBuilder() {
         return new DefaultResult.Builder<>();
     }
 
-    public static class Builder<T,S extends DefaultResult<T,S>> {
+    public static class Builder<T> {
         protected Integer status;
         protected String message;
         protected T data;
@@ -97,22 +97,22 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         public Builder() {
         }
 
-        public DefaultResult.Builder<T,S> status(Integer status) {
+        public DefaultResult.Builder<T> status(Integer status) {
             this.status = status;
             return this;
         }
 
-        public DefaultResult.Builder<T,S> message(String message) {
+        public DefaultResult.Builder<T> message(String message) {
             this.message = message;
             return this;
         }
 
-        public DefaultResult.Builder<T,S> data(T data) {
+        public DefaultResult.Builder<T> data(T data) {
             this.data = data;
             return this;
         }
 
-        public DefaultResult<T,S> build() {
+        public DefaultResult<T> build() {
             return new DefaultResult<>(this);
         }
     }

@@ -31,6 +31,10 @@ public class FieldErrorException extends RestErrorException {
         super(RestErrorStatus.FIELD_ERROR, RestError.error(status));
     }
 
+    public FieldErrorException(RestStatus status, RestError error) {
+        super(status, error);
+    }
+
     public FieldErrorException(RestStatus status, String error) {
         super(RestErrorStatus.FIELD_ERROR,RestError.error(status, error));
     }

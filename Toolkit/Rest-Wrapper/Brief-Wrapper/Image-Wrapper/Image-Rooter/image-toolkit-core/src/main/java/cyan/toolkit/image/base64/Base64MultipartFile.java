@@ -2,8 +2,9 @@ package cyan.toolkit.image.base64;
 
 import cyan.toolkit.rest.util.often.RandomUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Decoder;
 
 import java.io.*;
 
@@ -25,6 +26,7 @@ public class Base64MultipartFile implements MultipartFile {
     }
 
     @Override
+    @NonNull
     public String getName() {
         return RandomUtils.randomDouble() + "." + this.header.split("/")[1];
     }
@@ -50,35 +52,31 @@ public class Base64MultipartFile implements MultipartFile {
     }
 
     @Override
-    public byte[] getBytes() throws IOException {
+    @NonNull
+    public  byte[] getBytes() {
         return this.content;
     }
 
     @Override
-    public InputStream getInputStream() throws IOException {
+    @NonNull
+    public InputStream getInputStream() {
         return new ByteArrayInputStream(this.content);
     }
 
     @Override
-    public void transferTo(File file) throws IOException, IllegalStateException {
+    public void transferTo(@NonNull File file) throws IOException, IllegalStateException {
         new FileOutputStream(file).write(this.content);
     }
 
     public static MultipartFile build(String base64) {
-        try {
-            String[] splitString = base64.split(",");
-            BASE64Decoder decoder = new BASE64Decoder();
-            byte[] bytes;
-            bytes = decoder.decodeBuffer(splitString[1]);
-            for(int i = 0; i < bytes.length; ++i) {
-                if (bytes[i] < 0) {
-                    bytes[i] = (byte)(bytes[i] + 256);
-                }
+        String[] splitString = base64.split(",");
+        byte[] bytes;
+        bytes = Base64.decodeBase64(splitString[1]);
+        for(int i = 0; i < bytes.length; ++i) {
+            if (bytes[i] < 0) {
+                bytes[i] = (byte)(bytes[i] + 256);
             }
-            return new Base64MultipartFile(bytes, splitString[0]);
-        } catch (IOException exception) {
-            log.error(exception.getMessage());
-            return null;
         }
+        return new Base64MultipartFile(bytes, splitString[0]);
     }
 }
