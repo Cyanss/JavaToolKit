@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @group cyan.tool.kit
  * @date 8:20 2020/9/9
  */
-public class PageFilter implements Serializable {
+public class PageFilter<S extends PageFilter<S>> implements Serializable {
     @JsonIgnore
     public static final String PAGE_REGEX = "_";
     @JsonIgnore
@@ -25,7 +25,7 @@ public class PageFilter implements Serializable {
     public PageFilter() {
     }
 
-    public PageFilter(PageFilter.Builder builder) {
+    public PageFilter(PageFilter.Builder<S> builder) {
         this.pageNum = builder.pageNum;
         this.pageSize = builder.pageSize;
     }
@@ -58,28 +58,32 @@ public class PageFilter implements Serializable {
                 PAGE_OFFSET + " " + (this.pageNum - 1);
     }
 
+    public boolean[] toLoadArray() {
+        return new boolean[0];
+    }
+
     public String toName() {
         return this.pageNum + PAGE_REGEX + this.pageSize;
     }
 
-    public static class Builder {
+    public static class Builder<S extends PageFilter<S>> {
         protected Integer pageNum;
         protected Integer pageSize;
         public Builder() {
         }
 
-        public PageFilter.Builder pageNum(Integer pageNum) {
+        public PageFilter.Builder<S> pageNum(Integer pageNum) {
             this.pageNum = pageNum;
             return this;
         }
 
-        public PageFilter.Builder pageSize(Integer pageSize) {
+        public PageFilter.Builder<S> pageSize(Integer pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        public PageFilter build() {
-            return new PageFilter(this);
+        public PageFilter<S> build() {
+            return new PageFilter<>(this);
         }
     }
 

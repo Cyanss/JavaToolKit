@@ -14,9 +14,9 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 17:39 2020/9/8
  */
-public class IdFilter<I> extends SortFilter{
+public class IdFilter<I,S extends IdFilter<I,S>> extends SortFilter<S>{
     @JsonIgnore
-    protected static final SqlBuilder SQL_BUILDER = new SqlBuilder();
+    protected final SqlBuilder SQL_BUILDER = new SqlBuilder();
 
     protected I id;
 
@@ -35,7 +35,7 @@ public class IdFilter<I> extends SortFilter{
         this.ids = new HashSet<>(Arrays.asList(ids));
     }
 
-    public IdFilter(IdFilter.Builder<I> builder) {
+    public IdFilter(IdFilter.Builder<I,S> builder) {
         super(builder);
         this.id = builder.id;
         this.ids = builder.ids;
@@ -92,50 +92,50 @@ public class IdFilter<I> extends SortFilter{
         return nameBuilder.toString();
     }
 
-    public static class Builder<I> extends SortFilter.Builder {
+    public static class Builder<I,S extends IdFilter<I,S>> extends SortFilter.Builder<S> {
         protected I id;
         protected Set<I> ids;
 
         public Builder() {
         }
 
-        public IdFilter.Builder<I> id(I id) {
+        public IdFilter.Builder<I,S> id(I id) {
             this.id = id;
             return this;
         }
 
-        public IdFilter.Builder<I> ids(Collection<I> ids) {
+        public IdFilter.Builder<I,S> ids(Collection<I> ids) {
             this.ids = new HashSet<>(ids);
             return this;
         }
 
         @SuppressWarnings(value = "unchecked")
-        public IdFilter.Builder<I> ids(I... ids) {
+        public IdFilter.Builder<I,S> ids(I... ids) {
             this.ids = new HashSet<>(Arrays.asList(ids));
             return this;
         }
 
-        public IdFilter.Builder<I> sorts(Collection<RestSort> sorts) {
+        public IdFilter.Builder<I,S> sorts(Collection<RestSort> sorts) {
             this.sorts = new HashSet<>(sorts);
             return this;
         }
 
-        public IdFilter.Builder<I> sorts(RestSort... sorts) {
+        public IdFilter.Builder<I,S> sorts(RestSort... sorts) {
             this.sorts = new HashSet<>(Arrays.asList(sorts));
             return this;
         }
 
-        public IdFilter.Builder<I> pageNum(Integer pageNum) {
+        public IdFilter.Builder<I,S> pageNum(Integer pageNum) {
             this.pageNum = pageNum;
             return this;
         }
 
-        public IdFilter.Builder<I> pageSize(Integer pageSize) {
+        public IdFilter.Builder<I,S> pageSize(Integer pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        public IdFilter<I> build() {
+        public IdFilter<I,S> build() {
             return new IdFilter<>(this);
         }
     }

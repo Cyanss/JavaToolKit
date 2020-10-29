@@ -3,6 +3,7 @@ package cyan.toolkit.chief.configure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * <p>ChiefStarterAutoConfigure</p>
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = {"cyan.toolkit.chief"})
+@MapperScan(basePackages = {"cyan.toolkit.chief.simple.mapper"})
 public class ChiefStarterAutoConfigure {
     public ChiefStarterAutoConfigure() {
         log.debug("================= chief-toolkit-starter initiated ！ ===================");

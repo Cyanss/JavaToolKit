@@ -7,7 +7,7 @@ package cyan.toolkit.chief.entity;
  * @group cyan.tool.kit
  * @date 11:11 2020/8/20
  */
-public class InfoEntity<I,D> extends IdEntity<I,D> {
+public class InfoEntity<I,D,S extends InfoEntity<I,D,S>> extends IdEntity<I,D,S> {
     /** 事物名称 */
     protected String name;
     /** 事物描述 */
@@ -25,7 +25,7 @@ public class InfoEntity<I,D> extends IdEntity<I,D> {
         this.name = name;
     }
 
-    public InfoEntity(InfoEntity.Builder<I,D> builder) {
+    public InfoEntity(InfoEntity.Builder<I,D,S> builder) {
         super(builder);
         this.name = builder.name;
         this.description = builder.description;
@@ -47,38 +47,38 @@ public class InfoEntity<I,D> extends IdEntity<I,D> {
         this.description = description;
     }
 
-    public static class Builder<I,D> extends IdEntity.Builder<I,D> {
+    public static class Builder<I,D,S extends InfoEntity<I,D,S>> extends IdEntity.Builder<I,D,S> {
         protected String name;
         protected String description;
         public Builder() {
         }
 
-        public InfoEntity.Builder<I,D> id(I id) {
+        public InfoEntity.Builder<I,D,S> id(I id) {
             this.id = id;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> createTime(D createTime) {
+        public InfoEntity.Builder<I,D,S> createTime(D createTime) {
             this.createTime = createTime;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> updateTime(D updateTime) {
+        public InfoEntity.Builder<I,D,S> updateTime(D updateTime) {
             this.updateTime = updateTime;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> name(String name) {
+        public InfoEntity.Builder<I,D,S> name(String name) {
             this.name = name;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> description(String description) {
+        public InfoEntity.Builder<I,D,S> description(String description) {
             this.description = description;
             return this;
         }
 
-        public InfoEntity<I,D> build() {
+        public InfoEntity<I,D,S> build() {
             return new InfoEntity<>(this);
         }
     }

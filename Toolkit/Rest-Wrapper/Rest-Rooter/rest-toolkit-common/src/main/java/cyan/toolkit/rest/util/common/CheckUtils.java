@@ -5,8 +5,6 @@ import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestStatus;
 import cyan.toolkit.rest.actuator.BiFunctionActuator;
-import cyan.toolkit.rest.actuator.FunctionActuator;
-import cyan.toolkit.rest.actuator.SupplierActuator;
 import cyan.toolkit.rest.error.data.*;
 import cyan.toolkit.rest.error.often.FieldNullException;
 import cyan.toolkit.rest.error.often.IdentityNullException;
@@ -58,14 +56,14 @@ public class CheckUtils {
     }
 
     public static void checkTrueComparer(Boolean comparer, String logMessage, String exceptionMessage, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (comparer) {
+        if (null != comparer && comparer) {
             LoggerUtils.error(logMessage);
             throw functionActuator.actuate(resource, exceptionMessage);
         }
     }
 
     public static void checkTrueComparer(Boolean comparer, RestStatus status, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (comparer) {
+        if (null != comparer && comparer) {
             LoggerUtils.error(status.getMessage());
             throw functionActuator.actuate(resource, status.getMessage());
         }
@@ -77,7 +75,7 @@ public class CheckUtils {
     }
 
     public static void checkFalseComparer(Boolean comparer, String logMessage, String exceptionMessage, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (!comparer) {
+        if (null != comparer && !comparer) {
             LoggerUtils.error(logMessage);
             throw functionActuator.actuate(resource, exceptionMessage);
         }
@@ -87,19 +85,20 @@ public class CheckUtils {
         checkFalseComparer(comparer, message, message, resource, functionActuator);
     }
 
+    public static void checkFalseComparer(Boolean comparer, RestStatus status, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
+        checkFalseComparer(comparer, status.getMessage(), status.getMessage(), resource, functionActuator);
+    }
+
 
     public static void checkNullResult(Integer result, String logMessage, String exceptionMessage, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (result == 0) {
+        if (null != result && result == 0) {
             LoggerUtils.error(logMessage);
             throw functionActuator.actuate(resource, exceptionMessage);
         }
     }
 
     public static void checkNullResult(Integer result, RestStatus status, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (result == 0) {
-            LoggerUtils.error(status.getMessage());
-            throw functionActuator.actuate(resource, status.getMessage());
-        }
+        checkNullResult(result, status.getMessage(), status.getMessage(), resource, functionActuator);
     }
 
     public static void checkNullResult(Integer result, String message, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
@@ -107,7 +106,7 @@ public class CheckUtils {
     }
 
     public static void checkNonNullResult(Integer result, String logMessage, String exceptionMessage, String resource, BiFunctionActuator<String, String, RestErrorException> functionActuator) throws RestException {
-        if (result > 0) {
+        if (null != result && result > 0) {
             LoggerUtils.error(logMessage);
             throw functionActuator.actuate(resource, exceptionMessage);
         }
@@ -157,23 +156,23 @@ public class CheckUtils {
         checkNullResult(result, RestErrorStatus.DATA_UPDATE_ALL_FAILED, resource, DataBatchUpdateException::new);
     }
 
-    public static void checkBatchSave(Integer result, String message, String resource) throws RestException {
-        checkNullResult(result, message, message, resource, DataBatchSaveException::new);
+    public static void checkBatchSave(Boolean result, String message, String resource) throws RestException {
+        checkFalseComparer(result, message, message, resource, DataBatchSaveException::new);
     }
 
-    public static void checkBatchSave(Integer result, String resource) throws RestException {
-        checkNullResult(result, RestErrorStatus.DATA_SAVE_ALL_FAILED, resource, DataBatchSaveException::new);
+    public static void checkBatchSave(Boolean result, String resource) throws RestException {
+        checkFalseComparer(result, RestErrorStatus.DATA_SAVE_ALL_FAILED, resource, DataBatchSaveException::new);
     }
 
     public static void checkNameRepeat(Boolean exist, String resource, String value) throws RestException {
-        if (exist) {
+        if (null != exist && exist) {
             LoggerUtils.error(RestErrorStatus.NAME_REPEATED.getMessage());
             throw new NameRepeatException(resource,value);
         }
     }
 
     public static void checkNameRepeat(Boolean exist, String value) throws RestException {
-        if (exist) {
+        if (null != exist && exist) {
             LoggerUtils.error(RestErrorStatus.NAME_REPEATED.getMessage());
             throw new NameRepeatException(value);
         }

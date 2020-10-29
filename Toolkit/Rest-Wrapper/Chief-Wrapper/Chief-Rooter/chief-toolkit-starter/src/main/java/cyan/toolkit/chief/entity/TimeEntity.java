@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @group cyan.tool.kit
  * @date 11:12 2020/8/20
  */
-public class TimeEntity<D> implements Serializable {
+public class TimeEntity<D,S extends TimeEntity<D,S>> implements Serializable {
     /** 数据创建时间 */
     @Column(name = "create_time")
     protected D createTime;
@@ -21,7 +21,7 @@ public class TimeEntity<D> implements Serializable {
     public TimeEntity() {
     }
 
-    public TimeEntity(TimeEntity.Builder<D> builder) {
+    public TimeEntity(TimeEntity.Builder<D,S> builder) {
         this.createTime = builder.createTime;
         this.updateTime = builder.updateTime;
     }
@@ -42,24 +42,24 @@ public class TimeEntity<D> implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public static class Builder<D> {
+    public static class Builder<D,S extends TimeEntity<D,S>> {
         protected D createTime;
         protected D updateTime;
 
         public Builder() {
         }
 
-        public TimeEntity.Builder<D> createTime(D createTime) {
+        public TimeEntity.Builder<D,S> createTime(D createTime) {
             this.createTime = createTime;
             return this;
         }
 
-        public TimeEntity.Builder<D> updateTime(D updateTime) {
+        public TimeEntity.Builder<D,S> updateTime(D updateTime) {
             this.updateTime = updateTime;
             return this;
         }
 
-        public TimeEntity<D> build() {
+        public TimeEntity<D,S> build() {
             return new TimeEntity<>(this);
         }
     }

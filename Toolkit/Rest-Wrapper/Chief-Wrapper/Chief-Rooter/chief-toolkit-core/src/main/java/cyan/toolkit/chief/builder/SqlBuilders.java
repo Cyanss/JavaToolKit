@@ -142,7 +142,7 @@ public class SqlBuilders {
         return null;
     }
 
-    public static <T, K> RestPage<T> page(Collection<T> items, Page<K> page) {
+    public static <T, K> RestPage<T> result(Collection<T> items, Page<K> page) {
         if (GeneralUtils.isEmpty(page)) {
             return new RestPage<>(items);
         } else {

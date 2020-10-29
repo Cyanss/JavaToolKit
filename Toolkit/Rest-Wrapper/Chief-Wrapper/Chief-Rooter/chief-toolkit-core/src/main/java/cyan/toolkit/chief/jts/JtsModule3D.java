@@ -1,6 +1,5 @@
 package cyan.toolkit.chief.jts;
 
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import cyan.toolkit.chief.jts.parser.*;
 import cyan.toolkit.chief.jts.serialization.GeometryDeserializer;

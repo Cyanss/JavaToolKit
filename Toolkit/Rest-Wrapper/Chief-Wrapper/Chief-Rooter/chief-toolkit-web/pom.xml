@@ -35,6 +35,18 @@
 			<version>${toolkit.version}</version>
 		</dependency>
 
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
 	</dependencies>
 
 	<build>

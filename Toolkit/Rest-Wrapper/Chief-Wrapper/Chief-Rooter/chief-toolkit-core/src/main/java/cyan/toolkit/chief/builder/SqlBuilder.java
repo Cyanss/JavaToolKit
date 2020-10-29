@@ -230,6 +230,9 @@ public final class SqlBuilder implements Serializable, CharSequence {
 
     @Override
     public String toString() {
+        if (GeneralUtils.isEmpty(sqlBuilder)) {
+            return "";
+        }
         return sqlBuilder.toString();
     }
 

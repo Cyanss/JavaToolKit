@@ -14,7 +14,7 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 8:34 2020/8/20
  */
-public interface TimeValue {
+public interface TimeValue<S extends TimeValue<S>> {
     String INTERVAL_REGEX = "/";
     String DURATION_START = "P";
 

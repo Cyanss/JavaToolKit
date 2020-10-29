@@ -11,7 +11,7 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 9:13 2020/8/20
  */
-public class TimeInstant implements TimeValue {
+public class TimeInstant implements TimeValue<TimeInstant> {
     
     private Instant instant;
 

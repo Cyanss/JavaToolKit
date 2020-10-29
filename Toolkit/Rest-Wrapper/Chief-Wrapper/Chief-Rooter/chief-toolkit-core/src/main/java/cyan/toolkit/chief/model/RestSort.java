@@ -1,9 +1,11 @@
 package cyan.toolkit.chief.model;
 
 import cyan.toolkit.chief.enums.SortType;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>Sort</p>
@@ -12,7 +14,7 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 17:43 2020/9/8
  */
-public class RestSort implements Serializable {
+public class RestSort<S extends RestSort<S>> implements Serializable {
     protected String name;
     protected SortType type = SortType.DESC;
 
@@ -28,7 +30,7 @@ public class RestSort implements Serializable {
         this.type = type;
     }
 
-    public RestSort(RestSort.Builder builder) {
+    public RestSort(RestSort.Builder<S> builder) {
         this.name = builder.name;
         this.type = builder.type;
     }
@@ -67,34 +69,48 @@ public class RestSort implements Serializable {
         return name.concat(" ").concat(type.getValue());
     }
 
-    public static class Builder {
+    public static List<RestSort> build(String... sorts) {
+        if (GeneralUtils.isEmpty(sorts)) {
+            return Collections.emptyList();
+        }
+        return Arrays.stream(sorts).map(RestSort::new).collect(Collectors.toList());
+    }
+
+    public static List<RestSort> build(Collection<String> sorts) {
+        if (GeneralUtils.isEmpty(sorts)) {
+            return Collections.emptyList();
+        }
+        return sorts.stream().map(RestSort::new).collect(Collectors.toList());
+    }
+
+    public static class Builder<S extends RestSort<S>> {
         protected String name;
         protected SortType type = SortType.DESC;
         public Builder() {
         }
 
-        public RestSort.Builder name(String name) {
+        public RestSort.Builder<S> name(String name) {
             this.name = name;
             return this;
         }
 
-        public RestSort.Builder type(SortType type) {
+        public RestSort.Builder<S> type(SortType type) {
             this.type = type;
             return this;
         }
 
-        public RestSort.Builder type(Integer type) {
+        public RestSort.Builder<S> type(Integer type) {
             this.type = SortType.parserKey(type);
             return this;
         }
 
-        public RestSort.Builder type(String type) {
+        public RestSort.Builder<S> type(String type) {
             this.type = SortType.parserValue(type);
             return this;
         }
         
-        public RestSort build() {
-            return new RestSort(this);
+        public RestSort<S> build() {
+            return new RestSort<>(this);
         }
     }
 

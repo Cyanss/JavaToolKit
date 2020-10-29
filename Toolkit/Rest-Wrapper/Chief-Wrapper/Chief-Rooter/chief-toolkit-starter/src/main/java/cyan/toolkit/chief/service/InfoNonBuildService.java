@@ -5,6 +5,7 @@ import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.CheckUtils;
 import cyan.toolkit.rice.model.InfoModel;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.lang.NonNull;
 
 /**
  * <p>InfoNonBuildServer</p>
@@ -13,16 +14,16 @@ import org.springframework.beans.factory.InitializingBean;
  * @group cyan.tool.kit
  * @date 10:35 2020/9/23
  */
-public abstract class InfoNonBuildService<I,D,M extends InfoModel<I>, E extends InfoEntity<I,D>> extends IdNonBuildService<I,D,InfoModel<I>,InfoEntity<I,D>> implements InitializingBean {
+public abstract class InfoNonBuildService<I,D,M extends InfoModel<I,M>, E extends InfoEntity<I,D,E>> extends IdNonBuildService<I,D,M,E> implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws RestException {
-        this.APPLY_CREATE_ACTUATOR = (InfoModel<I> model) -> {
+        this.APPLY_CREATE_ACTUATOR = (@NonNull M model) -> {
             CheckUtils.checkNullObject(model.getName(), "name为空！");
             Boolean existByName = existByName(model.getName());
             CheckUtils.checkNameRepeat(existByName, model.getName());
         };
-        this.APPLY_UPDATE_ACTUATOR = (InfoModel<I> model) -> {
+        this.APPLY_UPDATE_ACTUATOR = (@NonNull M model) -> {
             Boolean existByName = existByNameAndNotId(model.getName(),model.getId());
             CheckUtils.checkNameRepeat(existByName,model.getName());
         };

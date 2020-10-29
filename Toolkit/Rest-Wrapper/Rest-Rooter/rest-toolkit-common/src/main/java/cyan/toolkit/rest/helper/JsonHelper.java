@@ -2,13 +2,16 @@ package cyan.toolkit.rest.helper;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import cyan.toolkit.rest.error.ClassUnsupportedException;
-import cyan.toolkit.rest.error.json.*;
-import cyan.toolkit.rest.error.natives.ConvertErrorException;
+import cyan.toolkit.rest.error.json.JsonParseBeanException;
+import cyan.toolkit.rest.error.json.JsonParseListException;
+import cyan.toolkit.rest.error.json.JsonParseMapException;
+import cyan.toolkit.rest.error.json.JsonParseSetException;
 import cyan.toolkit.rest.error.supply.JsonParseException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 
@@ -63,6 +66,28 @@ public class JsonHelper {
             throw new JsonParseBeanException(json,clazz.getName(), exception.getMessage());
         }
 
+    }
+
+    /**
+     * json字符串解析为Bean<E>
+     * @param json json字符串数据
+     * @param clazz bean类
+     * @param innerClazz 内部类型
+     * @param <T> bean类型
+     * @param <U> 内部类型
+     * @return T cast [(T<U>) T]
+     * @throws JsonParseBeanException
+     */
+    public static <T,U> T parseBean(String json, Class<T> clazz, Class<U> innerClazz) throws JsonParseBeanException {
+        if(GeneralUtils.isEmpty(json)) {
+            return null;
+        }
+        JavaType javaType = MAPPER.getTypeFactory().constructParametricType(clazz, innerClazz);
+        try {
+            return MAPPER.readValue(json, javaType);
+        } catch (JsonProcessingException exception) {
+            throw new JsonParseBeanException(json,javaType.getRawClass().getName(), exception.getMessage());
+        }
     }
 
     /**

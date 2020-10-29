@@ -27,8 +27,7 @@ public class GeometryDeserializer<S extends Geometry> extends JsonDeserializer<S
 
     @Override
     public S deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
-        ObjectCodec oc = jsonParser.getCodec();
-        JsonNode root = oc.readTree(jsonParser);
+        JsonNode root = jsonParser.getCodec().readTree(jsonParser);
         return jtsParser.parse(root);
     }
 }

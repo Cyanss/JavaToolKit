@@ -1,10 +1,12 @@
 package cyan.toolkit.chief.service;
 
 import cyan.toolkit.chief.filter.IdFilter;
-import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rice.model.IdModel;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,13 +16,14 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 8:38 2020/9/23
  */
-public interface IdArrayService<I,M extends IdModel<I>, F extends IdFilter<I>> {
+public interface IdArrayService<I,M extends IdModel<I,M>, F extends IdFilter<I,F>> extends IdFilterService<I,M,F> {
     /**
      * 单个创建
      * @param model 对象信息
      * @return M 创建的对象
      * @throws RestException 模块异常
      */
+    @Transactional(rollbackFor = {RestException.class, SQLException.class})
     @SuppressWarnings(value = "unchecked")
     M create(M model, I... idArray) throws RestException;
 
@@ -30,6 +33,7 @@ public interface IdArrayService<I,M extends IdModel<I>, F extends IdFilter<I>> {
      * @return M 创建的对象
      * @throws RestException 模块异常
      */
+    @Transactional(rollbackFor = {RestException.class, SQLException.class})
     @SuppressWarnings(value = "unchecked")
     M update(M model, I... idArray) throws RestException;
 
@@ -39,46 +43,8 @@ public interface IdArrayService<I,M extends IdModel<I>, F extends IdFilter<I>> {
      * @return List<M> 更新的对象
      * @throws RestException 模块异常
      */
+    @Transactional(rollbackFor = {RestException.class, SQLException.class})
     @SuppressWarnings(value = "unchecked")
-    List<M> saveAll(List<M> modelList, I... idArray) throws RestException;
+    List<M> saveAll(Collection<M> modelList, I... idArray) throws RestException;
 
-    /**
-     * 通过id集合批量删除
-     * @param idList 对象的id集合
-     * @throws RestException 模块异常
-     */
-    void deleteAll(List<I> idList) throws RestException;
-
-    /**
-     * 通过id单个删除
-     * @param id 对象的id
-     * @throws RestException 模块异常
-     */
-    void deleteById(I id) throws RestException;
-
-    /**
-     * 通过id集合查询所有
-     * @param idList 对象id集合
-     * @param isLoadArray 是否只加载基本信息
-     * @return List<M> 查询的数据
-     * @throws RestException 模块异常
-     */
-    List<M> queryAll(List<I> idList, boolean... isLoadArray) throws RestException;
-
-    /**
-     * 通过id集合查询单个
-     * @param id 对象id
-     * @param isLoadArray 是否只加载基本信息
-     * @return M 查询的对象
-     * @throws RestException 模块异常
-     */
-    M queryById(I id, boolean... isLoadArray) throws RestException;
-
-    /**
-     * 通过过滤器查询
-     * @param filter 过滤器
-     * @return GxPage<M> 查询的数据（分页）
-     * @throws RestException 模块异常
-     */
-    RestPage<M> queryAllWithFilter(F filter) throws RestException;
 }

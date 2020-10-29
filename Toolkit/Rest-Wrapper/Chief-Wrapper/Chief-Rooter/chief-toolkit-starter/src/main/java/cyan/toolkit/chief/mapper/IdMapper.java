@@ -4,6 +4,7 @@ import cyan.toolkit.chief.entity.IdEntity;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -13,7 +14,14 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:30 2020/9/8
  */
-public interface IdMapper<I,D,E extends IdEntity<I,D>> extends Mapper<E> {
+public interface IdMapper<E extends IdEntity<I,D,E>,I,D, S extends IdMapper<E,I,D,S>> extends Mapper<E> {
+
+    /**
+     * Mapper的实现，关联实体映射泛型，必须放在第一个，在xxxMapper进行了多级继承的情况下，
+     * 通用Mapper自动生成的方法，构建sql查询语句时，无法找到最终继承的Mapper<E>类，
+     * 无法正确的获取E的类型，因此E，必须要放在第一位，参考 MapperTemplate 99行
+     */
+
     /**
      * 实体保存（存在更新不存在插入）
      * @param entity 实体
@@ -26,7 +34,7 @@ public interface IdMapper<I,D,E extends IdEntity<I,D>> extends Mapper<E> {
      * @param entityList 实体集合
      * @return Integer SQL影响行数
      */
-    Integer saveAll(@Param("entityList") List<E> entityList);
+    Integer saveAll(@Param("entityList") Collection<E> entityList);
 
     /**
      * 实体单个删除
@@ -40,7 +48,7 @@ public interface IdMapper<I,D,E extends IdEntity<I,D>> extends Mapper<E> {
      * @param idList 实体id集合
      * @return Integer SQL影响行数
      */
-    Integer deleteAll(@Param("idList") List<I> idList);
+    Integer deleteAll(@Param("idList") Collection<I> idList);
 
     /**
      * 通过id查询实体
@@ -54,7 +62,7 @@ public interface IdMapper<I,D,E extends IdEntity<I,D>> extends Mapper<E> {
      * @param idList 实体集合
      * @return List<T> 查询的数据集合
      */
-    List<E> findAll(@Param("idList") List<I> idList);
+    List<E> findAll(@Param("idList") Collection<I> idList);
 
     /**
      * 通过filter查询条件查询
@@ -62,4 +70,11 @@ public interface IdMapper<I,D,E extends IdEntity<I,D>> extends Mapper<E> {
      * @return List<T>
      */
     List<E> findAllByWhere(@Param("whereSql") String whereSql);
+
+
+    /**
+     * 通过filter查询条件删除
+     * @param whereSql 过滤条件
+     */
+    Integer deleteAllByWhere(@Param("whereSql") String whereSql);
 }

@@ -6,9 +6,9 @@ import cyan.toolkit.rest.actuator.ConsumerActuator;
 import cyan.toolkit.rest.error.data.DataQueryException;
 import cyan.toolkit.rest.util.common.CheckUtils;
 import cyan.toolkit.rest.util.common.GeneralUtils;
-import cyan.toolkit.rice.helper.RestClazzUtils;
+import cyan.toolkit.rice.clazz.RestClazzHelper;
 import cyan.toolkit.rice.model.IdModel;
-import cyan.toolkit.rice.model.InfoModel;
+import org.springframework.lang.NonNull;
 
 /**
  * <p>NoIdBuildService</p>
@@ -17,34 +17,32 @@ import cyan.toolkit.rice.model.InfoModel;
  * @group cyan.tool.kit
  * @date 8:47 2020/9/23
  */
-public abstract class IdNonBuildService<I,D,M extends IdModel<I>, E extends IdEntity<I,D>> {
+public abstract class IdNonBuildService<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> implements IdCheckService<I,M> {
 
-    protected ConsumerActuator<InfoModel<I>> APPLY_CREATE_ACTUATOR;
+    protected ConsumerActuator<M> APPLY_CREATE_ACTUATOR;
 
-    protected ConsumerActuator<InfoModel<I>> APPLY_UPDATE_ACTUATOR;
+    protected ConsumerActuator<M> APPLY_UPDATE_ACTUATOR;
 
-    private final ConsumerActuator<IdModel<I>> DEFAULT_CREATE_ACTUATOR = (IdModel<I> model) -> {
-        model.setId(RestClazzUtils.generate(model));
-        if (APPLY_CREATE_ACTUATOR != null && model instanceof InfoModel) {
-            InfoModel<I> infoModel = (InfoModel<I>) model;
-            APPLY_CREATE_ACTUATOR.actuate(infoModel);
+    private final ConsumerActuator<M> DEFAULT_CREATE_ACTUATOR = (@NonNull M model) -> {
+        model.setId(RestClazzHelper.generate(model));
+        if (APPLY_CREATE_ACTUATOR != null) {
+            APPLY_CREATE_ACTUATOR.actuate(model);
         }
         afterCheck(model);
     };
 
-    private final ConsumerActuator<IdModel<I>> DEFAULT_UPDATE_ACTUATOR = (IdModel<I> model) -> {
+    private final ConsumerActuator<M> DEFAULT_UPDATE_ACTUATOR = (@NonNull M model) -> {
         boolean exist = existById(model.getId());
         String message = "查询数据不存在，id: " + model.getId();
         CheckUtils.checkNonExistResource(exist, message, "id", DataQueryException::new);
-        if (APPLY_UPDATE_ACTUATOR != null&& model instanceof InfoModel) {
-            InfoModel<I> infoModel = (InfoModel<I>) model;
-            APPLY_CREATE_ACTUATOR.actuate(infoModel);
+        if (APPLY_UPDATE_ACTUATOR != null) {
+            APPLY_CREATE_ACTUATOR.actuate(model);
         }
         afterCheck(model);
     };
 
 
-    protected boolean beforeCreate(IdModel<I> model) throws RestException {
+    protected boolean beforeCreate(@NonNull M model) throws RestException {
         if (GeneralUtils.isEmpty(model.getId())) {
             DEFAULT_CREATE_ACTUATOR.actuate(model);
             return true;
@@ -52,13 +50,13 @@ public abstract class IdNonBuildService<I,D,M extends IdModel<I>, E extends IdEn
         return false;
     }
 
-    protected boolean beforeUpdate(IdModel<I> model) throws RestException {
+    protected boolean beforeUpdate(@NonNull M model) throws RestException {
         CheckUtils.checkNullId(model.getId());
         DEFAULT_UPDATE_ACTUATOR.actuate(model);
         return false;
     }
 
-    protected boolean beforeSave(IdModel<I> model) throws RestException {
+    protected boolean beforeSave(@NonNull M model) throws RestException {
         if (GeneralUtils.isEmpty(model.getId())) {
             DEFAULT_CREATE_ACTUATOR.actuate(model);
             return true;
@@ -68,7 +66,4 @@ public abstract class IdNonBuildService<I,D,M extends IdModel<I>, E extends IdEn
         }
     }
 
-    abstract protected void afterCheck(IdModel<I> model) throws RestException;
-
-    abstract protected boolean existById(I id) throws RestException;
 }

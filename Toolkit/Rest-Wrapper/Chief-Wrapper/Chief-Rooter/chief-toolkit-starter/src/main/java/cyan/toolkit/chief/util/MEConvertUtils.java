@@ -1,12 +1,15 @@
 package cyan.toolkit.chief.util;
 
-import cyan.toolkit.rest.error.ClassUnknownException;
+import cyan.toolkit.chief.entity.IdEntity;
+import cyan.toolkit.rest.RestException;
+import cyan.toolkit.rest.actuator.BiConsumerActuator;
+import cyan.toolkit.rest.actuator.BiFunctionActuator;
+import cyan.toolkit.rest.actuator.FunctionActuator;
 import cyan.toolkit.rest.util.common.GeneralUtils;
-import cyan.toolkit.rice.helper.RestClazzUtils;
 import cyan.toolkit.rice.model.IdModel;
 
-import java.lang.reflect.Array;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>MEConvertUtils</p>
@@ -16,52 +19,48 @@ import java.util.List;
  * @date 15:00 2020/9/23
  */
 public class MEConvertUtils {
-
-    @SuppressWarnings("unchecked")
-    public static<I,M extends IdModel<I>> I id(M model, int index, I... idArray) {
-        I id = null;
-        /** 优先通过 ResponseBody 关联id */
-        if (GeneralUtils.isNotEmpty(model)) {
-            id = model.getId();
-        } else if (idArray.length > index) {
-            id = idArray[index];
+    
+    public static<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> List<E> createEntityList(Collection<M> modelList, FunctionActuator<M,Boolean> function, BiFunctionActuator<M,Boolean,E> biFunction) throws RestException {
+        if (GeneralUtils.isEmpty(modelList)) {
+            return Collections.emptyList();
         }
-        return id;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static<I,M extends IdModel<I>> I id(List<M> models, int index, I... idArray) {
-        I id = null;
-        if (GeneralUtils.isNotEmpty(models) && models.size() == 1 ) {
-            M model = models.stream().findFirst().get();
-            id = id(model,index,idArray);
-        }
-        return id;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <I,M extends IdModel<I>>  void idArray(List<M> models, int index, I... idArray) throws ClassUnknownException {
-        /** 当models的数据有且仅有一条不为空的数据 将model的id反向关联 */
-        if (GeneralUtils.isNotEmpty(models) && models.size() == 1) {
-            M model = models.stream().findFirst().get();
-            idArray(model,index,idArray);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <I,M extends IdModel<I>> void idArray(M model, int index, I... idArray) throws ClassUnknownException {
-        if (GeneralUtils.isNotEmpty(model)) {
-            /** 将model的id反向关联 */
-            if (idArray.length > index) {
-                /** idArray length默认值为1，idArray[0] = null */
-                idArray[index] = model.getId();
-            } else {
-                Class<?> clazz = RestClazzUtils.clazz(model);
-                I[] copyIdArray = (I[]) Array.newInstance(clazz, index + 1);
-                System.arraycopy(idArray, 0, copyIdArray, 0, idArray.length);
-                idArray = copyIdArray;
-                idArray[index] = model.getId();
+        List<M> collect = modelList.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        List<E> entityList = new ArrayList<>();
+        for (M model : collect) {
+            if (model != null) {
+                Boolean isInsert = function.actuate(model);
+                entityList.add(biFunction.actuate(model,isInsert));
             }
         }
+        return entityList;
     }
+
+    public static<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> List<M> createModelList(Collection<E> entityList, FunctionActuator<E,M> function, BiConsumerActuator<M,E> biConsumer) throws RestException {
+        if (GeneralUtils.isEmpty(entityList)) {
+            return Collections.emptyList();
+        }
+        List<M> modelList = new ArrayList<>();
+        for (E entity : entityList) {
+            if (entity != null) {
+                M model = function.actuate(entity);
+                biConsumer.actuate(model,entity);
+                modelList.add(model);
+            }
+        }
+        return modelList;
+    }
+
+    public static<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> List<M> createModelList(Collection<E> entityList,FunctionActuator<E,M> function) throws RestException {
+        if (GeneralUtils.isEmpty(entityList)) {
+            return Collections.emptyList();
+        }
+        List<M> modelList = new ArrayList<>();
+        for (E entity : entityList) {
+            if (entity != null) {
+                modelList.add(function.actuate(entity));
+            }
+        }
+        return modelList;
+    }
+    
 }

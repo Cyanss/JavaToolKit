@@ -1,4 +1,4 @@
-package cyan.toolkit.rice.helper;
+package cyan.toolkit.rice.clazz;
 
 import cyan.toolkit.rest.error.ClassUnknownException;
 import cyan.toolkit.rest.error.ClassUnsupportedException;
@@ -19,10 +19,10 @@ import java.util.stream.Stream;
  * @group cyan.tool.kit
  * @date 17:49 2020/9/23
  */
-public class RestClazzUtils {
+public class RestClazzHelper {
 
-    public static <I> Class<?> clazz(IdModel<I> model) throws ClassUnknownException {
-        Type genericSuperclass = model.getClass().getGenericSuperclass();
+    public static Class<?> clazz(Object object) throws ClassUnknownException {
+        Type genericSuperclass = object.getClass().getGenericSuperclass();
         ParameterizedType parameterizedType = (ParameterizedType ) genericSuperclass;
         Type [] actualTypes = parameterizedType.getActualTypeArguments();
         Optional<Type> first = Stream.of(actualTypes).findFirst();
@@ -30,7 +30,7 @@ public class RestClazzUtils {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public static <I> I generate(IdModel<I> model) throws IdentityException, ClassUnsupportedException, ClassUnknownException {
+    public static <I,S extends IdModel<I,S>> I generate(IdModel<I,S> model) throws IdentityException, ClassUnsupportedException, ClassUnknownException {
         Class<?> clazz = clazz(model);
         Long id = IdentityHelper.generate();
         if (String.class.equals(clazz)) {
@@ -54,7 +54,7 @@ public class RestClazzUtils {
     }
 
 
-    public static class UuidModel extends IdModel<String> {
+    public static class UuidModel extends IdModel<String,UuidModel> {
         public UuidModel() {
         }
     }

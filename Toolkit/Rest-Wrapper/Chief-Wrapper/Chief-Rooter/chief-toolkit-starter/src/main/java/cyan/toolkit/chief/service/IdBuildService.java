@@ -11,8 +11,8 @@ import cyan.toolkit.rice.model.IdModel;
  * @group cyan.tool.kit
  * @date 8:45 2020/9/23
  */
-public abstract class IdBuildService<I,D,M extends IdModel<I>, E extends IdEntity<I,D>> extends IdNonBuildService<I,D,M,E> {
+public abstract class IdBuildService<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> extends IdNonBuildService<I,D,M,E> {
 
-    abstract protected void buildModel(IdModel<I> model,IdEntity<I,D> entity, boolean... isLoadArray) throws RestException;
+    abstract protected void buildModel(M model,E entity, boolean... isLoadArray) throws RestException;
 
 }
