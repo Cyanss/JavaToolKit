@@ -3,9 +3,6 @@ package cyan.toolkit.rest.identity;
 import cyan.toolkit.rest.RestStatus;
 import lombok.Getter;
 
-import java.util.Collections;
-import java.util.Map;
-
 /**
  * <p>IdentityErrorStatus</p>
  * @author Cyan (snow22314@outlook.com)
@@ -15,11 +12,11 @@ import java.util.Map;
  */
 @Getter
 public enum IdentityErrorStatus implements RestStatus {
-    WORKER_ID_INVALID(10523,"workerId无效"),
-    CENTER_ID_INVALID(10524,"centerId无效"),
-    IDENTITY_WORKER_ERROR(10530,"worker错误"),
-    IDENTITY_WORKER_TIME_ERROR(10531,"centerId无效"),
-    WORKER_TYPE_IS_NULL(10532,"WorkerType为空"),
+    WORKER_ID_INVALID(10530,"workerId无效"),
+    CENTER_ID_INVALID(10531,"centerId无效"),
+    IDENTITY_WORKER_ERROR(10532,"worker错误"),
+    IDENTITY_WORKER_TIME_ERROR(10533,"centerId无效"),
+    WORKER_TYPE_IS_NULL(10534,"WorkerType为空"),
     ;
     private final Integer status;
     private final String message;

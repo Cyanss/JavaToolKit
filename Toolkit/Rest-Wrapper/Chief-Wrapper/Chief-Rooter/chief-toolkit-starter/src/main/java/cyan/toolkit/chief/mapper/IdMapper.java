@@ -14,7 +14,7 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:30 2020/9/8
  */
-public interface IdMapper<E extends IdEntity<I,D,E>,I,D, S extends IdMapper<E,I,D,S>> extends Mapper<E> {
+public interface IdMapper<E extends IdEntity<I,D,E>,I,D,S extends IdMapper<E,I,D,S>> extends Mapper<E> {
 
     /**
      * Mapper的实现，关联实体映射泛型，必须放在第一个，在xxxMapper进行了多级继承的情况下，

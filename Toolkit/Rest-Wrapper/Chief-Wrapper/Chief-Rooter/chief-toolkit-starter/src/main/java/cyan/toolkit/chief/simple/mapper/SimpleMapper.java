@@ -14,5 +14,5 @@ import java.util.Date;
  * @date 16:50 2020/9/24
  */
 @Component
-public interface SimpleMapper extends InfoMapper<SimpleEntity, Long, Date, SimpleMapper> {
+public interface SimpleMapper extends InfoMapper<SimpleEntity, Long, Date,SimpleMapper> {
 }

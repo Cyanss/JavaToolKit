@@ -5,6 +5,7 @@ import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.actuator.BiConsumerActuator;
 import cyan.toolkit.rest.actuator.BiFunctionActuator;
 import cyan.toolkit.rest.actuator.FunctionActuator;
+import cyan.toolkit.rest.actuator.MapFunctionActuator;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rice.model.IdModel;
 
@@ -19,7 +20,23 @@ import java.util.stream.Collectors;
  * @date 15:00 2020/9/23
  */
 public class MEConvertUtils {
-    
+
+    @SuppressWarnings(value = "unchecked")
+    public static<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> List<E> createEntityList(Collection<M> modelList, FunctionActuator<M,Boolean> function, MapFunctionActuator<M,Boolean,I,E> mapFunction,I... idArray) throws RestException {
+        if (GeneralUtils.isEmpty(modelList)) {
+            return Collections.emptyList();
+        }
+        List<M> collect = modelList.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        List<E> entityList = new ArrayList<>();
+        for (M model : collect) {
+            if (model != null) {
+                Boolean isInsert = function.actuate(model);
+                entityList.add(mapFunction.actuate(model,isInsert,idArray));
+            }
+        }
+        return entityList;
+    }
+
     public static<I,D,M extends IdModel<I,M>, E extends IdEntity<I,D,E>> List<E> createEntityList(Collection<M> modelList, FunctionActuator<M,Boolean> function, BiFunctionActuator<M,Boolean,E> biFunction) throws RestException {
         if (GeneralUtils.isEmpty(modelList)) {
             return Collections.emptyList();

@@ -55,7 +55,7 @@ public enum RestErrorStatus implements RestStatus {
     TOKEN_ERROR(10310, "认证错误"),
     TOKEN_EXPIRED(10313, "认证过期"),
     TOKEN_FAILED(10311, "认证失败"),
-    TOKEN_ILLEGAL(10312, "认证无效"),
+    TOKEN_SERVICE_(10312, "认证无效"),
 
     /** service */
     SERVICE_ERROR(10400, "服务器错误"),
