@@ -1,9 +1,11 @@
 package cyan.toolkit.chief.filter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import cyan.toolkit.chief.builder.*;
 import cyan.toolkit.chief.model.RestSort;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import org.springframework.lang.NonNull;
 
 import java.util.*;
 
@@ -14,7 +16,7 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 17:39 2020/9/8
  */
-public class IdFilter<I,S extends IdFilter<I,S>> extends SortFilter<S>{
+public class IdFilter<I> extends SortFilter{
     @JsonIgnore
     protected final SqlBuilder SQL_BUILDER = new SqlBuilder();
 
@@ -25,17 +27,25 @@ public class IdFilter<I,S extends IdFilter<I,S>> extends SortFilter<S>{
     public IdFilter() {
     }
 
+    public IdFilter(I id) {
+        this.id = id;
+    }
+
     /**
      * the generic paradigm of T is not Like List<T>、Set<T>
      * It should be String、Long、Integer ...
      * @param ids
      */
     @SuppressWarnings(value = "unchecked")
-    public IdFilter(I... ids) {
+    public IdFilter(@NonNull I... ids) {
         this.ids = new HashSet<>(Arrays.asList(ids));
     }
 
-    public IdFilter(IdFilter.Builder<I,S> builder) {
+    public IdFilter(@NonNull Collection<I> ids) {
+        this.ids = new HashSet<>(ids);
+    }
+
+    public IdFilter(IdFilter.Builder<I> builder) {
         super(builder);
         this.id = builder.id;
         this.ids = builder.ids;
@@ -51,91 +61,143 @@ public class IdFilter<I,S extends IdFilter<I,S>> extends SortFilter<S>{
     }
 
     public List<I> getIds() {
-        return new ArrayList<>(ids);
+        if (GeneralUtils.isNotEmpty(ids)) {
+            return new ArrayList<>(ids);
+        }
+        return Collections.emptyList();
     }
 
-    public void setIds(Collection<I> ids) {
+    @JsonSetter
+    public void setIds(@NonNull Collection<I> ids) {
         this.ids = new HashSet<>(ids);
     }
 
     @SuppressWarnings(value = "unchecked")
-    public void setIds(I... ids) {
+    public void setIds(@NonNull I... ids) {
         this.ids = new HashSet<>(Arrays.asList(ids));
     }
 
-    @Override
-    public String toSort() {
-        this.sorts = Collections.singleton(new RestSort("id"));
+    @SuppressWarnings(value = "unchecked")
+    public void addIds(@NonNull I... ids) {
+        if (GeneralUtils.isEmpty(this.ids)) {
+            this.ids = new HashSet<>(Arrays.asList(ids));
+        } else {
+            this.ids.addAll(Arrays.asList(ids));
+        }
+    }
+
+    public void addIds(@NonNull Collection<I> ids) {
+        if (GeneralUtils.isEmpty(this.ids)) {
+            this.ids = new HashSet<>(ids);
+        } else {
+            this.ids.addAll(ids);
+        }
+    }
+
+    public String toIdSort() {
+        return toIdSort("id");
+    }
+
+    public String toIdSort(@NonNull String alias) {
+        addSorts(alias);
         return super.toSort();
     }
 
-    public SqlBuilder toSql() {
-        if (GeneralUtils.isNotEmpty(this.id)) {
-            SqlBuilders.equal(SQL_BUILDER,"id",this.id);
-        } else if (GeneralUtils.isNotEmpty(this.ids)) {
-            SqlBuilders.in(SQL_BUILDER,"id",this.ids);
-        }
-        return SQL_BUILDER;
+    public String toSql() {
+        String sort = super.toSort();
+        String sql = this.SQL_BUILDER.append(sort).toString();
+        return sql.length() > 0 ? sql : null;
+    }
+
+    public String toIdSql() {
+        return toIdSql("id").toSql();
     }
 
     @Override
-    public String toName() {
-        String pageName = super.toName();
-        StringBuilder nameBuilder = new StringBuilder();
-        if (GeneralUtils.isNotEmpty(id)) {
-            nameBuilder.append(id).append(PAGE_REGEX);
-        }
-        if (GeneralUtils.isNotEmpty(ids)) {
-            this.ids.forEach(index -> nameBuilder.append(index).append(PAGE_REGEX));
-        }
-        nameBuilder.append(pageName);
-        return nameBuilder.toString();
+    public IdFilter<I> addSorts(@NonNull String... sorts) {
+        super.addSorts(sorts);
+        return this;
     }
 
-    public static class Builder<I,S extends IdFilter<I,S>> extends SortFilter.Builder<S> {
+    @Override
+    public IdFilter<I> addSorts(@NonNull RestSort... sorts) {
+        super.addSorts(sorts);
+        return this;
+    }
+
+    @Override
+    public IdFilter<I> addSorts(@NonNull Collection<RestSort> sorts) {
+        super.addSorts(sorts);
+        return this;
+    }
+
+    public IdFilter<I> toIdSql(@NonNull String alias) {
+        if (GeneralUtils.isNotEmpty(this.id)) {
+            SqlBuilders.equal(SQL_BUILDER, alias, this.id);
+        } else if (GeneralUtils.isNotEmpty(this.ids)) {
+            SqlBuilders.in(SQL_BUILDER, alias, this.ids);
+        }
+        return this;
+    }
+
+    @Override
+    public String toKey() {
+        String pageKey = super.toKey();
+        StringBuilder keyBuilder = new StringBuilder();
+        if (GeneralUtils.isNotEmpty(id)) {
+            keyBuilder.append(id).append(PAGE_REGEX);
+        }
+        if (GeneralUtils.isNotEmpty(ids)) {
+            this.ids.forEach(index -> keyBuilder.append(index).append(PAGE_REGEX));
+        }
+        keyBuilder.append(pageKey);
+        return keyBuilder.toString();
+    }
+
+    public static class Builder<I> extends SortFilter.Builder {
         protected I id;
         protected Set<I> ids;
 
         public Builder() {
         }
 
-        public IdFilter.Builder<I,S> id(I id) {
+        public IdFilter.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public IdFilter.Builder<I,S> ids(Collection<I> ids) {
+        public IdFilter.Builder<I> ids(@NonNull Collection<I> ids) {
             this.ids = new HashSet<>(ids);
             return this;
         }
 
         @SuppressWarnings(value = "unchecked")
-        public IdFilter.Builder<I,S> ids(I... ids) {
+        public IdFilter.Builder<I> ids(@NonNull I... ids) {
             this.ids = new HashSet<>(Arrays.asList(ids));
             return this;
         }
 
-        public IdFilter.Builder<I,S> sorts(Collection<RestSort> sorts) {
+        public IdFilter.Builder<I> sorts(@NonNull Collection<RestSort> sorts) {
             this.sorts = new HashSet<>(sorts);
             return this;
         }
 
-        public IdFilter.Builder<I,S> sorts(RestSort... sorts) {
+        public IdFilter.Builder<I> sorts(@NonNull RestSort... sorts) {
             this.sorts = new HashSet<>(Arrays.asList(sorts));
             return this;
         }
 
-        public IdFilter.Builder<I,S> pageNum(Integer pageNum) {
+        public IdFilter.Builder<I> pageNum(Integer pageNum) {
             this.pageNum = pageNum;
             return this;
         }
 
-        public IdFilter.Builder<I,S> pageSize(Integer pageSize) {
+        public IdFilter.Builder<I> pageSize(Integer pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        public IdFilter<I,S> build() {
+        public IdFilter<I> build() {
             return new IdFilter<>(this);
         }
     }

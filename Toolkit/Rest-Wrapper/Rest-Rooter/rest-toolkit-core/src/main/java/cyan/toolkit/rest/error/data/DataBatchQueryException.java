@@ -32,9 +32,4 @@ public class DataBatchQueryException extends RestErrorException {
     public DataBatchQueryException get() {
         return new DataBatchQueryException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_QUERY_ALL_FAILED.name();
-    }
 }

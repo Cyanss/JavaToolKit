@@ -32,9 +32,4 @@ public class DataBatchSaveException extends RestErrorException {
     public DataBatchSaveException get() {
         return new DataBatchSaveException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_SAVE_ALL_FAILED.name();
-    }
 }

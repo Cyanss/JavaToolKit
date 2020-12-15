@@ -51,8 +51,4 @@ public class IdentityException extends RestException {
     public IdentityException get() {
         return new IdentityException();
     }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("generate exception");
-    }
 }

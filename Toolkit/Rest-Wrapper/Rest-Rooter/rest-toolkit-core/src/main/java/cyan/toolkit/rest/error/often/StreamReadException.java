@@ -29,9 +29,4 @@ public class StreamReadException extends RestErrorException {
     public StreamReadException get() {
         return new StreamReadException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.STREAM_READ_ERROR.name();
-    }
 }

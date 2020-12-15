@@ -61,9 +61,4 @@ public class ParamErrorException extends RestErrorException {
         return new ParamErrorException();
     }
 
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.PARAM_ERROR).name();
-    }
-
 }

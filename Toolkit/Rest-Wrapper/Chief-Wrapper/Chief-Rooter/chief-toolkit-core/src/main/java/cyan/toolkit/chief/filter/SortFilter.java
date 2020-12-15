@@ -1,6 +1,7 @@
 package cyan.toolkit.chief.filter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import cyan.toolkit.chief.model.RestSort;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import org.springframework.lang.NonNull;
@@ -14,7 +15,7 @@ import java.util.*;
  * @group cyan.tool.kit
  * @date 8:21 2020/9/9
  */
-public class SortFilter<S extends SortFilter<S>> extends PageFilter<S> {
+public class SortFilter extends PageFilter {
     @JsonIgnore
     public static final String SORT_REGEX = ",";
     @JsonIgnore
@@ -25,58 +26,68 @@ public class SortFilter<S extends SortFilter<S>> extends PageFilter<S> {
     public SortFilter() {
     }
 
-    public SortFilter(RestSort... sorts) {
+    public SortFilter(@NonNull RestSort... sorts) {
         this.sorts = new HashSet<>(Arrays.asList(sorts));
     }
 
-    public SortFilter(String... sorts) {
+    public SortFilter(@NonNull String... sorts) {
         this.sorts = new HashSet<>(RestSort.build(sorts));
     }
 
-    public SortFilter(SortFilter.Builder<S> builder) {
+    public SortFilter(@NonNull Collection<String> sorts) {
+        this.sorts = new HashSet<>(RestSort.build(sorts));
+    }
+
+    public SortFilter(SortFilter.Builder builder) {
         super(builder);
         this.sorts = builder.sorts;
     }
 
     public List<RestSort> getSorts() {
-        return new ArrayList<>(sorts);
+        if (GeneralUtils.isNotEmpty(sorts)) {
+            return new ArrayList<>(sorts);
+        }
+        return Collections.emptyList();
     }
 
-    public void setSorts(String... sorts) {
+    public void setSorts(@NonNull String... sorts) {
         this.setSorts(RestSort.build(sorts));
     }
 
-
-    public void setSorts(RestSort... sorts) {
+    public void setSorts(@NonNull RestSort... sorts) {
         this.sorts = new HashSet<>(Arrays.asList(sorts));
     }
 
-    public void setSorts(Collection<RestSort> sorts) {
+    @JsonSetter
+    public void setSorts(@NonNull Collection<RestSort> sorts) {
         this.sorts = new HashSet<>(sorts);
     }
 
-    public void addSorts(@NonNull String... sorts) {
+    public SortFilter addSorts(@NonNull String... sorts) {
         if (GeneralUtils.isEmpty(this.sorts)) {
             this.sorts = new HashSet<>(RestSort.build(sorts));
         } else {
             this.sorts.addAll(RestSort.build(sorts));
         }
+        return this;
     }
 
-    public void addSorts(@NonNull RestSort... sorts) {
+    public SortFilter addSorts(@NonNull RestSort... sorts) {
         if (GeneralUtils.isEmpty(this.sorts)) {
             this.sorts = new HashSet<>(Arrays.asList(sorts));
         } else {
             this.sorts.addAll(Arrays.asList(sorts));
         }
+        return this;
     }
 
-    public void addSorts(@NonNull Collection<RestSort> sorts) {
+    public SortFilter addSorts(@NonNull Collection<RestSort> sorts) {
         if (GeneralUtils.isEmpty(this.sorts)) {
             this.sorts = new HashSet<>(sorts);
         } else {
             this.sorts.addAll(sorts);
         }
+        return this;
     }
 
     public String toSort() {
@@ -89,34 +100,34 @@ public class SortFilter<S extends SortFilter<S>> extends PageFilter<S> {
         return sortBuilder.toString();
     }
 
-    public static class Builder<S extends SortFilter<S>> extends PageFilter.Builder<S> {
+    public static class Builder extends PageFilter.Builder {
         protected Set<RestSort> sorts;
 
         public Builder() {
         }
 
-        public SortFilter.Builder<S> sorts(Collection<RestSort> sorts) {
+        public SortFilter.Builder sorts(@NonNull Collection<RestSort> sorts) {
             this.sorts = new HashSet<>(sorts);
             return this;
         }
 
-        public SortFilter.Builder<S> sorts(RestSort... sorts) {
+        public SortFilter.Builder sorts(@NonNull RestSort... sorts) {
             this.sorts = new HashSet<>(Arrays.asList(sorts));
             return this;
         }
 
-        public SortFilter.Builder<S> pageNum(Integer pageNum) {
+        public SortFilter.Builder pageNum(Integer pageNum) {
             this.pageNum = pageNum;
             return this;
         }
 
-        public SortFilter.Builder<S> pageSize(Integer pageSize) {
+        public SortFilter.Builder pageSize(Integer pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        public SortFilter<S> build() {
-            return new SortFilter<>(this);
+        public SortFilter build() {
+            return new SortFilter(this);
         }
     }
 }

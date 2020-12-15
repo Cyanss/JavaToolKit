@@ -1,6 +1,9 @@
 package cyan.toolkit.chief.model;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -32,11 +35,11 @@ public class RestPage<T> implements Serializable {
     public RestPage() {
     }
 
-    public RestPage(Collection<T> items) {
+    public RestPage(@NonNull Collection<T> items) {
         this.items = new ArrayList<>(items);
     }
 
-    public RestPage(Long totals, Long pageNum, Long pageSize, Collection<T> items) {
+    public RestPage(Long totals, Long pageNum, Long pageSize,@NonNull Collection<T> items) {
         this.totals = totals;
         this.pageNum = pageNum;
         this.pageSize = pageSize;
@@ -51,6 +54,56 @@ public class RestPage<T> implements Serializable {
             this.pageNum = 0L;
             this.pages = 0L;
             this.itemSize = 0L;
+        }
+    }
+
+    public static <T, K> RestPage<T> result(Collection<T> items, Page<K> page) {
+        if (GeneralUtils.isEmpty(page)) {
+            return new RestPage<>(items);
+        } else {
+            RestPage.Builder<T> pageBuilder = new RestPage.Builder<>();
+            if (GeneralUtils.isNotEmpty(items)) {
+                pageBuilder.items(items);
+            }
+            pageBuilder.itemSize((long) page.getResult().size())
+                    .pageNum((long)page.getPageNum())
+                    .pageSize((long)page.getPageSize())
+                    .pages((long)page.getPages())
+                    .totals(page.getTotal());
+            return pageBuilder.build();
+        }
+    }
+
+    public static <T, K> RestPage<T> result(Collection<T> items, RestPage<K> page) {
+        if (GeneralUtils.isEmpty(page)) {
+            return new RestPage<>(items);
+        } else {
+            RestPage.Builder<T> pageBuilder = new RestPage.Builder<>();
+            if (GeneralUtils.isNotEmpty(items)) {
+                pageBuilder.items(items);
+            }
+            pageBuilder.itemSize(page.getItemSize())
+                    .pageNum(page.getPageNum())
+                    .pageSize(page.getPageSize())
+                    .pages(page.getPages())
+                    .totals(page.getTotals());
+            return pageBuilder.build();
+        }
+    }
+
+    public static <T, K> RestPage<T> result(Collection<T> items, PageInfo<K> pageInfo) {
+        if (GeneralUtils.isEmpty(pageInfo)) {
+            return new RestPage<>(items);
+        } else {
+            RestPage<T> resultPage = new RestPage<>();
+            if (GeneralUtils.isNotEmpty(items)) {
+                resultPage.setItems(items);
+            }
+            resultPage.setPageNum((long)pageInfo.getPageNum());
+            resultPage.setPageSize((long)pageInfo.getPageSize());
+            resultPage.setPages((long)pageInfo.getPages());
+            resultPage.setTotals(pageInfo.getTotal());
+            return resultPage;
         }
     }
 
@@ -137,7 +190,7 @@ public class RestPage<T> implements Serializable {
             return this;
         }
 
-        public RestPage.Builder<T> size(Long pageSize) {
+        public RestPage.Builder<T> pageSize(Long pageSize) {
             this.pageSize = pageSize;
             return this;
         }

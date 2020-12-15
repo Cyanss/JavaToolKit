@@ -33,7 +33,7 @@ class SimpleServiceTest {
         simpleModel.setName("name1");
         simpleModel.setDescription("desc1");
         simpleModel.setTime(new Date());
-        SimpleModel model = simpleService.create(simpleModel);
+        SimpleModel model = simpleService.save(simpleModel);
         Assertions.assertNotNull(model);
         id = model.getId();
         log.info("model: {}", JsonUtils.parseJson(model));
@@ -64,7 +64,7 @@ class SimpleServiceTest {
     public void updateTest() throws RestException {
         SimpleModel simpleModel = new SimpleModel(id);
         simpleModel.setName("name1_update");
-        simpleService.update(simpleModel);
+        simpleService.save(simpleModel);
         SimpleModel query = simpleService.queryById(id);
         Assertions.assertNotNull(query);
         log.info("model: {}", JsonUtils.parseJson(query));

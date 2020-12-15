@@ -1,9 +1,6 @@
 package cyan.toolkit.chief.error;
 
-import cyan.toolkit.rest.RestStatus;
 import cyan.toolkit.rest.error.natives.ServiceErrorException;
-
-import java.util.Optional;
 
 /**
  * <p>ServiceException</p>
@@ -29,10 +26,5 @@ public class ServiceRealizationException extends ServiceErrorException {
     @Override
     public ServiceRealizationException get() {
         return new ServiceRealizationException();
-    }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(ServiceErrorStatus.SERVICE_ANNOTATION_ERROR).name();
     }
 }

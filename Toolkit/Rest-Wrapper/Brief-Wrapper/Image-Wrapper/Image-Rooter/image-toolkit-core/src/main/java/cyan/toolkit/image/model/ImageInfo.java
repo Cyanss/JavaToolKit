@@ -9,7 +9,7 @@ import cyan.toolkit.rice.model.IdModel;
  * @group cyan.tool.kit
  * @date 10:48 2020/8/18
  */
-public class ImageInfo extends IdModel<String,ImageInfo> {
+public class ImageInfo extends IdModel<String> {
     private String name;
     private String extension;
     private String path;
@@ -83,7 +83,7 @@ public class ImageInfo extends IdModel<String,ImageInfo> {
         this.height = height;
     }
 
-    public static class Builder extends IdModel.Builder<String,ImageInfo> {
+    public static class Builder extends IdModel.Builder<String> {
         protected String name;
         protected String extension;
         protected String path;

@@ -53,9 +53,4 @@ public class JsonParseErrorException extends ParseErrorException {
     public JsonParseErrorException get() {
         return new JsonParseErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.JSON_PARSE_ERROR).name();
-    }
 }

@@ -52,9 +52,4 @@ public class UnknownErrorException extends RestErrorException {
     public UnknownErrorException get() {
         return new UnknownErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.UNKNOWN_ERROR).name();
-    }
 }

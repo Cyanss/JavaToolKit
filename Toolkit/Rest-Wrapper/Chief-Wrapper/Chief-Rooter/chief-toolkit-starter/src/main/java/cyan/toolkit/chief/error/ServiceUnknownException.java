@@ -1,9 +1,6 @@
 package cyan.toolkit.chief.error;
 
-import cyan.toolkit.rest.RestStatus;
 import cyan.toolkit.rest.error.natives.ServiceErrorException;
-
-import java.util.Optional;
 
 /**
  * <p>ServiceUnknowException</p>
@@ -25,14 +22,13 @@ public class ServiceUnknownException extends ServiceErrorException {
         super(resource, service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR, error);
     }
 
-    @Override
-    public ServiceUnknownException get() {
-        return new ServiceUnknownException();
+    public ServiceUnknownException(String resource, String service, String error, Throwable cause) {
+        super(resource, service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR, error, cause);
     }
 
     @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(ServiceErrorStatus.SERVICE_ANNOTATION_ERROR).name();
+    public ServiceUnknownException get() {
+        return new ServiceUnknownException();
     }
 
 }

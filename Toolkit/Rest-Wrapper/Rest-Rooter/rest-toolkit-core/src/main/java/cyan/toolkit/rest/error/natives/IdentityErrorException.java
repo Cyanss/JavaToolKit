@@ -72,9 +72,4 @@ public class IdentityErrorException extends RestErrorException {
     public IdentityErrorException get() {
         return new IdentityErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.IDENTITY_ERROR).name();
-    }
 }

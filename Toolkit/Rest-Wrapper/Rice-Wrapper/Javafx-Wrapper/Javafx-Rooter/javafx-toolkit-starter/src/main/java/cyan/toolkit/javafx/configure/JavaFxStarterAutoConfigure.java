@@ -1,5 +1,6 @@
 package cyan.toolkit.javafx.configure;
 
+import cyan.toolkit.rest.Interceptor.RestHttpInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,7 @@ public class JavaFxStarterAutoConfigure {
     @Autowired
     private JavaFxStarterProperties properties;
     @Autowired
-    private HttpClientInterceptor httpClientInterceptor;
+    private RestHttpInterceptor httpInterceptor;
 
     public JavaFxStarterAutoConfigure() {
         log.debug("================= cloud-toolkit-starter initiated ！ ===================");
@@ -33,7 +34,7 @@ public class JavaFxStarterAutoConfigure {
         RestTemplate restTemplate = new RestTemplate();
         JavaFxStarterProperties.RestInfo restInfo = properties.getRestInfo();
         if (restInfo.getEnable()) {
-            restTemplate.getInterceptors().add(httpClientInterceptor);
+            restTemplate.getInterceptors().add(httpInterceptor);
         }
         return restTemplate;
     }

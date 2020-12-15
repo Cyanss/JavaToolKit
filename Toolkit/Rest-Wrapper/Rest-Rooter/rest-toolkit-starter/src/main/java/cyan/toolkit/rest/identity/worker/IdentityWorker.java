@@ -19,7 +19,9 @@ import java.util.Map;
 public interface IdentityWorker {
     Map<WorkerType,IdentityWorker> IDENTITY_WORKER_MAP = new HashMap<>();
 
-    Long generate(Long offset) throws IdentityWorkerException;
+    Long generate(Long sequence) throws IdentityWorkerException;
+
+    Long generate() throws IdentityWorkerException;
 
     static IdentityWorker get(WorkerType workerType) {
        return IDENTITY_WORKER_MAP.get(workerType);

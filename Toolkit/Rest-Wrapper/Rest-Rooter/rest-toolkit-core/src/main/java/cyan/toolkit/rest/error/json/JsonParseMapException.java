@@ -34,9 +34,4 @@ public class JsonParseMapException extends JsonParseErrorException {
     public JsonParseMapException get() {
         return new JsonParseMapException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.JSON_PARSE_MAP.name();
-    }
 }

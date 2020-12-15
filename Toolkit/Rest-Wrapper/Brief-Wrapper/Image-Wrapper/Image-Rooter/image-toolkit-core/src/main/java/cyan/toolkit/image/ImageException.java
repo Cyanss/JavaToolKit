@@ -1,12 +1,10 @@
 package cyan.toolkit.image;
 
 
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -51,9 +49,5 @@ public class ImageException extends RestException {
 
     public ImageException get() {
         return new ImageException();
-    }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("image exception");
     }
 }

@@ -141,21 +141,4 @@ public class SqlBuilders {
         }
         return null;
     }
-
-    public static <T, K> RestPage<T> result(Collection<T> items, Page<K> page) {
-        if (GeneralUtils.isEmpty(page)) {
-            return new RestPage<>(items);
-        } else {
-            RestPage<T> restPage = new RestPage<>();
-            if (GeneralUtils.isNotEmpty(items)) {
-                restPage.setItems(items);
-            }
-            restPage.setItemSize((long) page.getResult().size());
-            restPage.setPageNum((long) page.getPageNum());
-            restPage.setPageSize((long) page.getPageSize());
-            restPage.setPages((long) page.getPages());
-            restPage.setTotals(page.getTotal());
-            return restPage;
-        }
-    }
 }

@@ -29,9 +29,4 @@ public class ParamMissingException extends RestErrorException {
     public ParamMissingException get() {
         return new ParamMissingException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.PARAM_MISSING.name();
-    }
 }

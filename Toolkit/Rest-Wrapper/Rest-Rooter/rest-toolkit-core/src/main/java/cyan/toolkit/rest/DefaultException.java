@@ -1,5 +1,6 @@
 package cyan.toolkit.rest;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,6 +19,7 @@ import java.util.function.Supplier;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@JsonIgnoreProperties(value = {"cause","stackTrace","localizedMessage","suppressed"})
 class DefaultException extends Exception implements RestStatus, Supplier,Serializable {
     protected RestError error;
     protected Integer status;
@@ -228,7 +230,7 @@ class DefaultException extends Exception implements RestStatus, Supplier,Seriali
 
     @Override
     public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("default exception");
+        return Optional.ofNullable(this.error).map(RestError::getName).orElse(this.getClass().getSimpleName());
     }
 
     @Override

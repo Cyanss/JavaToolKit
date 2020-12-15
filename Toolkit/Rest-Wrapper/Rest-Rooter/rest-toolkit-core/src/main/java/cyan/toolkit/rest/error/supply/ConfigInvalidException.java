@@ -33,9 +33,4 @@ public class ConfigInvalidException extends RestErrorException {
     public ConfigInvalidException get() {
         return new ConfigInvalidException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.CONFIG_INVALID.name();
-    }
 }

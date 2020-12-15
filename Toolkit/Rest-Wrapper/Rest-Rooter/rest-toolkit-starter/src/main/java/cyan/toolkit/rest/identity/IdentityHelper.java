@@ -12,16 +12,32 @@ import cyan.toolkit.rest.identity.worker.WorkerType;
  */
 public class IdentityHelper {
 
-    public static Long generate(WorkerType workerType, Long offset) throws IdentityWorkerException {
-        return IdentityFactory.getInstance().get(workerType).generate(offset);
+    public static Long generate(WorkerType workerType, Long sequence) throws IdentityWorkerException {
+        return IdentityFactory.getInstance().get(workerType).generate(sequence);
+    }
+
+    public static Long generate(WorkerType workerType) throws IdentityWorkerException {
+        return IdentityFactory.getInstance().get(workerType).generate();
     }
 
     public static Long generate() throws IdentityWorkerException {
-        return IdentityFactory.getInstance().get(WorkerType.CENTER_WORKER).generate(null);
+        return IdentityFactory.getInstance().get(WorkerType.CENTER_WORKER).generate();
     }
 
-    public static Long generate(Long offset) throws IdentityWorkerException {
+    public static Long offset() throws IdentityWorkerException {
+        return IdentityFactory.getInstance().get(WorkerType.TAG_WORKER).generate();
+    }
+
+    public static Long offset(Long offset) throws IdentityWorkerException {
         return IdentityFactory.getInstance().get(WorkerType.TAG_WORKER).generate(offset);
+    }
+
+    public static Long sequence() throws IdentityWorkerException {
+        return IdentityFactory.getInstance().get(WorkerType.TAG_SEQUENCE_WORKER).generate();
+    }
+
+    public static Long sequence(Long sequence) throws IdentityWorkerException {
+        return IdentityFactory.getInstance().get(WorkerType.TAG_SEQUENCE_WORKER).generate(sequence);
     }
 
 }

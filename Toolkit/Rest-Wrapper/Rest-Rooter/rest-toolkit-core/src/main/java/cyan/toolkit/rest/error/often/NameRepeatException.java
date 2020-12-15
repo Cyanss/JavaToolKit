@@ -32,9 +32,4 @@ public class NameRepeatException extends RestErrorException {
     public NameRepeatException get() {
         return new NameRepeatException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.NAME_REPEATED.name();
-    }
 }

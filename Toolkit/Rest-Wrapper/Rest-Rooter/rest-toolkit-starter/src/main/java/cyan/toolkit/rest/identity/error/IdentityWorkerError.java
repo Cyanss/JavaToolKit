@@ -36,8 +36,4 @@ public class IdentityWorkerError extends RestError {
     public IdentityWorkerError get() {
         return new IdentityWorkerError();
     }
-
-    public String getName() {
-        return Optional.ofNullable(this.name).orElse("identity worker error");
-    }
 }

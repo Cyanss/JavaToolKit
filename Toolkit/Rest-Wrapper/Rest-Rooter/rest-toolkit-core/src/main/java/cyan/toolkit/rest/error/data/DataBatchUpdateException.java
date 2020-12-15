@@ -32,9 +32,4 @@ public class DataBatchUpdateException extends RestErrorException {
     public DataBatchUpdateException get() {
         return new DataBatchUpdateException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_UPDATE_ALL_FAILED.name();
-    }
 }

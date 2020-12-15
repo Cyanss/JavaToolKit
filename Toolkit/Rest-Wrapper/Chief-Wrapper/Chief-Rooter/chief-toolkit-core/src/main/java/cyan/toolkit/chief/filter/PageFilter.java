@@ -1,9 +1,15 @@
 package cyan.toolkit.chief.filter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import cyan.toolkit.rest.util.common.JsonUtils;
+import org.springframework.lang.NonNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>PageFilter</p>
@@ -12,20 +18,27 @@ import java.io.Serializable;
  * @group cyan.tool.kit
  * @date 8:20 2020/9/9
  */
-public class PageFilter<S extends PageFilter<S>> implements Serializable {
+public class PageFilter implements Serializable {
     @JsonIgnore
     public static final String PAGE_REGEX = "_";
     @JsonIgnore
     public static final String PAGE_LIMIT = "LIMIT";
     @JsonIgnore
     public static final String PAGE_OFFSET = "OFFSET";
+    @JsonIgnore
+    protected final List<Boolean> LOAD_ARRAY = new ArrayList<>();
     protected Integer pageNum = 1;
-    protected Integer pageSize;
+    protected Integer pageSize = 0;
 
     public PageFilter() {
     }
 
-    public PageFilter(PageFilter.Builder<S> builder) {
+    public PageFilter(Integer pageNum, Integer pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
+    public PageFilter(PageFilter.Builder builder) {
         this.pageNum = builder.pageNum;
         this.pageSize = builder.pageSize;
     }
@@ -53,37 +66,54 @@ public class PageFilter<S extends PageFilter<S>> implements Serializable {
         return JsonUtils.parseJson(this);
     }
 
-    public String toPage() {
+    public String toPageSql() {
         return PAGE_LIMIT + " " + this.pageSize +
                 PAGE_OFFSET + " " + (this.pageNum - 1);
     }
 
-    public boolean[] toLoadArray() {
-        return new boolean[0];
+    public <T> Page<T> toPage() {
+        return PageHelper.startPage(pageNum, pageSize);
     }
 
-    public String toName() {
+    public Boolean[] toLoadArray() {
+        return LOAD_ARRAY.toArray(new Boolean[0]);
+    }
+
+    public Boolean[] toLoadArray(@NonNull Boolean... isLoads) {
+        this.addLoadArray(isLoads);
+        return LOAD_ARRAY.toArray(new Boolean[0]);
+    }
+
+    public void addLoadArray(@NonNull Boolean... isLoads) {
+        LOAD_ARRAY.addAll(Arrays.asList(isLoads));
+    }
+
+    public String name() {
+        return this.getClass().getSimpleName();
+    }
+
+    public String toKey() {
         return this.pageNum + PAGE_REGEX + this.pageSize;
     }
 
-    public static class Builder<S extends PageFilter<S>> {
+    public static class Builder {
         protected Integer pageNum;
         protected Integer pageSize;
         public Builder() {
         }
 
-        public PageFilter.Builder<S> pageNum(Integer pageNum) {
+        public PageFilter.Builder pageNum(Integer pageNum) {
             this.pageNum = pageNum;
             return this;
         }
 
-        public PageFilter.Builder<S> pageSize(Integer pageSize) {
+        public PageFilter.Builder pageSize(Integer pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        public PageFilter<S> build() {
-            return new PageFilter<>(this);
+        public PageFilter build() {
+            return new PageFilter(this);
         }
     }
 

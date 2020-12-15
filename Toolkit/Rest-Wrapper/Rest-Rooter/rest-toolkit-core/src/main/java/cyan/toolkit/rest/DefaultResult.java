@@ -18,6 +18,7 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
     private String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
+    private DefaultError error;
     
 
     public DefaultResult() {
@@ -28,7 +29,14 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         this.message = message;
     }
     public DefaultResult(DefaultResult.Builder<T,S> builder) {
-        this(builder.status, builder.message, builder.data);
+        if (builder.cause != null) {
+            this.error = new DefaultError(builder.cause);
+            this.message = builder.message == null ? builder.cause.getMessage() == null ? this.error.getLocalizedMessage() : builder.cause.getMessage() : builder.message;
+        } else {
+            this.message = builder.message;
+        }
+        this.status = builder.status;
+        this.data = builder.data;
     }
 
     public DefaultResult(Integer status, String message, T data) {
@@ -73,12 +81,21 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         return (new DefaultResult.Builder<T,S>()).status(status).message(message).data(data).build();
     }
 
+    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(Integer status,Throwable cause) {
+        return (new DefaultResult.Builder<T,S>()).status(status).message(cause.getMessage()).cause(cause).build();
+    }
+
     public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(Integer status, String message) {
         return (new DefaultResult.Builder<T,S>()).status(status).message(message).build();
     }
 
     public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(RestStatus status) {
         return (new DefaultResult.Builder<T,S>()).status(status.getStatus()).message(status.getMessage()).build();
+    }
+
+
+    public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(RestStatus status,Throwable cause) {
+        return (new Builder<T, S>()).status(status.getStatus()).message(status.getMessage()).cause(cause).build();
     }
 
     public static <T,S extends DefaultResult<T,S>> DefaultResult<T,S> fail(RestStatus status, T data) {
@@ -93,6 +110,7 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
         protected Integer status;
         protected String message;
         protected T data;
+        private Throwable cause;
 
         public Builder() {
         }
@@ -102,13 +120,28 @@ public class DefaultResult<T,S extends DefaultResult<T,S>> implements Serializab
             return this;
         }
 
+        public DefaultResult.Builder<T,S> status(RestStatus status) {
+            this.status = status.getStatus();
+            return this;
+        }
+
         public DefaultResult.Builder<T,S> message(String message) {
             this.message = message;
             return this;
         }
 
+        public DefaultResult.Builder<T,S> message(RestStatus status) {
+            this.message = status.getMessage();
+            return this;
+        }
+
         public DefaultResult.Builder<T,S> data(T data) {
             this.data = data;
+            return this;
+        }
+
+        public DefaultResult.Builder<T,S> cause(Throwable cause) {
+            this.cause = cause;
             return this;
         }
 

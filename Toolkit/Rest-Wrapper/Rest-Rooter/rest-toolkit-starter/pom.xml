@@ -61,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>rest-toolkit-common</artifactId>
+            <artifactId>rest-toolkit-utils</artifactId>
             <version>${toolkit.version}</version>
         </dependency>
     </dependencies>

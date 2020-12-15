@@ -32,9 +32,4 @@ public class DataDeleteException extends RestErrorException {
     public DataDeleteException get() {
         return new DataDeleteException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_DELETE_FAILED.name();
-    }
 }

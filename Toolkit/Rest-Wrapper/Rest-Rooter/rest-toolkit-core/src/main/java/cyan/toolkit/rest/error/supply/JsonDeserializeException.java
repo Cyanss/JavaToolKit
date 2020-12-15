@@ -25,9 +25,4 @@ public class JsonDeserializeException extends RestErrorException {
     public JsonDeserializeException get() {
         return new JsonDeserializeException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.JSON_DESERIALIZE_ERROR.name();
-    }
 }

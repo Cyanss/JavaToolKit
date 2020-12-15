@@ -59,9 +59,4 @@ public class FieldErrorException extends RestErrorException {
     public FieldErrorException get() {
         return new FieldErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.FIELD_ERROR).name();
-    }
 }

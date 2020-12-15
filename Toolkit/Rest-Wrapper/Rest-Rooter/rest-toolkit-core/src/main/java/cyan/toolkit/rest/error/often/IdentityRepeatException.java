@@ -32,9 +32,4 @@ public class IdentityRepeatException extends IdentityErrorException {
     public IdentityRepeatException get() {
         return new IdentityRepeatException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.IDENTITY_REPEATED.name();
-    }
 }

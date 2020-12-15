@@ -28,9 +28,4 @@ public class ServiceUnavailableException extends RestErrorException {
     public ServiceUnavailableException get() {
         return new ServiceUnavailableException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.SERVICE_UNAVAILABLE.name();
-    }
 }

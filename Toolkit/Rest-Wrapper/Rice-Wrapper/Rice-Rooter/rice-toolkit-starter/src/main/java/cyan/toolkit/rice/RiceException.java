@@ -1,12 +1,10 @@
 package cyan.toolkit.rice;
 
 
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -51,9 +49,5 @@ public class RiceException extends RestException {
 
     public RiceException get() {
         return new RiceException();
-    }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("rice exception");
     }
 }

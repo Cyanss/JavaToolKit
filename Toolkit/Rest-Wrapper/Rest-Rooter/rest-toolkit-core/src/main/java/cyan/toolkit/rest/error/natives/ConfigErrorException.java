@@ -5,8 +5,6 @@ import cyan.toolkit.rest.RestErrorException;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
-
 /**
  * <p>ConfigureErrorException</p>
  * @valueor Cyan (snow22314@outlook.com)
@@ -79,10 +77,5 @@ public class ConfigErrorException extends RestErrorException {
     @Override
     public ConfigErrorException get() {
         return new ConfigErrorException();
-    }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.CONFIG_ERROR).name();
     }
 }

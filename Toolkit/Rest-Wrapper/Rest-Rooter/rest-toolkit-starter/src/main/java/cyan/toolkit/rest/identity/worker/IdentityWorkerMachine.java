@@ -6,6 +6,7 @@ import cyan.toolkit.rest.identity.error.IdentityWorkerError;
 import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
 
 /**
  * <p>IdentityWorkerMachine</p>
@@ -18,23 +19,34 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 class IdentityWorkerMachine implements IdentityWorker{
     private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
-    private Long lastTag = IdentityWorkerConfig.DEFAULT_TAG;
-    private Long sequence = IdentityWorkerConfig.SEQUENCE;
+    private Long sequence = null;
     private Long workerId;
     private Long centerId;
 
-    public IdentityWorkerMachine(Long workerId, Long centerId) throws IdentityWorkerError {
-        if (workerId == null || workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
+    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId, Long sequence) throws IdentityWorkerError {
+        if (workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
             log.error("worker Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_WORKER_ID,IdentityWorkerConfig.MIN_WORKER_ID);
             throw new IdentityWorkerError(IdentityErrorStatus.WORKER_ID_INVALID);
         }
-        if (centerId == null || centerId > IdentityWorkerConfig.MAX_CENTER_ID || centerId < IdentityWorkerConfig.MIN_CENTER_ID) {
+        if (centerId > IdentityWorkerConfig.MAX_CENTER_ID || centerId < IdentityWorkerConfig.MIN_CENTER_ID) {
             log.error("center Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_CENTER_ID,IdentityWorkerConfig.MIN_CENTER_ID);
             throw new IdentityWorkerError(IdentityErrorStatus.CENTER_ID_INVALID);
         }
         this.workerId = workerId;
         this.centerId = centerId;
+        if (sequence != null && sequence >= IdentityWorkerConfig.SEQUENCE) {
+            this.sequence = sequence;
+        }
         IDENTITY_WORKER_MAP.put(WorkerType.CENTER_WORKER,this);
+    }
+
+    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId) throws IdentityWorkerError {
+        this(workerId,centerId,null);
+    }
+
+    @Override
+    public synchronized Long generate() throws IdentityWorkerException {
+        return generate(this.sequence);
     }
 
     @Override

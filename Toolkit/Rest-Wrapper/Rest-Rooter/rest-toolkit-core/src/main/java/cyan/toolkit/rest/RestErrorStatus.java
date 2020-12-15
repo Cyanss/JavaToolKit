@@ -88,9 +88,10 @@ public enum RestErrorStatus implements RestStatus {
     DATA_ERROR(10600, "数据错误"),
     DATA_CREATE_FAILED(10601, "数据创建失败"),
     DATA_UPDATE_FAILED(10602, "数据更新失败"),
-    DATA_DELETE_FAILED(10603, "数据删除失败"),
-    DATA_QUERY_FAILED(10604, "数据查询失败"),
-    DATA_TRANSFORM_FAILED(10605, "数据转换失败"),
+    DATA_SAVE_FAILED(10603, "数据保存失败"),
+    DATA_DELETE_FAILED(10604, "数据删除失败"),
+    DATA_QUERY_FAILED(10605, "数据查询失败"),
+    DATA_TRANSFORM_FAILED(10606, "数据转换失败"),
 
     /** data all */
     DATA_ALL_ERROR(10610, "数据批量处理错误"),

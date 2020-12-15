@@ -23,12 +23,18 @@ public class IdentityController {
     @GetMapping("/generate")
     public ResponseEntity generate() throws RestException {
         Long generate = IdentityHelper.generate();
-        return ResponseEntity.ok(RestResult.success(generate));
+        return RestResult.ok(generate);
     }
 
-    @GetMapping("/generate/{tag}")
-    public ResponseEntity generate(@PathVariable Long tag) throws RestException {
-        Long generate = IdentityHelper.generate(tag);
-        return ResponseEntity.ok(RestResult.success(generate));
+    @GetMapping("/offset/{offset}")
+    public ResponseEntity generate(@PathVariable Long offset) throws RestException {
+        Long generate = IdentityHelper.offset(offset);
+        return RestResult.ok(generate);
+    }
+
+    @GetMapping("/sequence/{sequence}")
+    public ResponseEntity sequence(@PathVariable Long sequence) throws RestException {
+        Long generate = IdentityHelper.sequence(sequence);
+        return RestResult.ok(generate);
     }
 }

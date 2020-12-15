@@ -33,9 +33,4 @@ public class ParamInvalidException extends RestErrorException {
     public ParamInvalidException get() {
         return new ParamInvalidException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.PARAM_INVALID.name();
-    }
 }

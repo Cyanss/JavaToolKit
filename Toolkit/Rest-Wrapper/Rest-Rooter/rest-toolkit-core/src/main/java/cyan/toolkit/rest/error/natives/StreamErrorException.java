@@ -69,10 +69,5 @@ public class StreamErrorException  extends RestErrorException {
     public StreamErrorException get() {
         return new StreamErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.STREAM_ERROR).name();
-    }
 }
 

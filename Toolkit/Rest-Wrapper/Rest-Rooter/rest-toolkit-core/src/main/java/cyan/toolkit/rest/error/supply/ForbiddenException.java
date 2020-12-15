@@ -28,9 +28,4 @@ public class ForbiddenException extends RestErrorException {
     public ForbiddenException get() {
         return new ForbiddenException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.AUTH_FORBIDDEN.name();
-    }
 }

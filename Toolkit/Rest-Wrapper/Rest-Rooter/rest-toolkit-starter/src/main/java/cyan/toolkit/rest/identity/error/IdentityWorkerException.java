@@ -1,10 +1,8 @@
 package cyan.toolkit.rest.identity.error;
 
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestStatus;
 import cyan.toolkit.rest.identity.IdentityErrorStatus;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -34,9 +32,5 @@ public class IdentityWorkerException extends IdentityException {
 
     public IdentityWorkerException get() {
         return new IdentityWorkerException();
-    }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("identity worker exception");
     }
 }

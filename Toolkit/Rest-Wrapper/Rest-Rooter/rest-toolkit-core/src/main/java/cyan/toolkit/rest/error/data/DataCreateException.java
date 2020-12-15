@@ -32,9 +32,4 @@ public class DataCreateException extends RestErrorException {
     public DataCreateException get() {
         return new DataCreateException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_CREATE_FAILED.name();
-    }
 }

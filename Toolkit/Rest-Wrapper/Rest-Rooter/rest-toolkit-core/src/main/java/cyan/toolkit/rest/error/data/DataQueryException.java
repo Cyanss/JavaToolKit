@@ -32,9 +32,4 @@ public class DataQueryException extends RestErrorException {
     public DataQueryException get() {
         return new DataQueryException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_QUERY_FAILED.name();
-    }
 }

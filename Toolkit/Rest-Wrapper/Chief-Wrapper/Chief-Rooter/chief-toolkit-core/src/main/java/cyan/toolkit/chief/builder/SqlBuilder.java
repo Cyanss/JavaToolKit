@@ -286,10 +286,16 @@ public final class SqlBuilder implements Serializable, CharSequence {
 
     public SqlBuilder in(String target, Collection<?> values, Boolean andOfOr) {
         if (GeneralUtils.isNotEmpty(values)) {
-            this.andOfOr(andOfOr);
-            this.append(target).append(" IN (");
-            values.forEach(value -> this.value(value,true));
-            this.deleteCharAt(this.length() - 1).append(")");
+            if (values.size() == 1) {
+                Object value = values.stream().findFirst().get();
+                this.eq(target,value,andOfOr);
+            } else {
+                this.andOfOr(andOfOr);
+                this.append(target).append(" IN (");
+                values.forEach(value -> this.value(value,true));
+                this.deleteCharAt(this.length() - 2);
+                this.append(")");
+            }
         }
         return this;
     }

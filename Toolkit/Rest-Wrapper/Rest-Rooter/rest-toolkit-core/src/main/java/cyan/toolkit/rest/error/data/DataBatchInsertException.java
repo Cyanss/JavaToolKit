@@ -32,9 +32,4 @@ public class DataBatchInsertException extends RestErrorException {
     public DataBatchInsertException get() {
         return new DataBatchInsertException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_INSERT_ALL_FAILED.name();
-    }
 }

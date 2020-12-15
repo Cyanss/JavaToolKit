@@ -25,9 +25,4 @@ public class TimeoutException extends RestErrorException {
     public TimeoutException get() {
         return new TimeoutException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.TIME_OUT.name();
-    }
 }

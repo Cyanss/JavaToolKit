@@ -30,7 +30,7 @@ public class RestClazzHelper {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public static <I,S extends IdModel<I,S>> I generate(IdModel<I,S> model) throws IdentityException, ClassUnsupportedException, ClassUnknownException {
+    public static <I> I generate(IdModel<I> model) throws IdentityException, ClassUnsupportedException, ClassUnknownException {
         Class<?> clazz = clazz(model);
         Long id = IdentityHelper.generate();
         if (String.class.equals(clazz)) {
@@ -51,17 +51,5 @@ public class RestClazzHelper {
         } else {
             throw new ClassUnsupportedException("无效的<I>类型: " + clazz);
         }
-    }
-
-
-    public static class UuidModel extends IdModel<String,UuidModel> {
-        public UuidModel() {
-        }
-    }
-
-    public static void main(String[] args) throws ClassUnsupportedException, IdentityException, ClassUnknownException {
-        UuidModel uuidModel = new UuidModel();
-        String generate = generate(uuidModel);
-        System.out.println(generate);
     }
 }

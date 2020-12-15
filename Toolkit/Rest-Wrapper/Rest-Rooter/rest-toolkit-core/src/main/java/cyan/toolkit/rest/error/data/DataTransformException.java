@@ -32,9 +32,4 @@ public class DataTransformException extends RestErrorException {
     public DataTransformException get() {
         return new DataTransformException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_TRANSFORM_FAILED.name();
-    }
 }

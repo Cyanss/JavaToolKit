@@ -57,9 +57,4 @@ public class ResourceErrorException extends RestErrorException {
         return new ResourceErrorException();
     }
 
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.PARAM_ERROR).name();
-    }
-
 }

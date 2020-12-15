@@ -11,7 +11,7 @@ import java.util.Map;
  * @group cyan.tool.kit
  * @date 15:41 2020/8/19
  */
-public class AuthUser<K,V> extends IdModel<Long,AuthUser<K,V>> {
+public class AuthUser<K,V> extends IdModel<Long> {
     private String openId;
     private String username;
     private Map<K,V> otherInfo;

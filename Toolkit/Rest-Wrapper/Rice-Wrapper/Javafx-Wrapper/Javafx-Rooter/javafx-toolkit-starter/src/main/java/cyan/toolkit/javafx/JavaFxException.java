@@ -1,12 +1,10 @@
 package cyan.toolkit.javafx;
 
 
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -51,9 +49,5 @@ public class JavaFxException extends RestException {
 
     public JavaFxException get() {
         return new JavaFxException();
-    }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("rice exception");
     }
 }

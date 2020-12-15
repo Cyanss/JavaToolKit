@@ -64,13 +64,12 @@ public class ServiceErrorException extends RestErrorException {
         super(RestErrorStatus.SERVICE_ERROR, RestError.error(resource, service, status, error));
     }
 
-    @Override
-    public ServiceErrorException get() {
-        return new ServiceErrorException();
+    public ServiceErrorException(String resource, String service, RestStatus status, String error,Throwable cause) {
+        super(RestErrorStatus.SERVICE_ERROR, RestError.error(resource, service, status, error, cause));
     }
 
     @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.SERVICE_ERROR).name();
+    public ServiceErrorException get() {
+        return new ServiceErrorException();
     }
 }

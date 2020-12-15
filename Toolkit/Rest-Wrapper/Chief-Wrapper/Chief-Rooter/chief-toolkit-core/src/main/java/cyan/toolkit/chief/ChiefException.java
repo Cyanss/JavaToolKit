@@ -1,12 +1,10 @@
 package cyan.toolkit.chief;
 
 
-import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -55,9 +53,5 @@ public class ChiefException extends RestException {
 
     public ChiefException get() {
         return new ChiefException();
-    }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("chief exception");
     }
 }

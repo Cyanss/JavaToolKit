@@ -34,9 +34,4 @@ public class JsonParseSetException extends JsonParseErrorException {
     public JsonParseSetException get() {
         return new JsonParseSetException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.JSON_PARSE_SET.name();
-    }
 }

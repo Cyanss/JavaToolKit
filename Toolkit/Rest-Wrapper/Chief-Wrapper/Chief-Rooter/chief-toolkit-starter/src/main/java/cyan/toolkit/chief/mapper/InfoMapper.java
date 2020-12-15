@@ -12,7 +12,7 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:36 2020/9/8
  */
-public interface InfoMapper<E extends InfoEntity<I,D,E>,I,D,S extends InfoMapper<E,I,D,S>> extends IdMapper<E,I,D,S> {
+public interface InfoMapper<E extends InfoEntity<I,D>,I,D> extends IdMapper<E,I,D> {
     /**
      * 根据名称判断是否存在
      * @param name 对象名称

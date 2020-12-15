@@ -28,9 +28,4 @@ public class NameNullException extends RestErrorException {
     public NameNullException get() {
         return new NameNullException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.NAME_IS_NULL.name();
-    }
 }

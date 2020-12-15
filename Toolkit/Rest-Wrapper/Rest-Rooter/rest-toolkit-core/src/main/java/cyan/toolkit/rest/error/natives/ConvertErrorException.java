@@ -93,9 +93,4 @@ public class ConvertErrorException extends RestErrorException {
     public ConvertErrorException get() {
         return new ConvertErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.CONVERT_ERROR).name();
-    }
 }

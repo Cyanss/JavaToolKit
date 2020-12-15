@@ -12,8 +12,8 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 14:00 2020/8/14
  */
-public class IdModel<I,S extends IdModel<I,S>> implements Serializable {
-    private I id;
+public class IdModel<I> implements Serializable {
+    protected I id;
 
     public IdModel() {
     }
@@ -22,7 +22,7 @@ public class IdModel<I,S extends IdModel<I,S>> implements Serializable {
         this.id = id;
     }
 
-    public IdModel(IdModel.Builder<I,S> builder) {
+    public IdModel(IdModel.Builder<I> builder) {
         this.id = builder.id;
     }
 
@@ -38,7 +38,7 @@ public class IdModel<I,S extends IdModel<I,S>> implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        IdModel<?,?> idModel = (IdModel<?,?>) o;
+        IdModel<?> idModel = (IdModel<?>) o;
         return Objects.equals(id, idModel.id);
     }
 
@@ -52,18 +52,18 @@ public class IdModel<I,S extends IdModel<I,S>> implements Serializable {
         return JsonUtils.parseJson(this);
     }
 
-    public static class Builder<I,S extends IdModel<I,S>> {
+    public static class Builder<I> {
         protected I id;
 
         public Builder() {
         }
 
-        public IdModel.Builder<I,S> id(I id) {
+        public IdModel.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public IdModel<I,S> build() {
+        public IdModel<I> build() {
             return new IdModel<>(this);
         }
     }

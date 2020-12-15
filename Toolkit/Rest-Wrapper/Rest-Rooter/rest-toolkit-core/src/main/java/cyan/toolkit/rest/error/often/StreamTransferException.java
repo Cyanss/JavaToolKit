@@ -28,9 +28,4 @@ public class StreamTransferException extends RestErrorException {
     public StreamTransferException get() {
         return new StreamTransferException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.STREAM_TRANSFER_ERROR.name();
-    }
 }

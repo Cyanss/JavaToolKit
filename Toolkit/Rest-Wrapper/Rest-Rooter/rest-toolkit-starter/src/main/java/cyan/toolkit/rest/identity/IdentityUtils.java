@@ -21,6 +21,15 @@ public class IdentityUtils {
         }
     }
 
+    public static Long generate(WorkerType workerType)  {
+        try {
+            return IdentityHelper.generate(workerType);
+        } catch (IdentityWorkerException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
     public static Long generate() {
         try {
             return IdentityHelper.generate();
@@ -30,9 +39,36 @@ public class IdentityUtils {
         }
     }
 
-    public static Long generate(Long tag) {
+    public static Long offset() {
         try {
-            return IdentityHelper.generate(tag);
+            return IdentityHelper.offset();
+        } catch (IdentityWorkerException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Long offset(Long offset) {
+        try {
+            return IdentityHelper.offset(offset);
+        } catch (IdentityWorkerException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Long sequence() {
+        try {
+            return IdentityHelper.sequence();
+        } catch (IdentityWorkerException exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Long sequence(Long sequence) {
+        try {
+            return IdentityHelper.sequence(sequence);
         } catch (IdentityWorkerException exception) {
             exception.printStackTrace();
             return null;

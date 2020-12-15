@@ -29,6 +29,11 @@ class IdentityWorkerArtificial implements IdentityWorker{
     }
 
     @Override
+    public synchronized Long generate() throws IdentityWorkerException {
+        return generate(sequence);
+    }
+
+    @Override
     public synchronized Long generate(Long offset) throws IdentityWorkerException {
         long time = new IdentityWorkerTime().getTime();
         if(offset < IdentityWorkerConfig.SEQUENCE){

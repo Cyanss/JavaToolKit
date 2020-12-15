@@ -2,9 +2,11 @@ package cyan.toolkit.rest.identity;
 
 import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.configure.RestIdentityProperties;
+import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import cyan.toolkit.rest.identity.worker.IdentityWorker;
 import cyan.toolkit.rest.identity.worker.WorkerType;
 import cyan.toolkit.rest.util.common.JsonUtils;
+import cyan.toolkit.rest.util.common.LoggerUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,13 @@ public class IdentityFactory implements InitializingBean {
 
     public IdentityWorker get(WorkerType workerType) throws RestError {
         if (workerType != null) {
-            return IdentityWorker.get(workerType);
+            IdentityWorker identityWorker = IdentityWorker.get(workerType);
+            if (identityWorker != null) {
+                return identityWorker;
+            } else {
+                LoggerUtils.error("identity worker maybe haven't initiated!");
+                throw new RestError(IdentityErrorStatus.IDENTITY_WORKER_UNAVAILABLE);
+            }
         } else {
             log.error("workerType cannot be null when getting identityWorker from it's!");
             throw new RestError(IdentityErrorStatus.WORKER_TYPE_IS_NULL);
@@ -42,8 +50,19 @@ public class IdentityFactory implements InitializingBean {
     @Override
     public void afterPropertiesSet() {
         log.debug("identity properties: {}", JsonUtils.parseJson(properties));
+        IdentityType type = properties.getType();
         IdentityWorker.get();
-        IdentityWorker.get(properties.getWorkerId(),properties.getCenterId());
+        if (IdentityType.SERVER == type) {
+            Long sequence = properties.getServer().getSequence();
+            IdentityWorker.get(sequence);
+            LoggerUtils.warn("waiting for identity config to initiate!");
+        } else {
+            Long sequence = properties.getConfig().getSequence();
+            IdentityWorker.get(sequence);
+            Long workerId = properties.getConfig().getWorkerId();
+            Long centerId = properties.getConfig().getCenterId();
+            IdentityWorker.get(workerId, centerId);
+        }
         instance = this;
     }
 }

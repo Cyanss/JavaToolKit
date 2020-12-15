@@ -80,9 +80,4 @@ public class TokenErrorException extends RestErrorException {
     public TokenErrorException get() {
         return new TokenErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.TOKEN_ERROR).name();
-    }
 }

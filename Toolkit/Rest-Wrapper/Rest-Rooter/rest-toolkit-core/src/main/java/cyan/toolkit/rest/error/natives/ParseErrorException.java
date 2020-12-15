@@ -92,9 +92,4 @@ public class ParseErrorException extends RestErrorException {
     public ParseErrorException get() {
         return new ParseErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.PARSE_ERROR).name();
-    }
 }

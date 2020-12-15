@@ -57,9 +57,4 @@ public class TimeoutErrorException extends RestErrorException {
         return new TimeoutErrorException();
     }
 
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.TIME_OUT).name();
-    }
-
 }

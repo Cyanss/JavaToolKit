@@ -45,9 +45,4 @@ public class DataErrorException extends RestErrorException {
         return new DataErrorException();
     }
 
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.DATA_ERROR).name();
-    }
-
 }

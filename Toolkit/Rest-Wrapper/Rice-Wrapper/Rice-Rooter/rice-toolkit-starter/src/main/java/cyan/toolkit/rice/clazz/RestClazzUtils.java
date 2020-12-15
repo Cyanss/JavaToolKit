@@ -34,7 +34,7 @@ public class RestClazzUtils {
     }
 
     @SuppressWarnings(value = "unchecked")
-    public static <I,S extends IdModel<I,S>> I generate(IdModel<I,S> model)  {
+    public static <I> I generate(IdModel<I> model)  {
         try {
             return RestClazzHelper.generate(model);
         } catch (ClassUnknownException exception) {

@@ -52,8 +52,4 @@ public class BriefException extends RestException {
     public BriefException get() {
         return new BriefException();
     }
-
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("brief exception");
-    }
 }

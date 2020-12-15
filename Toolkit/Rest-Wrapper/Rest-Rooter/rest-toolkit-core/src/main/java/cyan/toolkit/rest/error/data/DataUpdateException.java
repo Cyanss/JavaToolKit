@@ -32,9 +32,4 @@ public class DataUpdateException extends RestErrorException {
     public DataUpdateException get() {
         return new DataUpdateException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.DATA_UPDATE_FAILED.name();
-    }
 }

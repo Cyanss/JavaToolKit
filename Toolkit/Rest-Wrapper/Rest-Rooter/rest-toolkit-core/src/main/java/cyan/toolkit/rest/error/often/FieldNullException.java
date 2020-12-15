@@ -29,9 +29,4 @@ public class FieldNullException extends RestErrorException {
     public FieldNullException get() {
         return new FieldNullException();
     }
-
-    @Override
-    public String name() {
-        return RestErrorStatus.FIELD_IS_NULL.name();
-    }
 }

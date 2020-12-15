@@ -42,21 +42,5 @@ public interface RestKey<K> {
     static <T extends RestKey<K>,K> List<K> keys(Class<T> clazz) {
         return values(clazz).stream().map(RestKey::getKey).distinct().collect(Collectors.toList());
     }
-    /**
-     * 根据status获取枚举值
-     * @param clazz 枚举类型
-     * @param key status值
-     * @param <T> 泛型
-     * @return T
-     */
-    static <T extends RestValue<K,V>,K,V> T parseKey(Class<T> clazz, K key){
-        if (key != null && clazz.isEnum()) {
-            Map<K, T> restValueMap = Stream.of(clazz.getEnumConstants()).collect(Collectors.toMap(RestKey::getKey, Function.identity()));
-            return restValueMap.get(key);
-        }
-        return null;
-    }
-
-
 
 }

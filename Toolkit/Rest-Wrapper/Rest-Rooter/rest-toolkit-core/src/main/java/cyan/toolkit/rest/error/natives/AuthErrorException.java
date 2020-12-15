@@ -80,9 +80,4 @@ public class AuthErrorException extends RestErrorException {
     public AuthErrorException get() {
         return new AuthErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable((RestStatus) this.error).orElse(RestErrorStatus.AUTH_ERROR).name();
-    }
 }

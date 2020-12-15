@@ -80,9 +80,4 @@ public class RestErrorException extends RestException {
     public RestErrorException get() {
         return new RestErrorException();
     }
-
-    @Override
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("rest error exception");
-    }
 }

@@ -9,5 +9,5 @@ import cyan.toolkit.rice.model.IdModel;
  * @group cyan.tool.kit
  * @date 15:25 2020/8/19
  */
-public class AuthSession extends IdModel<String,AuthSession> {
+public class AuthSession extends IdModel<String> {
 }

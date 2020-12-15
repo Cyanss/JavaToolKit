@@ -126,8 +126,4 @@ public class RestException extends DefaultException {
         return new RestException();
     }
 
-    @Override
-    public String name() {
-        return Optional.ofNullable(this.error).map(RestError::getName).orElse("rest exception");
-    }
 }

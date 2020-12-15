@@ -17,6 +17,7 @@ public enum IdentityErrorStatus implements RestStatus {
     IDENTITY_WORKER_ERROR(10532,"worker错误"),
     IDENTITY_WORKER_TIME_ERROR(10533,"centerId无效"),
     WORKER_TYPE_IS_NULL(10534,"WorkerType为空"),
+    IDENTITY_WORKER_UNAVAILABLE(10535,"IdentityWorker不可用"),
     ;
     private final Integer status;
     private final String message;
