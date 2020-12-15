@@ -12,15 +12,15 @@ import cyan.toolkit.rest.error.natives.ServiceErrorException;
 public class ServiceRealizationException extends ServiceErrorException {
 
     public ServiceRealizationException() {
-        super(ServiceErrorStatus.SERVICE_ANNOTATION_ERROR);
+        super(ServiceErrorStatus.SERVICE_REALIZATION_ERROR);
     }
 
     public ServiceRealizationException(String service) {
-        super(service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR);
+        super(service, ServiceErrorStatus.SERVICE_REALIZATION_ERROR);
     }
 
     public ServiceRealizationException(String service, String error) {
-        super(service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR, error);
+        super(service, ServiceErrorStatus.SERVICE_REALIZATION_ERROR, error);
     }
 
     @Override

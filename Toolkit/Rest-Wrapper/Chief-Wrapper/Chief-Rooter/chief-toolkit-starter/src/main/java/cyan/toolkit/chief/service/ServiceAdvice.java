@@ -1,5 +1,6 @@
 package cyan.toolkit.chief.service;
 
+import cyan.toolkit.chief.error.ServiceUnsupportedException;
 import cyan.toolkit.chief.filter.IdFilter;
 import cyan.toolkit.rest.RestException;
 
@@ -19,7 +20,7 @@ public interface ServiceAdvice<I, F extends IdFilter<I>> {
     }
 
     default String deleteWhereSql(F filter) throws RestException {
-        return queryWhereSql(filter);
+        throw new ServiceUnsupportedException();
     }
 
     default Boolean[] loadArray(F filter) throws RestException {

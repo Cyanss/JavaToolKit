@@ -11,19 +11,19 @@ import cyan.toolkit.rest.error.natives.ServiceErrorException;
  */
 public class ServiceUnknownException extends ServiceErrorException {
     public ServiceUnknownException() {
-        super(ServiceErrorStatus.SERVICE_ANNOTATION_ERROR);
+        super(ServiceErrorStatus.SERVICE_UNKNOWN_ERROR);
     }
 
     public ServiceUnknownException(String resource, String service) {
-        super(resource, service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR);
+        super(resource, service, ServiceErrorStatus.SERVICE_UNKNOWN_ERROR);
     }
 
     public ServiceUnknownException(String resource, String service, String error) {
-        super(resource, service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR, error);
+        super(resource, service, ServiceErrorStatus.SERVICE_UNKNOWN_ERROR, error);
     }
 
     public ServiceUnknownException(String resource, String service, String error, Throwable cause) {
-        super(resource, service, ServiceErrorStatus.SERVICE_ANNOTATION_ERROR, error, cause);
+        super(resource, service, ServiceErrorStatus.SERVICE_UNKNOWN_ERROR, error, cause);
     }
 
     @Override

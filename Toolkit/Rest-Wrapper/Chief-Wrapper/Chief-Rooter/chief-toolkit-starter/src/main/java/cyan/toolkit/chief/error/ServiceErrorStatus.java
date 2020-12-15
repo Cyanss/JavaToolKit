@@ -14,7 +14,8 @@ import lombok.Getter;
 public enum ServiceErrorStatus implements RestStatus {
     SERVICE_REALIZATION_ERROR(10402,"服务必须实现IdFilterService接口"),
     SERVICE_ANNOTATION_ERROR(10403,"服务必须使用@RestService注解"),
-    SERVICE_UNKNOWN_ERROR(10404,"资源服务未知")
+    SERVICE_UNKNOWN_ERROR(10404,"服务未知"),
+    SERVICE_UNSUPPORTED_ERROR(10405,"服务方法不支持")
     ;
 
     private final Integer status;
