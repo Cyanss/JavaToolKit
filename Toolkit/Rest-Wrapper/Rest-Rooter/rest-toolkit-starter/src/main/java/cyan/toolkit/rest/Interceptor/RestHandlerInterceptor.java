@@ -7,9 +7,7 @@ import cyan.toolkit.rest.util.common.DateUtils;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.network.IpAddressUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -25,7 +23,7 @@ import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
- * <p>ControllerInterceptor</p>
+ * <p>RestHandlerInterceptor</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
@@ -34,22 +32,14 @@ import java.util.Optional;
 @Slf4j
 @WebFilter
 @Component
-public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements RestAdvice, Filter {
+public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements RestExceptionAdvice, Filter {
     protected ThreadLocal<Long> START_TIME_HOLDER = new ThreadLocal<>();
-    protected ThreadLocal<Error> ERROR_HOLDER = new ThreadLocal<>();
     protected ThreadLocal<Exception> EXCEPTION_HOLDER = new ThreadLocal<>();
     @Autowired
     private RestInterceptProperties interceptProperties;
 
     @Override
-    public void afterErrorHandle(Error error) {
-        if (GeneralUtils.isNotEmpty(error)) {
-            ERROR_HOLDER.set(error);
-        }
-    }
-
-    @Override
-    public void afterExceptionHandle(Exception exception) {
+    public void preExceptionHandle(Exception exception,HttpServletRequest request, HttpServletResponse response) {
         if (GeneralUtils.isNotEmpty(exception)) {
             EXCEPTION_HOLDER.set(exception);
         }
