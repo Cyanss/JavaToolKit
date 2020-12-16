@@ -17,6 +17,7 @@ import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.rice.clazz.RestClazzHelper;
 import cyan.toolkit.rice.model.IdModel;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -25,6 +26,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +41,7 @@ import java.util.List;
  * @date 8:47 2020/9/23
  */
 @Slf4j
+@Builder
 public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEntity<I, D>, F extends IdFilter<I>> 
         implements InitializingBean, ApplicationContextAware, OptionalService<I, M>, ServiceAdvice<I, F> {
 
@@ -99,7 +102,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         E entity = this.createEntity(model, isInsert);
         if (this instanceof BuilderAdvice) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
-            builderAdvice.buildEntity(entity, model, idArray);
+            builderAdvice.buildEntity(model,entity,idArray);
         }
         return entity;
     }
@@ -109,11 +112,23 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         List<E> entityList;
         if (this instanceof BuilderAdvice) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
-            entityList = MEBuilderHelper.entityList(modelList, function, (M model, Boolean isInsert) -> {
-                E entity = createEntity(model, isInsert);
-                builderAdvice.buildEntity(entity, model, idArray);
-                return entity;
-            });
+            try {
+                Method buildMethod = builderAdvice.getClass().getMethod("buildEntity");
+                Method buildListMethod = builderAdvice.getClass().getMethod("buildEntityList");
+                /** 当buildEntity和buildEntityList都被复写的时候 优先调用buildEntityList */
+                entityList = MEBuilderHelper.entityList(modelList, function, (M model, Boolean isInsert) -> {
+                    E entity = createEntity(model, isInsert);
+                    if (buildListMethod.isDefault() && !buildMethod.isDefault()) {
+                        builderAdvice.buildEntity(model,entity, idArray);
+                    }
+                    return entity;
+                });
+                if (!buildListMethod.isDefault()) {
+                    builderAdvice.buildEntityList(modelList, entityList, idArray);
+                }
+            } catch (NoSuchMethodException ignored) {
+                entityList = MEBuilderHelper.entityList(modelList, function, this::createEntity);
+            }
         } else {
             entityList = MEBuilderHelper.entityList(modelList, function, this::createEntity);
         }
@@ -125,7 +140,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         M model = this.createModel(entity);
         if (this instanceof BuilderAdvice) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
-            builderAdvice.buildModel(model, entity, isLoadArray);
+            builderAdvice.buildModel(entity,model, isLoadArray);
         }
         return model;
     }
@@ -135,11 +150,23 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         List<M> modelList;
         if (this instanceof BuilderAdvice) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
-            modelList = MEBuilderHelper.modelList(entityList, (E entity) -> {
-                M model = this.createModel(entity);
-                builderAdvice.buildModel(model, entity, isLoadArray);
-                return model;
-            });
+            try {
+                Method buildMethod = builderAdvice.getClass().getMethod("buildModel");
+                Method buildListMethod = builderAdvice.getClass().getMethod("buildModelList");
+                /** 当buildModel和buildModelList都被复写的时候 优先调用buildModelList */
+                modelList = MEBuilderHelper.modelList(entityList, (E entity) -> {
+                    M model = this.createModel(entity);
+                    if (buildListMethod.isDefault() && !buildMethod.isDefault()) {
+                        builderAdvice.buildModel(entity, model, isLoadArray);
+                    }
+                    return model;
+                });
+                if (!buildListMethod.isDefault()) {
+                    builderAdvice.buildModelList(entityList, modelList, isLoadArray);
+                }
+            } catch (NoSuchMethodException ignored) {
+                modelList = MEBuilderHelper.modelList(entityList, this::createModel);
+            }
         } else {
             modelList = MEBuilderHelper.modelList(entityList, this::createModel);
         }

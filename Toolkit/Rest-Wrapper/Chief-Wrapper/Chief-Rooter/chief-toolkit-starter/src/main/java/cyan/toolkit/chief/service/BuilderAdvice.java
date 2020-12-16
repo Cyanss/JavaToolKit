@@ -4,6 +4,9 @@ import cyan.toolkit.chief.entity.IdEntity;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rice.model.IdModel;
 
+import java.util.Collection;
+import java.util.List;
+
 /**
  * <p>BuilderAdvice</p>
  * @author liuqingpo(snow22314 @ outlook.com)
@@ -14,8 +17,12 @@ import cyan.toolkit.rice.model.IdModel;
 public interface BuilderAdvice <I,D,M extends IdModel<I>, E extends IdEntity<I,D>> {
 
     @SuppressWarnings(value = "unchecked")
-    default void buildEntity(E entity, M model, I... idArray) throws RestException {}
+    default void buildEntity(M model, E entity, I... idArray) throws RestException {}
 
-    default void buildModel(M model, E entity, Boolean... isLoadArray) throws RestException {}
+    @SuppressWarnings(value = "unchecked")
+    default void buildEntityList(Collection<M> modelList, List<E> entityList, I... idArray) throws RestException {}
 
+    default void buildModel(E entity, M model, Boolean... isLoadArray) throws RestException {}
+
+    default void buildModelList(Collection<E> entityList, List<M> modelList, Boolean... isLoadArray) throws RestException {}
 }
