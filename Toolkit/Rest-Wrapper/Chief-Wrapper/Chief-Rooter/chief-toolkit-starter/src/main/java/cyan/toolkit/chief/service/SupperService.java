@@ -42,7 +42,7 @@ import java.util.List;
  */
 @Slf4j
 @Builder
-public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEntity<I, D>, F extends IdFilter<I>> 
+public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEntity<I, D>, F extends IdFilter<I>>
         implements InitializingBean, ApplicationContextAware, OptionalService<I, M>, ServiceAdvice<I, F> {
 
     private static ApplicationContext applicationContext;
@@ -100,7 +100,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
     @SuppressWarnings(value = "unchecked")
     private E entityActuator(M model, Boolean isInsert, I... idArray) throws RestException {
         E entity = this.createEntity(model, isInsert);
-        if (this instanceof BuilderAdvice) {
+        if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
             builderAdvice.buildEntity(model,entity,idArray);
         }
@@ -110,24 +110,24 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
     @SuppressWarnings(value = "unchecked")
     private List<E> entityActuator(Collection<M> modelList, FunctionActuator<M, Boolean> function, I... idArray) throws RestException {
         List<E> entityList;
-        if (this instanceof BuilderAdvice) {
+        if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
+            Method findMethod = null;
             try {
-                Method buildMethod = builderAdvice.getClass().getMethod("buildEntity");
-                Method buildListMethod = builderAdvice.getClass().getMethod("buildEntityList");
-                /** 当buildEntity和buildEntityList都被复写的时候 优先调用buildEntityList */
-                entityList = MEBuilderHelper.entityList(modelList, function, (M model, Boolean isInsert) -> {
-                    E entity = createEntity(model, isInsert);
-                    if (buildListMethod.isDefault() && !buildMethod.isDefault()) {
-                        builderAdvice.buildEntity(model,entity, idArray);
-                    }
-                    return entity;
-                });
-                if (!buildListMethod.isDefault()) {
-                    builderAdvice.buildEntityList(modelList, entityList, idArray);
-                }
+                findMethod = builderAdvice.getClass().getMethod("buildEntityList", Collection.class, List.class, Boolean[].class);
             } catch (NoSuchMethodException ignored) {
-                entityList = MEBuilderHelper.entityList(modelList, function, this::createEntity);
+            }
+            Method buildEntityListMethod = findMethod;
+            /** 当buildEntity和buildEntityList都被复写的时候 优先调用buildEntityList */
+            entityList = MEBuilderHelper.entityList(modelList, function, (M model, Boolean isInsert) -> {
+                E entity = createEntity(model, isInsert);
+                if (buildEntityListMethod == null || buildEntityListMethod.isDefault()) {
+                    builderAdvice.buildEntity(model, entity, idArray);
+                }
+                return entity;
+            });
+            if (buildEntityListMethod != null && !buildEntityListMethod.isDefault()) {
+                builderAdvice.buildEntityList(modelList, entityList, idArray);
             }
         } else {
             entityList = MEBuilderHelper.entityList(modelList, function, this::createEntity);
@@ -138,7 +138,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
     @SuppressWarnings(value = "unchecked")
     private M modelActuator(E entity, Boolean... isLoadArray) throws RestException {
         M model = this.createModel(entity);
-        if (this instanceof BuilderAdvice) {
+        if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
             builderAdvice.buildModel(entity,model, isLoadArray);
         }
@@ -148,24 +148,24 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
     @SuppressWarnings(value = "unchecked")
     private List<M> modelActuator(Collection<E> entityList, Boolean... isLoadArray) throws RestException {
         List<M> modelList;
-        if (this instanceof BuilderAdvice) {
+        if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
+            Method findMethod = null;
             try {
-                Method buildMethod = builderAdvice.getClass().getMethod("buildModel");
-                Method buildListMethod = builderAdvice.getClass().getMethod("buildModelList");
-                /** 当buildModel和buildModelList都被复写的时候 优先调用buildModelList */
-                modelList = MEBuilderHelper.modelList(entityList, (E entity) -> {
-                    M model = this.createModel(entity);
-                    if (buildListMethod.isDefault() && !buildMethod.isDefault()) {
-                        builderAdvice.buildModel(entity, model, isLoadArray);
-                    }
-                    return model;
-                });
-                if (!buildListMethod.isDefault()) {
-                    builderAdvice.buildModelList(entityList, modelList, isLoadArray);
-                }
+                findMethod = builderAdvice.getClass().getMethod("buildModelList", Collection.class, List.class, Boolean[].class);
             } catch (NoSuchMethodException ignored) {
-                modelList = MEBuilderHelper.modelList(entityList, this::createModel);
+            }
+            Method buildModelListMethod = findMethod;
+            /** 当buildModel和buildModelList都被复写的时候 优先调用buildModelList */
+            modelList = MEBuilderHelper.modelList(entityList, (E entity) -> {
+                M model = this.createModel(entity);
+                if (buildModelListMethod == null || buildModelListMethod.isDefault()) {
+                    builderAdvice.buildModel(entity, model, isLoadArray);
+                }
+                return model;
+            });
+            if (buildModelListMethod != null && !buildModelListMethod.isDefault()) {
+                builderAdvice.buildModelList(entityList, modelList, isLoadArray);
             }
         } else {
             modelList = MEBuilderHelper.modelList(entityList, this::createModel);

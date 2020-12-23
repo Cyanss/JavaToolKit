@@ -14,7 +14,7 @@
   "properties": [
     {
       "name": "cyan.toolkit.identity.type",
-      "type": "cyan.toolkit.identity.IdentityType",
+      "type": "cyan.toolkit.rest.identity.IdentityType",
       "description": "identity init type."
     },
     {
@@ -92,7 +92,8 @@
           "description": "intercept bean open."
         }
       ]
-    },{
+    },
+    {
       "name": "cyan.toolkit.identity.type",
       "values": [
         {

@@ -23,7 +23,7 @@ class IdentityWorkerMachine implements IdentityWorker{
     private Long workerId;
     private Long centerId;
 
-    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId, Long sequence) throws IdentityWorkerError {
+    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId, Long sequence) {
         if (workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
             log.error("worker Id can't be greater than {} or less than {}",IdentityWorkerConfig.MAX_WORKER_ID,IdentityWorkerConfig.MIN_WORKER_ID);
             throw new IdentityWorkerError(IdentityErrorStatus.WORKER_ID_INVALID);
@@ -40,7 +40,7 @@ class IdentityWorkerMachine implements IdentityWorker{
         IDENTITY_WORKER_MAP.put(WorkerType.CENTER_WORKER,this);
     }
 
-    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId) throws IdentityWorkerError {
+    public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId) {
         this(workerId,centerId,null);
     }
 

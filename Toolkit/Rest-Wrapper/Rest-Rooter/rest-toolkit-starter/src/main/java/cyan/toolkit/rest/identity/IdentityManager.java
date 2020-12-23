@@ -61,11 +61,11 @@ public class IdentityManager implements InitializingBean, ApplicationRunner {
         }
     }
 
-    public static void config(@NonNull Long workerId, @NonNull Long centerId) throws RestError {
+    public static void config(@NonNull Long workerId, @NonNull Long centerId) {
         IdentityWorker.get(workerId, centerId);
     }
 
-    public static void config(WorkerConfig config) throws RestError {
+    public static void config(WorkerConfig config) {
         IdentityManager.config(config.getWorkerId(), config.getCenterId());
     }
 

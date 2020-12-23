@@ -43,7 +43,7 @@ public interface IdentityWorker {
         }
     }
 
-    static IdentityWorker get(Long workerId, Long centerId) throws RestError {
+    static IdentityWorker get(Long workerId, Long centerId) {
         if (IDENTITY_WORKER_MAP.containsKey(WorkerType.CENTER_WORKER)) {
             return IDENTITY_WORKER_MAP.get(WorkerType.CENTER_WORKER);
         } else {
