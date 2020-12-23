@@ -23,6 +23,12 @@ public class RestClazzHelper {
 
     public static Class<?> clazz(Object object) throws ClassUnknownException {
         Type genericSuperclass = object.getClass().getGenericSuperclass();
+        while (!(genericSuperclass instanceof ParameterizedType)) {
+            genericSuperclass = ((Class) genericSuperclass).getGenericSuperclass();
+            if (genericSuperclass == null) {
+                throw new ClassUnknownException();
+            }
+        }
         ParameterizedType parameterizedType = (ParameterizedType ) genericSuperclass;
         Type [] actualTypes = parameterizedType.getActualTypeArguments();
         Optional<Type> first = Stream.of(actualTypes).findFirst();
