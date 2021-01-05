@@ -27,7 +27,7 @@ public class RestClazzHelper {
             Collection collection = (Collection) object;
             Optional first = collection.stream().findFirst();
             if (first.isPresent()) {
-                genericSuperclass = first.getClass().getGenericSuperclass();
+                genericSuperclass = first.get().getClass().getGenericSuperclass();
             } else {
                 throw new ClassUnknownException();
             }
@@ -35,7 +35,7 @@ public class RestClazzHelper {
             Map map = (Map) object;
             Optional first = map.values().stream().findFirst();
             if (first.isPresent()) {
-                genericSuperclass = first.getClass().getGenericSuperclass();
+                genericSuperclass = first.get().getClass().getGenericSuperclass();
             } else {
                 throw new ClassUnknownException();
             }
