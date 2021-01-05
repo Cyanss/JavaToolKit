@@ -9,7 +9,7 @@ import cyan.toolkit.rice.model.IdModel;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -21,18 +21,61 @@ import java.util.stream.Stream;
  */
 public class RestClazzHelper {
 
-    public static Class<?> clazz(Object object) throws ClassUnknownException {
-        Type genericSuperclass = object.getClass().getGenericSuperclass();
+    public static Type[] types(Object object) throws ClassUnknownException {
+        Type genericSuperclass;
+        if (object instanceof Collection) {
+            Collection collection = (Collection) object;
+            Optional first = collection.stream().findFirst();
+            if (first.isPresent()) {
+                genericSuperclass = first.getClass().getGenericSuperclass();
+            } else {
+                throw new ClassUnknownException();
+            }
+        } else if (object instanceof Map) {
+            Map map = (Map) object;
+            Optional first = map.values().stream().findFirst();
+            if (first.isPresent()) {
+                genericSuperclass = first.getClass().getGenericSuperclass();
+            } else {
+                throw new ClassUnknownException();
+            }
+        } else if (object instanceof Iterator) {
+            Iterator iterator = (Iterator) object;
+            if (iterator.hasNext()) {
+                genericSuperclass = iterator.next().getClass().getGenericSuperclass();
+            } else {
+                throw new ClassUnknownException();
+            }
+        } else if (object.getClass().isArray()) {
+            Object first = Arrays.asList(object).stream().findFirst().orElseThrow(ClassUnknownException::new);
+            genericSuperclass = first.getClass().getGenericSuperclass();
+        } else  {
+            genericSuperclass =  object.getClass().getGenericSuperclass();
+        }
         while (!(genericSuperclass instanceof ParameterizedType)) {
             genericSuperclass = ((Class) genericSuperclass).getGenericSuperclass();
             if (genericSuperclass == null) {
                 throw new ClassUnknownException();
             }
         }
-        ParameterizedType parameterizedType = (ParameterizedType ) genericSuperclass;
-        Type [] actualTypes = parameterizedType.getActualTypeArguments();
+        ParameterizedType parameterizedType = (ParameterizedType) genericSuperclass;
+        return parameterizedType.getActualTypeArguments();
+    }
+
+    public static Class<?> clazz(Object object) throws ClassUnknownException {
+        Type[] actualTypes = types(object);
         Optional<Type> first = Stream.of(actualTypes).findFirst();
         return first.map(type -> (Class<?>) type).orElseThrow(ClassUnknownException::new);
+    }
+
+    @SuppressWarnings(value = "unchecked")
+    public static <S extends P,P> S supper(P parent, Class<S> clazz) throws ClassUnknownException{
+        if (parent == null) {
+            return null;
+        } else if (parent.getClass() != clazz) {
+            throw new ClassUnknownException();
+        }
+        return (S) parent;
     }
 
     @SuppressWarnings(value = "unchecked")

@@ -52,8 +52,8 @@ class IdentityWorkerMachine implements IdentityWorker{
     @Override
     public synchronized Long generate(Long date) throws IdentityWorkerException {
         Long time = new IdentityWorkerTime().getTime();
-        if (date != null) {
-            time = new IdentityWorkerTime(date).getTime();
+        if (sequence != null) {
+            time = new IdentityWorkerTime().sequence(sequence);
         }
 
         if (time < this.lastTime) {

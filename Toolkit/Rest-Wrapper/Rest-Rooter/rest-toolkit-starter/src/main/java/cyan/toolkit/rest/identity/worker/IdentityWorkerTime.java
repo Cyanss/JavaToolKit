@@ -29,6 +29,14 @@ class IdentityWorkerTime implements SupplierActuator {
         this.time = time.getTime() - EPOCH;
     }
 
+    public Long sequence(Long sequence) {
+        if (sequence > IdentityWorkerConfig.SEQUENCE) {
+            return time + sequence;
+        } else {
+            return time;
+        }
+    }
+
     public static Long next(Long lastTime) {
         Long time = new IdentityWorkerTime().getTime();
         while (time <= lastTime) {
