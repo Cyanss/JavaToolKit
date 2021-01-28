@@ -42,15 +42,20 @@ public class FileHelper {
         if (file.exists()) {
             return file;
         }
-        try {
-            boolean create = file.createNewFile();
-            if (!create) {
-                throw new FileCreateException();
+        if (file.isFile()) {
+            try {
+                boolean create = file.createNewFile();
+                if (!create) {
+                    throw new FileCreateException();
+                }
+
+            } catch (IOException exception) {
+                throw new FileCreateException(exception.getMessage());
             }
-            return file;
-        } catch (IOException exception) {
-            throw new FileCreateException(exception.getMessage());
+        } else {
+            boolean mkdirs = file.mkdirs();
         }
+        return file;
     }
 
     public static void copyFile(File srcFile, File targetFile) throws FileCopyException {

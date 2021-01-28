@@ -4,6 +4,7 @@ package cyan.toolkit.rest.identity.worker;
 import cyan.toolkit.rest.identity.IdentityErrorStatus;
 import cyan.toolkit.rest.identity.error.IdentityWorkerError;
 import cyan.toolkit.rest.identity.error.IdentityWorkerException;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -19,7 +20,8 @@ import org.springframework.lang.NonNull;
 @Slf4j
 class IdentityWorkerMachine implements IdentityWorker{
     private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
-    private Long sequence = null;
+    private Long sequence = IdentityWorkerConfig.SEQUENCE;
+    private Long cacheId = IdentityWorkerConfig.SEQUENCE;
     private Long workerId;
     private Long centerId;
 
@@ -52,10 +54,9 @@ class IdentityWorkerMachine implements IdentityWorker{
     @Override
     public synchronized Long generate(Long date) throws IdentityWorkerException {
         Long time = new IdentityWorkerTime().getTime();
-        if (sequence != null) {
+        if (GeneralUtils.isNotEmpty(this.sequence)) {
             time = new IdentityWorkerTime().sequence(sequence);
         }
-
         if (time < this.lastTime) {
             log.error("clock is moving backwards. Rejecting requests until {}", this.lastTime);
             throw new IdentityWorkerException("{} milliseconds is error time" + (this.lastTime- time));
@@ -70,9 +71,15 @@ class IdentityWorkerMachine implements IdentityWorker{
         }
         this.lastTime = time;
 
-        return (time << IdentityWorkerConfig.TIMESTAMP_SHIFT)
+        long generateId = (time << IdentityWorkerConfig.TIMESTAMP_SHIFT)
                 | (centerId << IdentityWorkerConfig.CENTER_ID_SHIFT)
                 | (workerId << IdentityWorkerConfig.WORKER_ID_SHIFT)
                 | sequence;
+        if (this.cacheId == generateId) {
+            return generate();
+        } else {
+            this.cacheId = generateId;
+            return generateId;
+        }
     }
 }
