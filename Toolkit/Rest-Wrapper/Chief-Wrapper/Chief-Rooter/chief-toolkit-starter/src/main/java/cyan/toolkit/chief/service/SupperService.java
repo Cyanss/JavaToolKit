@@ -41,7 +41,6 @@ import java.util.List;
  * @date 8:47 2020/9/23
  */
 @Slf4j
-@Builder
 public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEntity<I, D>, F extends IdFilter<I>>
         implements InitializingBean, ApplicationContextAware, OptionalService<I, M>, ServiceAdvice<I, F> {
 
