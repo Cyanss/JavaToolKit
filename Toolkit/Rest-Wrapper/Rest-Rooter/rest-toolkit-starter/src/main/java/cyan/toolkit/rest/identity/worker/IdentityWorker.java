@@ -19,35 +19,41 @@ import java.util.Map;
 public interface IdentityWorker {
     Map<WorkerType,IdentityWorker> IDENTITY_WORKER_MAP = new HashMap<>();
 
-    Long generate(Long sequence) throws IdentityWorkerException;
-
-    Long generate() throws IdentityWorkerException;
+    Long generate();
 
     static IdentityWorker get(WorkerType workerType) {
        return IDENTITY_WORKER_MAP.get(workerType);
     }
 
     static IdentityWorker get() {
-        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.TAG_WORKER)) {
-            return IDENTITY_WORKER_MAP.get(WorkerType.TAG_WORKER);
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.BASE_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.BASE_WORKER);
         } else {
             return new IdentityWorkerArtificial();
         }
     }
 
-    static IdentityWorker get(Long sequence) {
-        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.TAG_SEQUENCE_WORKER)) {
-            return IDENTITY_WORKER_MAP.get(WorkerType.TAG_SEQUENCE_WORKER);
+    static IdentityWorker get(Long offset) {
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.OFFSET_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.OFFSET_WORKER);
         } else {
-            return new IdentityWorkerArtificial(sequence);
+            return new IdentityWorkerArtificial(offset);
         }
     }
 
     static IdentityWorker get(Long workerId, Long centerId) {
-        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.CENTER_WORKER)) {
-            return IDENTITY_WORKER_MAP.get(WorkerType.CENTER_WORKER);
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.COMMON_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.COMMON_WORKER);
         } else {
-            return new IdentityWorkerMachine(workerId,centerId);
+            return new IdentityWorkerMachine(workerId, centerId);
+        }
+    }
+
+    static IdentityWorker get(Long workerId, Long centerId, Long sequence) {
+        if (IDENTITY_WORKER_MAP.containsKey(WorkerType.SEQUENCE_WORKER)) {
+            return IDENTITY_WORKER_MAP.get(WorkerType.SEQUENCE_WORKER);
+        } else {
+            return new IdentityWorkerMachine(workerId, centerId, sequence);
         }
     }
 }

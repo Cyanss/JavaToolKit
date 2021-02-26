@@ -2,7 +2,7 @@ package cyan.toolkit.rice.clazz;
 
 import cyan.toolkit.rest.error.ClassUnknownException;
 import cyan.toolkit.rest.error.ClassUnsupportedException;
-import cyan.toolkit.rest.identity.IdentityHelper;
+import cyan.toolkit.rest.identity.IdentityUtils;
 import cyan.toolkit.rest.identity.error.IdentityException;
 import cyan.toolkit.rest.util.often.RandomUtils;
 import cyan.toolkit.rice.model.IdModel;
@@ -81,7 +81,7 @@ public class RestClazzHelper {
     @SuppressWarnings(value = "unchecked")
     public static <I> I generate(IdModel<I> model) throws IdentityException, ClassUnsupportedException, ClassUnknownException {
         Class<?> clazz = clazz(model);
-        Long id = IdentityHelper.generate();
+        Long id = IdentityUtils.generate();
         if (String.class.equals(clazz)) {
             String uuid = RandomUtils.uuid();
             return (I) uuid;

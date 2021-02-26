@@ -8,6 +8,7 @@ package cyan.toolkit.rest.identity.worker;
  * @date 10:36 2020/1/13
  */
 class IdentityWorkerConfig {
+    static final Long OFFSET = 1L;
     static final Long SEQUENCE = 0L;
     static final Long TIMESTAMP = -1L;
     private static final Long SEQUENCE_BIT = 12L;

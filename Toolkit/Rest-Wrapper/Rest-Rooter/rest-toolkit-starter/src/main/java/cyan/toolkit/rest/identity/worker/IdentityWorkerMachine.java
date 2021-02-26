@@ -38,8 +38,9 @@ class IdentityWorkerMachine implements IdentityWorker{
         this.centerId = centerId;
         if (sequence != null && sequence >= IdentityWorkerConfig.SEQUENCE) {
             this.sequence = sequence;
+            IDENTITY_WORKER_MAP.put(WorkerType.SEQUENCE_WORKER,this);
         }
-        IDENTITY_WORKER_MAP.put(WorkerType.CENTER_WORKER,this);
+        IDENTITY_WORKER_MAP.put(WorkerType.COMMON_WORKER,this);
     }
 
     public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId) {
@@ -47,19 +48,15 @@ class IdentityWorkerMachine implements IdentityWorker{
     }
 
     @Override
-    public synchronized Long generate() throws IdentityWorkerException {
-        return generate(this.sequence);
-    }
-
-    @Override
-    public synchronized Long generate(Long date) throws IdentityWorkerException {
+    public synchronized Long generate() {
         Long time = new IdentityWorkerTime().getTime();
         if (GeneralUtils.isNotEmpty(this.sequence)) {
             time = new IdentityWorkerTime().sequence(sequence);
         }
         if (time < this.lastTime) {
-            log.error("clock is moving backwards. Rejecting requests until {}", this.lastTime);
-            throw new IdentityWorkerException("{} milliseconds is error time" + (this.lastTime- time));
+            this.sequence ++;
+            time = new IdentityWorkerTime().sequence(Math.abs(this.lastTime - time) * this.sequence);
+            log.warn("clock is moving backwards. Rejecting requests until {}", this.lastTime);
         }
         if (this.lastTime.equals(time)) {
             this.sequence = (this.sequence + IdentityWorkerConfig.DEFAULT_TAG) & IdentityWorkerConfig.SEQUENCE_MASK;

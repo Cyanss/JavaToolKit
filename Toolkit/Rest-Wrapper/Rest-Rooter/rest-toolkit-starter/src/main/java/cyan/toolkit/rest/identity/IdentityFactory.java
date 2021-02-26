@@ -2,7 +2,6 @@ package cyan.toolkit.rest.identity;
 
 import cyan.toolkit.rest.RestError;
 import cyan.toolkit.rest.configure.RestIdentityProperties;
-import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import cyan.toolkit.rest.identity.worker.IdentityWorker;
 import cyan.toolkit.rest.identity.worker.WorkerType;
 import cyan.toolkit.rest.util.common.JsonUtils;
@@ -51,8 +50,13 @@ public class IdentityFactory implements InitializingBean {
     public void afterPropertiesSet() {
         log.debug("identity properties: {}", JsonUtils.parseJson(properties));
         IdentityType type = properties.getType();
-        IdentityWorker.get();
-        if (IdentityType.SERVER == type) {
+
+        if (IdentityType.AUTO == type) {
+            IdentityWorker.get(1L);
+            Long workerId = ((Double) (Math.random() * 10 + 1)).longValue();
+            Long centerId = ((Double) (Math.random() * 30 + 1)).longValue();
+            IdentityWorker.get(workerId,centerId);
+        } else if (IdentityType.SERVER == type) {
             Long sequence = properties.getServer().getSequence();
             IdentityWorker.get(sequence);
             LoggerUtils.warn("waiting for identity config to initiate!");
@@ -63,6 +67,7 @@ public class IdentityFactory implements InitializingBean {
             Long centerId = properties.getConfig().getCenterId();
             IdentityWorker.get(workerId, centerId);
         }
+        IdentityWorker.get();
         instance = this;
     }
 }

@@ -8,7 +8,8 @@ package cyan.toolkit.rest.identity.worker;
  * @date 10:02 2020/8/12
  */
 public enum WorkerType {
-    TAG_WORKER,
-    TAG_SEQUENCE_WORKER,
-    CENTER_WORKER
+    BASE_WORKER,
+    OFFSET_WORKER,
+    COMMON_WORKER,
+    SEQUENCE_WORKER,
 }

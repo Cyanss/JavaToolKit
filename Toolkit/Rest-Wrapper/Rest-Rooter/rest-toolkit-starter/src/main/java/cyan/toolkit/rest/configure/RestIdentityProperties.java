@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "cyan.toolkit.identity")
 public class RestIdentityProperties {
-    private IdentityType type = IdentityType.CONFIG;
+    private IdentityType type = IdentityType.AUTO;
     @NestedConfigurationProperty
     private Config config;
     @NestedConfigurationProperty
@@ -51,7 +51,7 @@ public class RestIdentityProperties {
     }
 
     public static class Server {
-        private Long sequence = System.currentTimeMillis();
+        private Long sequence = 1L;
         private String url;
         private String api;
 
@@ -95,7 +95,7 @@ public class RestIdentityProperties {
     public static class Config {
         private Long workerId = 1L;
         private Long centerId = 2L;
-        private Long sequence = System.currentTimeMillis();
+        private Long sequence = 1L;
         public Config() {
         }
 

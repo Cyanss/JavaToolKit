@@ -8,6 +8,7 @@ package cyan.toolkit.rest.identity;
  * @date 9:59 2020/1/14
  */
 public enum IdentityType {
+    AUTO,
     CONFIG,
     SERVER
 }

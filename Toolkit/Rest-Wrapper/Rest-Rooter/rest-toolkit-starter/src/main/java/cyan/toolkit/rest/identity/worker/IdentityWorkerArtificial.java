@@ -17,31 +17,30 @@ class IdentityWorkerArtificial implements IdentityWorker{
     private Long lastTime = IdentityWorkerConfig.TIMESTAMP;
     private Long lastTag = IdentityWorkerConfig.DEFAULT_TAG;
     private Long sequence = IdentityWorkerConfig.SEQUENCE;
+    private Long offset = IdentityWorkerConfig.OFFSET;
     public IdentityWorkerArtificial() {
-        IDENTITY_WORKER_MAP.put(WorkerType.TAG_WORKER,this);
+        IDENTITY_WORKER_MAP.put(WorkerType.BASE_WORKER,this);
     }
 
-    public IdentityWorkerArtificial(Long sequence) {
-        if (sequence > IdentityWorkerConfig.SEQUENCE) {
-            this.sequence = sequence;
+    public IdentityWorkerArtificial(Long offset) {
+        if (offset > IdentityWorkerConfig.SEQUENCE) {
+            this.sequence = offset;
         }
-        IDENTITY_WORKER_MAP.put(WorkerType.TAG_SEQUENCE_WORKER,this);
+        if (offset > IdentityWorkerConfig.OFFSET) {
+            this.offset = offset;
+        }
+        IDENTITY_WORKER_MAP.put(WorkerType.OFFSET_WORKER,this);
     }
 
     @Override
-    public synchronized Long generate() throws IdentityWorkerException {
-        return generate(sequence);
-    }
-
-    @Override
-    public synchronized Long generate(Long offset) throws IdentityWorkerException {
+    public synchronized Long generate() {
         long time = new IdentityWorkerTime().getTime();
-        if(offset < IdentityWorkerConfig.SEQUENCE){
+        if(this.offset < IdentityWorkerConfig.SEQUENCE){
             offset = -offset;
         }
         if (time < IdentityWorkerConfig.TIMESTAMP) {
+            time = new IdentityWorkerTime().sequence((Math.abs(this.lastTime - time) * this.sequence) + this.offset);
             log.error("clock is moving backwards. Rejecting requests until {}", this.lastTime);
-            throw new IdentityWorkerException("{} milliseconds is error time" + (this.lastTime- time));
         }
         if (this.lastTime == time) {
             this.sequence = (this.sequence + IdentityWorkerConfig.DEFAULT_TAG) & IdentityWorkerConfig.SEQUENCE_MASK;

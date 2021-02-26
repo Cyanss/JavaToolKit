@@ -4,74 +4,37 @@ import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import cyan.toolkit.rest.identity.worker.WorkerType;
 
 /**
- * <p>IdentityHelper</p>
+ * <p>IdentityUtils</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 9:58 2020/8/12
+ * @date 9:59 2020/1/14
  */
 public class IdentityUtils {
 
-    public static Long generate(WorkerType workerType, Long offset)  {
-        try {
-            return IdentityHelper.generate(workerType,offset);
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+    public static Long generate(WorkerType workerType) {
+        return IdentityFactory.getInstance().get(workerType).generate();
     }
 
-    public static Long generate(WorkerType workerType)  {
-        try {
-            return IdentityHelper.generate(workerType);
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+    public static Long base() {
+        return generate(WorkerType.BASE_WORKER);
     }
 
-    public static Long generate() {
-        try {
-            return IdentityHelper.generate();
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+    public static Long common() {
+        return generate(WorkerType.COMMON_WORKER);
     }
 
     public static Long offset() {
-        try {
-            return IdentityHelper.offset();
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
-    }
-
-    public static Long offset(Long offset) {
-        try {
-            return IdentityHelper.offset(offset);
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+        return generate(WorkerType.OFFSET_WORKER);
     }
 
     public static Long sequence() {
-        try {
-            return IdentityHelper.sequence();
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+        return generate(WorkerType.SEQUENCE_WORKER);
     }
 
-    public static Long sequence(Long sequence) {
-        try {
-            return IdentityHelper.sequence(sequence);
-        } catch (IdentityWorkerException exception) {
-            exception.printStackTrace();
-            return null;
-        }
+    public static Long generate() {
+        return generate(WorkerType.COMMON_WORKER);
     }
+
+
 }
