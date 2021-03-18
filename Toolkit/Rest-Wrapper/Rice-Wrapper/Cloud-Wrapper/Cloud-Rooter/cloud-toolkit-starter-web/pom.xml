@@ -7,7 +7,7 @@
 		<version>0.0.1.RELEASE</version>
 	</parent>
 	<artifactId>cloud-toolkit-starter-web</artifactId>
-	<version>${dt.version}</version>
+	<version>${toolkit.version}</version>
 	<name>${project.artifactId}</name>
 	<packaging>war</packaging>
 	<description>the web of cloud starter toolkit</description>

@@ -7,7 +7,7 @@
 		<version>0.0.1.RELEASE</version>
 	</parent>
 	<artifactId>image-toolkit-web</artifactId>
-	<version>${dt.version}</version>
+	<version>${toolkit.version}</version>
 	<name>${project.artifactId}</name>
 	<packaging>war</packaging>
 	<description>the web of image toolkit</description>
