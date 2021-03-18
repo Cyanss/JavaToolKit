@@ -1,0 +1,110 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.identity",
+      "sourceType": "cyan.toolkit.rest.configure.RestIdentityProperties",
+      "type": "cyan.toolkit.rest.configure.RestIdentityProperties"
+    },
+    {
+      "name": "cyan.toolkit.intercept",
+      "sourceType": "cyan.toolkit.rest.configure.RestInterceptProperties",
+      "type": "cyan.toolkit.rest.configure.RestInterceptProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.identity.type",
+      "type": "cyan.toolkit.rest.identity.IdentityType",
+      "description": "identity init type."
+    },
+    {
+      "name": "cyan.toolkit.identity.config.worker-id",
+      "type": "java.lang.Long",
+      "description": "worker-id."
+    },
+    {
+      "name": "cyan.toolkit.identity.config.center-id",
+      "type": "java.lang.Long",
+      "description": "center-id."
+    },
+    {
+      "name": "cyan.toolkit.identity.server.url",
+      "type": "java.lang.String",
+      "description": "server url."
+    },
+    {
+      "name": "cyan.toolkit.identity.server.api",
+      "type": "java.lang.String",
+      "description": "server api."
+    },
+    {
+      "name": "cyan.toolkit.intercept.enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept enable."
+    },
+    {
+      "name": "cyan.toolkit.intercept.log-enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept log enable."
+    },
+    {
+      "name": "cyan.toolkit.intercept.bean-enable",
+      "type": "java.lang.Boolean",
+      "description": "intercept bean enable."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.intercept.enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept close."
+        },
+        {
+          "value": true,
+          "description": "intercept open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.intercept.log-enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept log close."
+        },
+        {
+          "value": true,
+          "description": "intercept log open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.intercept.bean-enable",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept bean close."
+        },
+        {
+          "value": true,
+          "description": "intercept bean open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.identity.type",
+      "values": [
+        {
+          "value": "CONFIG",
+          "description": "identity type CONFIG."
+        },
+        {
+          "value": "SERVER",
+          "description": "identity type SERVER."
+        }
+      ]
+    }
+  ]
+}
