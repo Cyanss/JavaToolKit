@@ -37,6 +37,14 @@
         <guava.version>29.0-jre</guava.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>toolkit-snapshots</id>
+            <name>toolkit maven snapshots</name>
+            <url>https://maven.pkg.github.com/Cyanss/JavaToolKit/</url>
+        </repository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>osgeo-release</id>
