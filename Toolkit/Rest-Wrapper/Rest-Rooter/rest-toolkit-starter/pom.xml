@@ -22,8 +22,8 @@
 
     <distributionManagement>
         <repository>
-            <id>toolkit-snapshots</id>
-            <name>toolkit maven snapshots</name>
+            <id>toolkit-snapshot</id>
+            <name>toolkit maven snapshot</name>
             <url>https://maven.pkg.github.com/Cyanss/JavaToolKit/</url>
         </repository>
     </distributionManagement>
@@ -36,7 +36,7 @@
         </repository>
         <repository>
             <id>aliyun-central</id>
-            <name>aliyun maven centrals</name>
+            <name>aliyun maven central</name>
             <url>https://maven.aliyun.com/repository/central</url>
         </repository>
         <repository>
