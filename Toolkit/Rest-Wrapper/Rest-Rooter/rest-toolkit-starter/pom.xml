@@ -20,14 +20,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <distributionManagement>
-        <repository>
-            <id>toolkit-snapshot</id>
-            <name>toolkit maven snapshot</name>
-            <url>https://maven.pkg.github.com/Cyanss/JavaToolKit/</url>
-        </repository>
-    </distributionManagement>
-
     <repositories>
         <repository>
             <id>osgeo-release</id>

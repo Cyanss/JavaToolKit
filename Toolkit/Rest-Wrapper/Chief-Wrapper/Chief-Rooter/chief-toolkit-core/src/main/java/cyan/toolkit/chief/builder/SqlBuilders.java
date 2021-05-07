@@ -5,7 +5,6 @@ import com.github.pagehelper.PageHelper;
 import cyan.toolkit.chief.enums.SortType;
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.filter.SortFilter;
-import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.chief.model.RestSort;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 

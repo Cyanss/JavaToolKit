@@ -13,6 +13,8 @@ import java.util.Collection;
  * @date 14:33 2020/9/11
  */
 public final class SqlBuilder implements Serializable, CharSequence {
+    public static final String EMPTY = "";
+
     protected final StringBuilder sqlBuilder;
 
     public SqlBuilder() {
@@ -459,7 +461,7 @@ public final class SqlBuilder implements Serializable, CharSequence {
     }
 
     public SqlBuilder and() {
-        this.append(" ANObject ");
+        this.append(" AND ");
         return this;
     }
 

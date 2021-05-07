@@ -1,6 +1,5 @@
 package cyan.toolkit.rest.identity;
 
-import cyan.toolkit.rest.identity.error.IdentityWorkerException;
 import cyan.toolkit.rest.identity.worker.WorkerType;
 
 /**

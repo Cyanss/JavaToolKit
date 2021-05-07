@@ -71,7 +71,6 @@ public interface IdMapper<E extends IdEntity<I,D>,I,D> extends Mapper<E> {
      */
     List<E> findAllByWhere(@Param("whereSql") String whereSql);
 
-
     /**
      * 通过filter查询条件删除
      * @param whereSql 过滤条件
