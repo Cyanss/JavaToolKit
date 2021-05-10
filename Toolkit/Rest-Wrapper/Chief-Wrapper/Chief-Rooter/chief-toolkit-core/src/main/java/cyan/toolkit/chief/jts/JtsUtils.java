@@ -17,7 +17,7 @@ public class JtsUtils {
 
     public static String parseWkt(JtsBox box) {
         try {
-            JtsHelper.parseWkt(box);
+            return JtsHelper.parseWkt(box);
         } catch (JtsBoxInvalidException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -27,7 +27,7 @@ public class JtsUtils {
 
     public static String parseGeojson(JtsBox box) {
         try {
-            JtsHelper.parseGeojson(box);
+            return JtsHelper.parseGeojson(box);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -37,7 +37,7 @@ public class JtsUtils {
 
     public static JtsBox parseBox(String WktString) {
         try {
-            JtsHelper.parseBox(WktString);
+            return JtsHelper.parseBox(WktString);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -47,7 +47,7 @@ public class JtsUtils {
 
     public static JtsBox parseBox(Geometry geometry) {
         try {
-            JtsHelper.parseBox(geometry);
+            return JtsHelper.parseBox(geometry);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -57,7 +57,7 @@ public class JtsUtils {
 
     public static String parseGeojson(Geometry geometry) {
         try {
-            JtsHelper.parseGeojson(geometry);
+            return JtsHelper.parseGeojson(geometry);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -67,7 +67,7 @@ public class JtsUtils {
 
     public static Geometry parseGeometry(byte[] WkbBytes) {
         try {
-            JtsHelper.parseGeometry(WkbBytes);
+            return JtsHelper.parseGeometry(WkbBytes);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -77,7 +77,7 @@ public class JtsUtils {
 
     public static String parseWkt(byte[] WkbBytes) {
         try {
-            JtsHelper.parseWkt(WkbBytes);
+            return JtsHelper.parseWkt(WkbBytes);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -87,7 +87,7 @@ public class JtsUtils {
 
     public static byte[] parseWkb(Geometry geometry) {
         try {
-            JtsHelper.parseWkb(geometry);
+            return JtsHelper.parseWkb(geometry);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -97,7 +97,7 @@ public class JtsUtils {
 
     public static String parseWkt(Geometry geometry) {
         try {
-            JtsHelper.parseWkt(geometry);
+            return JtsHelper.parseWkt(geometry);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -107,7 +107,7 @@ public class JtsUtils {
 
     public static Geometry parseGeometry(String WktString) {
         try {
-            JtsHelper.parseGeometry(WktString);
+            return JtsHelper.parseGeometry(WktString);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -117,7 +117,7 @@ public class JtsUtils {
 
     public static byte[] parseWkb(String WktString) {
         try {
-            JtsHelper.parseWkb(WktString);
+            return JtsHelper.parseWkb(WktString);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());
@@ -127,7 +127,7 @@ public class JtsUtils {
 
     public static Geometry parseGeojson(String geojson) {
         try {
-            JtsHelper.parseGeojson(geojson);
+            return JtsHelper.parseGeojson(geojson);
         } catch (JtsParseException exception) {
             exception.printStackTrace();
             log.error(exception.getMessage());

@@ -117,7 +117,7 @@ public class DateUtils {
             return getCacheDateFormat(dateFormat).parse(dateString);
         } catch (Exception exception) {
             exception.printStackTrace();
-            log.error("解析错误！ dateString = {}，pattern = {}，error = {}",exception, dateString,dateFormat,exception.getMessage());
+            log.error("解析错误！ dateString = {}，pattern = {}，error = {}",dateString,dateFormat,exception.getMessage());
             return null;
         }
     }
