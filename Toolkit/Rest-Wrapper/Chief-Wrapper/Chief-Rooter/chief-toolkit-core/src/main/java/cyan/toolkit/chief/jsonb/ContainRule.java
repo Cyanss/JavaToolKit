@@ -92,7 +92,7 @@ public class ContainRule extends JsonbRule<ContainRule> {
     }
 
     @Override
-    public String toSql(String alias, String variable) {
+    public String toSql(@NonNull String alias, @NonNull String variable) {
         if (GeneralUtils.isEmpty(this.values) || GeneralUtils.isEmpty(this.type)) {
             return SqlBuilder.EMPTY;
         }

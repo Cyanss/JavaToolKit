@@ -3,6 +3,7 @@ package cyan.toolkit.chief.jsonb;
 import cyan.toolkit.chief.builder.SqlBuilder;
 import cyan.toolkit.chief.builder.SqlBuilders;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import org.springframework.lang.NonNull;
 
 import java.util.Optional;
 
@@ -64,12 +65,12 @@ public class ContrastRule extends JsonbRule<ContrastRule> {
     }
 
     @Override
-    public String toSql(String alias) {
+    public String toSql(@NonNull String alias) {
         return toSql(alias,"value");
     }
 
     @Override
-    public String toSql(String alias, String variable) {
+    public String toSql(@NonNull String alias,@NonNull  String variable) {
         if (GeneralUtils.isEmpty(this.value) || GeneralUtils.isEmpty(this.type) || GeneralUtils.isEmpty(this.operation)) {
             return SqlBuilder.EMPTY;
         }
