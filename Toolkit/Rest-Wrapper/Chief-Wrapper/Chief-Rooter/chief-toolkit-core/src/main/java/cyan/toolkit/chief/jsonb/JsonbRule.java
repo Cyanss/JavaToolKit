@@ -48,6 +48,14 @@ public abstract class JsonbRule<R extends JsonbRule<R>> implements Serializable 
         return targetBuilder.toString();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public abstract static class Builder<R extends JsonbRule<R>> {
         protected String name;
 

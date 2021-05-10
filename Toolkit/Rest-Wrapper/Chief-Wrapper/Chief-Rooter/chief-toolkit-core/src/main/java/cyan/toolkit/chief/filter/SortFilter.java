@@ -19,7 +19,7 @@ public class SortFilter extends PageFilter {
     @JsonIgnore
     public static final String SORT_REGEX = ",";
     @JsonIgnore
-    public static final String SORT_ORDER = "ORDER BY ";
+    public static final String SORT_ORDER = " ORDER BY ";
 
     protected Set<RestSort> sorts;
 
