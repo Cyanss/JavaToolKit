@@ -1,7 +1,6 @@
 package cyan.toolkit.rest;
 
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
