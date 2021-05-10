@@ -175,9 +175,6 @@ public class JsonbFilter<D,I> extends TimeFilter<D,I> {
         this.equals = Optional.ofNullable(equals).map(equalList -> new HashSet<>(Arrays.asList(equalList))).orElse(null);
     }
 
-
-
-    
     @JsonSetter
     public void setEquals(Collection<EqualRule> equals) {
         this.equals = Optional.ofNullable(equals).map(HashSet::new).orElse(null);

@@ -86,10 +86,6 @@ public class IdFilter<I> extends SortFilter{
         }
     }
 
-
-
-
-
     public void addIds(@NonNull Collection<I> ids) {
         if (GeneralUtils.isEmpty(this.ids)) {
             this.ids = new HashSet<>(ids);
