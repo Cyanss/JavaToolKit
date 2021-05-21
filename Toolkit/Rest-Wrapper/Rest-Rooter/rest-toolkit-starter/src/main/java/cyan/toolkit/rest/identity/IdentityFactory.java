@@ -53,8 +53,8 @@ public class IdentityFactory implements InitializingBean {
 
         if (IdentityType.AUTO == type) {
             IdentityWorker.get(1L);
-            Long workerId = ((Double) (Math.random() * 10 + 1)).longValue();
-            Long centerId = ((Double) (Math.random() * 30 + 1)).longValue();
+            Long workerId = ((Double) (Math.random() * 10 + 20)).longValue();
+            Long centerId = ((Double) (Math.random() * 20 + 10)).longValue();
             IdentityWorker.get(workerId,centerId);
         } else if (IdentityType.SERVER == type) {
             Long sequence = properties.getServer().getSequence();
