@@ -2,6 +2,7 @@ package cyan.toolkit.rest.helper;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.ArrayType;
@@ -44,6 +45,22 @@ public class JsonHelper {
         }
         try {
             return MAPPER.writeValueAsString(target);
+        } catch (JsonProcessingException exception) {
+            throw new JsonParseException(target.getClass().getName(), exception.getMessage());
+        }
+    }
+    /**
+     * 序列化为Json字符串
+     * @param target 目标数据
+     * @param <T> 目标类型
+     * @return String json字符串
+     */
+    public static <T> String parseJson(T target, TypeReference typeReference) throws JsonParseException {
+        if(GeneralUtils.isEmpty(target)) {
+            return null;
+        }
+        try {
+            return MAPPER.writerFor(typeReference).writeValueAsString(target);
         } catch (JsonProcessingException exception) {
             throw new JsonParseException(target.getClass().getName(), exception.getMessage());
         }

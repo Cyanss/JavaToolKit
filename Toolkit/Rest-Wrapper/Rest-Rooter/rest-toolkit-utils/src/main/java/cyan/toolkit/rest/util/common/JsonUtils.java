@@ -1,5 +1,7 @@
 package cyan.toolkit.rest.util.common;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.type.ArrayType;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -36,6 +38,22 @@ public class JsonUtils {
     public static <T> String parseJson(T target) {
         try {
             return JsonHelper.parseJson(target);
+        } catch (JsonParseException exception) {
+            log.error("It is failed during bean to parse as json!", exception);
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 序列化为Json字符串
+     * @param target 目标数据
+     * @param <T>    目标类型
+     * @return String json字符串
+     */
+    public static <T> String parserJson(T target, TypeReference typeReference) {
+        try {
+            return JsonHelper.parseJson(target,typeReference);
         } catch (JsonParseException exception) {
             log.error("It is failed during bean to parse as json!", exception);
             exception.printStackTrace();
