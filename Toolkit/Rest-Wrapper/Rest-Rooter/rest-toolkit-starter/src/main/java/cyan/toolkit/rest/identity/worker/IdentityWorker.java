@@ -2,9 +2,6 @@ package cyan.toolkit.rest.identity.worker;
 
 
 
-import cyan.toolkit.rest.RestError;
-import cyan.toolkit.rest.identity.error.IdentityWorkerException;
-
 import java.util.HashMap;
 import java.util.Map;
 

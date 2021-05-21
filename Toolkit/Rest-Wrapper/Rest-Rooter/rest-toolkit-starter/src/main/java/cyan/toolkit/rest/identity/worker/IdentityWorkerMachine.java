@@ -24,6 +24,7 @@ class IdentityWorkerMachine implements IdentityWorker{
     private Long cacheId = IdentityWorkerConfig.SEQUENCE;
     private Long workerId;
     private Long centerId;
+    private boolean isOffset;
 
     public IdentityWorkerMachine(@NonNull Long workerId, @NonNull Long centerId, Long sequence) {
         if (workerId > IdentityWorkerConfig.MAX_WORKER_ID || workerId < IdentityWorkerConfig.MIN_WORKER_ID) {
@@ -49,13 +50,22 @@ class IdentityWorkerMachine implements IdentityWorker{
 
     @Override
     public synchronized Long generate() {
+        if (IdentityWorkerConfig.CACHE_SET.size() >= IdentityWorkerConfig.CACHE_SIZE) {
+            IdentityWorkerConfig.CACHE_SET.clear();
+            isOffset = true;
+        }
         Long time = new IdentityWorkerTime().getTime();
         if (GeneralUtils.isNotEmpty(this.sequence)) {
             time = new IdentityWorkerTime().sequence(sequence);
         }
         if (time < this.lastTime) {
             this.sequence ++;
-            time = new IdentityWorkerTime().sequence(Math.abs(this.lastTime - time) * this.sequence);
+            int offset = 0;
+            if (isOffset) {
+                offset = IdentityWorkerConfig.CACHE_SIZE + 1;
+                isOffset = false;
+            }
+            time = new IdentityWorkerTime().sequence(Math.abs(this.lastTime - time) * this.sequence + offset);
             log.warn("clock is moving backwards. Rejecting requests until {}", this.lastTime);
         }
         if (this.lastTime.equals(time)) {
@@ -72,10 +82,10 @@ class IdentityWorkerMachine implements IdentityWorker{
                 | (centerId << IdentityWorkerConfig.CENTER_ID_SHIFT)
                 | (workerId << IdentityWorkerConfig.WORKER_ID_SHIFT)
                 | sequence;
-        if (this.cacheId == generateId) {
+        if (IdentityWorkerConfig.CACHE_SET.contains(generateId)) {
             return generate();
         } else {
-            this.cacheId = generateId;
+            IdentityWorkerConfig.CACHE_SET.add(generateId);
             return generateId;
         }
     }
