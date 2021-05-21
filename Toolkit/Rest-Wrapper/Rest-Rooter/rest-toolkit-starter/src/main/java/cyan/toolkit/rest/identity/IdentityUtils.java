@@ -1,5 +1,6 @@
 package cyan.toolkit.rest.identity;
 
+import cyan.toolkit.rest.identity.worker.IdentityWorker;
 import cyan.toolkit.rest.identity.worker.WorkerType;
 
 /**
@@ -10,6 +11,10 @@ import cyan.toolkit.rest.identity.worker.WorkerType;
  * @date 9:59 2020/1/14
  */
 public class IdentityUtils {
+
+    public static void clear() {
+        IdentityWorker.clear();
+    }
 
     public static Long generate(WorkerType workerType) {
         return IdentityFactory.getInstance().get(workerType).generate();

@@ -18,6 +18,10 @@ public interface IdentityWorker {
 
     Long generate();
 
+    static void clear() {
+        IdentityWorkerConfig.CACHE_SET.clear();
+    }
+
     static IdentityWorker get(WorkerType workerType) {
        return IDENTITY_WORKER_MAP.get(workerType);
     }
@@ -53,4 +57,6 @@ public interface IdentityWorker {
             return new IdentityWorkerMachine(workerId, centerId, sequence);
         }
     }
+
+
 }
