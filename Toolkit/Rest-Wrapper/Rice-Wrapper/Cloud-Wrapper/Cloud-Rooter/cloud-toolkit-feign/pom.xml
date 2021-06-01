@@ -55,10 +55,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cyan.tool.kit</groupId>
             <artifactId>rice-toolkit-starter</artifactId>
             <version>${toolkit.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>
