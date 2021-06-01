@@ -1,61 +1,61 @@
 {
   "groups": [
     {
-      "name": "cyan.toolkit.identity",
+      "name": "cyan.toolkit.rest.identity",
       "sourceType": "cyan.toolkit.rest.configure.RestIdentityProperties",
       "type": "cyan.toolkit.rest.configure.RestIdentityProperties"
     },
     {
-      "name": "cyan.toolkit.intercept",
+      "name": "cyan.toolkit.rest.intercept",
       "sourceType": "cyan.toolkit.rest.configure.RestInterceptProperties",
       "type": "cyan.toolkit.rest.configure.RestInterceptProperties"
     }
   ],
   "properties": [
     {
-      "name": "cyan.toolkit.identity.type",
+      "name": "cyan.toolkit.rest.identity.type",
       "type": "cyan.toolkit.rest.identity.IdentityType",
       "description": "identity init type."
     },
     {
-      "name": "cyan.toolkit.identity.config.worker-id",
+      "name": "cyan.toolkit.rest.identity.config.worker-id",
       "type": "java.lang.Long",
       "description": "worker-id."
     },
     {
-      "name": "cyan.toolkit.identity.config.center-id",
+      "name": "cyan.toolkit.rest.identity.config.center-id",
       "type": "java.lang.Long",
       "description": "center-id."
     },
     {
-      "name": "cyan.toolkit.identity.server.url",
+      "name": "cyan.toolkit.rest.identity.server.url",
       "type": "java.lang.String",
       "description": "server url."
     },
     {
-      "name": "cyan.toolkit.identity.server.api",
+      "name": "cyan.toolkit.rest.identity.server.api",
       "type": "java.lang.String",
       "description": "server api."
     },
     {
-      "name": "cyan.toolkit.intercept.enable",
+      "name": "cyan.toolkit.rest.intercept.enable",
       "type": "java.lang.Boolean",
       "description": "intercept enable."
     },
     {
-      "name": "cyan.toolkit.intercept.log-enable",
+      "name": "cyan.toolkit.rest.intercept.log-enable",
       "type": "java.lang.Boolean",
       "description": "intercept log enable."
     },
     {
-      "name": "cyan.toolkit.intercept.bean-enable",
+      "name": "cyan.toolkit.rest.intercept.bean-enable",
       "type": "java.lang.Boolean",
       "description": "intercept bean enable."
     }
   ],
   "hints": [
     {
-      "name": "cyan.toolkit.intercept.enable",
+      "name": "cyan.toolkit.rest.intercept.enable",
       "values": [
         {
           "value": false,
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "name": "cyan.toolkit.intercept.log-enable",
+      "name": "cyan.toolkit.rest.intercept.log-enable",
       "values": [
         {
           "value": false,
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "name": "cyan.toolkit.intercept.bean-enable",
+      "name": "cyan.toolkit.rest.intercept.bean-enable",
       "values": [
         {
           "value": false,
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "name": "cyan.toolkit.identity.type",
+      "name": "cyan.toolkit.rest.identity.type",
       "values": [
         {
           "value": "CONFIG",

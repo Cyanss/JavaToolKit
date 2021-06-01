@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @date created on 9:32 2020/1/16
  */
 @Component
-@ConfigurationProperties(prefix = "cyan.toolkit.identity")
+@ConfigurationProperties(prefix = "cyan.toolkit.rest.identity")
 public class RestIdentityProperties {
     private IdentityType type = IdentityType.AUTO;
     @NestedConfigurationProperty
@@ -86,7 +86,7 @@ public class RestIdentityProperties {
             if (GeneralUtils.isNotEmpty(url)) {
                 return url.concat(api);
             } else {
-                throw new ParamMissingException("cyan.toolkit.identity.server.url");
+                throw new ParamMissingException("cyan.toolkit.rest.identity.server.url");
             }
 
         }

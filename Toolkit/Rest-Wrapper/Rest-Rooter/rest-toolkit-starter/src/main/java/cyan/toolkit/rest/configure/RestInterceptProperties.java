@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @date created on 9:32 2020/1/16
  */
 @Component
-@ConfigurationProperties(prefix = "cyan.toolkit.intercept")
+@ConfigurationProperties(prefix = "cyan.toolkit.rest.intercept")
 public class RestInterceptProperties {
     private Boolean enable = false;
     private Boolean logEnable = false;

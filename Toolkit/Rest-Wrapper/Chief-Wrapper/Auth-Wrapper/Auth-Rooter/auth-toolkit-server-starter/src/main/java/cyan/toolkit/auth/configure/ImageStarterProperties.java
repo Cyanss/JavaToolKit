@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @date 17:46 2020/8/14
  */
 @Component
-@ConfigurationProperties(prefix = "cyan.toolkit.image")
+@ConfigurationProperties(prefix = "cyan.toolkit.auth.image")
 public class ImageStarterProperties {
     private String active = "default";
     private String path = "/default/image";
