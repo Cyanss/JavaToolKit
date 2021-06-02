@@ -5,17 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>Rice-Path</artifactId>
+    <artifactId>Scrap-Path</artifactId>
     <version>0.0.1.RELEASE</version>
     <modules>
-        <module>Rice-Rooter</module>
-        <module>Cloud-Wrapper</module>
-        <module>Scrap-Wrapper</module>
-        <module>Javafx-Wrapper</module>
+        <module>scrap-toolkit-jts-starter</module>
     </modules>
-    <name>Rice-Wrapper</name>
+    <name>Scrap-Wrapper</name>
     <packaging>pom</packaging>
-    <description>Rice</description>
+    <description>Scrap</description>
 
     <properties>
         <java.version>1.8</java.version>

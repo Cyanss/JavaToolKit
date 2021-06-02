@@ -9,7 +9,7 @@
 	<artifactId>chief-toolkit-web</artifactId>
 	<version>${toolkit.version}</version>
 	<name>${project.artifactId}</name>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<description>the web of brief toolkit</description>
 
 	<properties>

@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @date 15:41 2020/9/24
  */
 @Table(name = "cy_tk_cf_simple")
-public class SimpleEntity extends ChiefEntity {
+public class SimpleEntity extends ChiefEntity<SimpleModel> {
 
     private Long time;
 

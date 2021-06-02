@@ -11,7 +11,7 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 15:33 2020/11/3
  */
-public abstract class ChiefEntity extends InfoEntity<Long, Date> {
+public abstract class ChiefEntity<M extends ChiefModel<?>> extends InfoEntity<Long, Date> {
 
     public ChiefEntity() {
     }
@@ -28,6 +28,6 @@ public abstract class ChiefEntity extends InfoEntity<Long, Date> {
         super(builder);
     }
 
-    abstract public <M extends ChiefModel> M toModel();
+    abstract public M toModel();
 
 }

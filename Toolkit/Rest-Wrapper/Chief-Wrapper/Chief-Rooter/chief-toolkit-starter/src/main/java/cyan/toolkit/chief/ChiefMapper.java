@@ -11,5 +11,5 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 11:13 2020/11/3
  */
-public interface ChiefMapper<E extends ChiefEntity> extends InfoMapper<E,Long, Date> {
+public interface ChiefMapper<E extends ChiefEntity<?>> extends InfoMapper<E,Long, Date> {
 }

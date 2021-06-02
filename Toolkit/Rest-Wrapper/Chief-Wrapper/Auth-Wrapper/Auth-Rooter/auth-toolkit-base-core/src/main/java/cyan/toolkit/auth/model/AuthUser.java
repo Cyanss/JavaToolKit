@@ -68,4 +68,8 @@ public class AuthUser<K,V> extends IdModel<Long> {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    public static class Builder extends IdModel.Builder<Long> {
+
+    }
 }

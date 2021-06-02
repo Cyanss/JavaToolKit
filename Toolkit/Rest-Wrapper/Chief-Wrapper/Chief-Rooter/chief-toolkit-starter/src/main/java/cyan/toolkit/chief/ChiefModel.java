@@ -9,7 +9,7 @@ import cyan.toolkit.rice.model.InfoModel;
  * @group cyan.tool.kit
  * @date 15:40 2020/11/3
  */
-public abstract class ChiefModel extends InfoModel<Long> {
+public abstract class ChiefModel<E extends ChiefEntity<?>> extends InfoModel<Long> {
 
     public ChiefModel() {
     }
@@ -22,7 +22,7 @@ public abstract class ChiefModel extends InfoModel<Long> {
         super(builder);
     }
 
-    abstract public <T extends ChiefEntity> T toEntity(Boolean isInsert, Long... idArray);
+    abstract public E toEntity(Boolean isInsert, Long... idArray);
 
     public static abstract class Builder extends InfoModel.Builder<Long> {
 
@@ -44,6 +44,6 @@ public abstract class ChiefModel extends InfoModel<Long> {
             return this;
         }
 
-        public abstract ChiefModel build();
+        public abstract ChiefModel<?> build();
     }
 }

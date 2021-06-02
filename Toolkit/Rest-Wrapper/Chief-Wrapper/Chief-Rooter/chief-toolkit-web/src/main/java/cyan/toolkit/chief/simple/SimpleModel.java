@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 @Builder
 @AllArgsConstructor
-public class SimpleModel extends ChiefModel {
+public class SimpleModel extends ChiefModel<SimpleEntity> {
     private Date time;
 
     public SimpleModel() {

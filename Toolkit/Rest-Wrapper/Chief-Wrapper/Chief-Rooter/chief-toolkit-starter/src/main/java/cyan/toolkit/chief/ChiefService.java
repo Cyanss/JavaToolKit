@@ -12,7 +12,7 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 16:00 2020/11/3
  */
-public abstract class ChiefService<M extends ChiefModel,E extends ChiefEntity,F extends ChiefFilter> extends InfoService<Long, Date, M, E, F> implements BuilderAdvice<Long,Date,M, E> {
+public abstract class ChiefService<M extends ChiefModel<E>,E extends ChiefEntity<M>,F extends ChiefFilter> extends InfoService<Long, Date, M, E, F> implements BuilderAdvice<Long,Date,M, E> {
 
     @Override
     protected E createEntity(M model, Boolean isInsert) {
