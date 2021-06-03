@@ -1,10 +1,10 @@
-package cyan.toolkit.cloud.route;
+package cyan.toolkit.widget.route;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import cyan.toolkit.cloud.configure.CloudRouterProperties;
 import cyan.toolkit.rest.util.common.JsonUtils;
+import cyan.toolkit.widget.configure.ZuulRouterProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
@@ -21,10 +21,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Component
-public class CloudTokenFilter extends ZuulFilter {
+public class ZuulRouterTokenFilter extends ZuulFilter {
 
     @Autowired
-    private CloudRouterProperties properties;
+    private ZuulRouterProperties properties;
 
     @Override
     public String filterType() {

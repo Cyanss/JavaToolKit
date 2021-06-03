@@ -1,4 +1,4 @@
-package cyan.toolkit.cloud.route;
+package cyan.toolkit.widget.route;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -13,20 +13,20 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * <p>CloudRouteLocator</p>
+ * <p>ZuulRouterDiscoveryLocator</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
  * @date 15:12 2021/6/1
  */
 @Slf4j
-public class CloudDiscoveryLocator extends DiscoveryClientRouteLocator {
+public class ZuulRouterDiscoveryLocator extends DiscoveryClientRouteLocator {
 
-    public CloudDiscoveryLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceInstance localServiceInstance) {
+    public ZuulRouterDiscoveryLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceInstance localServiceInstance) {
         super(servletPath, discovery, properties, localServiceInstance);
     }
 
-    public CloudDiscoveryLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceRouteMapper serviceRouteMapper, ServiceInstance localServiceInstance) {
+    public ZuulRouterDiscoveryLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceRouteMapper serviceRouteMapper, ServiceInstance localServiceInstance) {
         super(servletPath, discovery, properties, serviceRouteMapper, localServiceInstance);
     }
 

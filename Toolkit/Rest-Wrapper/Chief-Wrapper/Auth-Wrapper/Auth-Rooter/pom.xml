@@ -40,11 +40,6 @@
 
     <repositories>
         <repository>
-            <id>osgeo-release</id>
-            <name>osgeo maven release</name>
-            <url>https://repo.osgeo.org/repository/release/</url>
-        </repository>
-        <repository>
             <id>aliyun-central</id>
             <name>aliyun maven centrals</name>
             <url>https://maven.aliyun.com/repository/central</url>

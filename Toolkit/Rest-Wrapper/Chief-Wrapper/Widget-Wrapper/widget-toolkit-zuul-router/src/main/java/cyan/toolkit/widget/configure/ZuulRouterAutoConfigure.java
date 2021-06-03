@@ -1,6 +1,5 @@
-package cyan.toolkit.cloud.configure;
+package cyan.toolkit.widget.configure;
 
-import cyan.toolkit.cloud.route.CloudDiscoveryLocator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,9 +10,10 @@ import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapp
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import cyan.toolkit.widget.route.ZuulRouterDiscoveryLocator;
 
 /**
- * <p>CloudRouterAutoConfigure</p>
+ * <p>ZuulRouterAutoConfigure</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = {"cyan.toolkit.cloud"})
-public class CloudRouterAutoConfigure extends ZuulServerAutoConfiguration {
+public class ZuulRouterAutoConfigure extends ZuulServerAutoConfiguration {
     private final EurekaRegistration registration;
     @Autowired
     private DiscoveryClient discovery;
@@ -30,13 +30,13 @@ public class CloudRouterAutoConfigure extends ZuulServerAutoConfiguration {
     private ServiceRouteMapper serviceRouteMapper;
 
     @Autowired(required = false)
-    public CloudRouterAutoConfigure(@Qualifier("eurekaRegistration") EurekaRegistration registration) {
+    public ZuulRouterAutoConfigure(@Qualifier("eurekaRegistration") EurekaRegistration registration) {
         log.debug("================= cloud-toolkit-router initiated ！ ===================");
         this.registration = registration;
     }
 
     @Bean
-    public CloudDiscoveryLocator discoveryRouteLocator() {
-        return new CloudDiscoveryLocator(this.server.getServlet().getContextPath(), this.discovery, this.zuulProperties, this.serviceRouteMapper, this.registration);
+    public ZuulRouterDiscoveryLocator discoveryRouteLocator() {
+        return new ZuulRouterDiscoveryLocator(this.server.getServlet().getContextPath(), this.discovery, this.zuulProperties, this.serviceRouteMapper, this.registration);
     }
 }

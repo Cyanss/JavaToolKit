@@ -11,7 +11,6 @@
         <module>cloud-toolkit-eureka</module>
         <module>cloud-toolkit-feign</module>
         <module>cloud-toolkit-feign-web</module>
-        <module>cloud-toolkit-router</module>
         <module>cloud-toolkit-starter</module>
         <module>cloud-toolkit-starter-web</module>
     </modules>
@@ -53,11 +52,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>osgeo-release</id>
-            <name>osgeo maven release</name>
-            <url>https://repo.osgeo.org/repository/release/</url>
-        </repository>
         <repository>
             <id>aliyun-central</id>
             <name>aliyun maven centrals</name>

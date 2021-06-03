@@ -10,6 +10,7 @@
     <modules>
         <module>Auth-Wrapper</module>
         <module>Chief-Rooter</module>
+        <module>Widget-Wrapper</module>
     </modules>
     <name>Chief-Wrapper</name>
     <packaging>pom</packaging>
@@ -28,11 +29,6 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>osgeo-release</id>
-            <name>osgeo maven release</name>
-            <url>https://repo.osgeo.org/repository/release/</url>
-        </repository>
         <repository>
             <id>aliyun-central</id>
             <name>aliyun maven centrals</name>
