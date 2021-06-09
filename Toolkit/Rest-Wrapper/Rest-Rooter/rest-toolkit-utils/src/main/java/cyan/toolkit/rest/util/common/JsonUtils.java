@@ -51,7 +51,7 @@ public class JsonUtils {
      * @param <T>    目标类型
      * @return String json字符串
      */
-    public static <T> String parserJson(T target, TypeReference typeReference) {
+    public static <T> String parseJson(T target, TypeReference typeReference) {
         try {
             return JsonHelper.parseJson(target,typeReference);
         } catch (JsonParseException exception) {

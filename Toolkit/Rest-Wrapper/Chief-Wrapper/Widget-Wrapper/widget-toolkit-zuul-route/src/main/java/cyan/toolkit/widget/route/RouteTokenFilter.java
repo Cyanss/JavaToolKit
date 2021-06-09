@@ -3,10 +3,12 @@ package cyan.toolkit.widget.route;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.widget.configure.ZuulRouterProperties;
+import cyan.toolkit.widget.configure.RouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +23,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Component
-public class ZuulRouterTokenFilter extends ZuulFilter {
+public class RouteTokenFilter extends ZuulFilter {
 
     @Autowired
-    private ZuulRouterProperties properties;
+    private RouteProperties routeProperties;
+
+    @Autowired
+    private ZuulProperties zuulProperties;
 
     @Override
     public String filterType() {
@@ -38,8 +43,7 @@ public class ZuulRouterTokenFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        log.info("properties: {}", JsonUtils.parseJson(properties));
-        if (!properties.getEnable()) {
+        if (!routeProperties.getEnable()) {
             return false;
         }
         RequestContext requestContext = RequestContext.getCurrentContext();
@@ -50,8 +54,20 @@ public class ZuulRouterTokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-        log.info("request uri: {}", request.getRequestURI());
-        log.info("request url: {}", request.getRequestURL());
+        String requestURI = request.getRequestURI();
+        log.debug("request uri: {}", requestURI);
+        StringBuffer requestURL = request.getRequestURL();
+        log.debug("request url: {}", requestURL);
+        try {
+            if (RouteManager.existWhite(requestURI)) {
+                log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
+                return null;
+            }
+        } catch (RestException e) {
+            throw new ZuulException(e,e.getMessage(),e.getStatus(),e.getError().getMessage());
+        }
+        String requestToken = request.getHeader("Authorization");
+
         return null;
     }
 }

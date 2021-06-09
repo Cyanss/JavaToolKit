@@ -1,0 +1,57 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.widget.zuul.route",
+      "sourceType": "cyan.toolkit.widget.configure.RouteProperties",
+      "type": "cyan.toolkit.widget.configure.RouteProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.widget.zuul.route.enable",
+      "type": "java.lang.Boolean",
+      "description": "route enable."
+    },
+    {
+      "name": "cyan.toolkit.widget.zuul.route.type",
+      "type": "cyan.toolkit.widget.route.RouteType",
+      "description": "route init type."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.widget.zuul.route.enable",
+      "values": [
+        {
+          "value": false,
+          "description": "route close."
+        },
+        {
+          "value": true,
+          "description": "route open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.widget.zuul.route.type",
+      "values": [
+        {
+          "value": "LOCAL",
+          "description": "route type LOCAL use local properties file."
+        },
+        {
+          "value": "POSTGRES",
+          "description": "route type POSTGRES use postgres database."
+        },
+        {
+          "value": "MYSQL",
+          "description": "route type MYSQL use mysql database."
+        },
+        {
+          "value": "CONFIG",
+          "description": "route type CONFIG use spring cloud config."
+        }
+      ]
+    }
+  ]
+}

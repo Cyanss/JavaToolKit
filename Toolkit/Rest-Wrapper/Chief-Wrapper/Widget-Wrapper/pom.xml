@@ -8,7 +8,7 @@
     <artifactId>Widget-Path</artifactId>
     <version>0.0.1.RELEASE</version>
     <modules>
-        <module>widget-toolkit-zuul-router</module>
+        <module>widget-toolkit-zuul-route</module>
     </modules>
     <name>Widget-Wrapper</name>
     <packaging>pom</packaging>

@@ -8,7 +8,10 @@ package cyan.toolkit.rest.identity;
  * @date 9:59 2020/1/14
  */
 public enum IdentityType {
+    /** 自动单机配置 */
     AUTO,
+    /** 配置文件配置 */
     CONFIG,
+    /** 服务器配置 */
     SERVER
 }

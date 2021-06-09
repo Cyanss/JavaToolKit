@@ -1,5 +1,6 @@
 package cyan.toolkit.widget.configure;
 
+import cyan.toolkit.widget.route.RouteType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Component;
  * @date 9:15 2021/6/1
  */
 @Component
-@ConfigurationProperties(prefix = "cyan.toolkit.widget.zuul.router")
-public class ZuulRouterProperties {
+@ConfigurationProperties(prefix = "cyan.toolkit.widget.zuul.route")
+public class RouteProperties {
     private Boolean enable = true;
+    private RouteType type = RouteType.LOCAL;
 
-    public ZuulRouterProperties() {
+    public RouteProperties() {
     }
 
     public Boolean getEnable() {
@@ -24,5 +26,13 @@ public class ZuulRouterProperties {
 
     public void setEnable(Boolean enable) {
         this.enable = enable;
+    }
+
+    public RouteType getType() {
+        return type;
+    }
+
+    public void setType(RouteType type) {
+        this.type = type;
     }
 }

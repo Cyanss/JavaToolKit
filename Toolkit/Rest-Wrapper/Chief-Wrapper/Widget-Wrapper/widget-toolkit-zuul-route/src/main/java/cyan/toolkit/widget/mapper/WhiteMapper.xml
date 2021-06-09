@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cyan.toolkit.widget.mapper.WhiteMapper">
+    <resultMap type="cyan.toolkit.widget.entity.WhiteEntity" id="whiteResultMap">
+        <id property="path" column="path"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="all_column">
+        "path", "status", create_time, update_time
+    </sql>
+
+    <insert id="save">
+        INSERT INTO zuul_white_list ( <include refid="all_column"/> )
+        VALUES (
+        #{entity.path},
+        1,
+        now(),
+        now()
+        ) ON CONFLICT ("path") DO UPDATE
+        <set>
+             update_time = CASE WHEN EXCLUDED.update_time IS NOT NULL THEN EXCLUDED.update_time ELSE now() END
+        </set>
+    </insert>
+
+    <update id="saveAll">
+        INSERT INTO zuul_white_list (
+        <include refid="all_column"/>
+        )
+        VALUES
+        <foreach item="entity" index="index" collection="entityList" separator=",">
+            (
+            #{entity.path},
+            1,
+            now(),
+            now()
+            )
+        </foreach>
+        ON CONFLICT ("path") DO UPDATE
+        <set>
+            update_time = CASE WHEN EXCLUDED.update_time IS NOT NULL THEN EXCLUDED.update_time ELSE now() END
+        </set>
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM zuul_white_list
+        WHERE "path" = #{path}
+    </delete>
+
+    <delete id="deleteAll">
+        DELETE FROM zuul_white_list
+        WHERE "path" IN
+        <foreach item="path" index="index" collection="pathList" open="(" separator="," close=")">
+            #{path}
+        </foreach>
+    </delete>
+
+    <select id="findById" resultMap="whiteResultMap">
+        SELECT<include refid="all_column"/>
+        FROM zuul_white_list
+        WHERE "path" = #{path}
+    </select>
+
+    <select id="findAll" resultMap="whiteResultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM zuul_white_list
+        WHERE "path" IN
+        <foreach item="path" index="index" collection="pathList" open="(" separator="," close=")">
+            #{path}
+        </foreach>
+        ORDER BY update_time ASC
+    </select>
+
+    <select id="findAllByWhere" resultMap="whiteResultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM zuul_white_list
+        WHERE 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+        ORDER BY update_time ASC
+    </select>
+
+    <delete id="deleteAllByWhere">
+        DELETE FROM zuul_white_list
+        WHERE 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+    </delete>
+
+    <select id="findAllByStatus" resultMap="whiteResultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM zuul_white_list
+        WHERE status = 1
+    </select>
+
+    <update id="alertAllByStatus">
+        UPDATE zuul_white_list
+        SET status = 0
+        WHERE status <![CDATA[<>]]> 0
+    </update>
+
+</mapper>
