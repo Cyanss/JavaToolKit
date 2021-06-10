@@ -1,6 +1,7 @@
 package cyan.toolkit.rest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestResult<T> extends DefaultResult<T,RestResult<T>> {
     @JsonFormat(
             pattern = "yyyy-MM-dd HH:mm:ss",
@@ -28,10 +30,17 @@ public class RestResult<T> extends DefaultResult<T,RestResult<T>> {
     public RestResult() {
     }
 
+    public RestResult(RestStatus status) {
+        super(status.getStatus(),status.getMessage());
+        this.time = new Date();
+    }
+
+
     public RestResult(Integer status, String message) {
         super(status,message);
         this.time = new Date();
     }
+
     public RestResult(RestResult.Builder<T> builder) {
         super(builder.status, builder.message, builder.data);
         this.time = builder.time;

@@ -4,6 +4,7 @@
 <mapper namespace="cyan.toolkit.widget.mapper.WhiteMapper">
     <resultMap type="cyan.toolkit.widget.entity.WhiteEntity" id="whiteResultMap">
         <id property="path" column="path"/>
+        <result property="status" column="status"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>

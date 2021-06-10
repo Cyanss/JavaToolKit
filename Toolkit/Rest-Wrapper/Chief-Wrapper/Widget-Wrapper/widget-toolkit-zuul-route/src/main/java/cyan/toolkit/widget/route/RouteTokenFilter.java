@@ -3,6 +3,7 @@ package cyan.toolkit.widget.route;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import cyan.toolkit.rest.DefaultResult;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.util.common.GeneralUtils;
@@ -74,7 +75,7 @@ public class RouteTokenFilter extends ZuulFilter {
         }
         requestContext.setSendZuulResponse(false);
         requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
-        requestContext.setResponseBody(JsonUtils.parseJson(RestResult.error(RestErrorStatus.TOKEN_ERROR)));
+        requestContext.setResponseBody(JsonUtils.parseJson(new RestResult<>(RestErrorStatus.TOKEN_ERROR)));
         HttpServletResponse contextResponse = requestContext.getResponse();
         if (GeneralUtils.isNotEmpty(contextResponse)) {
             contextResponse.setHeader("Content-type", "text/html;charset=UTF-8");

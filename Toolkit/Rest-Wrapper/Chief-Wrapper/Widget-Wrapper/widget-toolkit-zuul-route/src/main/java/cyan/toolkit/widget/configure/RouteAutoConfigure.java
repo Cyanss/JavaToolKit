@@ -50,8 +50,8 @@ public class RouteAutoConfigure {
     }
 
     @Bean
-    @ConditionalOnBean(DynamicRouteLocator.class)
-    @ConditionalOnMissingBean(DiscoveryClientRouteLocator.class)
+//    @ConditionalOnBean(DynamicRouteLocator.class)
+    @ConditionalOnMissingBean(DynamicRouteLocator.class)
     public DynamicRouteLocator widgetRouteLocator(ServiceRouteMapper serviceRouteMapper) {
         return new DynamicRouteLocator(this.server.getServlet().getContextPath(), this.discovery, this.zuulProperties, serviceRouteMapper, this.registration,this.routeProperties);
     }

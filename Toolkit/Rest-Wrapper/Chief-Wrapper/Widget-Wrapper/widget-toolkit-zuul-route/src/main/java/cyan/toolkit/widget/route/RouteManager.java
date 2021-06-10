@@ -55,11 +55,11 @@ public class RouteManager implements InitializingBean {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
     @Autowired
-    private RouteLocator routeLocator;
-    @Autowired
     private RouteProperties routeProperties;
     @Autowired
     private ZuulProperties zuulProperties;
+
+    private RouteLocator routeLocator = null;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -217,8 +217,10 @@ public class RouteManager implements InitializingBean {
     }
 
     public synchronized static void doRefresh() {
-        RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
-        RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+        if (GeneralUtils.isNotEmpty(RouteManager.getInstance().routeLocator)) {
+            RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
+            RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+        }
     }
 
     public synchronized static void refresh() {
@@ -233,17 +235,22 @@ public class RouteManager implements InitializingBean {
             }
             if (GeneralUtils.isNotEmpty(whiteList)) {
                 RouteManager.getWhiteList().addAll(whiteList);
+                log.info("the white list has refreshed {} whites !",whiteList.size());
+                Integer size = RouteManager.getInstance().whiteService.updateAllNew();
+                log.info("the white list has updated {} whites !",size);
             }
             if (GeneralUtils.isNotEmpty(routeModels)) {
                 Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
                 RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
+                log.info("the route list has refreshed {} routes !",routeModels.size());
+                Integer size = RouteManager.getInstance().routeService.updateAllNew();
+                log.info("the route list has updated {} routes !",size);
             }
         }
     }
 
-
-
-    public synchronized static void reload() {
+    public synchronized static void reload(RouteLocator routeLocator) {
+        RouteManager.getInstance().routeLocator = routeLocator;
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (routeProperties.getEnable()) {
             List<String> whiteList = null;
@@ -253,7 +260,7 @@ public class RouteManager implements InitializingBean {
                 routeModels =  RouteManager.getInstance().routeService.queryAll(null);
             }
             if (GeneralUtils.isNotEmpty(whiteList)) {
-                RouteManager.getWhiteList().addAll(whiteList);
+                RouteManager.WHITE_LIST.addAll(whiteList);
                 log.info("the white list has be initiated! size: {}", whiteList.size());
             }
             if (GeneralUtils.isNotEmpty(routeModels)) {
@@ -266,8 +273,16 @@ public class RouteManager implements InitializingBean {
 
     public synchronized static boolean existWhite(String white) {
         boolean exist = false;
-        if (GeneralUtils.isEmpty(RouteManager.WHITE_LIST)) {
-            reload();
+        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
+        if (GeneralUtils.isEmpty(RouteManager.WHITE_LIST) && routeProperties.getEnable()) {
+            List<String> whiteList = null;
+            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
+                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
+            }
+            if (GeneralUtils.isNotEmpty(whiteList)) {
+                RouteManager.WHITE_LIST.addAll(whiteList);
+                log.info("the white list has be initiated! size: {}", whiteList.size());
+            }
         }
         if (GeneralUtils.isNotEmpty(RouteManager.WHITE_LIST)) {
             for (String path : RouteManager.WHITE_LIST) {

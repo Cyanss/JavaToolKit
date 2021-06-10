@@ -34,7 +34,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        RouteManager.reload();
+        RouteManager.reload(this);
     }
 
     @Override
