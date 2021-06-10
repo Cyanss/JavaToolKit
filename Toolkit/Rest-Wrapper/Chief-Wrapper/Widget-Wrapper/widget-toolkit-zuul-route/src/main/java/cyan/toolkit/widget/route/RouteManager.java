@@ -1,6 +1,5 @@
 package cyan.toolkit.widget.route;
 
-import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.widget.configure.RouteProperties;
@@ -65,6 +64,92 @@ public class RouteManager implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         RouteManager.instance = this;
         log.info("routeProperties: {}", JsonUtils.parseJson(routeProperties));
+    }
+
+    public synchronized static void initiate(RouteLocator routeLocator) {
+        RouteManager.getInstance().routeLocator = routeLocator;
+    }
+
+    public synchronized static void doRefresh() {
+        if (GeneralUtils.isNotEmpty(RouteManager.getInstance().routeLocator)) {
+            RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
+            RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+        }
+    }
+
+    public synchronized static void refresh() {
+        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
+        if (routeProperties.getEnable()) {
+            List<String> whiteList = null;
+            List<WidgetRoute> routeModels = null;
+            RouteType routeType = routeProperties.getType();
+            if (routeType == RouteType.POSTGRES || routeType == RouteType.MYSQL) {
+                whiteList = RouteManager.getInstance().whiteService.queryAllNew();
+                routeModels = RouteManager.getInstance().routeService.queryAllNew();
+            }
+            if (GeneralUtils.isNotEmpty(whiteList)) {
+                RouteManager.getWhiteList().addAll(whiteList);
+                log.info("the white list has refreshed {} whites !",whiteList.size());
+                Integer size = RouteManager.getInstance().whiteService.updateAllNew();
+                log.info("the white list has updated {} whites !",size);
+            }
+            if (GeneralUtils.isNotEmpty(routeModels)) {
+                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
+                RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
+                log.info("the route list has refreshed {} routes !",routeModels.size());
+                Integer size = RouteManager.getInstance().routeService.updateAllNew();
+                log.info("the route list has updated {} routes !",size);
+            }
+        }
+    }
+
+    public synchronized static void reload() {
+        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
+        if (routeProperties.getEnable()) {
+            List<String> whiteList = null;
+            List<WidgetRoute> routeModels = null;
+            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
+                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
+                routeModels =  RouteManager.getInstance().routeService.queryAll(null);
+            }
+            if (GeneralUtils.isNotEmpty(whiteList)) {
+                RouteManager.WHITE_LIST.addAll(whiteList);
+                log.info("the white list has be initiated! size: {}", whiteList.size());
+            }
+            if (GeneralUtils.isNotEmpty(routeModels)) {
+                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
+                RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
+                log.info("the route list has be initiated! size: {}", routeModels.size());
+            }
+        }
+    }
+
+    public synchronized static boolean existWhite(String white) {
+        boolean exist = false;
+        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
+        if (GeneralUtils.isEmpty(RouteManager.WHITE_LIST) && routeProperties.getEnable()) {
+            List<String> whiteList = null;
+            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
+                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
+            }
+            if (GeneralUtils.isNotEmpty(whiteList)) {
+                RouteManager.WHITE_LIST.addAll(whiteList);
+                log.info("the white list has be initiated! size: {}", whiteList.size());
+            }
+        }
+        if (GeneralUtils.isNotEmpty(RouteManager.WHITE_LIST)) {
+            for (String path : RouteManager.WHITE_LIST) {
+                if (MATCHER.isPattern(path)) {
+                    exist = MATCHER.match(path, white);
+                } else {
+                    exist = path.equals(white);
+                }
+                if (exist) {
+                    break;
+                }
+            }
+        }
+        return exist;
     }
 
     public synchronized static void addWhite(String white) {
@@ -216,86 +301,5 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void doRefresh() {
-        if (GeneralUtils.isNotEmpty(RouteManager.getInstance().routeLocator)) {
-            RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
-            RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
-        }
-    }
 
-    public synchronized static void refresh() {
-        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        if (routeProperties.getEnable()) {
-            List<String> whiteList = null;
-            List<WidgetRoute> routeModels = null;
-            RouteType routeType = routeProperties.getType();
-            if (routeType == RouteType.POSTGRES || routeType == RouteType.MYSQL) {
-                whiteList = RouteManager.getInstance().whiteService.queryAllNew();
-                routeModels = RouteManager.getInstance().routeService.queryAllNew();
-            }
-            if (GeneralUtils.isNotEmpty(whiteList)) {
-                RouteManager.getWhiteList().addAll(whiteList);
-                log.info("the white list has refreshed {} whites !",whiteList.size());
-                Integer size = RouteManager.getInstance().whiteService.updateAllNew();
-                log.info("the white list has updated {} whites !",size);
-            }
-            if (GeneralUtils.isNotEmpty(routeModels)) {
-                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
-                RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
-                log.info("the route list has refreshed {} routes !",routeModels.size());
-                Integer size = RouteManager.getInstance().routeService.updateAllNew();
-                log.info("the route list has updated {} routes !",size);
-            }
-        }
-    }
-
-    public synchronized static void reload(RouteLocator routeLocator) {
-        RouteManager.getInstance().routeLocator = routeLocator;
-        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        if (routeProperties.getEnable()) {
-            List<String> whiteList = null;
-            List<WidgetRoute> routeModels = null;
-            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
-                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
-                routeModels =  RouteManager.getInstance().routeService.queryAll(null);
-            }
-            if (GeneralUtils.isNotEmpty(whiteList)) {
-                RouteManager.WHITE_LIST.addAll(whiteList);
-                log.info("the white list has be initiated! size: {}", whiteList.size());
-            }
-            if (GeneralUtils.isNotEmpty(routeModels)) {
-                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
-                RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
-                log.info("the route list has be initiated! size: {}", routeModels.size());
-            }
-        }
-    }
-
-    public synchronized static boolean existWhite(String white) {
-        boolean exist = false;
-        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        if (GeneralUtils.isEmpty(RouteManager.WHITE_LIST) && routeProperties.getEnable()) {
-            List<String> whiteList = null;
-            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
-                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
-            }
-            if (GeneralUtils.isNotEmpty(whiteList)) {
-                RouteManager.WHITE_LIST.addAll(whiteList);
-                log.info("the white list has be initiated! size: {}", whiteList.size());
-            }
-        }
-        if (GeneralUtils.isNotEmpty(RouteManager.WHITE_LIST)) {
-            for (String path : RouteManager.WHITE_LIST) {
-                if (MATCHER.isPattern(path)) {
-                    exist = MATCHER.match(path, white);
-                } else {
-                    exist = path.equals(white);
-                }
-                if (exist) {
-                    break;
-                }
-            }
-        }
-        return exist;
-    }
 }

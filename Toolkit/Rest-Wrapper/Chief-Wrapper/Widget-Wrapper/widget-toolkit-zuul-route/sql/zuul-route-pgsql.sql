@@ -2,8 +2,8 @@
 
 DROP TABLE IF EXISTS "public"."zuul_white_list";
 CREATE TABLE "public"."zuul_white_list"(
-  "path" VARCHAR(256) COLLATE "default" NOT NULL,
-  "status" int4 DEFAULT 1,
+  "path" VARCHAR(64) COLLATE "default" NOT NULL,
+  "status" INT4 DEFAULT 1,
   "create_time" TIMESTAMPTZ,
   "update_time" TIMESTAMPTZ,
   PRIMARY KEY ("path")
@@ -15,14 +15,13 @@ COMMENT ON COLUMN "public"."zuul_white_list"."update_time" IS '更新时间';
 
 DROP TABLE IF EXISTS "public"."zuul_route_list";
 CREATE TABLE "public"."zuul_route_list"(
-  "path" VARCHAR(256) COLLATE "default" NOT NULL,
-  "location" VARCHAR(256) COLLATE "default" NOT NULL,
-  "name" VARCHAR(256) COLLATE "default",
-  "status" int4 DEFAULT 1,
+  "path" VARCHAR(64) COLLATE "default" NOT NULL,
+  "location" VARCHAR(128) COLLATE "default" NOT NULL,
+  "name" VARCHAR(64) COLLATE "default",
+  "status" INT4 DEFAULT 1,
   "create_time" TIMESTAMPTZ,
   "update_time" TIMESTAMPTZ,
   PRIMARY KEY ("path")
-
 );
 COMMENT ON COLUMN "public"."zuul_route_list"."path" IS '路由路径';
 COMMENT ON COLUMN "public"."zuul_route_list"."location" IS '路由位置';

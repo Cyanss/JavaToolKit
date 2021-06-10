@@ -25,16 +25,14 @@ import java.util.Map;
 @Slf4j
 public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements InitializingBean {
 
-    private ZuulProperties zuulProperties;
-
     public DynamicRouteLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceRouteMapper serviceRouteMapper, ServiceInstance localServiceInstance, RouteProperties routeProperties) {
         super(servletPath, discovery, properties, serviceRouteMapper, localServiceInstance);
-        this.zuulProperties = properties;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        RouteManager.reload(this);
+        RouteManager.initiate(this);
+        RouteManager.reload();
     }
 
     @Override
@@ -77,28 +75,6 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
 
     public void removeWhites(Collection<String> whites) {
         RouteManager.removeWhites(whites);
-    }
-
-    @Override
-    protected LinkedHashMap<String, ZuulProperties.ZuulRoute> locateRoutes() {
-        LinkedHashMap<String, ZuulProperties.ZuulRoute> routesMap = new LinkedHashMap<>();
-        routesMap.putAll(super.locateRoutes());
-        routesMap.putAll(super.locateRoutes());
-        LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
-        for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routesMap.entrySet()) {
-            String path = entry.getKey();
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
-            if (StringUtils.hasText(this.zuulProperties.getPrefix())) {
-                path = this.zuulProperties.getPrefix() + path;
-                if (!path.startsWith("/")) {
-                    path = "/" + path;
-                }
-            }
-            values.put(path, entry.getValue());
-        }
-        return values;
     }
 
     @Override
