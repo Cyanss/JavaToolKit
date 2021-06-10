@@ -4,7 +4,7 @@ import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.widget.configure.RouteProperties;
-import cyan.toolkit.widget.model.RouteModel;
+import cyan.toolkit.widget.model.WidgetRoute;
 import cyan.toolkit.widget.service.RouteService;
 import cyan.toolkit.widget.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,6 @@ import org.springframework.cloud.netflix.zuul.RoutesRefreshedEvent;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -66,13 +65,9 @@ public class RouteManager implements InitializingBean {
     public void afterPropertiesSet() throws Exception {
         RouteManager.instance = this;
         log.info("routeProperties: {}", JsonUtils.parseJson(routeProperties));
-        reloadWhites();
-        log.info("the white list will be initiated !");
-        refreshRoutes();
-        log.info("the route list will be initiated !");
     }
 
-    public synchronized static void addWhite(String white) throws RestException {
+    public synchronized static void addWhite(String white) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         String result;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -86,7 +81,7 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void addWhites(Collection<String> whites) throws RestException {
+    public synchronized static void addWhites(Collection<String> whites) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         Collection<String> resultList;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -100,7 +95,7 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void removeWhite(String white) throws RestException {
+    public synchronized static void removeWhite(String white) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (GeneralUtils.isNotEmpty(white)) {
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -111,7 +106,7 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void removeWhites(Collection<String> whites) throws RestException {
+    public synchronized static void removeWhites(Collection<String> whites) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (GeneralUtils.isNotEmpty(whites)) {
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -122,63 +117,63 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void addRoute(String route, String location) throws RestException {
+    public synchronized static void addRoute(String route, String location) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        RouteModel result;
+        WidgetRoute result;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
-            result = RouteManager.getInstance().routeService.save(new RouteModel(route, location));
+            result = RouteManager.getInstance().routeService.save(new WidgetRoute(route, location));
         } else {
-            result = new RouteModel(route, location);
+            result = new WidgetRoute(route, location);
         }
         if (GeneralUtils.isNotEmpty(result)) {
-            refreshRoutes();
+            doRefresh();
             log.info("the route list has added one, path: {}, location: {}, the route list will be refreshed !",result.getPath(),result.getLocation());
         }
     }
 
-    public synchronized static void addRoute(ZuulProperties.ZuulRoute zuulRoute) throws RestException {
+    public synchronized static void addRoute(ZuulProperties.ZuulRoute zuulRoute) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        RouteModel result;
+        WidgetRoute result;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
-            result = RouteManager.getInstance().routeService.save(new RouteModel(zuulRoute.getPath(), zuulRoute.getLocation()));
+            result = RouteManager.getInstance().routeService.save(new WidgetRoute(zuulRoute.getPath(), zuulRoute.getLocation()));
         } else {
-            result = new RouteModel(zuulRoute.getPath(), zuulRoute.getLocation());
+            result = new WidgetRoute(zuulRoute.getPath(), zuulRoute.getLocation());
         }
         if (GeneralUtils.isNotEmpty(result)) {
-            refreshRoutes();
+            doRefresh();
             log.info("the route list has added one, path: {}, location: {}, the route list will be refreshed !",result.getPath(),result.getLocation());
         }
     }
 
-    public synchronized static void addRoute(RouteModel routeModel) throws RestException {
+    public synchronized static void addRoute(WidgetRoute routeModel) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        RouteModel result;
+        WidgetRoute result;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
             result = RouteManager.getInstance().routeService.save(routeModel);
         } else {
             result = routeModel;
         }
         if (GeneralUtils.isNotEmpty(result)) {
-            refreshRoutes();
+            doRefresh();
             log.info("the route list has added one, path: {}, location: {}, the route list will be refreshed !",result.getPath(),result.getLocation());
         }
     }
 
-    public synchronized static void addRoutes(Collection<RouteModel> routes) throws RestException {
+    public synchronized static void addRoutes(Collection<WidgetRoute> routes) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
-        Collection<RouteModel> resultList;
+        Collection<WidgetRoute> resultList;
         if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
             resultList = RouteManager.getInstance().routeService.saveAll(routes);
         } else {
             resultList = routes;
         }
         if (GeneralUtils.isNotEmpty(resultList)) {
-            refreshRoutes();
+            doRefresh();
             log.info("the route list has added {} routes, the route list will be refreshed !",resultList.size());
         }
     }
 
-    public synchronized static void removeRoute(String route) throws RestException {
+    public synchronized static void removeRoute(String route) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (GeneralUtils.isNotEmpty(route)) {
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -189,15 +184,14 @@ public class RouteManager implements InitializingBean {
                 ZuulProperties.ZuulRoute remove = routeList.remove(route);
                 if (GeneralUtils.isNotEmpty(remove)) {
                     log.info("the route list has removed one, path: {}, location: {}",remove.getPath(),remove.getLocation());
-                    RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
-                    RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+                    doRefresh();
                     log.info("the route list will be refreshed !");
                 }
             }
         }
     }
 
-    public synchronized static void removeRoutes(Collection<String> routes) throws RestException {
+    public synchronized static void removeRoutes(Collection<String> routes) {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (GeneralUtils.isNotEmpty(routes)) {
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
@@ -214,8 +208,7 @@ public class RouteManager implements InitializingBean {
                     }
                 }
                 if (isRemove.get()) {
-                    RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
-                    RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+                    doRefresh();
                     log.info("the route list will be refreshed !");
                 }
 
@@ -223,40 +216,58 @@ public class RouteManager implements InitializingBean {
         }
     }
 
-    public synchronized static void refreshRoutes() throws RestException {
+    public synchronized static void doRefresh() {
+        RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
+        RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
+    }
+
+    public synchronized static void refresh() {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (routeProperties.getEnable()) {
-            List<RouteModel> routeModels = null;
-            if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
+            List<String> whiteList = null;
+            List<WidgetRoute> routeModels = null;
+            RouteType routeType = routeProperties.getType();
+            if (routeType == RouteType.POSTGRES || routeType == RouteType.MYSQL) {
+                whiteList = RouteManager.getInstance().whiteService.queryAllNew();
                 routeModels = RouteManager.getInstance().routeService.queryAllNew();
+            }
+            if (GeneralUtils.isNotEmpty(whiteList)) {
+                RouteManager.getWhiteList().addAll(whiteList);
             }
             if (GeneralUtils.isNotEmpty(routeModels)) {
                 Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
                 RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
             }
         }
-        RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(RouteManager.getInstance().routeLocator);
-        RouteManager.getInstance().eventPublisher.publishEvent(routesRefreshedEvent);
     }
 
 
-    public synchronized static void reloadWhites() throws RestException {
+
+    public synchronized static void reload() {
         RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
         if (routeProperties.getEnable()) {
             List<String> whiteList = null;
+            List<WidgetRoute> routeModels = null;
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
-                whiteList = RouteManager.getInstance().whiteService.queryAllNew();
+                whiteList =  RouteManager.getInstance().whiteService.queryAll(null);
+                routeModels =  RouteManager.getInstance().routeService.queryAll(null);
             }
             if (GeneralUtils.isNotEmpty(whiteList)) {
-                RouteManager.WHITE_LIST.addAll(whiteList);
+                RouteManager.getWhiteList().addAll(whiteList);
+                log.info("the white list has be initiated! size: {}", whiteList.size());
+            }
+            if (GeneralUtils.isNotEmpty(routeModels)) {
+                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routeModels.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
+                RouteManager.getInstance().zuulProperties.getRoutes().putAll(zuulRouteMap);
+                log.info("the route list has be initiated! size: {}", routeModels.size());
             }
         }
     }
 
-    public synchronized static boolean existWhite(String white) throws RestException {
+    public synchronized static boolean existWhite(String white) {
         boolean exist = false;
         if (GeneralUtils.isEmpty(RouteManager.WHITE_LIST)) {
-            reloadWhites();
+            reload();
         }
         if (GeneralUtils.isNotEmpty(RouteManager.WHITE_LIST)) {
             for (String path : RouteManager.WHITE_LIST) {

@@ -18,21 +18,21 @@ import java.util.stream.Collectors;
  * @group cyan.tool.kit
  * @date 9:37 2021/6/8
  */
-public class RouteModel extends ZuulProperties.ZuulRoute implements Serializable {
+public class WidgetRoute extends ZuulProperties.ZuulRoute implements Serializable {
     private String name;
 
-    public RouteModel() {
+    public WidgetRoute() {
     }
 
-    public RouteModel(String name) {
+    public WidgetRoute(String name) {
         this.name = name;
     }
 
-    public RouteModel(String path, String location) {
+    public WidgetRoute(String path, String location) {
         super(path,location);
     }
 
-    public RouteModel(RouteModel.Builder builder) {
+    public WidgetRoute(WidgetRoute.Builder builder) {
         super(builder.path, builder.location);
         this.name = builder.name;
     }
@@ -54,9 +54,9 @@ public class RouteModel extends ZuulProperties.ZuulRoute implements Serializable
                    .path(super.getPath()).location(super.getLocation()).build();
     }
 
-    public static Map<String,ZuulProperties.ZuulRoute> toZuulRouteMap(Collection<RouteModel> routeModels) {
+    public static Map<String,ZuulProperties.ZuulRoute> toZuulRouteMap(Collection<WidgetRoute> routeModels) {
         if (GeneralUtils.isNotEmpty(routeModels)) {
-            return routeModels.stream().collect(Collectors.toMap(RouteModel::getName,routeModel -> new ZuulProperties.ZuulRoute(routeModel.getPath(),routeModel.getLocation())));
+            return routeModels.stream().collect(Collectors.toMap(WidgetRoute::getName, routeModel -> new ZuulProperties.ZuulRoute(routeModel.getPath(),routeModel.getLocation())));
         } else {
             return Collections.emptyMap();
         }
@@ -75,23 +75,23 @@ public class RouteModel extends ZuulProperties.ZuulRoute implements Serializable
         public Builder() {
         }
 
-        public RouteModel.Builder name(String name) {
+        public WidgetRoute.Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public RouteModel.Builder path(String path) {
+        public WidgetRoute.Builder path(String path) {
             this.path = path;
             return this;
         }
 
-        public RouteModel.Builder location(String location) {
+        public WidgetRoute.Builder location(String location) {
             this.location = location;
             return this;
         }
 
-        public RouteModel build() {
-            return new RouteModel(this);
+        public WidgetRoute build() {
+            return new WidgetRoute(this);
         }
     }
 }

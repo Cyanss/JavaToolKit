@@ -1,8 +1,7 @@
 package cyan.toolkit.widget.entity;
 
 import cyan.toolkit.chief.entity.TimeEntity;
-import cyan.toolkit.rest.util.often.RandomUtils;
-import cyan.toolkit.widget.model.RouteModel;
+import cyan.toolkit.widget.model.WidgetRoute;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -74,8 +73,8 @@ public class RouteEntity extends TimeEntity<Date> {
         this.status = status;
     }
 
-    public RouteModel toModel() {
-        return new RouteModel.Builder().name(this.name).path(this.path).location(this.location).build();
+    public WidgetRoute toModel() {
+        return new WidgetRoute.Builder().name(this.name).path(this.path).location(this.location).build();
     }
 
     @Override

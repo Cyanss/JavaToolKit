@@ -1,6 +1,7 @@
 package cyan.toolkit.widget.configure;
 
 import cyan.toolkit.widget.route.RouteType;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

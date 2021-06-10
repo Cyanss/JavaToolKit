@@ -9,14 +9,13 @@ import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.widget.entity.RouteEntity;
 import cyan.toolkit.widget.entity.WhiteEntity;
 import cyan.toolkit.widget.mapper.RouteMapper;
-import cyan.toolkit.widget.model.RouteModel;
+import cyan.toolkit.widget.model.WidgetRoute;
 import cyan.toolkit.widget.service.RouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public RouteModel save(RouteModel model) throws RestException {
+    public WidgetRoute save(WidgetRoute model) {
         if (GeneralUtils.isNotEmpty(model) && model.isNotEmpty()) {
             routeMapper.save(model.toEntity());
         }
@@ -46,10 +45,10 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public List<RouteModel> saveAll(Collection<RouteModel> modelList) throws RestException {
+    public List<WidgetRoute> saveAll(Collection<WidgetRoute> modelList) {
         if (GeneralUtils.isNotEmpty(modelList)) {
             Set<RouteEntity> entitySet = modelList.stream().filter(GeneralUtils::isNotEmpty)
-                    .filter(RouteModel::isNotEmpty).map(RouteModel::toEntity).collect(Collectors.toSet());
+                    .filter(WidgetRoute::isNotEmpty).map(WidgetRoute::toEntity).collect(Collectors.toSet());
             routeMapper.saveAll(entitySet);
             return entitySet.stream().map(RouteEntity::toModel).collect(Collectors.toList());
         }
@@ -58,7 +57,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public void deleteAll(Collection<String> pathList) throws RestException {
+    public void deleteAll(Collection<String> pathList) {
         if (GeneralUtils.isNotEmpty(pathList)) {
             Set<String> pathSet = pathList.stream().filter(GeneralUtils::isNotEmpty).collect(Collectors.toSet());
             routeMapper.deleteAll(pathSet);
@@ -67,14 +66,14 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public void deleteById(String path) throws RestException {
+    public void deleteById(String path) {
         if (GeneralUtils.isNotEmpty(path)) {
             routeMapper.deleteById(path);
         }
     }
 
     @Override
-    public List<RouteModel> queryAll(Collection<String> pathList) throws RestException {
+    public List<WidgetRoute> queryAll(Collection<String> pathList) {
         List<RouteEntity> entityList;
         if (GeneralUtils.isEmpty(pathList)) {
             entityList = routeMapper.findAllByWhere(null);
@@ -86,7 +85,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteModel queryById(String path) throws RestException {
+    public WidgetRoute queryById(String path) {
         if (GeneralUtils.isNotEmpty(path)) {
             RouteEntity entity = routeMapper.findById(path);
             return Optional.ofNullable(entity).map(RouteEntity::toModel).orElse(null);
@@ -95,21 +94,21 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RestPage<RouteModel> queryAllWithFilter(PageFilter filter) throws RestException {
+    public RestPage<WidgetRoute> queryAllWithFilter(PageFilter filter) {
         Page<WhiteEntity> page = SqlBuilders.page(filter);
         List<RouteEntity> entityList = routeMapper.findAllByWhere(null);
-        List<RouteModel> pathList = Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
+        List<WidgetRoute> pathList = Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
         return RestPage.result(pathList,page);
     }
 
     @Override
-    public List<RouteModel> queryAllNew() throws RestException {
+    public List<WidgetRoute> queryAllNew() {
         List<RouteEntity> entityList = routeMapper.findAllByStatus();
         return Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
     @Override
-    public Integer updateAllNew() throws RestException {
+    public Integer updateAllNew() {
         return routeMapper.alertAllByStatus();
     }
 }

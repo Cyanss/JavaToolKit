@@ -3,16 +3,21 @@ package cyan.toolkit.widget.route;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import cyan.toolkit.rest.RestException;
+import cyan.toolkit.rest.RestErrorStatus;
+import cyan.toolkit.rest.RestResult;
+import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.widget.configure.RouteProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpStatus;
+import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <p>CloudTokenFilter</p>
@@ -58,16 +63,23 @@ public class RouteTokenFilter extends ZuulFilter {
         log.debug("request uri: {}", requestURI);
         StringBuffer requestURL = request.getRequestURL();
         log.debug("request url: {}", requestURL);
-        try {
-            if (RouteManager.existWhite(requestURI)) {
-                log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
-                return null;
-            }
-        } catch (RestException e) {
-            throw new ZuulException(e,e.getMessage(),e.getStatus(),e.getError().getMessage());
+        if (RouteManager.existWhite(requestURI)) {
+            log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
+            return null;
         }
         String requestToken = request.getHeader("Authorization");
-
+        if (GeneralUtils.isNotEmpty(requestToken)) {
+            log.info("request token: {}", requestURI);
+            return null;
+        }
+        requestContext.setSendZuulResponse(false);
+        requestContext.setResponseStatusCode(HttpStatus.SC_UNAUTHORIZED);
+        requestContext.setResponseBody(JsonUtils.parseJson(RestResult.error(RestErrorStatus.TOKEN_ERROR)));
+        HttpServletResponse contextResponse = requestContext.getResponse();
+        if (GeneralUtils.isNotEmpty(contextResponse)) {
+            contextResponse.setHeader("Content-type", "text/html;charset=UTF-8");
+        }
+        requestContext.set("isSuccess", false);
         return null;
     }
 }

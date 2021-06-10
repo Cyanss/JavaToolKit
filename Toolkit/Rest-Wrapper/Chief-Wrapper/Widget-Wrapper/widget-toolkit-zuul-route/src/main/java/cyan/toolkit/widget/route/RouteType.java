@@ -16,4 +16,5 @@ public enum RouteType {
     MYSQL,
     /** spring cloud config 服务配置 */
     CONFIG
+    ;
 }

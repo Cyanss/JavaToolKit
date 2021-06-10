@@ -35,7 +35,7 @@ public class WhiteServiceImpl implements WhiteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public String save(String model) throws RestException {
+    public String save(String model) {
         if (GeneralUtils.isNotEmpty(model)) {
             whiteMapper.save(new WhiteEntity(model));
         }
@@ -44,7 +44,7 @@ public class WhiteServiceImpl implements WhiteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public List<String> saveAll(Collection<String> modelList) throws RestException {
+    public List<String> saveAll(Collection<String> modelList) {
         if (GeneralUtils.isNotEmpty(modelList)) {
             Set<WhiteEntity> entitySet = modelList.stream().filter(GeneralUtils::isNotEmpty).map(WhiteEntity::new).collect(Collectors.toSet());
             whiteMapper.saveAll(entitySet);
@@ -55,7 +55,7 @@ public class WhiteServiceImpl implements WhiteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public void deleteAll(Collection<String> pathList) throws RestException {
+    public void deleteAll(Collection<String> pathList) {
         if (GeneralUtils.isNotEmpty(pathList)) {
             Set<String> pathSet = pathList.stream().filter(GeneralUtils::isNotEmpty).collect(Collectors.toSet());
             whiteMapper.deleteAll(pathSet);
@@ -64,14 +64,14 @@ public class WhiteServiceImpl implements WhiteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public void deleteById(String path) throws RestException {
+    public void deleteById(String path) {
         if (GeneralUtils.isNotEmpty(path)) {
             whiteMapper.deleteById(path);
         }
     }
 
     @Override
-    public List<String> queryAll(Collection<String> pathList) throws RestException {
+    public List<String> queryAll(Collection<String> pathList) {
         List<WhiteEntity> entityList;
         if (GeneralUtils.isNotEmpty(pathList)) {
             Set<String> pathSet = pathList.stream().filter(GeneralUtils::isNotEmpty).collect(Collectors.toSet());
@@ -83,7 +83,7 @@ public class WhiteServiceImpl implements WhiteService {
     }
 
     @Override
-    public String queryById(String path) throws RestException {
+    public String queryById(String path) {
         if (GeneralUtils.isNotEmpty(path)) {
             WhiteEntity entity = whiteMapper.findById(path);
             return Optional.ofNullable(entity).map(WhiteEntity::getPath).orElse(null);
@@ -92,7 +92,7 @@ public class WhiteServiceImpl implements WhiteService {
     }
 
     @Override
-    public RestPage<String> queryAllWithFilter(PageFilter filter) throws RestException {
+    public RestPage<String> queryAllWithFilter(PageFilter filter) {
         Page<WhiteEntity> page = SqlBuilders.page(filter);
         List<WhiteEntity> entityList = whiteMapper.findAllByWhere(null);
         List<String> pathList = Optional.ofNullable(entityList).map(lists -> lists.stream().map(WhiteEntity::getPath).collect(Collectors.toList())).orElse(Collections.emptyList());
@@ -100,13 +100,13 @@ public class WhiteServiceImpl implements WhiteService {
     }
 
     @Override
-    public List<String> queryAllNew() throws RestException {
+    public List<String> queryAllNew() {
         List<WhiteEntity> entityList = whiteMapper.findAllByStatus();
         return Optional.ofNullable(entityList).map(lists -> lists.stream().map(WhiteEntity::getPath).collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
     @Override
-    public Integer updateAllNew() throws RestException {
+    public Integer updateAllNew(){
         return whiteMapper.alertAllByStatus();
     }
 }
