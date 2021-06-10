@@ -18,21 +18,21 @@ import java.util.stream.Collectors;
  * @group cyan.tool.kit
  * @date 9:37 2021/6/8
  */
-public class WidgetRoute extends ZuulProperties.ZuulRoute implements Serializable {
+public class DynamicRoute extends ZuulProperties.ZuulRoute implements Serializable {
     private String name;
 
-    public WidgetRoute() {
+    public DynamicRoute() {
     }
 
-    public WidgetRoute(String name) {
+    public DynamicRoute(String name) {
         this.name = name;
     }
 
-    public WidgetRoute(String path, String location) {
+    public DynamicRoute(String path, String location) {
         super(path,location);
     }
 
-    public WidgetRoute(WidgetRoute.Builder builder) {
+    public DynamicRoute(DynamicRoute.Builder builder) {
         super(builder.path, builder.location);
         this.name = builder.name;
     }
@@ -54,9 +54,9 @@ public class WidgetRoute extends ZuulProperties.ZuulRoute implements Serializabl
                    .path(super.getPath()).location(super.getLocation()).build();
     }
 
-    public static Map<String,ZuulProperties.ZuulRoute> toZuulRouteMap(Collection<WidgetRoute> routeModels) {
+    public static Map<String,ZuulProperties.ZuulRoute> toZuulRouteMap(Collection<DynamicRoute> routeModels) {
         if (GeneralUtils.isNotEmpty(routeModels)) {
-            return routeModels.stream().collect(Collectors.toMap(WidgetRoute::getName, routeModel -> new ZuulProperties.ZuulRoute(routeModel.getPath(),routeModel.getLocation())));
+            return routeModels.stream().collect(Collectors.toMap(DynamicRoute::getName, routeModel -> new ZuulProperties.ZuulRoute(routeModel.getPath(),routeModel.getLocation())));
         } else {
             return Collections.emptyMap();
         }
@@ -75,23 +75,23 @@ public class WidgetRoute extends ZuulProperties.ZuulRoute implements Serializabl
         public Builder() {
         }
 
-        public WidgetRoute.Builder name(String name) {
+        public DynamicRoute.Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public WidgetRoute.Builder path(String path) {
+        public DynamicRoute.Builder path(String path) {
             this.path = path;
             return this;
         }
 
-        public WidgetRoute.Builder location(String location) {
+        public DynamicRoute.Builder location(String location) {
             this.location = location;
             return this;
         }
 
-        public WidgetRoute build() {
-            return new WidgetRoute(this);
+        public DynamicRoute build() {
+            return new DynamicRoute(this);
         }
     }
 }

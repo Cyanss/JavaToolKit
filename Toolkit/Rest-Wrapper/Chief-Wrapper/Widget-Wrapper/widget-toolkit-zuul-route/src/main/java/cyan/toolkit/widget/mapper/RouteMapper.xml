@@ -112,13 +112,23 @@
         SELECT
         <include refid="all_column"/>
         FROM zuul_route_list
-        WHERE status = 1
+        WHERE status = #{status}
+    </select>
+
+    <select id="findAllByNotStatus" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM zuul_route_list
+        WHERE status <![CDATA[<>]]> 0
     </select>
 
     <update id="alertAllByStatus">
         UPDATE zuul_route_list
         SET status = 0
-        WHERE status <![CDATA[<>]]> 0
+        WHERE status = 1
     </update>
+
+    <delete id="deleteAllByStatus">
+        DELETE FROM zuul_route_list
+        WHERE status = 2
+    </delete>
 
 </mapper>

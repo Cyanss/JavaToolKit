@@ -94,17 +94,27 @@
         </if>
     </delete>
 
+    <select id="findAllByNotStatus" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM zuul_white_list
+        WHERE status <![CDATA[<>]]> 0
+    </select>
+
     <select id="findAllByStatus" resultMap="whiteResultMap">
         SELECT
         <include refid="all_column"/>
         FROM zuul_white_list
-        WHERE status = 1
+        WHERE status = #{status}
     </select>
 
     <update id="alertAllByStatus">
         UPDATE zuul_white_list
         SET status = 0
-        WHERE status <![CDATA[<>]]> 0
+        WHERE status = 1
     </update>
+
+    <delete id="deleteAllByStatus">
+        DELETE FROM zuul_white_list
+        WHERE status = 2
+    </delete>
 
 </mapper>

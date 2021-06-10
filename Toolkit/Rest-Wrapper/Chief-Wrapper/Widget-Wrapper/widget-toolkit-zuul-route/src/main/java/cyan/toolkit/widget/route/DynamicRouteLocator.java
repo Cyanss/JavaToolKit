@@ -1,7 +1,7 @@
 package cyan.toolkit.widget.route;
 
 import cyan.toolkit.widget.configure.RouteProperties;
-import cyan.toolkit.widget.model.WidgetRoute;
+import cyan.toolkit.widget.model.DynamicRoute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cloud.client.ServiceInstance;
@@ -9,11 +9,8 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * <p>DiscoveryRouteLocator</p>
@@ -45,11 +42,11 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
         RouteManager.addRoute(route);
     }
 
-    public void addRoute(WidgetRoute routeModel) {
+    public void addRoute(DynamicRoute routeModel) {
         RouteManager.addRoute(routeModel);
     }
 
-    public void addRoutes(Collection<WidgetRoute> routes) {
+    public void addRoutes(Collection<DynamicRoute> routes) {
         RouteManager.addRoutes(routes);
     }
 

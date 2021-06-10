@@ -1,7 +1,8 @@
 package cyan.toolkit.widget.entity;
 
 import cyan.toolkit.chief.entity.TimeEntity;
-import cyan.toolkit.widget.model.WidgetRoute;
+import cyan.toolkit.widget.model.DynamicRoute;
+import cyan.toolkit.widget.route.ZuulStatus;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -24,7 +25,7 @@ public class RouteEntity extends TimeEntity<Date> {
 
     private String name;
 
-    private Integer status = 1;
+    private Integer status = ZuulStatus.UPDATE.getKey();
 
     public RouteEntity() {
     }
@@ -73,8 +74,8 @@ public class RouteEntity extends TimeEntity<Date> {
         this.status = status;
     }
 
-    public WidgetRoute toModel() {
-        return new WidgetRoute.Builder().name(this.name).path(this.path).location(this.location).build();
+    public DynamicRoute toModel() {
+        return new DynamicRoute.Builder().name(this.name).path(this.path).location(this.location).build();
     }
 
     @Override

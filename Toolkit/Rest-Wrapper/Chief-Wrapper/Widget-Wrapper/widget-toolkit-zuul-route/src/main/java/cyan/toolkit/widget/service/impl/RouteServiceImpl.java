@@ -9,7 +9,8 @@ import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.widget.entity.RouteEntity;
 import cyan.toolkit.widget.entity.WhiteEntity;
 import cyan.toolkit.widget.mapper.RouteMapper;
-import cyan.toolkit.widget.model.WidgetRoute;
+import cyan.toolkit.widget.model.DynamicRoute;
+import cyan.toolkit.widget.route.ZuulStatus;
 import cyan.toolkit.widget.service.RouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public WidgetRoute save(WidgetRoute model) {
+    public DynamicRoute save(DynamicRoute model) {
         if (GeneralUtils.isNotEmpty(model) && model.isNotEmpty()) {
             routeMapper.save(model.toEntity());
         }
@@ -45,10 +46,10 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
-    public List<WidgetRoute> saveAll(Collection<WidgetRoute> modelList) {
+    public List<DynamicRoute> saveAll(Collection<DynamicRoute> modelList) {
         if (GeneralUtils.isNotEmpty(modelList)) {
             Set<RouteEntity> entitySet = modelList.stream().filter(GeneralUtils::isNotEmpty)
-                    .filter(WidgetRoute::isNotEmpty).map(WidgetRoute::toEntity).collect(Collectors.toSet());
+                    .filter(DynamicRoute::isNotEmpty).map(DynamicRoute::toEntity).collect(Collectors.toSet());
             routeMapper.saveAll(entitySet);
             return entitySet.stream().map(RouteEntity::toModel).collect(Collectors.toList());
         }
@@ -73,7 +74,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<WidgetRoute> queryAll(Collection<String> pathList) {
+    public List<DynamicRoute> queryAll(Collection<String> pathList) {
         List<RouteEntity> entityList;
         if (GeneralUtils.isEmpty(pathList)) {
             entityList = routeMapper.findAllByWhere(null);
@@ -85,7 +86,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public WidgetRoute queryById(String path) {
+    public DynamicRoute queryById(String path) {
         if (GeneralUtils.isNotEmpty(path)) {
             RouteEntity entity = routeMapper.findById(path);
             return Optional.ofNullable(entity).map(RouteEntity::toModel).orElse(null);
@@ -94,21 +95,31 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RestPage<WidgetRoute> queryAllWithFilter(PageFilter filter) {
+    public RestPage<DynamicRoute> queryAllWithFilter(PageFilter filter) {
         Page<WhiteEntity> page = SqlBuilders.page(filter);
         List<RouteEntity> entityList = routeMapper.findAllByWhere(null);
-        List<WidgetRoute> pathList = Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
+        List<DynamicRoute> pathList = Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
         return RestPage.result(pathList,page);
     }
 
     @Override
-    public List<WidgetRoute> queryAllNew() {
-        List<RouteEntity> entityList = routeMapper.findAllByStatus();
+    public Boolean isNeedRefresh() {
+        return GeneralUtils.isNotEmpty(routeMapper.findAllByNotStatus());
+    }
+
+    @Override
+    public List<DynamicRoute> queryAllWithStatus(ZuulStatus status) {
+        List<RouteEntity> entityList = routeMapper.findAllByStatus(status.getKey());
         return Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
     @Override
-    public Integer updateAllNew() {
+    public Integer updateAll() {
         return routeMapper.alertAllByStatus();
+    }
+
+    @Override
+    public Integer removeAll() {
+        return routeMapper.deleteAllByStatus();
     }
 }

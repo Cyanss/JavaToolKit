@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 /**
  * <p>CloudTokenFilter</p>
@@ -68,9 +69,11 @@ public class RouteTokenFilter extends ZuulFilter {
             log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
             return null;
         }
-        String requestToken = request.getHeader("Authorization");
+        String requestToken= request.getHeader("Token");
+        requestToken = Optional.ofNullable(requestToken).orElse(request.getParameter("token"));
         if (GeneralUtils.isNotEmpty(requestToken)) {
-            log.info("request token: {}", requestURI);
+            log.info("request token: {}", requestToken);
+            //TODO token check
             return null;
         }
         requestContext.setSendZuulResponse(false);

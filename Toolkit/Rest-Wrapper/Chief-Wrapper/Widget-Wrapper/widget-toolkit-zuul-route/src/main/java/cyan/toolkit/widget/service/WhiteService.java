@@ -3,6 +3,7 @@ package cyan.toolkit.widget.service;
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.rest.RestException;
+import cyan.toolkit.widget.route.ZuulStatus;
 
 import java.util.Collection;
 import java.util.List;
@@ -64,15 +65,25 @@ public interface WhiteService {
     RestPage<String> queryAllWithFilter(PageFilter filter);
 
     /**
+     * 判断是否需要刷新
+     * @return Boolean 是否需要刷新
+     */
+    Boolean isNeedRefresh();
+    /**
      * 查询所有新增的白名单
      * @return List<String> 新增的白名单列表
      */
-    List<String> queryAllNew();
+    List<String> queryAllWithStatus(ZuulStatus status);
 
     /**
      * 更新所有新增的白名单状态
      * @return Integer 更新的白名单数量
      */
-    Integer updateAllNew();
+    Integer updateAll();
 
+    /**
+     * 移除所有删除的白名单状态
+     * @return Integer 更新的白名单数量
+     */
+    Integer removeAll();
 }

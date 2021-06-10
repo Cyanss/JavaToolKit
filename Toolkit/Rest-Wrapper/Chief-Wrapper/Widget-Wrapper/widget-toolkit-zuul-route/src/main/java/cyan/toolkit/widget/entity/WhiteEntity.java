@@ -1,7 +1,7 @@
 package cyan.toolkit.widget.entity;
 
-import cyan.toolkit.chief.entity.IdEntity;
 import cyan.toolkit.chief.entity.TimeEntity;
+import cyan.toolkit.widget.route.ZuulStatus;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,7 +20,7 @@ public class WhiteEntity extends TimeEntity<Date> {
     @Id
     private String path;
 
-    private Integer status = 1;
+    private Integer status = ZuulStatus.UPDATE.getKey();
 
     public WhiteEntity() {
     }

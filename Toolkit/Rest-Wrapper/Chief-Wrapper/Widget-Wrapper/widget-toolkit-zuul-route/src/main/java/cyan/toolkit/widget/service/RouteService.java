@@ -2,8 +2,8 @@ package cyan.toolkit.widget.service;
 
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
-import cyan.toolkit.rest.RestException;
-import cyan.toolkit.widget.model.WidgetRoute;
+import cyan.toolkit.widget.model.DynamicRoute;
+import cyan.toolkit.widget.route.ZuulStatus;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,14 +21,14 @@ public interface RouteService {
      * @param model 对象信息
      * @return M 创建的对象
      */
-    WidgetRoute save(WidgetRoute model);
+    DynamicRoute save(DynamicRoute model);
 
     /**
      * 批量保存（存在更新,不存在新增）
      * @param modelList 对象信息集合
      * @return List<M> 更新的对象
      */
-    List<WidgetRoute> saveAll(Collection<WidgetRoute> modelList);
+    List<DynamicRoute> saveAll(Collection<DynamicRoute> modelList);
 
     /**
      * 通过name集合批量删除
@@ -47,31 +47,43 @@ public interface RouteService {
      * @param nameList 对象name集合
      * @return List<M> 查询的数据
      */
-    List<WidgetRoute> queryAll(Collection<String> nameList);
+    List<DynamicRoute> queryAll(Collection<String> nameList);
 
     /**
      * 通过name集合查询单个
      * @param name 对象name
      * @return M 查询的对象
      */
-    WidgetRoute queryById(String name);
+    DynamicRoute queryById(String name);
 
     /**
      * 通过过滤器查询
      * @param filter 过滤器
      * @return RestPage<M> 查询的数据（分页）
      */
-    RestPage<WidgetRoute> queryAllWithFilter(PageFilter filter);
+    RestPage<DynamicRoute> queryAllWithFilter(PageFilter filter);
+
+    /**
+     * 判断是否需要刷新
+     * @return Boolean 是否需要刷新
+     */
+    Boolean isNeedRefresh();
 
     /**
      * 查询所有新增的路由
      * @return List<RouteModel> 新增的路由列表
      */
-    List<WidgetRoute> queryAllNew();
+    List<DynamicRoute> queryAllWithStatus(ZuulStatus status);
 
     /**
      * 更新所有新增的路由状态
      * @return Integer 更新的路由数量
      */
-    Integer updateAllNew();
+    Integer updateAll();
+
+    /**
+     * 移除所有删除的路由状态
+     * @return Integer 更新的路由数量
+     */
+    Integer removeAll();
 }

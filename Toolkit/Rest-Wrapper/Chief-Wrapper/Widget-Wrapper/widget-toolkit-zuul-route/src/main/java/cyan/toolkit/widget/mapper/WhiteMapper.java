@@ -72,14 +72,28 @@ public interface WhiteMapper extends Mapper<WhiteEntity> {
      * @param whereSql 过滤条件
      */
     Integer deleteAllByWhere(@Param("whereSql") String whereSql);
+
+    /**
+     * 通过status实体批量查询非正常状态数据
+     * @return Integer 查询的数据集合
+     */
+    Integer findAllByNotStatus();
+
     /**
      * 通过status实体批量查询
      * @return List<T> 查询的数据集合
      */
-    List<WhiteEntity> findAllByStatus();
+    List<WhiteEntity> findAllByStatus(@Param("status") Integer status);
+
     /**
      * 通过status实体批量修改
      * @return Integer SQL影响行数
      */
     Integer alertAllByStatus();
+
+    /**
+     * 通过status实体批量删除
+     * @return Integer SQL影响行数
+     */
+    Integer deleteAllByStatus();
 }
