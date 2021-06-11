@@ -3,7 +3,6 @@ package cyan.toolkit.widget.route;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import cyan.toolkit.rest.DefaultResult;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.util.common.GeneralUtils;
@@ -11,9 +10,7 @@ import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.widget.configure.RouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
-import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +31,6 @@ public class RouteTokenFilter extends ZuulFilter {
 
     @Autowired
     private RouteProperties routeProperties;
-
-    @Autowired
-    private ZuulProperties zuulProperties;
 
     @Override
     public String filterType() {

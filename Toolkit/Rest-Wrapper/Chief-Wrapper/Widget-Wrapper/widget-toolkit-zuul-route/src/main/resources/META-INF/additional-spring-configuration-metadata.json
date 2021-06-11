@@ -10,12 +10,17 @@
     {
       "name": "cyan.toolkit.widget.zuul.route.enable",
       "type": "java.lang.Boolean",
-      "description": "route enable."
+      "description": "route enabled."
     },
     {
       "name": "cyan.toolkit.widget.zuul.route.type",
       "type": "cyan.toolkit.widget.route.RouteType",
       "description": "route init type."
+    },
+    {
+      "name": "cyan.toolkit.widget.zuul.route.whites",
+      "type": "java.util.Set",
+      "description": "whites set."
     }
   ],
   "hints": [
@@ -46,6 +51,14 @@
         {
           "value": "MYSQL",
           "description": "route type MYSQL use mysql database."
+        },
+        {
+          "value": "NACOS",
+          "description": "route type NACOS use alibaba nacos."
+        },
+        {
+          "value": "CONSUL",
+          "description": "route type CONSUL use google consul."
         },
         {
           "value": "CONFIG",

@@ -14,6 +14,10 @@ public enum RouteType {
     POSTGRES,
     /** mysql 数据库 */
     MYSQL,
+    /** alibaba Nacos */
+    NACOS,
+    /** google Consul */
+    CONSUL,
     /** spring cloud config 服务配置 */
     CONFIG
     ;

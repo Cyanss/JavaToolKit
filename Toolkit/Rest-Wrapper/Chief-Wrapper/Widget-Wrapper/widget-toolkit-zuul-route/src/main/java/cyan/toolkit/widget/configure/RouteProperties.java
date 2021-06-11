@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * <p>ZuulRouterProperties</p>
  * @author Cyan (snow22314@outlook.com)
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Component;
 public class RouteProperties {
     private Boolean enable = true;
     private RouteType type = RouteType.LOCAL;
+    private Set<String> whites;
 
     public RouteProperties() {
     }
@@ -35,5 +39,13 @@ public class RouteProperties {
 
     public void setType(RouteType type) {
         this.type = type;
+    }
+
+    public Set<String> getWhites() {
+        return whites;
+    }
+
+    public void setWhites(Set<String> whites) {
+        this.whites = whites;
     }
 }

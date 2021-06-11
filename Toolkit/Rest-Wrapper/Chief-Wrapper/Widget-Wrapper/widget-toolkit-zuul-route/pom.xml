@@ -22,6 +22,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <nacos.version>2.2.5.RELEASE</nacos.version>
         <toolkit.version>0.0.1-SNAPSHOT</toolkit.version>
     </properties>
     <repositories>
@@ -90,6 +91,18 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${nacos.version}</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+            <!--<version>${nacos.version}</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 

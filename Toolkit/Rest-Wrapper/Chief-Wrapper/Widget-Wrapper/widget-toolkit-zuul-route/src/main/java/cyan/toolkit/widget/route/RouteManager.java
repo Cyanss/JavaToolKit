@@ -1,5 +1,10 @@
 package cyan.toolkit.widget.route;
 
+import com.alibaba.cloud.nacos.NacosConfigManager;
+import com.alibaba.cloud.nacos.NacosConfigProperties;
+import com.alibaba.nacos.api.config.ConfigService;
+import cyan.toolkit.rest.helper.ContextHelper;
+import cyan.toolkit.rest.util.bean.ContextUtils;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.widget.configure.RouteProperties;
@@ -7,12 +12,16 @@ import cyan.toolkit.widget.model.DynamicRoute;
 import cyan.toolkit.widget.service.RouteService;
 import cyan.toolkit.widget.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.RoutesRefreshedEvent;
 import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -31,7 +40,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-public class RouteManager implements InitializingBean {
+public class RouteManager implements ApplicationContextAware, InitializingBean {
 
     private static final Set<String> WHITE_LIST = new HashSet<>();
 
@@ -57,12 +66,43 @@ public class RouteManager implements InitializingBean {
     private RouteProperties routeProperties;
     @Autowired
     private ZuulProperties zuulProperties;
+    @Autowired
+    private NacosConfigManager nacosConfigManager;
+    @Autowired
+    private NacosConfigProperties nacosConfigProperties;
 
     private RouteLocator routeLocator = null;
+
+    private static ApplicationContext applicationContext = null;
+
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    @Override
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+        RouteManager.applicationContext = applicationContext;
+    }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         RouteManager.instance = this;
+        RouteProperties routeProperties = RouteManager.getInstance().routeProperties;
+        Set<String> whites = routeProperties.getWhites();
+        if (GeneralUtils.isNotEmpty(whites)) {
+            RouteManager.WHITE_LIST.addAll(whites);
+        }
+        if (routeProperties.getEnable() && routeProperties.getType() == RouteType.NACOS) {
+            DynamicNacosListener dynamicNacosListener = RouteManager.applicationContext.getBean(DynamicNacosListener.class);
+            String name = nacosConfigProperties.getName();
+            String group = nacosConfigProperties.getGroup();
+            if (GeneralUtils.isEmpty(name) || GeneralUtils.isEmpty(group)) {
+                log.error("the name or group at the config properties of nacos is null!");
+            } else {
+                nacosConfigManager.getConfigService().addListener(name,group,dynamicNacosListener);
+                log.info("the listener of nacos has be added in the config service!");
+            }
+        }
         log.info("routeProperties: {}", JsonUtils.parseJson(routeProperties));
     }
 
@@ -140,6 +180,12 @@ public class RouteManager implements InitializingBean {
             if (routeProperties.getType() == RouteType.POSTGRES || routeProperties.getType() == RouteType.MYSQL) {
                 whiteList = RouteManager.getInstance().whiteService.queryAllWithStatus(ZuulStatus.DEFAULT);
                 dynamicRoutes = RouteManager.getInstance().routeService.queryAllWithStatus(ZuulStatus.DEFAULT);
+            } else if (routeProperties.getType() == RouteType.NACOS) {
+                RouteManager.WHITE_LIST.clear();
+                Set<String> whites = routeProperties.getWhites();
+                if (GeneralUtils.isNotEmpty(whites)) {
+                    RouteManager.WHITE_LIST.addAll(whites);
+                }
             }
             if (GeneralUtils.isNotEmpty(whiteList)) {
                 RouteManager.WHITE_LIST.addAll(whiteList);
