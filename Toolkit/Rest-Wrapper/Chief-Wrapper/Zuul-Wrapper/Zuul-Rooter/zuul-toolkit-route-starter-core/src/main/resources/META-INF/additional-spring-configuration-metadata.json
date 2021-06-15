@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.zuul.route",
+      "sourceType": "cyan.toolkit.zuul.configure.ZuulRouteProperties",
+      "type": "cyan.toolkit.zuul.configure.ZuulRouteProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.zuul.route.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "route enabled."
+    },
+    {
+      "name": "cyan.toolkit.zuul.route.whites",
+      "type": "java.util.Set",
+      "description": "whites set."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.zuul.route.enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "route close."
+        },
+        {
+          "value": true,
+          "description": "route open."
+        }
+      ]
+    }
+  ]
+}

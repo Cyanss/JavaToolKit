@@ -4,17 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>cyan.tool.kit</groupId>
-    <artifactId>Chief-Path</artifactId>
+
+    <artifactId>zuul-toolkit-starter-parent</artifactId>
     <version>0.0.1.RELEASE</version>
     <modules>
-        <module>Auth-Wrapper</module>
-        <module>Chief-Rooter</module>
-        <module>Zuul-Wrapper</module>
+        <module>zuul-toolkit-route-starter-core</module>
+        <module>zuul-toolkit-route-starter-database</module>
+        <module>zuul-toolkit-route-starter-nacos</module>
+        <!--<module>zuul-toolkit-route-starter-consul</module>-->
+        <!--<module>zuul-toolkit-route-starter-cloud</module>-->
     </modules>
-    <name>Chief-Wrapper</name>
+    <name>Zuul-Rooter</name>
     <packaging>pom</packaging>
-    <description>Chief</description>
+    <description>the toolkit of zuul rooter</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -27,6 +29,13 @@
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 		<toolkit.version>0.0.1-SNAPSHOT</toolkit.version>
     </properties>
+
+    <parent>
+        <groupId>cyan.tool.kit</groupId>
+        <artifactId>cloud-toolkit-starter-parent</artifactId>
+        <version>0.0.1.RELEASE</version>
+        <relativePath>..</relativePath>
+    </parent>
 
     <repositories>
         <repository>

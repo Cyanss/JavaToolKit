@@ -2,19 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <modelVersion>4.0.0</modelVersion>
     <groupId>cyan.tool.kit</groupId>
-    <artifactId>Chief-Path</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>Zuul-Path</artifactId>
     <version>0.0.1.RELEASE</version>
     <modules>
-        <module>Auth-Wrapper</module>
-        <module>Chief-Rooter</module>
-        <module>Zuul-Wrapper</module>
+        <module>Zuul-Rooter</module>
     </modules>
-    <name>Chief-Wrapper</name>
+    <name>Zuul-Wrapper</name>
     <packaging>pom</packaging>
-    <description>Chief</description>
+    <description>Zuul</description>
 
     <properties>
         <java.version>1.8</java.version>
