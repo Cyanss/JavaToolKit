@@ -39,6 +39,14 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
     private RestInterceptProperties interceptProperties;
 
     @Override
+    public void init(FilterConfig filterConfig) {
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+    @Override
     public void preExceptionHandle(Exception exception,HttpServletRequest request, HttpServletResponse response) {
         if (GeneralUtils.isNotEmpty(exception)) {
             EXCEPTION_HOLDER.set(exception);
