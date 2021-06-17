@@ -193,7 +193,7 @@
     </springProfile>
 
     <!--生产环境:输出到文件-->
-    <springProfile name="pro">
+    <springProfile name="prod">
         <logger name="cyan.toolkit.zuul" level="error"/>
         <root level="error">
             <appender-ref ref="CONSOLE" />

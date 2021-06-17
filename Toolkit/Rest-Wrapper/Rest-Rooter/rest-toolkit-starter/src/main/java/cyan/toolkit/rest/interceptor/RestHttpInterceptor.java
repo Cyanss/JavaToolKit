@@ -1,4 +1,4 @@
-package cyan.toolkit.rest.Interceptor;
+package cyan.toolkit.rest.interceptor;
 
 import cyan.toolkit.rest.util.common.JsonUtils;
 import lombok.extern.slf4j.Slf4j;

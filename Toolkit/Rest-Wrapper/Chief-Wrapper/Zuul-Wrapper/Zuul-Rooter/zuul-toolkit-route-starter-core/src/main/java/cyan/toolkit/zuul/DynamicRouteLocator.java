@@ -115,7 +115,7 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
         }
     }
 
-    public void addRoutes(Collection<ZuulProperties.ZuulRoute> routes) {
+    public void addRoutes(Collection<DynamicRoute> routes) {
         if (GeneralUtils.isNotEmpty(routes)) {
             Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routes.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
             zuulProperties.getRoutes().putAll(zuulRouteMap);

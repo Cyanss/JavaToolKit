@@ -1,4 +1,4 @@
-package cyan.toolkit.rest.Interceptor;
+package cyan.toolkit.rest.interceptor;
 
 import org.springframework.util.StreamUtils;
 

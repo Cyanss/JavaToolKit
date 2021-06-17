@@ -1,6 +1,5 @@
 package cyan.toolkit.zuul.route;
 
-import cyan.toolkit.zuul.configure.RouteProperties;
 import cyan.toolkit.zuul.model.DynamicRoute;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

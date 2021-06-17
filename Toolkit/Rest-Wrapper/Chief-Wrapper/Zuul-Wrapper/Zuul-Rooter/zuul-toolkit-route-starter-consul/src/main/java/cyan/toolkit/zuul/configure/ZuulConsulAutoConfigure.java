@@ -16,8 +16,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @Configuration
 @ComponentScan(basePackages = {"cyan.toolkit.zuul"})
 @MapperScan(basePackages={"cyan.toolkit.widget.mapper"})
-public class WidgetAutoConfigure {
-    public WidgetAutoConfigure() {
+public class ZuulConsulAutoConfigure {
+    public ZuulConsulAutoConfigure() {
         log.debug("================= widget-toolkit-zuul-route initiated ！ ===================");
     }
 }

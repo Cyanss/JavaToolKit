@@ -16,15 +16,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * <p>DynamicRouteAutoConfigure</p>
+ * <p>ZuulRouteAutoConfigure</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
  * @date 10:12 2021/6/11
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnProperty(name = {"cyan.toolkit.widget.zuul.route.enable"}, matchIfMissing = true)
-public class RouteAutoConfigure {
+@ConditionalOnProperty(name = {"cyan.toolkit.zuul.route.enabled"}, matchIfMissing = true)
+public class ZuulRouteAutoConfigure {
     @Autowired
     @Qualifier("eurekaRegistration")
     private Registration registration;
@@ -39,13 +39,13 @@ public class RouteAutoConfigure {
     protected ZuulProperties zuulProperties;
 
     @Autowired
-    private RouteProperties routeProperties;
+    private ZuulRouteProperties routeProperties;
 
-    @Bean
-    @ConditionalOnMissingBean(DynamicRouteLocator.class)
-    public DynamicRouteLocator dynamicRouteLocator(ServiceRouteMapper serviceRouteMapper) {
-        return new DynamicRouteLocator(this.server.getServlet().getContextPath(), this.discovery, this.zuulProperties, serviceRouteMapper, this.registration,this.routeProperties);
-    }
+//    @Bean
+//    @ConditionalOnMissingBean(DynamicRouteLocator.class)
+//    public DynamicRouteLocator dynamicRouteLocator(ServiceRouteMapper serviceRouteMapper) {
+////        return new DynamicRouteLocator(this.server.getServlet().getContextPath(), this.discovery, this.zuulProperties, serviceRouteMapper, this.registration,this.routeProperties);
+//    }
 
     @Bean
     @ConditionalOnProperty(name = {"cyan.toolkit.widget.zuul.route.type"}, havingValue = "NACOS", matchIfMissing = true)

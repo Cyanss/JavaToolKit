@@ -4,7 +4,6 @@ import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.zuul.configure.RouteProperties;
 import cyan.toolkit.zuul.model.DynamicRoute;
 import cyan.toolkit.zuul.service.RouteService;
 import cyan.toolkit.zuul.service.WhiteService;

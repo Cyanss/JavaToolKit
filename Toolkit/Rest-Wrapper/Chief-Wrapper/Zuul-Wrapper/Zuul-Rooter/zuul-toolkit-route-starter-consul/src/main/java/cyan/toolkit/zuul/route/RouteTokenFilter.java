@@ -7,7 +7,6 @@ import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.zuul.configure.RouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
