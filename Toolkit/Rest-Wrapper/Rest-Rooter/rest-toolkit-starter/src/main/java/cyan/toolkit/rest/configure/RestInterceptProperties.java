@@ -13,34 +13,34 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "cyan.toolkit.rest.intercept")
 public class RestInterceptProperties {
-    private Boolean enable = false;
-    private Boolean logEnable = false;
-    private Boolean beanEnable = false;
+    private Boolean enabled = false;
+    private Boolean logEnabled = false;
+    private Boolean beanEnabled = false;
 
     public RestInterceptProperties() {
     }
 
-    public Boolean getEnable() {
-        return enable;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public Boolean getLogEnable() {
-        return logEnable;
+    public Boolean getLogEnabled() {
+        return logEnabled;
     }
 
-    public void setLogEnable(Boolean logEnable) {
-        this.logEnable = logEnable;
+    public void setLogEnabled(Boolean logEnabled) {
+        this.logEnabled = logEnabled;
     }
 
-    public Boolean getBeanEnable() {
-        return beanEnable;
+    public Boolean getBeanEnabled() {
+        return beanEnabled;
     }
 
-    public void setBeanEnable(Boolean beanEnable) {
-        this.beanEnable = beanEnable;
+    public void setBeanEnabled(Boolean beanEnabled) {
+        this.beanEnabled = beanEnabled;
     }
 }

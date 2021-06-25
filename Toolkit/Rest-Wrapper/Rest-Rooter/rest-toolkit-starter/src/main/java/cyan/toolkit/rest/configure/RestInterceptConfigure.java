@@ -28,7 +28,7 @@ public class RestInterceptConfigure implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        if (interceptProperties.getEnable()) {
+        if (interceptProperties.getEnabled()) {
             registry.addInterceptor(this.handlerInterceptor)
                     .addPathPatterns("/**")
                     .excludePathPatterns("/error");
@@ -40,7 +40,7 @@ public class RestInterceptConfigure implements WebMvcConfigurer {
     @ConditionalOnMissingBean(RestTemplate.class)
     public RestTemplate restTemplate() {
         RestTemplate restTemplate = new RestTemplate();
-        if (interceptProperties.getEnable()) {
+        if (interceptProperties.getEnabled()) {
             restTemplate.getInterceptors().add(httpInterceptor);
         }
         return restTemplate;

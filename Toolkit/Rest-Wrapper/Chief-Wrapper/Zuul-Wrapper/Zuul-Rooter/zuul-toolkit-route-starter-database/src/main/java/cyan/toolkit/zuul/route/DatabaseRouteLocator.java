@@ -7,7 +7,6 @@ import cyan.toolkit.zuul.configure.ZuulRouteProperties;
 import cyan.toolkit.zuul.service.RouteService;
 import cyan.toolkit.zuul.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -122,51 +121,52 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
     }
 
     @Override
-    public void refresh() {
-        if (routeProperties.getEnabled()) {
-            List<String> updateWhiteList = null;
-            List<String> removeWhiteList = null;
-            List<DynamicRoute> updateRouteList = null;
-            List<DynamicRoute> removeRouteList = null;
-            if (whiteService.isNeedRefresh()) {
-                updateWhiteList = whiteService.queryAllWithStatus(ZuulStatus.UPDATE);
-                removeWhiteList = whiteService.queryAllWithStatus(ZuulStatus.REMOVE);
-            }
-            if (routeService.isNeedRefresh()) {
-                updateRouteList = routeService.queryAllWithStatus(ZuulStatus.UPDATE);
-                removeRouteList = routeService.queryAllWithStatus(ZuulStatus.REMOVE);
-            }
-            if (GeneralUtils.isNotEmpty(updateWhiteList)) {
-                WHITE_LIST.addAll(updateWhiteList);
-                log.info("the white list has refreshed {} whites !", updateWhiteList.size());
-                Integer size = whiteService.updateAll();
-                log.info("the white list has updated {} whites !", size);
-            }
-            if (GeneralUtils.isNotEmpty(removeWhiteList)) {
-                WHITE_LIST.removeAll(removeWhiteList);
-                log.info("the white list has removed {} whites !", removeWhiteList.size());
-                Integer size = whiteService.removeAll();
-                log.info("the white list has deleted {} whites !", size);
-            }
-            if (GeneralUtils.isNotEmpty(updateRouteList)) {
-                Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = updateRouteList.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
-                zuulProperties.getRoutes().putAll(zuulRouteMap);
-                log.info("the route list has refreshed {} routes !", updateRouteList.size());
-                Integer size = routeService.updateAll();
-                log.info("the route list has updated {} routes !", size);
-            }
-            if (GeneralUtils.isNotEmpty(removeRouteList)) {
-                Map<String, ZuulProperties.ZuulRoute> routeList = zuulProperties.getRoutes();
-                if (!routeList.isEmpty()) {
-                    List<String> routes = removeRouteList.stream().map(DynamicRoute::getPath).collect(Collectors.toList());
-                    AtomicBoolean isRemove = atomicRemoveRoutes(routes,routeList);
-                    if (isRemove.get()) {
-                        Integer size = routeService.removeAll();
-                        log.info("the route list has deleted {} routes !", size);
-                    }
+    protected void refreshWhites() {
+        List<String> updateWhiteList = null;
+        List<String> removeWhiteList = null;
+        if (whiteService.isNeedRefresh()) {
+            updateWhiteList = whiteService.queryAllWithStatus(ZuulStatus.UPDATE);
+            removeWhiteList = whiteService.queryAllWithStatus(ZuulStatus.REMOVE);
+        }
+        if (GeneralUtils.isNotEmpty(updateWhiteList)) {
+            WHITE_LIST.addAll(updateWhiteList);
+            log.info("the white list has refreshed {} whites !", updateWhiteList.size());
+            Integer size = whiteService.updateAll();
+            log.info("the white list has updated {} whites !", size);
+        }
+        if (GeneralUtils.isNotEmpty(removeWhiteList)) {
+            WHITE_LIST.removeAll(removeWhiteList);
+            log.info("the white list has removed {} whites !", removeWhiteList.size());
+            Integer size = whiteService.removeAll();
+            log.info("the white list has deleted {} whites !", size);
+        }
+    }
+
+    @Override
+    protected void refreshRoutes() {
+        List<DynamicRoute> updateRouteList = null;
+        List<DynamicRoute> removeRouteList = null;
+        if (routeService.isNeedRefresh()) {
+            updateRouteList = routeService.queryAllWithStatus(ZuulStatus.UPDATE);
+            removeRouteList = routeService.queryAllWithStatus(ZuulStatus.REMOVE);
+        }
+        if (GeneralUtils.isNotEmpty(updateRouteList)) {
+            Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = updateRouteList.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
+            zuulProperties.getRoutes().putAll(zuulRouteMap);
+            log.info("the route list has refreshed {} routes !", updateRouteList.size());
+            Integer size = routeService.updateAll();
+            log.info("the route list has updated {} routes !", size);
+        }
+        if (GeneralUtils.isNotEmpty(removeRouteList)) {
+            Map<String, ZuulProperties.ZuulRoute> routeList = zuulProperties.getRoutes();
+            if (!routeList.isEmpty()) {
+                List<String> routes = removeRouteList.stream().map(DynamicRoute::getPath).collect(Collectors.toList());
+                AtomicBoolean isRemove = atomicRemoveRoutes(routes,routeList);
+                if (isRemove.get()) {
+                    Integer size = routeService.removeAll();
+                    log.info("the route list has deleted {} routes !", size);
                 }
             }
         }
-        super.refresh();
     }
 }

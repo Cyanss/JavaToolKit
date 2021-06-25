@@ -3,7 +3,6 @@ package cyan.toolkit.zuul.configure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * <p>ZuulRouterAutoConfigure</p>
@@ -15,9 +14,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = {"cyan.toolkit.zuul"})
-@MapperScan(basePackages={"cyan.toolkit.widget.mapper"})
 public class ZuulConsulAutoConfigure {
     public ZuulConsulAutoConfigure() {
-        log.debug("================= widget-toolkit-zuul-route initiated ！ ===================");
+        log.debug("================= zuul-toolkit-route-starter-consul initiated ！ ===================");
     }
 }

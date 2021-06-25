@@ -6,7 +6,7 @@
 		<groupId>cyan.tool.kit</groupId>
 		<version>0.0.1.RELEASE</version>
 	</parent>
-	<artifactId>chief-toolkit-web</artifactId>
+	<artifactId>chief-toolkit-starter-web</artifactId>
 	<version>${toolkit.version}</version>
 	<name>${project.artifactId}</name>
 	<packaging>jar</packaging>

@@ -10,7 +10,7 @@
     <modules>
         <module>chief-toolkit-core</module>
         <module>chief-toolkit-starter</module>
-        <module>chief-toolkit-web</module>
+        <module>chief-toolkit-starter-web</module>
     </modules>
     <name>Chief-Rooter</name>
     <packaging>pom</packaging>

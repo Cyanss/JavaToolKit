@@ -38,24 +38,24 @@
       "description": "server api."
     },
     {
-      "name": "cyan.toolkit.rest.intercept.enable",
+      "name": "cyan.toolkit.rest.intercept.enabled",
       "type": "java.lang.Boolean",
       "description": "intercept enable."
     },
     {
-      "name": "cyan.toolkit.rest.intercept.log-enable",
+      "name": "cyan.toolkit.rest.intercept.log-enabled",
       "type": "java.lang.Boolean",
       "description": "intercept log enable."
     },
     {
-      "name": "cyan.toolkit.rest.intercept.bean-enable",
+      "name": "cyan.toolkit.rest.intercept.bean-enabled",
       "type": "java.lang.Boolean",
       "description": "intercept bean enable."
     }
   ],
   "hints": [
     {
-      "name": "cyan.toolkit.rest.intercept.enable",
+      "name": "cyan.toolkit.rest.intercept.enabled",
       "values": [
         {
           "value": false,
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "name": "cyan.toolkit.rest.intercept.log-enable",
+      "name": "cyan.toolkit.rest.intercept.log-enabled",
       "values": [
         {
           "value": false,
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "name": "cyan.toolkit.rest.intercept.bean-enable",
+      "name": "cyan.toolkit.rest.intercept.bean-enabled",
       "values": [
         {
           "value": false,

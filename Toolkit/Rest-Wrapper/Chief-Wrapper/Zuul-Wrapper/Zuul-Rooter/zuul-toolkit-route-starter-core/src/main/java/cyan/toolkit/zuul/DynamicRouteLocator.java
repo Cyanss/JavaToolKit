@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.zuul.filters.RefreshableRouteLocator;
+import org.springframework.cloud.netflix.zuul.filters.SimpleRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
@@ -29,7 +32,7 @@ import java.util.stream.Collectors;
  * @date 14:15 2021/6/9
  */
 @Slf4j
-public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator implements InitializingBean {
+public class DynamicRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator,InitializingBean {
 
     protected ZuulRouteProperties routeProperties;
 
@@ -39,15 +42,16 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
 
     protected static final PathMatcher MATCHER = new AntPathMatcher();
 
-    public DynamicRouteLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceRouteMapper serviceRouteMapper, ServiceInstance localServiceInstance, ZuulRouteProperties routeProperties) {
-        super(servletPath, discovery, properties, serviceRouteMapper, localServiceInstance);
+    public DynamicRouteLocator(String servletPath, ZuulProperties properties, ZuulRouteProperties routeProperties) {
+        super(servletPath, properties);
         this.routeProperties = routeProperties;
         this.zuulProperties = properties;
     }
 
     @Override
     public void afterPropertiesSet() {
-        log.info("routeProperties: {}", JsonUtils.parseJson(routeProperties));
+        log.info("routeProperties: {}",JsonUtils.parseJson(routeProperties));
+        reloadWhites();
         loadWhites();
         loadRoutes();
     }
@@ -62,15 +66,12 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
     public void loadRoutes() {
     }
 
-    public void reload() {
+    public void reloadWhites() {
         WHITE_LIST.clear();
-        Set<String> whites = routeProperties.getWhites();
-        if (GeneralUtils.isNotEmpty(whites)) {
-            WHITE_LIST.addAll(whites);
-        }
+        loadWhites();
     }
 
-    public synchronized boolean existWhite(String white) {
+    public synchronized static boolean existWhite(String white) {
         boolean exist = false;
         if (GeneralUtils.isNotEmpty(WHITE_LIST)) {
             for (String path : WHITE_LIST) {
@@ -87,7 +88,6 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
         return exist;
     }
 
-    @Override
     public void addRoute(String path, String location) {
         DynamicRoute result = new DynamicRoute(path, location);
         if (GeneralUtils.isNotEmpty(result)) {
@@ -97,7 +97,6 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
         }
     }
 
-    @Override
     public void addRoute(ZuulProperties.ZuulRoute route) {
         DynamicRoute result = new DynamicRoute(route.getPath(), route.getLocation());
         if (GeneralUtils.isNotEmpty(result)) {
@@ -191,6 +190,26 @@ public abstract class DynamicRouteLocator extends DiscoveryClientRouteLocator im
             WHITE_LIST.removeAll(whites);
             log.info("the white list has removed {} whites, the white list will be refreshed !", whites.size());
         }
+    }
+
+    @Override
+    public void refresh() {
+        if (routeProperties.getEnabled()) {
+            ZuulRouteProperties.Refreshed refreshed = routeProperties.getRefreshed();
+            if (refreshed.getRoutesEnabled()) {
+                refreshRoutes();
+            }
+            if (refreshed.getWhitesEnabled()) {
+                refreshWhites();
+            }
+        }
+        doRefresh();
+    }
+
+    protected void refreshWhites() {
+    }
+
+    protected void refreshRoutes() {
     }
 
 }

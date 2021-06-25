@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 public class RestIdentityProperties {
     private IdentityType type = IdentityType.AUTO;
     @NestedConfigurationProperty
-    private Config config;
+    private Config config = new Config();
     @NestedConfigurationProperty
-    private Server server;
+    private Server server = new Server();
 
     public RestIdentityProperties() {
     }

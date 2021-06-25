@@ -32,9 +32,6 @@ public class RouteTokenFilter extends ZuulFilter {
     @Autowired
     private ZuulRouteProperties routeProperties;
 
-    @Autowired
-    private DynamicRouteLocator routeLocator;
-
     @Override
     public String filterType() {
         return FilterConstants.PRE_TYPE;
@@ -62,7 +59,7 @@ public class RouteTokenFilter extends ZuulFilter {
         log.debug("request uri: {}", requestURI);
         StringBuffer requestURL = request.getRequestURL();
         log.debug("request url: {}", requestURL);
-        if (routeLocator.existWhite(requestURI)) {
+        if (DynamicRouteLocator.existWhite(requestURI)) {
             log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
             return null;
         }

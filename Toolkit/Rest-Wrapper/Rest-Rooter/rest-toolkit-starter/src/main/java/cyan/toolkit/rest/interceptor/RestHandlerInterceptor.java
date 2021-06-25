@@ -123,13 +123,13 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
 
     public void applyInterceptService(RestInterceptRequest restInterceptRequest) throws RestException {
         RestInterceptService interceptService = ContextUtils.getBean(RestInterceptService.class);
-        if (GeneralUtils.isNotEmpty(interceptService) && interceptProperties.getBeanEnable()) {
+        if (GeneralUtils.isNotEmpty(interceptService) && interceptProperties.getBeanEnabled()) {
             interceptService.handler(restInterceptRequest);
         }
     }
 
     public void applyInterceptRequestLog(RestInterceptRequest interceptRequest) {
-        if (interceptProperties.getLogEnable()) {
+        if (interceptProperties.getLogEnabled()) {
             log.info(">>>>>>>>>>>>>> Request Intercept Log Begin <<<<<<<<<<<<<<");
             log.info("Request >======= [time]: {}", DateUtils.formatTime(interceptRequest.getTime()));
             log.info("Request >= [start time]: {}",interceptRequest.getStartTime());

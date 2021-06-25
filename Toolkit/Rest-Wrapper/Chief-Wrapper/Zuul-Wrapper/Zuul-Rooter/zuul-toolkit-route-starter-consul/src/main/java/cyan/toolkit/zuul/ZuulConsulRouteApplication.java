@@ -12,14 +12,14 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication(scanBasePackages = "cyan.toolkit")
-public class WidgetRouteApplication extends SpringBootServletInitializer {
+public class ZuulConsulRouteApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(WidgetRouteApplication.class, args);
+        SpringApplication.run(ZuulConsulRouteApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(WidgetRouteApplication.class);
+        return application.sources(ZuulConsulRouteApplication.class);
     }
 }

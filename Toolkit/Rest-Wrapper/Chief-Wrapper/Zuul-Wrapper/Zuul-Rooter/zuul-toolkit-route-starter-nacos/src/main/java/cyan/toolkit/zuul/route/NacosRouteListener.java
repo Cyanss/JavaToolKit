@@ -4,6 +4,7 @@ import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.nacos.client.config.listener.impl.PropertiesListener;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import cyan.toolkit.zuul.DynamicRouteLocator;
 import cyan.toolkit.zuul.configure.ZuulRouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -26,7 +27,7 @@ public class NacosRouteListener extends PropertiesListener implements Initializi
 
     private ContextRefresher refresh;
 
-    private NacosRouteLocator locator;
+    private DynamicRouteLocator locator;
 
     private ZuulRouteProperties routeProperties;
 
@@ -34,10 +35,10 @@ public class NacosRouteListener extends PropertiesListener implements Initializi
 
     private NacosConfigProperties nacosConfigProperties;
 
-    public NacosRouteListener(ContextRefresher contextRefresher, NacosRouteLocator nacosRouteLocator, ZuulRouteProperties routeProperties,
+    public NacosRouteListener(ContextRefresher contextRefresher, DynamicRouteLocator dynamicRouteLocator, ZuulRouteProperties routeProperties,
                               NacosConfigManager nacosConfigManager, NacosConfigProperties nacosConfigProperties) {
         this.refresh = contextRefresher;
-        this.locator = nacosRouteLocator;
+        this.locator = dynamicRouteLocator;
         this.routeProperties = routeProperties;
         this.nacosConfigManager = nacosConfigManager;
         this.nacosConfigProperties = nacosConfigProperties;
@@ -63,7 +64,7 @@ public class NacosRouteListener extends PropertiesListener implements Initializi
         if (changedKeys.contains(WHITES_KEY)) {
             String property = properties.getProperty(WHITES_KEY);
             log.info("the whites has be reloaded, new value: {}", property);
-            locator.reload();
+            locator.reloadWhites();
         }
     }
 

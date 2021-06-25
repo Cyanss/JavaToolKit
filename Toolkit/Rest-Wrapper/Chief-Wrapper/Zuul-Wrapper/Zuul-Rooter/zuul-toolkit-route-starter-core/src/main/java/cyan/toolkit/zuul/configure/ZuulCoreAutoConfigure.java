@@ -3,6 +3,7 @@ package cyan.toolkit.zuul.configure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>ZuulRouterAutoConfigure</p>
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
+@Import(ZuulRouteAutoConfigure.class)
 @ComponentScan(basePackages = {"cyan.toolkit.zuul"})
 public class ZuulCoreAutoConfigure {
     public ZuulCoreAutoConfigure() {

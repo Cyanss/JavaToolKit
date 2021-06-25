@@ -8,7 +8,7 @@
   ],
   "properties": [
     {
-      "name": "cyan.toolkit.zuul.route.enable",
+      "name": "cyan.toolkit.zuul.route.enabled",
       "type": "java.lang.Boolean",
       "sourceType": "java.lang.Boolean",
       "description": "route enabled."
@@ -17,6 +17,18 @@
       "name": "cyan.toolkit.zuul.route.whites",
       "type": "java.util.Set",
       "description": "whites set."
+    },
+    {
+      "name": "cyan.toolkit.zuul.route.refreshed.routes-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "routes refreshed enabled."
+    },
+    {
+      "name": "cyan.toolkit.zuul.route.refreshed.whites-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "whites refreshed enabled."
     }
   ],
   "hints": [
@@ -30,6 +42,32 @@
         {
           "value": true,
           "description": "route open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.zuul.route.refreshed.whites-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "whites refreshed close."
+        },
+        {
+          "value": true,
+          "description": "whites refreshed open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.zuul.route.refreshed.routes-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "routes refreshed close."
+        },
+        {
+          "value": true,
+          "description": "routes refreshed open."
         }
       ]
     }

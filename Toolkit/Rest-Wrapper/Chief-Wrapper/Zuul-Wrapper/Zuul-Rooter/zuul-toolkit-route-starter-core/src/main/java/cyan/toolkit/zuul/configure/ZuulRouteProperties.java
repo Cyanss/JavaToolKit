@@ -1,6 +1,7 @@
 package cyan.toolkit.zuul.configure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -17,6 +18,8 @@ import java.util.Set;
 public class ZuulRouteProperties {
     private Boolean enabled = true;
     private Set<String> whites;
+    @NestedConfigurationProperty
+    private Refreshed refreshed = new Refreshed();
 
     public ZuulRouteProperties() {
     }
@@ -35,5 +38,36 @@ public class ZuulRouteProperties {
 
     public void setWhites(Set<String> whites) {
         this.whites = whites;
+    }
+
+    public Refreshed getRefreshed() {
+        return refreshed;
+    }
+
+    public void setRefreshed(Refreshed refreshed) {
+        this.refreshed = refreshed;
+    }
+
+    public static class Refreshed {
+        private Boolean routesEnabled  = true;
+        private Boolean whitesEnabled  = true;
+        public Refreshed() {
+        }
+
+        public Boolean getRoutesEnabled() {
+            return routesEnabled;
+        }
+
+        public void setRoutesEnabled(Boolean routesEnabled) {
+            this.routesEnabled = routesEnabled;
+        }
+
+        public Boolean getWhitesEnabled() {
+            return whitesEnabled;
+        }
+
+        public void setWhitesEnabled(Boolean whitesEnabled) {
+            this.whitesEnabled = whitesEnabled;
+        }
     }
 }

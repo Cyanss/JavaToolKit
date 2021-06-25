@@ -66,7 +66,7 @@
 
         <dependency>
             <groupId>cyan.tool.kit</groupId>
-            <artifactId>chief-toolkit-web</artifactId>
+            <artifactId>chief-toolkit-starter-web</artifactId>
             <version>${toolkit.version}</version>
         </dependency>
 
