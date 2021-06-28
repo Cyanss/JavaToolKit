@@ -32,24 +32,25 @@ import java.util.stream.Collectors;
  * @date 14:15 2021/6/9
  */
 @Slf4j
-public class DynamicRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator,InitializingBean {
+public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements RefreshableRouteLocator,InitializingBean {
 
     protected ZuulRouteProperties routeProperties;
 
     protected ZuulProperties zuulProperties;
 
-    protected static final Set<String> WHITE_LIST = new HashSet<>();
-
     protected static final PathMatcher MATCHER = new AntPathMatcher();
 
-    public DynamicRouteLocator(String servletPath, ZuulProperties properties, ZuulRouteProperties routeProperties) {
-        super(servletPath, properties);
+    private static DynamicRouteLocator instance = null;
+
+    public DynamicRouteLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties, ServiceRouteMapper serviceRouteMapper, ServiceInstance localServiceInstance, ZuulRouteProperties routeProperties) {
+        super(servletPath, discovery, properties, serviceRouteMapper, localServiceInstance);
         this.routeProperties = routeProperties;
         this.zuulProperties = properties;
     }
 
     @Override
     public void afterPropertiesSet() {
+        instance = this;
         log.info("routeProperties: {}",JsonUtils.parseJson(routeProperties));
         reloadWhites();
         loadWhites();
@@ -57,24 +58,18 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
     }
 
     public void loadWhites() {
-        Set<String> whites = routeProperties.getWhites();
-        if (GeneralUtils.isNotEmpty(whites)) {
-            WHITE_LIST.addAll(whites);
-        }
     }
 
     public void loadRoutes() {
     }
 
     public void reloadWhites() {
-        WHITE_LIST.clear();
-        loadWhites();
     }
 
     public synchronized static boolean existWhite(String white) {
         boolean exist = false;
-        if (GeneralUtils.isNotEmpty(WHITE_LIST)) {
-            for (String path : WHITE_LIST) {
+        if (GeneralUtils.isNotEmpty(instance.routeProperties.getWhites())) {
+            for (String path : instance.routeProperties.getWhites()) {
                 if (MATCHER.isPattern(path)) {
                     exist = MATCHER.match(path, white);
                 } else {
@@ -166,28 +161,28 @@ public class DynamicRouteLocator extends SimpleRouteLocator implements Refreshab
 
     public void addWhite(String white) {
         if (GeneralUtils.isNotEmpty(white)) {
-            WHITE_LIST.add(white);
+            instance.routeProperties.getWhites().add(white);
             log.info("the white list has added one, path: {}, the white list will be refreshed !", white);
         }
     }
 
     public void addWhites(Collection<String> whites) {
         if (GeneralUtils.isNotEmpty(whites)) {
-            WHITE_LIST.addAll(whites);
+            instance.routeProperties.getWhites().addAll(whites);
             log.info("the white list has added {} whites, the white list will be refreshed !", whites.size());
         }
     }
 
     public void removeWhite(String white) {
         if (GeneralUtils.isNotEmpty(white)) {
-            WHITE_LIST.remove(white);
+            instance.routeProperties.getWhites().remove(white);
             log.info("the white list has removed one, path: {}, the white list will be refreshed !", white);
         }
     }
 
     public void removeWhites(Collection<String> whites) {
         if (GeneralUtils.isNotEmpty(whites)) {
-            WHITE_LIST.removeAll(whites);
+            instance.routeProperties.getWhites().removeAll(whites);
             log.info("the white list has removed {} whites, the white list will be refreshed !", whites.size());
         }
     }

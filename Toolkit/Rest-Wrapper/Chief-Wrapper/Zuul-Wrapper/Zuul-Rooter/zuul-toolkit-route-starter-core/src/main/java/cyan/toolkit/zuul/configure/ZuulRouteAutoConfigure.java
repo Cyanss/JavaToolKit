@@ -1,12 +1,13 @@
 package cyan.toolkit.zuul.configure;
 
 import cyan.toolkit.zuul.DynamicRouteLocator;
-import cyan.toolkit.zuul.WhiteManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,16 +25,9 @@ public class ZuulRouteAutoConfigure {
     @Bean
     @ConditionalOnMissingBean(DynamicRouteLocator.class)
     @ConditionalOnProperty(name = {"cyan.toolkit.zuul.route.enabled"}, matchIfMissing = true)
-    public DynamicRouteLocator dynamicRouteLocator(ServerProperties server, ZuulProperties zuulProperties, ZuulRouteProperties routeProperties) {
-        return new DynamicRouteLocator(server.getServlet().getContextPath(), zuulProperties, routeProperties);
+    public DynamicRouteLocator dynamicRouteLocator(ServerProperties server, DiscoveryClient discovery, ZuulProperties zuulProperties,
+                                                   ServiceRouteMapper serviceRouteMapper, Registration registration,
+                                                   ZuulRouteProperties routeProperties) {
+        return new DynamicRouteLocator(server.getServlet().getContextPath(), discovery, zuulProperties, serviceRouteMapper, registration,routeProperties);
     }
-
-    @Bean
-    @RefreshScope
-    @ConditionalOnMissingBean(WhiteManager.class)
-    @ConditionalOnProperty(name = {"cyan.toolkit.zuul.route.refreshed.whites-enabled"}, matchIfMissing = true)
-    public WhiteManager whiteManager(ZuulRouteProperties routeProperties) {
-        return new WhiteManager(routeProperties);
-    }
-
 }

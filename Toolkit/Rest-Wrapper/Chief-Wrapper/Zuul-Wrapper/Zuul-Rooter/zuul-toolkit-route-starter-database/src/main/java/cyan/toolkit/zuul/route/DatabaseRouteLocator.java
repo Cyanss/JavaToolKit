@@ -42,7 +42,7 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
         if (routeProperties.getEnabled()) {
             List<String> whiteList = whiteService.queryAllWithStatus(ZuulStatus.DEFAULT);
             if (GeneralUtils.isNotEmpty(whiteList)) {
-                WHITE_LIST.addAll(whiteList);
+                routeProperties.getWhites().addAll(whiteList);
                 log.info("the white list has be initiated! size: {}", whiteList.size());
             }
         }
@@ -129,13 +129,13 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
             removeWhiteList = whiteService.queryAllWithStatus(ZuulStatus.REMOVE);
         }
         if (GeneralUtils.isNotEmpty(updateWhiteList)) {
-            WHITE_LIST.addAll(updateWhiteList);
+            routeProperties.getWhites().addAll(updateWhiteList);
             log.info("the white list has refreshed {} whites !", updateWhiteList.size());
             Integer size = whiteService.updateAll();
             log.info("the white list has updated {} whites !", size);
         }
         if (GeneralUtils.isNotEmpty(removeWhiteList)) {
-            WHITE_LIST.removeAll(removeWhiteList);
+            routeProperties.getWhites().removeAll(removeWhiteList);
             log.info("the white list has removed {} whites !", removeWhiteList.size());
             Integer size = whiteService.removeAll();
             log.info("the white list has deleted {} whites !", size);

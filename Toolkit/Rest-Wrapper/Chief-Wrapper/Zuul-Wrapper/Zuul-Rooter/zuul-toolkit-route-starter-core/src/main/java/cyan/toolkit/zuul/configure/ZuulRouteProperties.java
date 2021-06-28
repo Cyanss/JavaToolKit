@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Set;
 @ConfigurationProperties(prefix = "cyan.toolkit.zuul.route")
 public class ZuulRouteProperties {
     private Boolean enabled = true;
-    private Set<String> whites;
+    private Set<String> whites = new HashSet<>();
     @NestedConfigurationProperty
     private Refreshed refreshed = new Refreshed();
 
