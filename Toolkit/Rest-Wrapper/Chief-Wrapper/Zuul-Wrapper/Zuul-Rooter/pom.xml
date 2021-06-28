@@ -12,7 +12,6 @@
         <module>zuul-toolkit-route-starter-database</module>
         <module>zuul-toolkit-route-starter-nacos</module>
         <module>zuul-toolkit-route-starter-consul</module>
-        <!--<module>zuul-toolkit-route-starter-cloud</module>-->
     </modules>
     <name>Zuul-Rooter</name>
     <packaging>pom</packaging>
