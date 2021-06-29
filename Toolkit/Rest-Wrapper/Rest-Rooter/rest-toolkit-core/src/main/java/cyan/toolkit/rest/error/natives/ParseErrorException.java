@@ -5,8 +5,6 @@ import cyan.toolkit.rest.RestErrorException;
 import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestStatus;
 
-import java.util.Optional;
-
 /**
  * <p>ParseError</p>
  * @author Cyan (snow22314@outlook.com)

@@ -17,8 +17,6 @@ import java.util.Date;
  */
 public class DateSerializer<D> extends JsonSerializer<D> {
 
-    //TODO TEST
-
     @Override
     public void serialize(D date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         if (date instanceof Long) {
