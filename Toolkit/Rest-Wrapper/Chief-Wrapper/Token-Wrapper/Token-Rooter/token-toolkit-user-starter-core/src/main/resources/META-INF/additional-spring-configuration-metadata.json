@@ -1,0 +1,75 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.token.user",
+      "sourceType": "cyan.toolkit.token.configure.TokenUserProperties",
+      "type": "cyan.toolkit.token.configure.TokenUserProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.token.user.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "route enabled."
+    },
+    {
+      "name": "cyan.toolkit.token.user.whites",
+      "type": "java.util.Set",
+      "description": "whites set."
+    },
+    {
+      "name": "cyan.toolkit.token.user.refreshed.routes-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "routes refreshed enabled."
+    },
+    {
+      "name": "cyan.toolkit.token.user.refreshed.whites-enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "java.lang.Boolean",
+      "description": "whites refreshed enabled."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.token.user.enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "route close."
+        },
+        {
+          "value": true,
+          "description": "route open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.token.user.refreshed.whites-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "whites refreshed close."
+        },
+        {
+          "value": true,
+          "description": "whites refreshed open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.token.user.refreshed.routes-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "routes refreshed close."
+        },
+        {
+          "value": true,
+          "description": "routes refreshed open."
+        }
+      ]
+    }
+  ]
+}

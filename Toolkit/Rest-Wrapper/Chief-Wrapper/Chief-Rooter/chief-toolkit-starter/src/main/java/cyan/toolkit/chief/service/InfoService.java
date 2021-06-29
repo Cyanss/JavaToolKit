@@ -1,14 +1,11 @@
 package cyan.toolkit.chief.service;
 
-import cyan.toolkit.chief.entity.InfoEntity;
 import cyan.toolkit.chief.filter.IdFilter;
-import cyan.toolkit.chief.mapper.IdMapper;
 import cyan.toolkit.chief.mapper.InfoMapper;
 import cyan.toolkit.rest.RestException;
-import cyan.toolkit.rest.actuator.ConsumerActuator;
 import cyan.toolkit.rest.helper.OptionalHelper;
-import cyan.toolkit.rest.util.common.CheckUtils;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import cyan.toolkit.rice.entity.InfoEntity;
 import cyan.toolkit.rice.model.InfoModel;
 import org.springframework.lang.NonNull;
 
@@ -21,9 +18,9 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 10:35 2020/9/23
  */
-public abstract class InfoService<I,D,M extends InfoModel<I>, E extends InfoEntity<I,D>, F extends IdFilter<I>> extends SupperService<I,D,M,E,F> {
+public abstract class InfoService<I,M extends InfoModel<I>, E extends InfoEntity<I>, F extends IdFilter<I>> extends SupperService<I,M,E,F> {
 
-    protected InfoMapper<E,I,D> consumerMapper;
+    protected InfoMapper<E,I> consumerMapper;
 
     @SuppressWarnings(value = "unchecked")
     @Override

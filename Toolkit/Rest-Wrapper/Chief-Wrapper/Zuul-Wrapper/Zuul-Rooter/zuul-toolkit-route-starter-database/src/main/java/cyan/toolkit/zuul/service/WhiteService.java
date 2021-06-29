@@ -1,8 +1,8 @@
-package cyan.toolkit.zuul.service;
+package cyan.toolkit.token.service;
 
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.token.route.ZuulStatus;
 
 import java.util.Collection;
 import java.util.List;

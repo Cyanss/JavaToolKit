@@ -1,10 +1,11 @@
 package cyan.toolkit.chief.helper;
 
-import cyan.toolkit.chief.entity.IdEntity;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.actuator.BiFunctionActuator;
+import cyan.toolkit.rest.actuator.ConsumerActuator;
 import cyan.toolkit.rest.actuator.FunctionActuator;
 import cyan.toolkit.rest.util.common.GeneralUtils;
+import cyan.toolkit.rice.entity.IdEntity;
 import cyan.toolkit.rice.model.IdModel;
 
 import java.util.*;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class MEBuilderHelper {
 
-    public static<I,M extends IdModel<I>, E extends IdEntity<I,D>,D> List<E> entityList(Collection<M> modelList, FunctionActuator<M,Boolean> function, BiFunctionActuator<M,Boolean,E> biFunction) throws RestException {
+    public static <I,M extends IdModel<I>, E extends IdEntity<I>> List<E> entityList(Collection<M> modelList, ConsumerActuator<M> consumer, FunctionActuator<M,E> function) throws RestException {
         if (GeneralUtils.isEmpty(modelList)) {
             return Collections.emptyList();
         }
@@ -27,14 +28,14 @@ public class MEBuilderHelper {
         List<E> entityList = new ArrayList<>();
         for (M model : collect) {
             if (model != null) {
-                Boolean isInsert = function.actuate(model);
-                entityList.add(biFunction.actuate(model,isInsert));
+                consumer.actuate(model);
+                entityList.add(function.actuate(model));
             }
         }
         return entityList;
     }
 
-    public static<I,M extends IdModel<I>, E extends IdEntity<I,D>,D> List<M> modelList(Collection<E> entityList,FunctionActuator<E,M> function) throws RestException {
+    public static<I,M extends IdModel<I>, E extends IdEntity<I>> List<M> modelList(Collection<E> entityList,FunctionActuator<E,M> function) throws RestException {
         if (GeneralUtils.isEmpty(entityList)) {
             return Collections.emptyList();
         }

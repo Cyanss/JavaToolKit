@@ -1,4 +1,4 @@
-package cyan.toolkit.zuul.configure;
+package cyan.toolkit.token.configure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

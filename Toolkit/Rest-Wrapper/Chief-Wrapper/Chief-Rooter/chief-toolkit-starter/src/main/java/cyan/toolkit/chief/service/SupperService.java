@@ -1,7 +1,6 @@
 package cyan.toolkit.chief.service;
 
 import com.github.pagehelper.Page;
-import cyan.toolkit.chief.entity.IdEntity;
 import cyan.toolkit.chief.error.ServiceUnknownException;
 import cyan.toolkit.chief.filter.IdFilter;
 import cyan.toolkit.chief.helper.MEBuilderHelper;
@@ -10,14 +9,13 @@ import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.chief.service.stereotype.RestService;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.actuator.ConsumerActuator;
-import cyan.toolkit.rest.actuator.FunctionActuator;
 import cyan.toolkit.rest.error.data.DataQueryException;
 import cyan.toolkit.rest.helper.OptionalHelper;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.rice.clazz.RestClazzHelper;
+import cyan.toolkit.rice.entity.IdEntity;
 import cyan.toolkit.rice.model.IdModel;
-import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
@@ -41,7 +39,7 @@ import java.util.List;
  * @date 8:47 2020/9/23
  */
 @Slf4j
-public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEntity<I, D>, F extends IdFilter<I>>
+public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<I>, F extends IdFilter<I>>
         implements InitializingBean, ApplicationContextAware, OptionalService<I, M>, ServiceAdvice<I, F> {
 
     private static ApplicationContext applicationContext;
@@ -50,7 +48,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
 
     protected ConsumerActuator<M> updateActuator;
 
-    protected IdMapper<E, I, D> supperMapper;
+    protected IdMapper<E, I> supperMapper;
 
     private String simpleName;
 
@@ -97,8 +95,8 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         this.doServiceHandle();
     }
     @SuppressWarnings(value = "unchecked")
-    private E entityActuator(M model, Boolean isInsert, I... idArray) throws RestException {
-        E entity = this.createEntity(model, isInsert);
+    private E entityActuator(M model, I... idArray) throws RestException {
+        E entity = this.createEntity(model);
         if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
             builderAdvice.buildEntity(model,entity,idArray);
@@ -107,7 +105,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
     }
 
     @SuppressWarnings(value = "unchecked")
-    private List<E> entityActuator(Collection<M> modelList, FunctionActuator<M, Boolean> function, I... idArray) throws RestException {
+    private List<E> entityActuator(Collection<M> modelList, ConsumerActuator<M> actuator, I... idArray) throws RestException {
         List<E> entityList;
         if (BuilderAdvice.class.isAssignableFrom(this.getClass())) {
             BuilderAdvice builderAdvice = (BuilderAdvice) this;
@@ -118,8 +116,8 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
             }
             Method buildEntityListMethod = findMethod;
             /** 当buildEntity和buildEntityList都被复写的时候 优先调用buildEntityList */
-            entityList = MEBuilderHelper.entityList(modelList, function, (M model, Boolean isInsert) -> {
-                E entity = createEntity(model, isInsert);
+            entityList = MEBuilderHelper.entityList(modelList, actuator, (M model) -> {
+                E entity = createEntity(model);
                 if (buildEntityListMethod == null || buildEntityListMethod.isDefault()) {
                     builderAdvice.buildEntity(model, entity, idArray);
                 }
@@ -129,7 +127,7 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
                 builderAdvice.buildEntityList(modelList, entityList, idArray);
             }
         } else {
-            entityList = MEBuilderHelper.entityList(modelList, function, this::createEntity);
+            entityList = MEBuilderHelper.entityList(modelList, actuator, this::createEntity);
         }
         return entityList;
     }
@@ -172,9 +170,9 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         return modelList;
     }
 
-    protected abstract E createEntity(M model, Boolean isInsert);
+    protected abstract E createEntity(M model) throws RestException;
 
-    protected abstract M createModel(E entity);
+    protected abstract M createModel(E entity) throws RestException;
 
     public M create(M model) throws RestException {
         return create(model, (I[]) null);
@@ -186,8 +184,8 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         if (GeneralUtils.isEmpty(model)) {
             return null;
         }
-        boolean isInsert = OptionalCreate(model);
-        E entity = entityActuator(model, isInsert, idArray);
+        OptionalCreate(model);
+        E entity = entityActuator(model, idArray);
         Integer result = supperMapper.save(entity);
         String message = "creating method has error with " + simpleName + ": " + JsonUtils.parseJson(model);
         OptionalHelper.create(result, message, simpleName);
@@ -204,8 +202,8 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         if (GeneralUtils.isEmpty(model)) {
             return null;
         }
-        boolean isInsert = OptionalUpdate(model);
-        E entity = entityActuator(model, isInsert, idArray);
+        OptionalUpdate(model);
+        E entity = entityActuator(model, idArray);
         Integer result = supperMapper.save(entity);
         String message = "updating method has error with " + simpleName + ": " + JsonUtils.parseJson(model);
         OptionalHelper.update(result, message, simpleName);
@@ -222,8 +220,8 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         if (GeneralUtils.isEmpty(model)) {
             return null;
         }
-        boolean isInsert = OptionalSave(model);
-        E entity = entityActuator(model, isInsert, idArray);
+        OptionalSave(model);
+        E entity = entityActuator(model, idArray);
         Integer result = supperMapper.save(entity);
         String message = "saving method has error with " + simpleName + ": " + JsonUtils.parseJson(model);
         OptionalHelper.save(result, message, simpleName);
@@ -315,27 +313,22 @@ public abstract class SupperService<I, D, M extends IdModel<I>, E extends IdEnti
         optional(model);
     };
 
-    protected boolean OptionalCreate(@NonNull M model) throws RestException {
+    protected void OptionalCreate(@NonNull M model) throws RestException {
         if (GeneralUtils.isEmpty(model.getId())) {
             DEFAULT_CREATE_ACTUATOR.actuate(model);
-            return true;
         }
-        return false;
     }
 
-    protected boolean OptionalUpdate(@NonNull M model) throws RestException {
+    protected void OptionalUpdate(@NonNull M model) throws RestException {
         OptionalHelper.idable(model.getId());
         DEFAULT_UPDATE_ACTUATOR.actuate(model);
-        return false;
     }
 
-    protected boolean OptionalSave(@NonNull M model) throws RestException {
+    protected void OptionalSave(@NonNull M model) throws RestException {
         if (GeneralUtils.isEmpty(model.getId())) {
             DEFAULT_CREATE_ACTUATOR.actuate(model);
-            return true;
         } else {
             DEFAULT_UPDATE_ACTUATOR.actuate(model);
-            return false;
         }
     }
 }

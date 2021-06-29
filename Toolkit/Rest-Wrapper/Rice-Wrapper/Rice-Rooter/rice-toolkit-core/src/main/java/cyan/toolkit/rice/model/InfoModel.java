@@ -1,6 +1,7 @@
 package cyan.toolkit.rice.model;
 
 import cyan.toolkit.rest.util.common.JsonUtils;
+import cyan.toolkit.rice.RestInfo;
 
 /**
  * <p>InfoModel</p>
@@ -9,7 +10,7 @@ import cyan.toolkit.rest.util.common.JsonUtils;
  * @group cyan.tool.kit
  * @date 14:04 2020/8/14
  */
-public class InfoModel<I> extends IdModel<I> {
+public class InfoModel<I> extends IdModel<I> implements RestInfo<I> {
     /** 名称 */
     protected String name;
     /** 描述信息 */

@@ -1,6 +1,6 @@
-package cyan.toolkit.zuul.configure;
+package cyan.toolkit.token.configure;
 
-import cyan.toolkit.zuul.DynamicRouteLocator;
+import cyan.toolkit.token.DynamicRouteLocator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

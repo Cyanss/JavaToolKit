@@ -1,6 +1,6 @@
-package cyan.toolkit.zuul.mapper;
+package cyan.toolkit.token.mapper;
 
-import cyan.toolkit.zuul.entity.WhiteEntity;
+import cyan.toolkit.token.entity.WhiteEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.common.Mapper;

@@ -1,4 +1,12 @@
-package cyan.toolkit.chief.entity;
+package cyan.toolkit.rice.entity;
+
+import cyan.toolkit.rest.RestException;
+import cyan.toolkit.rice.RestEntity;
+import cyan.toolkit.rice.RestInfo;
+import cyan.toolkit.rice.RestModel;
+import cyan.toolkit.rice.model.InfoModel;
+
+import java.util.Date;
 
 /**
  * <p>InfoEntity</p>
@@ -7,7 +15,7 @@ package cyan.toolkit.chief.entity;
  * @group cyan.tool.kit
  * @date 11:11 2020/8/20
  */
-public class InfoEntity<I,D> extends IdEntity<I,D> {
+public class InfoEntity<I> extends IdEntity<I> implements RestInfo<I> {
     /** 事物名称 */
     protected String name;
     /** 事物描述 */
@@ -25,7 +33,7 @@ public class InfoEntity<I,D> extends IdEntity<I,D> {
         this.name = name;
     }
 
-    public InfoEntity(InfoEntity.Builder<I,D> builder) {
+    public InfoEntity(InfoEntity.Builder<I> builder) {
         super(builder);
         this.name = builder.name;
         this.description = builder.description;
@@ -47,38 +55,38 @@ public class InfoEntity<I,D> extends IdEntity<I,D> {
         this.description = description;
     }
 
-    public static class Builder<I,D> extends IdEntity.Builder<I,D> {
+    public static class Builder<I> extends IdEntity.Builder<I> {
         protected String name;
         protected String description;
         public Builder() {
         }
 
-        public InfoEntity.Builder<I,D> id(I id) {
+        public InfoEntity.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> createTime(D createTime) {
+        public InfoEntity.Builder<I> createTime(Date createTime) {
             this.createTime = createTime;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> updateTime(D updateTime) {
+        public InfoEntity.Builder<I> updateTime(Date updateTime) {
             this.updateTime = updateTime;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> name(String name) {
+        public InfoEntity.Builder<I> name(String name) {
             this.name = name;
             return this;
         }
 
-        public InfoEntity.Builder<I,D> description(String description) {
+        public InfoEntity.Builder<I> description(String description) {
             this.description = description;
             return this;
         }
 
-        public InfoEntity<I,D> build() {
+        public InfoEntity<I> build() {
             return new InfoEntity<>(this);
         }
     }

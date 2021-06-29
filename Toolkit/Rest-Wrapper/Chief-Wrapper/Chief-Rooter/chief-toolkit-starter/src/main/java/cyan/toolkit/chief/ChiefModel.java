@@ -1,5 +1,7 @@
 package cyan.toolkit.chief;
 
+import cyan.toolkit.rice.RestEntity;
+import cyan.toolkit.rice.RestModel;
 import cyan.toolkit.rice.model.InfoModel;
 
 /**
@@ -9,7 +11,7 @@ import cyan.toolkit.rice.model.InfoModel;
  * @group cyan.tool.kit
  * @date 15:40 2020/11/3
  */
-public abstract class ChiefModel<E extends ChiefEntity<?>> extends InfoModel<Long> {
+public abstract class ChiefModel<M extends ChiefModel<M,E>,E extends ChiefEntity<E,M>> extends InfoModel<Long> implements RestModel<Long,E> {
 
     public ChiefModel() {
     }
@@ -21,8 +23,6 @@ public abstract class ChiefModel<E extends ChiefEntity<?>> extends InfoModel<Lon
     public ChiefModel(ChiefModel.Builder builder) {
         super(builder);
     }
-
-    abstract public E toEntity(Boolean isInsert, Long... idArray);
 
     public static abstract class Builder extends InfoModel.Builder<Long> {
 
@@ -44,6 +44,6 @@ public abstract class ChiefModel<E extends ChiefEntity<?>> extends InfoModel<Lon
             return this;
         }
 
-        public abstract ChiefModel<?> build();
+        public abstract ChiefModel<?,?> build();
     }
 }

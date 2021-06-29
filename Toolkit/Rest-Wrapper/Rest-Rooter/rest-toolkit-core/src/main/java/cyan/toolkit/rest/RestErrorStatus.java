@@ -15,7 +15,8 @@ public enum RestErrorStatus implements RestStatus {
     SUCCESS(200, "成功"),
     FAILED(400, "失败"),
     /** timeout */
-    UNKNOWN_ERROR(9999,"未知错误"),
+    UNKNOWN_ERROR(8888,"未知错误"),
+    UNSUPPORTED(9999,"不支持"),
     TIME_OUT(10000, "访问超时"),
     /** base */
     PARAM_ERROR(10010, "参数错误"),

@@ -1,6 +1,6 @@
 package cyan.toolkit.chief.mapper;
 
-import cyan.toolkit.chief.entity.IdEntity;
+import cyan.toolkit.rice.entity.IdEntity;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:30 2020/9/8
  */
-public interface IdMapper<E extends IdEntity<I,D>,I,D> extends Mapper<E> {
+public interface IdMapper<E extends IdEntity<I>,I> extends Mapper<E> {
 
     /**
      * Mapper的实现，关联实体映射泛型，必须放在第一个，在xxxMapper进行了多级继承的情况下，

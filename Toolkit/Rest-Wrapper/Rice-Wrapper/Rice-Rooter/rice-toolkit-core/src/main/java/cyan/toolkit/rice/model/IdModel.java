@@ -1,6 +1,9 @@
 package cyan.toolkit.rice.model;
 
+import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.JsonUtils;
+import cyan.toolkit.rice.RestId;
+import cyan.toolkit.rice.entity.IdEntity;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -12,7 +15,7 @@ import java.util.Objects;
  * @group cyan.tool.kit
  * @date 14:00 2020/8/14
  */
-public class IdModel<I> implements Serializable {
+public class IdModel<I> implements RestId<I>, Serializable {
     protected I id;
 
     public IdModel() {

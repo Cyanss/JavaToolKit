@@ -1,6 +1,5 @@
 package cyan.toolkit.chief.service;
 
-import cyan.toolkit.chief.filter.IdFilter;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rice.model.IdModel;
 import org.springframework.transaction.annotation.Transactional;

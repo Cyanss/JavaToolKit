@@ -1,11 +1,11 @@
-package cyan.toolkit.zuul.route;
+package cyan.toolkit.token.route;
 
 import cyan.toolkit.rest.util.common.GeneralUtils;
-import cyan.toolkit.zuul.DynamicRoute;
-import cyan.toolkit.zuul.DynamicRouteLocator;
-import cyan.toolkit.zuul.configure.ZuulRouteProperties;
-import cyan.toolkit.zuul.service.RouteService;
-import cyan.toolkit.zuul.service.WhiteService;
+import cyan.toolkit.token.DynamicRoute;
+import cyan.toolkit.token.DynamicRouteLocator;
+import cyan.toolkit.token.configure.ZuulRouteProperties;
+import cyan.toolkit.token.service.RouteService;
+import cyan.toolkit.token.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

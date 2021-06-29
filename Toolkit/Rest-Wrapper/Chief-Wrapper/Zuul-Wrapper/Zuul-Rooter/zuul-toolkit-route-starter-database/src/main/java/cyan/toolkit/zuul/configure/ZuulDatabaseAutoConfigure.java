@@ -1,8 +1,8 @@
-package cyan.toolkit.zuul.configure;
+package cyan.toolkit.token.configure;
 
-import cyan.toolkit.zuul.route.DatabaseRouteLocator;
-import cyan.toolkit.zuul.service.RouteService;
-import cyan.toolkit.zuul.service.WhiteService;
+import cyan.toolkit.token.route.DatabaseRouteLocator;
+import cyan.toolkit.token.service.RouteService;
+import cyan.toolkit.token.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

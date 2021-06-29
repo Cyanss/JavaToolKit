@@ -1,6 +1,11 @@
-package cyan.toolkit.chief.entity;
+package cyan.toolkit.rice.entity;
+
+import cyan.toolkit.rest.RestException;
+import cyan.toolkit.rice.RestId;
+import cyan.toolkit.rice.model.IdModel;
 
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * <p>IdEntity</p>
@@ -9,7 +14,7 @@ import javax.persistence.Id;
  * @group cyan.tool.kit
  * @date 11:10 2020/8/20
  */
-public class IdEntity<I,D> extends TimeEntity<D>{
+public class IdEntity<I> extends TimeEntity implements RestId<I> {
     @Id
     protected I id;
 
@@ -20,7 +25,7 @@ public class IdEntity<I,D> extends TimeEntity<D>{
         this.id = id;
     }
 
-    public IdEntity(IdEntity.Builder<I,D> builder) {
+    public IdEntity(IdEntity.Builder<I> builder) {
         super(builder);
         this.id = builder.id;
     }
@@ -33,28 +38,28 @@ public class IdEntity<I,D> extends TimeEntity<D>{
         this.id = id;
     }
 
-    public static class Builder<I,D> extends TimeEntity.Builder<D> {
+    public static class Builder<I> extends TimeEntity.Builder {
         protected I id;
 
         public Builder() {
         }
 
-        public IdEntity.Builder<I,D> id(I id) {
+        public IdEntity.Builder<I> id(I id) {
             this.id = id;
             return this;
         }
 
-        public IdEntity.Builder<I,D> createTime(D createTime) {
+        public IdEntity.Builder<I> createTime(Date createTime) {
             this.createTime = createTime;
             return this;
         }
 
-        public IdEntity.Builder<I,D> updateTime(D updateTime) {
+        public IdEntity.Builder<I> updateTime(Date updateTime) {
             this.updateTime = updateTime;
             return this;
         }
 
-        public IdEntity<I,D> build() {
+        public IdEntity<I> build() {
             return new IdEntity<>(this);
         }
     }

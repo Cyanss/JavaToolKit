@@ -1,4 +1,4 @@
-package cyan.toolkit.zuul.configure;
+package cyan.toolkit.token.configure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;

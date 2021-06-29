@@ -1,7 +1,7 @@
-package cyan.toolkit.zuul.entity;
+package cyan.toolkit.token.entity;
 
 import cyan.toolkit.chief.entity.TimeEntity;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.token.route.ZuulStatus;
 
 import javax.persistence.Id;
 import javax.persistence.Table;

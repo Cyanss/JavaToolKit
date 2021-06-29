@@ -14,9 +14,7 @@ import java.util.Optional;
  * @group cyan.tool.kit
  * @date 15:40 2020/9/24
  */
-@Builder
-@AllArgsConstructor
-public class SimpleModel extends ChiefModel<SimpleEntity> {
+public class SimpleModel extends ChiefModel<SimpleModel,SimpleEntity> {
     private Date time;
 
     public SimpleModel() {
@@ -40,16 +38,12 @@ public class SimpleModel extends ChiefModel<SimpleEntity> {
     }
 
     @Override
-    public SimpleEntity toEntity(Boolean isInsert, Long... idArray) {
+    public SimpleEntity toEntity(Long... idArray) {
         SimpleEntity entity = new SimpleEntity();
         entity.setId(this.getId());
         entity.setName(this.getName());
         entity.setDescription(this.getDescription());
         entity.setTime(Optional.ofNullable(this.getTime()).map(Date::getTime).orElse(null));
-        if (isInsert) {
-            entity.setCreateTime(new Date());
-        }
-        entity.setUpdateTime(new Date());
         return entity;
     }
 

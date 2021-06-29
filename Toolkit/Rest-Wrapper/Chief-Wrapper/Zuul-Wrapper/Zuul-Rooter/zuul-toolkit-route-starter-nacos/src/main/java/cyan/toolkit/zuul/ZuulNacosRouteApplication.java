@@ -1,4 +1,4 @@
-package cyan.toolkit.zuul;
+package cyan.toolkit.token;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

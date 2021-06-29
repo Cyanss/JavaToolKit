@@ -22,14 +22,14 @@
         #{entity.name},
         #{entity.description},
         #{entity.time},
-        #{entity.createTime},
-        #{entity.updateTime}
+        now(),
+        now()
         ) ON CONFLICT (id) DO UPDATE
         <set>
             "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE cy_tk_cf_simple."name" END,
             "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE cy_tk_cf_simple."description" END,
             "time" = CASE WHEN EXCLUDED."time" IS NOT NULL THEN EXCLUDED."time" ELSE cy_tk_cf_simple."time" END,
-            update_time = CASE WHEN EXCLUDED.update_time IS NOT NULL THEN EXCLUDED.update_time ELSE cy_tk_cf_simple.update_time END
+            update_time = now()
         </set>
     </insert>
 
@@ -44,8 +44,8 @@
             #{entity.name},
             #{entity.description},
             #{entity.time},
-            #{entity.createTime},
-            #{entity.updateTime}
+            now(),
+            now()
             )
         </foreach>
         ON CONFLICT (id) DO UPDATE
@@ -53,7 +53,7 @@
             "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE cy_tk_cf_simple."name" END,
             "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE cy_tk_cf_simple."description" END,
             "time" = CASE WHEN EXCLUDED."time" IS NOT NULL THEN EXCLUDED."time" ELSE cy_tk_cf_simple."time" END,
-            update_time = CASE WHEN EXCLUDED.update_time IS NOT NULL THEN EXCLUDED.update_time ELSE cy_tk_cf_simple.update_time END
+            update_time = now()
         </set>
     </update>
 

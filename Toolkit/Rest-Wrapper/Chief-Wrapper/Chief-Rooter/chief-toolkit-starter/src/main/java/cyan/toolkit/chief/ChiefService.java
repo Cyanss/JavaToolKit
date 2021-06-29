@@ -2,6 +2,7 @@ package cyan.toolkit.chief;
 
 import cyan.toolkit.chief.service.BuilderAdvice;
 import cyan.toolkit.chief.service.InfoService;
+import cyan.toolkit.rest.RestException;
 
 import java.util.Date;
 
@@ -12,15 +13,15 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 16:00 2020/11/3
  */
-public abstract class ChiefService<M extends ChiefModel<E>,E extends ChiefEntity<M>,F extends ChiefFilter> extends InfoService<Long, Date, M, E, F> implements BuilderAdvice<Long,Date,M, E> {
+public abstract class ChiefService<M extends ChiefModel<M,E>,E extends ChiefEntity<E,M>,F extends ChiefFilter> extends InfoService<Long, M, E, F> implements BuilderAdvice<Long,M, E> {
 
     @Override
-    protected E createEntity(M model, Boolean isInsert) {
-        return model.toEntity(isInsert);
+    protected E createEntity(M model) throws RestException {
+        return model.toEntity();
     }
 
     @Override
-    protected M createModel(E entity) {
+    protected M createModel(E entity) throws RestException {
         return entity.toModel();
     }
 }

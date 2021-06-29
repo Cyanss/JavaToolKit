@@ -1,8 +1,8 @@
-package cyan.toolkit.zuul;
+package cyan.toolkit.token;
 
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.zuul.configure.ZuulRouteProperties;
+import cyan.toolkit.token.configure.ZuulRouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cloud.client.ServiceInstance;

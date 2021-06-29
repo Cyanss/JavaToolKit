@@ -11,6 +11,7 @@
         <module>Auth-Wrapper</module>
         <module>Chief-Rooter</module>
         <module>Zuul-Wrapper</module>
+        <module>Token-Wrapper</module>
     </modules>
     <name>Chief-Wrapper</name>
     <packaging>pom</packaging>

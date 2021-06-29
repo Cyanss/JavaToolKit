@@ -1,8 +1,8 @@
 package cyan.toolkit.chief;
 
-import cyan.toolkit.chief.entity.InfoEntity;
 
-import java.util.Date;
+import cyan.toolkit.rice.RestEntity;
+import cyan.toolkit.rice.entity.InfoEntity;
 
 /**
  * <p>RestEntity</p>
@@ -11,7 +11,7 @@ import java.util.Date;
  * @group cyan.tool.kit
  * @date 15:33 2020/11/3
  */
-public abstract class ChiefEntity<M extends ChiefModel<?>> extends InfoEntity<Long, Date> {
+public abstract class ChiefEntity<E extends ChiefEntity<E,M>,M extends ChiefModel<M,E>> extends InfoEntity<Long> implements RestEntity<Long,M> {
 
     public ChiefEntity() {
     }
@@ -24,10 +24,30 @@ public abstract class ChiefEntity<M extends ChiefModel<?>> extends InfoEntity<Lo
         super(id, name);
     }
 
-    public ChiefEntity(Builder<Long, Date> builder) {
+    public ChiefEntity(Builder builder) {
         super(builder);
     }
 
-    abstract public M toModel();
+    public static abstract class Builder extends InfoEntity.Builder<Long> {
 
+        public Builder() {
+        }
+
+        public ChiefEntity.Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public ChiefEntity.Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ChiefEntity.Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public abstract ChiefEntity<?,?> build();
+    }
 }

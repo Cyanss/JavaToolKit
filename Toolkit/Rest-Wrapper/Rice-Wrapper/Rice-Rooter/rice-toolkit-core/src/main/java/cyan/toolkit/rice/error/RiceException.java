@@ -1,4 +1,4 @@
-package cyan.toolkit.rice;
+package cyan.toolkit.rice.error;
 
 
 import cyan.toolkit.rest.RestErrorStatus;

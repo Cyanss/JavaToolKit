@@ -1,6 +1,6 @@
 package cyan.toolkit.chief.mapper;
 
-import cyan.toolkit.chief.entity.InfoEntity;
+import cyan.toolkit.rice.entity.InfoEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 17:36 2020/9/8
  */
-public interface InfoMapper<E extends InfoEntity<I,D>,I,D> extends IdMapper<E,I,D> {
+public interface InfoMapper<E extends InfoEntity<I>,I> extends IdMapper<E,I> {
     /**
      * 根据名称判断是否存在
      * @param name 对象名称
