@@ -1,6 +1,6 @@
 package cyan.toolkit.chief.simple.mapper;
 
-import cyan.toolkit.chief.ChiefMapper;
+import cyan.toolkit.chief.ChiefInfoMapper;
 import cyan.toolkit.chief.simple.SimpleEntity;
 import org.springframework.stereotype.Component;
 
@@ -12,5 +12,5 @@ import org.springframework.stereotype.Component;
  * @date 16:50 2020/9/24
  */
 @Component
-public interface SimpleMapper extends ChiefMapper<SimpleEntity> {
+public interface SimpleMapper extends ChiefInfoMapper<SimpleEntity> {
 }

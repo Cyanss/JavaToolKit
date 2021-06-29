@@ -1,6 +1,6 @@
 package cyan.toolkit.chief.simple.service;
 
-import cyan.toolkit.chief.ChiefService;
+import cyan.toolkit.chief.ChiefInfoService;
 import cyan.toolkit.chief.simple.SimpleEntity;
 import cyan.toolkit.chief.simple.SimpleFilter;
 import cyan.toolkit.chief.simple.SimpleModel;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 //@RestService(mapper = SimpleMapper.class)
-public class SimpleServiceImpl extends ChiefService<SimpleModel, SimpleEntity,SimpleFilter> implements SimpleService {
+public class SimpleServiceImpl extends ChiefInfoService<SimpleModel, SimpleEntity,SimpleFilter> implements SimpleService {
 
     @Override
     public String queryWhereSql(SimpleFilter filter) throws RestException {

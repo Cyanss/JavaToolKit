@@ -11,20 +11,20 @@ import cyan.toolkit.rice.entity.InfoEntity;
  * @group cyan.tool.kit
  * @date 15:33 2020/11/3
  */
-public abstract class ChiefEntity<E extends ChiefEntity<E,M>,M extends ChiefModel<M,E>> extends InfoEntity<Long> implements RestEntity<Long,M> {
+public abstract class ChiefInfoEntity<E extends ChiefInfoEntity<E,M>,M extends ChiefInfoModel<M,E>> extends InfoEntity<Long> implements RestEntity<Long,M> {
 
-    public ChiefEntity() {
+    public ChiefInfoEntity() {
     }
 
-    public ChiefEntity(Long id) {
+    public ChiefInfoEntity(Long id) {
         super(id);
     }
 
-    public ChiefEntity(Long id, String name) {
+    public ChiefInfoEntity(Long id, String name) {
         super(id, name);
     }
 
-    public ChiefEntity(Builder builder) {
+    public ChiefInfoEntity(Builder builder) {
         super(builder);
     }
 
@@ -33,21 +33,21 @@ public abstract class ChiefEntity<E extends ChiefEntity<E,M>,M extends ChiefMode
         public Builder() {
         }
 
-        public ChiefEntity.Builder id(Long id) {
+        public ChiefInfoEntity.Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public ChiefEntity.Builder name(String name) {
+        public ChiefInfoEntity.Builder name(String name) {
             this.name = name;
             return this;
         }
 
-        public ChiefEntity.Builder description(String description) {
+        public ChiefInfoEntity.Builder description(String description) {
             this.description = description;
             return this;
         }
 
-        public abstract ChiefEntity<?,?> build();
+        public abstract ChiefInfoEntity<?,?> build();
     }
 }

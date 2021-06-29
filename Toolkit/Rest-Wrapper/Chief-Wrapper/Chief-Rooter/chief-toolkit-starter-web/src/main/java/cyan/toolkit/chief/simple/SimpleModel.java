@@ -1,8 +1,6 @@
 package cyan.toolkit.chief.simple;
 
-import cyan.toolkit.chief.ChiefModel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import cyan.toolkit.chief.ChiefInfoModel;
 
 import java.util.Date;
 import java.util.Optional;
@@ -14,7 +12,7 @@ import java.util.Optional;
  * @group cyan.tool.kit
  * @date 15:40 2020/9/24
  */
-public class SimpleModel extends ChiefModel<SimpleModel,SimpleEntity> {
+public class SimpleModel extends ChiefInfoModel<SimpleModel,SimpleEntity> {
     private Date time;
 
     public SimpleModel() {
@@ -47,7 +45,7 @@ public class SimpleModel extends ChiefModel<SimpleModel,SimpleEntity> {
         return entity;
     }
 
-    public static class Builder extends ChiefModel.Builder {
+    public static class Builder extends ChiefInfoModel.Builder {
         protected Date time;
 
         public Builder() {

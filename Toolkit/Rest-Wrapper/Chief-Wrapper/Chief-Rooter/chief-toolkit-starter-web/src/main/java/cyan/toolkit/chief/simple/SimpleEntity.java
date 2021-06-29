@@ -1,6 +1,6 @@
 package cyan.toolkit.chief.simple;
 
-import cyan.toolkit.chief.ChiefEntity;
+import cyan.toolkit.chief.ChiefInfoEntity;
 
 import javax.persistence.Table;
 
@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @date 15:41 2020/9/24
  */
 @Table(name = "cy_tk_cf_simple")
-public class SimpleEntity extends ChiefEntity<SimpleEntity,SimpleModel> {
+public class SimpleEntity extends ChiefInfoEntity<SimpleEntity,SimpleModel> {
 
     private Long time;
 
