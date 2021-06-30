@@ -7,7 +7,7 @@ SET GLOBAL innodb_file_format = BARRACUDA;
 
 DROP TABLE IF EXISTS `token_user_list`;
 CREATE TABLE `token_user_list`(
-  `id` LONG NOT NULL COMMENT 'id主键',
+  `id` BIGINT NOT NULL COMMENT 'id主键',
   `account` VARCHAR(64) NOT NULL COMMENT '账号',
   `nickname` VARCHAR(32) NOT NULL COMMENT '昵称',
   `avatar` VARCHAR(512) NOT NULL COMMENT '头像',

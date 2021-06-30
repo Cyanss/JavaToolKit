@@ -2,7 +2,7 @@ package cyan.toolkit.zuul.service;
 
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.zuul.route.RouteType;
 
 import java.util.Collection;
 import java.util.List;
@@ -72,7 +72,7 @@ public interface WhiteService {
      * 查询所有新增的白名单
      * @return List<String> 新增的白名单列表
      */
-    List<String> queryAllWithStatus(ZuulStatus status);
+    List<String> queryAllWithStatus(RouteType status);
 
     /**
      * 更新所有新增的白名单状态

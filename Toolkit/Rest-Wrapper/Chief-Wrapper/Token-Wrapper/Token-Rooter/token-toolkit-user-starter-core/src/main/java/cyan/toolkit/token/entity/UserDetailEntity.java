@@ -137,12 +137,17 @@ public class UserDetailEntity extends UserInfoEntity {
             return this;
         }
 
-        public UserDetailEntity.Builder role(RoleType role) {
+        public UserInfoEntity.Builder role(Integer role) {
             this.role = role;
             return this;
         }
 
-        public UserDetailEntity.Builder status(AccountType status) {
+        public UserInfoEntity.Builder authority(Integer authority) {
+            this.authority = authority;
+            return this;
+        }
+
+        public UserInfoEntity.Builder status(Integer status) {
             this.status = status;
             return this;
         }

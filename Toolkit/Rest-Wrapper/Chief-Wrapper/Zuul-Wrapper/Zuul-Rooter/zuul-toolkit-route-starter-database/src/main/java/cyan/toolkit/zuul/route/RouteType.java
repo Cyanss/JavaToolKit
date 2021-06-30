@@ -15,7 +15,7 @@ import java.util.Optional;
  * @group cyan.tool.kit
  * @date 14:15 2021/6/10
  */
-public enum ZuulStatus implements RestValue<Integer,String> {
+public enum RouteType implements RestValue<Integer,String> {
     DEFAULT(0,"默认"),
     UPDATE(1,"新增"),
     REMOVE(2,"移除"),
@@ -24,7 +24,7 @@ public enum ZuulStatus implements RestValue<Integer,String> {
     private final Integer key;
     private final String value;
 
-    ZuulStatus(Integer key, String value) {
+    RouteType(Integer key, String value) {
         this.key = key;
         this.value = value;
     }

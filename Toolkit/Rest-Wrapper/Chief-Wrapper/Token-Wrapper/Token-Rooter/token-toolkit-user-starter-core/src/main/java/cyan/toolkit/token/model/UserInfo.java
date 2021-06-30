@@ -23,11 +23,11 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
     /** 头像 */
     protected String avatar;
     /** 角色 */
-    protected RoleType role = RoleType.USER;
+    protected RoleType role = RoleType.GUEST;
     /** 权限 */
-    protected AuthorityType authority = role.getAuthority();
+    protected AuthorityType authority = AuthorityType.GUEST;
     /** 状态 */
-    protected AccountType status = AccountType.ACTIVATED;
+    protected AccountType status = AccountType.INACTIVE;
     /** 级别 */
     protected Integer level;
 
@@ -73,7 +73,11 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
         this.avatar = avatar;
     }
 
-    public RoleType getRole() {
+    public Integer getRole() {
+        return role.getKey();
+    }
+
+    public RoleType getRoleType() {
         return role;
     }
 
@@ -81,7 +85,11 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
         this.role = role;
     }
 
-    public AuthorityType getAuthority() {
+    public Integer getAuthority() {
+        return authority.getKey();
+    }
+
+    public AuthorityType getAuthorityType() {
         return authority;
     }
 
@@ -89,7 +97,11 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
         this.authority = authority;
     }
 
-    public AccountType getStatus() {
+    public Integer getStatus() {
+        return status.getKey();
+    }
+
+    public AccountType getStatusType() {
         return status;
     }
 
@@ -114,9 +126,9 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
         protected String account;
         protected String nickname;
         protected String avatar;
-        protected RoleType role;
-        protected AuthorityType authority;
-        protected AccountType status;
+        protected RoleType role = RoleType.GUEST;
+        protected AuthorityType authority = AuthorityType.GUEST;
+        protected AccountType status = AccountType.INACTIVE;
         protected Integer level;
 
         public Builder() {
@@ -127,7 +139,7 @@ public class UserInfo extends ChiefIdModel<UserInfo, UserInfoEntity> {
             return this;
         }
 
-        public UserInfo.Builder account(String email) {
+        public UserInfo.Builder account(String account) {
             this.account = account;
             return this;
         }

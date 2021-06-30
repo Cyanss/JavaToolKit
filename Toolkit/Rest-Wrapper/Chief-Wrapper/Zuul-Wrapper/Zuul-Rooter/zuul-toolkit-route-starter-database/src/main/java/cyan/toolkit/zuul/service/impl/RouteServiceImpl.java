@@ -10,7 +10,7 @@ import cyan.toolkit.zuul.DynamicRoute;
 import cyan.toolkit.zuul.entity.RouteEntity;
 import cyan.toolkit.zuul.entity.WhiteEntity;
 import cyan.toolkit.zuul.mapper.RouteMapper;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.zuul.route.RouteType;
 import cyan.toolkit.zuul.service.RouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +108,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<DynamicRoute> queryAllWithStatus(ZuulStatus status) {
+    public List<DynamicRoute> queryAllWithStatus(RouteType status) {
         List<RouteEntity> entityList = routeMapper.findAllByStatus(status.getKey());
         return Optional.ofNullable(entityList).map(lists -> lists.stream().map(RouteEntity::toModel).collect(Collectors.toList())).orElse(Collections.emptyList());
     }

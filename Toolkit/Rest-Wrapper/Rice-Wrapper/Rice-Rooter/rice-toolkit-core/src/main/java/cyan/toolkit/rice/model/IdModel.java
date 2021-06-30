@@ -1,9 +1,7 @@
 package cyan.toolkit.rice.model;
 
-import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.JsonUtils;
 import cyan.toolkit.rice.RestId;
-import cyan.toolkit.rice.entity.IdEntity;
 
 import java.io.Serializable;
 import java.util.Objects;

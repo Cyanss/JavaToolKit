@@ -2,7 +2,6 @@ package cyan.toolkit.chief;
 
 import cyan.toolkit.rice.RestModel;
 import cyan.toolkit.rice.model.IdModel;
-import cyan.toolkit.rice.model.InfoModel;
 
 /**
  * <p>ChiefModel</p>

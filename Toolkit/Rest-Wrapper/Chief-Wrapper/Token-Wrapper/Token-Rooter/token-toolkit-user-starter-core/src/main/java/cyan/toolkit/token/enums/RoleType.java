@@ -15,22 +15,20 @@ import java.util.Optional;
  * @date 16:08 2021/6/28
  */
 public enum RoleType implements RestValue<Integer,String> {
-    GUEST(1,"来宾",AuthorityType.GUEST),
-    USER(2,"用户",AuthorityType.USER),
-    MEMBER(4,"成员",AuthorityType.MEMBER),
-    LEADER(8,"组长",AuthorityType.LEADER),
-    MANAGER(16,"主管员",AuthorityType.MANAGER),
-    ADMIN(32,"管理员",AuthorityType.ADMIN),
-    SUPER(64,"超级管理员",AuthorityType.SUPER)
+    GUEST(1,"来宾"),
+    USER(2,"用户"),
+    MEMBER(4,"成员"),
+    LEADER(8,"组长"),
+    MANAGER(16,"主管员"),
+    ADMIN(32,"管理员"),
+    SUPER(64,"超级管理员")
     ;
 
     private final Integer key;
     private final String value;
-    private final AuthorityType authority;
-    RoleType(Integer key, String value,AuthorityType authority) {
+    RoleType(Integer key, String value) {
         this.key = key;
         this.value = value;
-        this.authority = authority;
     }
 
     @Override
@@ -45,7 +43,7 @@ public enum RoleType implements RestValue<Integer,String> {
     }
 
     public AuthorityType getAuthority() {
-        return this.authority;
+        return AuthorityType.valueOf(this.name());
     }
 
     @JsonCreator

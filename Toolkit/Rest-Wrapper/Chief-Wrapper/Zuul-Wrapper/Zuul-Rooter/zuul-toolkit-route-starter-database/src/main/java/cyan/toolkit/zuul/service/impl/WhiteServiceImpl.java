@@ -8,7 +8,7 @@ import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.zuul.entity.WhiteEntity;
 import cyan.toolkit.zuul.mapper.WhiteMapper;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.zuul.route.RouteType;
 import cyan.toolkit.zuul.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +105,7 @@ public class WhiteServiceImpl implements WhiteService {
     }
 
     @Override
-    public List<String> queryAllWithStatus(ZuulStatus status) {
+    public List<String> queryAllWithStatus(RouteType status) {
         List<WhiteEntity> entityList = whiteMapper.findAllByStatus(status.getKey());
         return Optional.ofNullable(entityList).map(lists -> lists.stream().map(WhiteEntity::getPath).collect(Collectors.toList())).orElse(Collections.emptyList());
     }

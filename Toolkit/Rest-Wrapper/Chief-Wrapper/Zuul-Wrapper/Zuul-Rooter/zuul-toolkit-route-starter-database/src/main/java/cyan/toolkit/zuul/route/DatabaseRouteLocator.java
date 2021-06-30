@@ -40,7 +40,7 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
     @Override
     public void loadWhites() {
         if (routeProperties.getEnabled()) {
-            List<String> whiteList = whiteService.queryAllWithStatus(ZuulStatus.DEFAULT);
+            List<String> whiteList = whiteService.queryAllWithStatus(RouteType.DEFAULT);
             if (GeneralUtils.isNotEmpty(whiteList)) {
                 routeProperties.getWhites().addAll(whiteList);
                 log.info("the white list has be initiated! size: {}", whiteList.size());
@@ -51,7 +51,7 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
     @Override
     public void loadRoutes() {
         if (routeProperties.getEnabled()) {
-            List<DynamicRoute> dynamicRoutes = routeService.queryAllWithStatus(ZuulStatus.DEFAULT);
+            List<DynamicRoute> dynamicRoutes = routeService.queryAllWithStatus(RouteType.DEFAULT);
             if (GeneralUtils.isNotEmpty(dynamicRoutes)) {
                 Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = dynamicRoutes.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
                 zuulProperties.getRoutes().putAll(zuulRouteMap);
@@ -125,8 +125,8 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
         List<String> updateWhiteList = null;
         List<String> removeWhiteList = null;
         if (whiteService.isNeedRefresh()) {
-            updateWhiteList = whiteService.queryAllWithStatus(ZuulStatus.UPDATE);
-            removeWhiteList = whiteService.queryAllWithStatus(ZuulStatus.REMOVE);
+            updateWhiteList = whiteService.queryAllWithStatus(RouteType.UPDATE);
+            removeWhiteList = whiteService.queryAllWithStatus(RouteType.REMOVE);
         }
         if (GeneralUtils.isNotEmpty(updateWhiteList)) {
             routeProperties.getWhites().addAll(updateWhiteList);
@@ -147,8 +147,8 @@ public class DatabaseRouteLocator extends DynamicRouteLocator {
         List<DynamicRoute> updateRouteList = null;
         List<DynamicRoute> removeRouteList = null;
         if (routeService.isNeedRefresh()) {
-            updateRouteList = routeService.queryAllWithStatus(ZuulStatus.UPDATE);
-            removeRouteList = routeService.queryAllWithStatus(ZuulStatus.REMOVE);
+            updateRouteList = routeService.queryAllWithStatus(RouteType.UPDATE);
+            removeRouteList = routeService.queryAllWithStatus(RouteType.REMOVE);
         }
         if (GeneralUtils.isNotEmpty(updateRouteList)) {
             Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = updateRouteList.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));

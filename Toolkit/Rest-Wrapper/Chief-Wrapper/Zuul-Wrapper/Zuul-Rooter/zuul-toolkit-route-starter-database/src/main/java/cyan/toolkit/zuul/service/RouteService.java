@@ -3,7 +3,7 @@ package cyan.toolkit.zuul.service;
 import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.zuul.DynamicRoute;
-import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.zuul.route.RouteType;
 
 import java.util.Collection;
 import java.util.List;
@@ -73,7 +73,7 @@ public interface RouteService {
      * 查询所有新增的路由
      * @return List<RouteModel> 新增的路由列表
      */
-    List<DynamicRoute> queryAllWithStatus(ZuulStatus status);
+    List<DynamicRoute> queryAllWithStatus(RouteType status);
 
     /**
      * 更新所有新增的路由状态

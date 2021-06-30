@@ -3,8 +3,6 @@ package cyan.toolkit.token.entity;
 import cyan.toolkit.chief.ChiefIdEntity;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.bean.BeanUtils;
-import cyan.toolkit.token.enums.AccountType;
-import cyan.toolkit.token.enums.RoleType;
 import cyan.toolkit.token.model.UserInfo;
 
 import javax.persistence.Table;
@@ -26,6 +24,8 @@ public class UserInfoEntity extends ChiefIdEntity<UserInfoEntity, UserInfo> {
     protected String avatar;
     /** 角色 */
     protected Integer role;
+    /** 角色 */
+    protected Integer authority;
     /** 状态 */
     protected Integer status;
     /** 级别 */
@@ -74,6 +74,14 @@ public class UserInfoEntity extends ChiefIdEntity<UserInfoEntity, UserInfo> {
         this.role = role;
     }
 
+    public Integer getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Integer authority) {
+        this.authority = authority;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -99,8 +107,9 @@ public class UserInfoEntity extends ChiefIdEntity<UserInfoEntity, UserInfo> {
         protected String account;
         protected String nickname;
         protected String avatar;
-        protected RoleType role;
-        protected AccountType status;
+        protected Integer role;
+        protected Integer authority;
+        protected Integer status;
         protected Integer level;
 
         public Builder() {
@@ -126,12 +135,17 @@ public class UserInfoEntity extends ChiefIdEntity<UserInfoEntity, UserInfo> {
             return this;
         }
 
-        public UserInfoEntity.Builder role(RoleType role) {
+        public UserInfoEntity.Builder role(Integer role) {
             this.role = role;
             return this;
         }
 
-        public UserInfoEntity.Builder status(AccountType status) {
+        public UserInfoEntity.Builder authority(Integer authority) {
+            this.authority = authority;
+            return this;
+        }
+
+        public UserInfoEntity.Builder status(Integer status) {
             this.status = status;
             return this;
         }
