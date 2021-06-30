@@ -14,21 +14,31 @@
       "description": "route enabled."
     },
     {
-      "name": "cyan.toolkit.token.user.whites",
-      "type": "java.util.Set",
-      "description": "whites set."
+      "name": "cyan.toolkit.token.user.default-avatar",
+      "type": "java.lang.String",
+      "sourceType": "java.lang.String",
+      "description": "user default avatar."
     },
     {
-      "name": "cyan.toolkit.token.user.refreshed.routes-enabled",
-      "type": "java.lang.Boolean",
-      "sourceType": "java.lang.Boolean",
-      "description": "routes refreshed enabled."
+      "name": "cyan.toolkit.token.user.root-path",
+      "type": "java.lang.String",
+      "sourceType": "java.lang.String",
+      "description": "user root path.",
+      "defaultValue":  "/data/token-user-server"
     },
     {
-      "name": "cyan.toolkit.token.user.refreshed.whites-enabled",
-      "type": "java.lang.Boolean",
-      "sourceType": "java.lang.Boolean",
-      "description": "whites refreshed enabled."
+      "name": "cyan.toolkit.token.user.avatar-path",
+      "type": "java.lang.String",
+      "sourceType": "java.lang.String",
+      "description": "user root path.",
+      "defaultValue":  "/avatar/"
+    },
+    {
+      "name": "cyan.toolkit.token.user.cache-path",
+      "type": "java.lang.String",
+      "sourceType": "java.lang.String",
+      "description": "user cache path.",
+      "defaultValue":  "/cache/"
     }
   ],
   "hints": [
@@ -37,37 +47,11 @@
       "values": [
         {
           "value": false,
-          "description": "route close."
+          "description": "token close."
         },
         {
           "value": true,
-          "description": "route open."
-        }
-      ]
-    },
-    {
-      "name": "cyan.toolkit.token.user.refreshed.whites-enabled",
-      "values": [
-        {
-          "value": false,
-          "description": "whites refreshed close."
-        },
-        {
-          "value": true,
-          "description": "whites refreshed open."
-        }
-      ]
-    },
-    {
-      "name": "cyan.toolkit.token.user.refreshed.routes-enabled",
-      "values": [
-        {
-          "value": false,
-          "description": "routes refreshed close."
-        },
-        {
-          "value": true,
-          "description": "routes refreshed open."
+          "description": "token open."
         }
       ]
     }

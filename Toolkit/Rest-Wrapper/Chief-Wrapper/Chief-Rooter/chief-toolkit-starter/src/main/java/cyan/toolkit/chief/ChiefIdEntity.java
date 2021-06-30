@@ -3,7 +3,6 @@ package cyan.toolkit.chief;
 
 import cyan.toolkit.rice.RestEntity;
 import cyan.toolkit.rice.entity.IdEntity;
-import cyan.toolkit.rice.entity.InfoEntity;
 
 /**
  * <p>RestEntity</p>

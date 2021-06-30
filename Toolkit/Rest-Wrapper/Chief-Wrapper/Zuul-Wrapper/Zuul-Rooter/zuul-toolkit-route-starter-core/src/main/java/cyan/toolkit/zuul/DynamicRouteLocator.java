@@ -1,15 +1,13 @@
-package cyan.toolkit.token;
+package cyan.toolkit.zuul;
 
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.token.configure.ZuulRouteProperties;
+import cyan.toolkit.zuul.configure.ZuulRouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.zuul.filters.RefreshableRouteLocator;
-import org.springframework.cloud.netflix.zuul.filters.SimpleRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
@@ -17,9 +15,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -84,7 +80,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
     }
 
     public void addRoute(String path, String location) {
-        DynamicRoute result = new DynamicRoute(path, location);
+        cyan.toolkit.zuul.DynamicRoute result = new cyan.toolkit.zuul.DynamicRoute(path, location);
         if (GeneralUtils.isNotEmpty(result)) {
             zuulProperties.getRoutes().put(result.getPath(), result);
             refresh();
@@ -93,7 +89,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
     }
 
     public void addRoute(ZuulProperties.ZuulRoute route) {
-        DynamicRoute result = new DynamicRoute(route.getPath(), route.getLocation());
+        cyan.toolkit.zuul.DynamicRoute result = new cyan.toolkit.zuul.DynamicRoute(route.getPath(), route.getLocation());
         if (GeneralUtils.isNotEmpty(result)) {
             zuulProperties.getRoutes().put(result.getPath(), result);
             refresh();
@@ -101,7 +97,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
         }
     }
 
-    public void addRoute(DynamicRoute routeModel) {
+    public void addRoute(cyan.toolkit.zuul.DynamicRoute routeModel) {
         if (GeneralUtils.isNotEmpty(routeModel)) {
             zuulProperties.getRoutes().put(routeModel.getPath(), routeModel);
             refresh();
@@ -109,7 +105,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator implements 
         }
     }
 
-    public void addRoutes(Collection<DynamicRoute> routes) {
+    public void addRoutes(Collection<cyan.toolkit.zuul.DynamicRoute> routes) {
         if (GeneralUtils.isNotEmpty(routes)) {
             Map<String, ZuulProperties.ZuulRoute> zuulRouteMap = routes.stream().collect(Collectors.toMap(ZuulProperties.ZuulRoute::getPath, Function.identity()));
             zuulProperties.getRoutes().putAll(zuulRouteMap);

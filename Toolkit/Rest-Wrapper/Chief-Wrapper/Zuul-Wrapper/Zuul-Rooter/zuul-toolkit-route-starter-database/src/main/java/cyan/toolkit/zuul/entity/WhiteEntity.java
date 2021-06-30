@@ -1,7 +1,7 @@
-package cyan.toolkit.token.entity;
+package cyan.toolkit.zuul.entity;
 
-import cyan.toolkit.chief.entity.TimeEntity;
-import cyan.toolkit.token.route.ZuulStatus;
+import cyan.toolkit.rice.entity.TimeEntity;
+import cyan.toolkit.zuul.route.ZuulStatus;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,7 +16,7 @@ import java.util.Objects;
  * @date 18:03 2021/6/7
  */
 @Table(name = "zuul_white_list")
-public class WhiteEntity extends TimeEntity<Date> {
+public class WhiteEntity extends TimeEntity {
     @Id
     private String path;
 
@@ -63,7 +63,7 @@ public class WhiteEntity extends TimeEntity<Date> {
         return Objects.hash(path);
     }
 
-    public static class Builder extends TimeEntity.Builder<Date> {
+    public static class Builder extends TimeEntity.Builder{
         protected String path;
 
         public Builder() {

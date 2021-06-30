@@ -65,6 +65,28 @@
             <version>${toolkit.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>cyan.tool.kit</groupId>
+            <artifactId>cloud-toolkit-feign</artifactId>
+            <version>${toolkit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cyan.tool.kit</groupId>
+            <artifactId>chief-toolkit-starter-web</artifactId>
+            <version>${toolkit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,16 +1,14 @@
-package cyan.toolkit.token.configure;
+package cyan.toolkit.zuul.configure;
 
-import cyan.toolkit.token.route.DatabaseRouteLocator;
-import cyan.toolkit.token.service.RouteService;
-import cyan.toolkit.token.service.WhiteService;
+import cyan.toolkit.zuul.route.DatabaseRouteLocator;
+import cyan.toolkit.zuul.service.RouteService;
+import cyan.toolkit.zuul.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.serviceregistry.Registration;
-import org.springframework.cloud.netflix.eureka.serviceregistry.EurekaRegistration;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.ServiceRouteMapper;
 import org.springframework.context.annotation.Bean;

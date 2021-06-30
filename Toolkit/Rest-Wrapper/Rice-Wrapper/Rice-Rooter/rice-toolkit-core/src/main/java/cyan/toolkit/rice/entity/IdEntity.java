@@ -1,8 +1,6 @@
 package cyan.toolkit.rice.entity;
 
-import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rice.RestId;
-import cyan.toolkit.rice.model.IdModel;
 
 import javax.persistence.Id;
 import java.util.Date;

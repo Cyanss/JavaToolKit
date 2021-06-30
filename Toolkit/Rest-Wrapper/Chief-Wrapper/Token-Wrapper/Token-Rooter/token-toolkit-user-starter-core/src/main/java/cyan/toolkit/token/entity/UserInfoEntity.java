@@ -1,16 +1,23 @@
-package cyan.toolkit.token.model;
+package cyan.toolkit.token.entity;
 
-import cyan.toolkit.rice.model.IdModel;
+import cyan.toolkit.chief.ChiefIdEntity;
+import cyan.toolkit.rest.RestException;
+import cyan.toolkit.rest.util.bean.BeanUtils;
+import cyan.toolkit.token.enums.AccountType;
 import cyan.toolkit.token.enums.RoleType;
+import cyan.toolkit.token.model.UserInfo;
+
+import javax.persistence.Table;
 
 /**
- * <p>User</p>
+ * <p>UserEnitiy</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 16:01 2021/6/28
+ * @date 11:08 2021/6/29
  */
-public class User extends IdModel<Long> {
+@Table(name = "token_user_list")
+public class UserInfoEntity extends ChiefIdEntity<UserInfoEntity, UserInfo> {
     /** 账号 */
     protected String account;
     /** 昵称 */
@@ -18,24 +25,21 @@ public class User extends IdModel<Long> {
     /** 头像 */
     protected String avatar;
     /** 角色 */
-    protected RoleType role = RoleType.USER;
+    protected Integer role;
+    /** 状态 */
+    protected Integer status;
     /** 级别 */
     protected Integer level;
 
-    public User() {
+    public UserInfoEntity() {
     }
 
-    public User(Long id) {
+    public UserInfoEntity(Long id) {
         super(id);
     }
 
-    public User(User.Builder builder) {
+    public UserInfoEntity(Builder builder) {
         super(builder);
-        this.account = builder.account;
-        this.nickname = builder.nickname;
-        this.avatar = builder.avatar;
-        this.role = builder.role;
-        this.level = builder.level;
     }
 
     public String getAccount() {
@@ -62,12 +66,20 @@ public class User extends IdModel<Long> {
         this.avatar = avatar;
     }
 
-    public RoleType getRole() {
+    public Integer getRole() {
         return role;
     }
 
-    public void setRole(RoleType role) {
+    public void setRole(Integer role) {
         this.role = role;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getLevel() {
@@ -78,49 +90,59 @@ public class User extends IdModel<Long> {
         this.level = level;
     }
 
+    @Override
+    public UserInfo toModel() throws RestException {
+        return BeanUtils.copyNullProperties(this, new UserInfo());
+    }
 
-    public static class Builder extends IdModel.Builder<Long>{
+    public static class Builder extends ChiefIdEntity.Builder {
         protected String account;
         protected String nickname;
         protected String avatar;
         protected RoleType role;
+        protected AccountType status;
         protected Integer level;
 
         public Builder() {
         }
 
-        public User.Builder id(Long id) {
+        public UserInfoEntity.Builder id(Long id) {
             this.id = id;
             return this;
         }
 
-        public User.Builder account(String email) {
+        public UserInfoEntity.Builder account(String email) {
             this.account = account;
             return this;
         }
 
-        public User.Builder nickname(String nickname) {
+        public UserInfoEntity.Builder nickname(String nickname) {
             this.nickname = nickname;
             return this;
         }
 
-        public User.Builder avatar(String avatar) {
+        public UserInfoEntity.Builder avatar(String avatar) {
             this.avatar = avatar;
             return this;
         }
 
-        public User.Builder role(RoleType role) {
+        public UserInfoEntity.Builder role(RoleType role) {
             this.role = role;
             return this;
         }
 
-        public User.Builder level(Integer level) {
+        public UserInfoEntity.Builder status(AccountType status) {
+            this.status = status;
+            return this;
+        }
+
+        public UserInfoEntity.Builder level(Integer level) {
             this.level = level;
             return this;
         }
 
-        public User build() {
-            return new User(this);
+        public UserInfoEntity build() {
+            return new UserInfoEntity(this);
         }
     }
 }

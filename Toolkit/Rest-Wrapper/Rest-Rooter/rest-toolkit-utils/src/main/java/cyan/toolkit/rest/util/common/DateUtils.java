@@ -1,6 +1,7 @@
 package cyan.toolkit.rest.util.common;
 
 
+import cyan.toolkit.rest.error.natives.ParseErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
@@ -35,6 +36,7 @@ public class DateUtils {
     public static final String DATE_FORMAT_14 = "yyyyMMddHHmmss";
     public static final String DATE_FORMAT_17 = "yyyyMMdd HH:mm:ss";
     public static final String DATE_FORMAT_19 = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT_23 = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String DATE_FORMAT_19_FORWARD_SLASH = "yyyy/MM/dd HH:mm:ss";
     private static final String MINUS = "-";
 
@@ -91,7 +93,13 @@ public class DateUtils {
      * @return Date 日期
      */
     public static Date parseDate(String dateString){
-        return parse(dateString, DATE_FORMAT_10);
+        try {
+            return parse(dateString, DATE_FORMAT_10);
+        } catch (ParseErrorException e) {
+            e.printStackTrace();
+            log.error("date string parse error！ dateString = {}，pattern = {}，error = {}",dateString, DATE_FORMAT_10,e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -100,7 +108,13 @@ public class DateUtils {
      * @return Date 时间
      */
     public static Date parseDateTime(String timeString) {
-        return parse(timeString, DATE_FORMAT_19);
+        try {
+            return parse(timeString, DATE_FORMAT_19);
+        } catch (ParseErrorException e) {
+            e.printStackTrace();
+            log.error("date string parse error！ timeString = {}，pattern = {}，error = {}",timeString, DATE_FORMAT_19,e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -109,7 +123,7 @@ public class DateUtils {
      * @param dateFormat 格式化字符串
      * @return Date 时间
      */
-    public static Date parse(String dateString, String dateFormat) {
+    public static Date parse(String dateString, String dateFormat) throws ParseErrorException {
         if (StringUtils.isEmpty(dateFormat)) {
             dateFormat = switchDateFormat(dateString);
         }
@@ -117,8 +131,7 @@ public class DateUtils {
             return getCacheDateFormat(dateFormat).parse(dateString);
         } catch (Exception exception) {
             exception.printStackTrace();
-            log.error("解析错误！ dateString = {}，pattern = {}，error = {}",dateString,dateFormat,exception.getMessage());
-            return null;
+            throw new ParseErrorException(exception.getMessage());
         }
     }
 
@@ -141,6 +154,8 @@ public class DateUtils {
                 return "yyyyMMdd HH:mm:ss";
             case 19:
                 return dateString.contains("-") ? "yyyy-MM-dd HH:mm:ss" : "yyyy/MM/dd HH:mm:ss";
+            case 23:
+                return dateString.contains("-") ? "yyyy-MM-dd HH:mm:ss.SSS" : "yyyy/MM/dd HH:mm:ss.SSS";
         }
     }
 
@@ -185,7 +200,7 @@ public class DateUtils {
 
     private static DateFormat getCacheDateFormat(String dateFormat) {
         if (GeneralUtils.isEmpty(dateFormat)) {
-            throw new IllegalArgumentException("pattern不能为空！");
+            throw new IllegalArgumentException("pattern is not null！");
         }
         Map<String,SimpleDateFormat> dateFormatMap = DATE_FORMAT_THREAD_LOCAL.get();
         SimpleDateFormat dateFormatCached;

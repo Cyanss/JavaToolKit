@@ -1,11 +1,9 @@
 package cyan.toolkit.token.configure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.io.File;
 
 /**
  * <p>TokenUserProperties</p>
@@ -17,10 +15,13 @@ import java.util.Set;
 @Component
 @ConfigurationProperties(prefix = "cyan.toolkit.token.user")
 public class TokenUserProperties {
+    private static final String PREFIX = "token-user-server";
+    private static final String DEFAULT_PATH = "classpath:default";
     private Boolean enabled = true;
-    private Set<String> whites = new HashSet<>();
-    @NestedConfigurationProperty
-    private Refreshed refreshed = new Refreshed();
+    private String defaultAvatar = "noavatar.png";
+    private String rootPath = "/data/token-user-server";
+    private String avatarPath = "/avatar/";
+    private String cachePath = "/cache/";
 
     public TokenUserProperties() {
     }
@@ -33,42 +34,56 @@ public class TokenUserProperties {
         this.enabled = enabled;
     }
 
-    public Set<String> getWhites() {
-        return whites;
+    public String getDefaultAvatar() {
+        return defaultAvatar;
     }
 
-    public void setWhites(Set<String> whites) {
-        this.whites = whites;
+    public void setDefaultAvatar(String defaultAvatar) {
+        this.defaultAvatar = defaultAvatar;
     }
 
-    public Refreshed getRefreshed() {
-        return refreshed;
+    public String getRootPath() {
+        String trim = this.rootPath.toLowerCase().trim();
+        if (!trim.endsWith(PREFIX)) {
+            if (!trim.endsWith(File.separator)) {
+                return trim.concat(File.separator).concat(PREFIX);
+            } else {
+                return trim.concat(PREFIX);
+            }
+        }
+        return trim;
     }
 
-    public void setRefreshed(Refreshed refreshed) {
-        this.refreshed = refreshed;
+    public void setRootPath(String rootPath) {
+        this.rootPath = rootPath;
     }
 
-    public static class Refreshed {
-        private Boolean routesEnabled  = true;
-        private Boolean whitesEnabled  = true;
-        public Refreshed() {
-        }
+    public String getAvatarPath() {
+        String trim = this.avatarPath.toLowerCase().trim();
+        return concat(trim);
+    }
 
-        public Boolean getRoutesEnabled() {
-            return routesEnabled;
-        }
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
 
-        public void setRoutesEnabled(Boolean routesEnabled) {
-            this.routesEnabled = routesEnabled;
-        }
+    public String getCachePath() {
+        String trim = this.cachePath.toLowerCase().trim();
+        return concat(trim);
+    }
 
-        public Boolean getWhitesEnabled() {
-            return whitesEnabled;
-        }
+    public void setCachePath(String cachePath) {
+        this.cachePath = cachePath;
+    }
 
-        public void setWhitesEnabled(Boolean whitesEnabled) {
-            this.whitesEnabled = whitesEnabled;
+    private String concat(String path) {
+        String rootPath = getRootPath();
+        if (!path.startsWith(rootPath)) {
+            return rootPath.concat(path).concat(File.separator);
         }
+        if (!path.endsWith(File.separator)) {
+            return path.concat(File.separator);
+        }
+        return path;
     }
 }

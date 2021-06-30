@@ -1,4 +1,4 @@
-package cyan.toolkit.token;
+package cyan.toolkit.zuul;
 
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;

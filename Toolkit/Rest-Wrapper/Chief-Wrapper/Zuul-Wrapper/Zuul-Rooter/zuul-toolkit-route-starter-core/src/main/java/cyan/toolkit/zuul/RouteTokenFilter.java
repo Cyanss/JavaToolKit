@@ -1,4 +1,4 @@
-package cyan.toolkit.token;
+package cyan.toolkit.zuul;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -7,7 +7,7 @@ import cyan.toolkit.rest.RestErrorStatus;
 import cyan.toolkit.rest.RestResult;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import cyan.toolkit.rest.util.common.JsonUtils;
-import cyan.toolkit.token.configure.ZuulRouteProperties;
+import cyan.toolkit.zuul.configure.ZuulRouteProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +59,12 @@ public class RouteTokenFilter extends ZuulFilter {
         log.debug("request uri: {}", requestURI);
         StringBuffer requestURL = request.getRequestURL();
         log.debug("request url: {}", requestURL);
-        if (DynamicRouteLocator.existWhite(requestURI)) {
-            log.info("request uri: {} has existed in the white list, skip the auth of token!", requestURI);
+        if (cyan.toolkit.zuul.DynamicRouteLocator.existWhite(requestURI)) {
+            log.info("request uri: {} has existed in the white list, skip the auth of zuul!", requestURI);
             return null;
         }
         String requestToken= request.getHeader("Token");
-        requestToken = Optional.ofNullable(requestToken).orElse(request.getParameter("token"));
+        requestToken = Optional.ofNullable(requestToken).orElse(request.getParameter("zuul"));
         if (GeneralUtils.isNotEmpty(requestToken)) {
             log.info("request token: {}", requestToken);
             //TODO token check

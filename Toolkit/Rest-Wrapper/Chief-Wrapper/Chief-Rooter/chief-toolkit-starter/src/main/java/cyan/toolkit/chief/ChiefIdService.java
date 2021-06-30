@@ -23,4 +23,5 @@ public abstract class ChiefIdService<M extends ChiefIdModel<M,E>,E extends Chief
     protected M createModel(E entity) throws RestException {
         return entity.toModel();
     }
+
 }

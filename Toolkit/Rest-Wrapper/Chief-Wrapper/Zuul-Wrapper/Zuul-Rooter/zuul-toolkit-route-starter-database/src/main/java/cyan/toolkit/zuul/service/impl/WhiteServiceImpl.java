@@ -1,4 +1,4 @@
-package cyan.toolkit.token.service.impl;
+package cyan.toolkit.zuul.service.impl;
 
 import com.github.pagehelper.Page;
 import cyan.toolkit.chief.builder.SqlBuilders;
@@ -6,10 +6,10 @@ import cyan.toolkit.chief.filter.PageFilter;
 import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.rest.util.common.GeneralUtils;
-import cyan.toolkit.token.entity.WhiteEntity;
-import cyan.toolkit.token.mapper.WhiteMapper;
-import cyan.toolkit.token.route.ZuulStatus;
-import cyan.toolkit.token.service.WhiteService;
+import cyan.toolkit.zuul.entity.WhiteEntity;
+import cyan.toolkit.zuul.mapper.WhiteMapper;
+import cyan.toolkit.zuul.route.ZuulStatus;
+import cyan.toolkit.zuul.service.WhiteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

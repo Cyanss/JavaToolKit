@@ -1,8 +1,8 @@
-package cyan.toolkit.token.entity;
+package cyan.toolkit.zuul.entity;
 
-import cyan.toolkit.chief.entity.TimeEntity;
-import cyan.toolkit.token.DynamicRoute;
-import cyan.toolkit.token.route.ZuulStatus;
+import cyan.toolkit.rice.entity.TimeEntity;
+import cyan.toolkit.zuul.DynamicRoute;
+import cyan.toolkit.zuul.route.ZuulStatus;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @date 8:43 2021/6/8
  */
 @Table(name = "zuul_route_list")
-public class RouteEntity extends TimeEntity<Date> {
+public class RouteEntity extends TimeEntity {
     @Id
     private String path;
 
@@ -96,7 +96,7 @@ public class RouteEntity extends TimeEntity<Date> {
         return Objects.hash(path);
     }
 
-    public static class Builder extends TimeEntity.Builder<Date> {
+    public static class Builder extends TimeEntity.Builder {
         private String path;
         private String location;
         private String name;

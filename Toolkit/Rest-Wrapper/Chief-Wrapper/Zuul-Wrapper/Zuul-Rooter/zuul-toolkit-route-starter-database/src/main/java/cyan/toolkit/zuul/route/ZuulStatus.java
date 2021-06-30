@@ -1,4 +1,4 @@
-package cyan.toolkit.token.route;
+package cyan.toolkit.zuul.route;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
