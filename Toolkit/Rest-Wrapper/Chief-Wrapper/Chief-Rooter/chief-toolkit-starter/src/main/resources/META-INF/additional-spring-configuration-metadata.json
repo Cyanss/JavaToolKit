@@ -1,7 +1,7 @@
 {
   "groups": [
     {
-      "name": "cyan.toolkit.rest.identity",
+      "name": "cyan.toolkit.chief.name",
       "sourceType": "cyan.toolkit.chief.configure.ChiefNameProperties",
       "type": "cyan.toolkit.chief.configure.ChiefNameProperties"
     }

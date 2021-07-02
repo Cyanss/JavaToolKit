@@ -64,7 +64,12 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
     @SuppressWarnings(value = "unchecked")
     @Override
     public void afterPropertiesSet() throws Exception {
-        this.nameProperties = applicationContext.getBean("chiefNameProperties", ChiefNameProperties.class);
+        this.nameProperties = applicationContext.getBean(ChiefNameProperties.class);
+        if (GeneralUtils.isEmpty(nameProperties)) {
+            String message = "the bean of 'ChiefNameProperties' type is not found!";
+            log.error(message);
+            throw new ServiceUnknownException(ChiefNameProperties.class.getName(), this.getClass().getName(),message);
+        }
         String commonBeanName;
         simpleName = this.getClass().getSimpleName();
         if (simpleName.contains("ServiceImpl")) {
