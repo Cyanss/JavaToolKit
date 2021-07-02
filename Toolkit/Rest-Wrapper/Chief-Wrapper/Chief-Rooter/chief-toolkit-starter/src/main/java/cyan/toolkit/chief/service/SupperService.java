@@ -5,6 +5,7 @@ import cyan.toolkit.chief.error.ServiceUnknownException;
 import cyan.toolkit.chief.filter.IdFilter;
 import cyan.toolkit.chief.helper.MEBuilderHelper;
 import cyan.toolkit.chief.mapper.IdMapper;
+import cyan.toolkit.chief.mapper.LoadMapper;
 import cyan.toolkit.chief.model.RestPage;
 import cyan.toolkit.chief.service.stereotype.RestService;
 import cyan.toolkit.rest.RestException;
@@ -261,30 +262,84 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
         supperMapper.deleteAll(idList);
     }
 
+    @SuppressWarnings(value = "unchecked")
     public M queryById(I id, Boolean... isLoadArray) throws RestException {
         if (GeneralUtils.isEmpty(id)) {
             return null;
         }
-        E entity = supperMapper.findById(id);
+        E entity;
+        if (isLoadArray.length > 0 && LoadMapper.class.isAssignableFrom(supperMapper.getClass())) {
+            LoadMapper<E,I> loadMapper = (LoadMapper<E,I>) supperMapper;
+            Method findMethod = null;
+            try {
+                findMethod = loadMapper.getClass().getMethod("queryById", id.getClass(), Boolean[].class);
+            } catch (NoSuchMethodException ignored) {
+            }
+            Method queryByIdMethod = findMethod;
+            /** 当LoadMapper被复写的时候 优先调用LoadMapper的queryByIdMethod */
+            if (queryByIdMethod != null && !queryByIdMethod.isDefault()) {
+                entity = loadMapper.findById(id, isLoadArray);
+            } else {
+                entity = supperMapper.findById(id);
+            }
+        } else {
+            entity = supperMapper.findById(id);
+        }
         if (GeneralUtils.isEmpty(entity)) {
             return null;
         }
         return modelActuator(entity, isLoadArray);
     }
 
+    @SuppressWarnings(value = "unchecked")
     public List<M> queryAll(Collection<I> idList, Boolean... isLoadArray) throws RestException {
         if (GeneralUtils.isEmpty(idList)) {
             return Collections.emptyList();
         }
-        List<E> entityList = supperMapper.findAll(idList);
+        List<E> entityList;
+        if (isLoadArray.length > 0 && LoadMapper.class.isAssignableFrom(supperMapper.getClass())) {
+            LoadMapper<E,I> loadMapper = (LoadMapper<E,I>) supperMapper;
+            Method findMethod = null;
+            try {
+                findMethod = loadMapper.getClass().getMethod("queryAll", List.class, Boolean[].class);
+            } catch (NoSuchMethodException ignored) {
+            }
+            Method queryByIdMethod = findMethod;
+            /** 当LoadMapper被复写的时候 优先调用LoadMapper的queryByIdMethod */
+            if (queryByIdMethod != null && !queryByIdMethod.isDefault()) {
+                entityList = loadMapper.findAll(idList, isLoadArray);
+            } else {
+                entityList = supperMapper.findAll(idList);
+            }
+        } else {
+            entityList = supperMapper.findAll(idList);
+        }
         return modelActuator(entityList, isLoadArray);
     }
 
+    @SuppressWarnings(value = "unchecked")
     public RestPage<M> queryAllWithFilter(F filter) throws RestException {
         String whereSql = queryWhereSql(filter);
         Boolean[] isLoadArray = loadArray(filter);
         Page<E> page = filter.toPage();
-        List<E> entityList = supperMapper.findAllByWhere(whereSql);
+        List<E> entityList;
+        if (isLoadArray.length > 0 && LoadMapper.class.isAssignableFrom(supperMapper.getClass())) {
+            LoadMapper<E,I> loadMapper = (LoadMapper<E,I>) supperMapper;
+            Method findMethod = null;
+            try {
+                findMethod = loadMapper.getClass().getMethod("findAllByWhere", List.class, Boolean[].class);
+            } catch (NoSuchMethodException ignored) {
+            }
+            Method queryByIdMethod = findMethod;
+            /** 当LoadMapper被复写的时候 优先调用LoadMapper的queryByIdMethod */
+            if (queryByIdMethod != null && !queryByIdMethod.isDefault()) {
+                entityList = loadMapper.findAllByWhere(whereSql,isLoadArray);
+            } else {
+                entityList = supperMapper.findAllByWhere(whereSql);
+            }
+        } else {
+            entityList = supperMapper.findAllByWhere(whereSql);
+        }
         List<M> modelList = modelActuator(entityList, isLoadArray);
         return RestPage.result(modelList, page);
     }

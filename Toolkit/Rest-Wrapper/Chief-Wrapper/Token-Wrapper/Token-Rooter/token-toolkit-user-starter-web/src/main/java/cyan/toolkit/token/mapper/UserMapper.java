@@ -1,7 +1,8 @@
 package cyan.toolkit.token.mapper;
 
-import cyan.toolkit.chief.ChiefIdLoadMapper;
-import cyan.toolkit.token.entity.UserDetailEntity;
+import cyan.toolkit.chief.mapper.IdMapper;
+import cyan.toolkit.chief.mapper.LoadMapper;
+import cyan.toolkit.token.entity.UserInfoEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Component;
  * @date 9:16 2021/6/30
  */
 @Component
-public interface UserMapper extends ChiefIdLoadMapper<UserDetailEntity> {
+public interface UserMapper extends LoadMapper<UserInfoEntity,Long>, IdMapper<UserInfoEntity, Long> {
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @group cyan.tool.kit
  * @date 9:36 2021/6/30
  */
-public interface IdLoadMapper<E extends IdEntity<I>,I> extends IdMapper<E,I> {
+public interface LoadMapper<E extends IdEntity<I>,I> {
     /**
      * 通过id查询实体
      * @param id 实体id

@@ -26,6 +26,7 @@ public enum RoleType implements RestValue<Integer,String> {
 
     private final Integer key;
     private final String value;
+
     RoleType(Integer key, String value) {
         this.key = key;
         this.value = value;

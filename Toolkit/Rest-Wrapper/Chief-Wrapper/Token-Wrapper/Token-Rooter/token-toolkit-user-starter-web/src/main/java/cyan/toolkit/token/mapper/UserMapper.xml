@@ -8,6 +8,7 @@
         <result property="nickname" column="nickname"/>
         <result property="avatar" column="avatar"/>
         <result property="role" column="role"/>
+        <result property="authority" column="authority"/>
         <result property="status" column="status"/>
         <result property="level" column="level"/>
         <result property="createTime" column="create_time"/>
@@ -20,6 +21,7 @@
         <result property="nickname" column="nickname"/>
         <result property="avatar" column="avatar"/>
         <result property="role" column="role"/>
+        <result property="authority" column="authority"/>
         <result property="status" column="status"/>
         <result property="level" column="level"/>
         <result property="password" column="password"/>
@@ -53,6 +55,7 @@
         #{entity.nickname},
         #{entity.avatar},
         #{entity.role},
+        #{entity.authority},
         #{entity.status},
         #{entity.level},
         #{entity.password},
@@ -66,70 +69,110 @@
         now()
         ) ON CONFLICT (id) DO UPDATE
         <set>
-            "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE cy_tk_cf_simple."name" END,
-            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE cy_tk_cf_simple."description" END,
-            "time" = CASE WHEN EXCLUDED."time" IS NOT NULL THEN EXCLUDED."time" ELSE cy_tk_cf_simple."time" END,
+            "account" = CASE WHEN EXCLUDED."account" IS NOT NULL THEN EXCLUDED."account" ELSE token_user_list."account" END,
+            "nickname" = CASE WHEN EXCLUDED."nickname" IS NOT NULL THEN EXCLUDED."nickname" ELSE token_user_list."nickname" END,
+            "avatar" = CASE WHEN EXCLUDED."avatar" IS NOT NULL THEN EXCLUDED."avatar" ELSE token_user_list."avatar" END,
+            "role" = CASE WHEN EXCLUDED."role" IS NOT NULL THEN EXCLUDED."role" ELSE token_user_list."role" END,
+            "authority" = CASE WHEN EXCLUDED."authority" IS NOT NULL THEN EXCLUDED."authority" ELSE token_user_list."authority" END,
+            "status" = CASE WHEN EXCLUDED."status" IS NOT NULL THEN EXCLUDED."status" ELSE token_user_list."status" END,
+            "level" = CASE WHEN EXCLUDED."level" IS NOT NULL THEN EXCLUDED."level" ELSE token_user_list."level" END,
+            "password" = CASE WHEN EXCLUDED."password" IS NOT NULL THEN EXCLUDED."password" ELSE token_user_list."password" END,
+            "mobile" = CASE WHEN EXCLUDED."mobile" IS NOT NULL THEN EXCLUDED."mobile" ELSE token_user_list."mobile" END,
+            "address" = CASE WHEN EXCLUDED."address" IS NOT NULL THEN EXCLUDED."address" ELSE token_user_list."address" END,
+            "signature" = CASE WHEN EXCLUDED."signature" IS NOT NULL THEN EXCLUDED."signature" ELSE token_user_list."signature" END,
+            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE token_user_list."description" END,
+            "registime" = CASE WHEN EXCLUDED."registime" IS NOT NULL THEN EXCLUDED."registime" ELSE token_user_list."registime" END,
+            "activatime" = CASE WHEN EXCLUDED."activatime" IS NOT NULL THEN EXCLUDED."activatime" ELSE token_user_list."activatime" END,
             update_time = now()
         </set>
     </insert>
 
     <update id="saveAll">
-        INSERT INTO cy_tk_cf_simple (
-        <include refid="all_column"/>
+        INSERT INTO token_user_list (
+        <include refid="user_detail_all_column"/>
         )
         VALUES
         <foreach item="entity" index="index" collection="entityList" separator=",">
             (
             #{entity.id},
-            #{entity.name},
+            #{entity.account},
+            #{entity.nickname},
+            #{entity.avatar},
+            #{entity.role},
+            #{entity.authority},
+            #{entity.status},
+            #{entity.level},
+            #{entity.password},
+            #{entity.mobile},
+            #{entity.address},
+            #{entity.signature},
             #{entity.description},
-            #{entity.time},
+            #{entity.registime},
+            #{entity.activatime},
             now(),
             now()
             )
         </foreach>
         ON CONFLICT (id) DO UPDATE
         <set>
-            "name" = CASE WHEN EXCLUDED."name" IS NOT NULL THEN EXCLUDED."name" ELSE cy_tk_cf_simple."name" END,
-            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE cy_tk_cf_simple."description" END,
-            "time" = CASE WHEN EXCLUDED."time" IS NOT NULL THEN EXCLUDED."time" ELSE cy_tk_cf_simple."time" END,
+            "account" = CASE WHEN EXCLUDED."account" IS NOT NULL THEN EXCLUDED."account" ELSE token_user_list."account" END,
+            "nickname" = CASE WHEN EXCLUDED."nickname" IS NOT NULL THEN EXCLUDED."nickname" ELSE token_user_list."nickname" END,
+            "avatar" = CASE WHEN EXCLUDED."avatar" IS NOT NULL THEN EXCLUDED."avatar" ELSE token_user_list."avatar" END,
+            "role" = CASE WHEN EXCLUDED."role" IS NOT NULL THEN EXCLUDED."role" ELSE token_user_list."role" END,
+            "authority" = CASE WHEN EXCLUDED."authority" IS NOT NULL THEN EXCLUDED."authority" ELSE token_user_list."authority" END,
+            "status" = CASE WHEN EXCLUDED."status" IS NOT NULL THEN EXCLUDED."status" ELSE token_user_list."status" END,
+            "level" = CASE WHEN EXCLUDED."level" IS NOT NULL THEN EXCLUDED."level" ELSE token_user_list."level" END,
+            "password" = CASE WHEN EXCLUDED."password" IS NOT NULL THEN EXCLUDED."password" ELSE token_user_list."password" END,
+            "mobile" = CASE WHEN EXCLUDED."mobile" IS NOT NULL THEN EXCLUDED."mobile" ELSE token_user_list."mobile" END,
+            "address" = CASE WHEN EXCLUDED."address" IS NOT NULL THEN EXCLUDED."address" ELSE token_user_list."address" END,
+            "signature" = CASE WHEN EXCLUDED."signature" IS NOT NULL THEN EXCLUDED."signature" ELSE token_user_list."signature" END,
+            "description" = CASE WHEN EXCLUDED."description" IS NOT NULL THEN EXCLUDED."description" ELSE token_user_list."description" END,
+            "registime" = CASE WHEN EXCLUDED."registime" IS NOT NULL THEN EXCLUDED."registime" ELSE token_user_list."registime" END,
+            "activatime" = CASE WHEN EXCLUDED."activatime" IS NOT NULL THEN EXCLUDED."activatime" ELSE token_user_list."activatime" END,
             update_time = now()
         </set>
     </update>
 
     <delete id="deleteById">
-        DELETE FROM cy_tk_cf_simple
+        DELETE FROM token_user_list
         WHERE id = #{id}
     </delete>
 
     <delete id="deleteAll">
-        DELETE FROM cy_tk_cf_simple
+        DELETE FROM token_user_list
         WHERE id IN
         <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
 
-    <select id="findById" resultMap="simpleResultMap">
-        SELECT<include refid="all_column"/>
-        FROM cy_tk_cf_simple
+    <select id="findById" resultMap="userDetailResultMap">
+        SELECT<include refid="user_info_all_column"/>
+        FROM token_user_list
         WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultMap="simpleResultMap">
+    <select id="findAll" resultMap="userDetailResultMap">
         SELECT
-        <include refid="all_column"/>
-        FROM cy_tk_cf_simple
+        <choose>
+            <when test="loadParams.length > 0 and loadParams[0]">
+                <include refid="user_info_all_column"/>
+            </when>
+            <otherwise>
+                <include refid="user_detail_all_column"/>
+            </otherwise>
+        </choose>
+        FROM token_user_list
         WHERE id IN
         <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
 
-    <select id="findAllByWhere" resultMap="simpleResultMap">
+    <select id="findAllByWhere" resultMap="userInfoResultMap">
         SELECT
-        <include refid="all_column"/>
-        FROM cy_tk_cf_simple
+        <include refid="user_info_all_column"/>
+        FROM token_user_list
         WHERE 1=1
         <if test="whereSql!=null">
             ${whereSql}
@@ -137,23 +180,23 @@
     </select>
 
     <delete id="deleteAllByWhere">
-        DELETE FROM cy_tk_cf_simple
+        DELETE FROM token_user_list
         WHERE 1=1
         <if test="whereSql!=null">
             ${whereSql}
         </if>
     </delete>
 
-    <select id="findByName" resultMap="simpleResultMap">
-        SELECT <include refid="all_column"/>
-        FROM cy_tk_cf_simple
-        WHERE name = #{name}
+    <select id="findByAccount" resultMap="userInfoResultMap">
+        SELECT <include refid="user_info_all_column"/>
+        FROM token_user_list
+        WHERE account = #{account}
     </select>
 
-    <select id="findByNameAndNotId" resultMap="simpleResultMap">
-        SELECT <include refid="all_column"/>
-        FROM cy_tk_cf_simple
-        WHERE name = #{name}
+    <select id="findByAccountAndNotId" resultMap="userInfoResultMap">
+        SELECT <include refid="user_info_all_column"/>
+        FROM token_user_list
+        WHERE account = #{account}
         AND id != #{id}
     </select>
 
