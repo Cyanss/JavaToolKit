@@ -26,8 +26,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <toolkit.version>0.0.1-SNAPSHOT</toolkit.version>
-        <geotools.version>20.0</geotools.version>
-        <jts-core.version>1.15.0</jts-core.version>
+        <geotools.version>25.0</geotools.version>
+        <jts-core.version>1.18.1</jts-core.version>
     </properties>
 
     <repositories>
@@ -82,6 +82,7 @@
             <artifactId>jts-core</artifactId>
             <version>${jts-core.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

@@ -261,7 +261,7 @@ public class FileUtils {
         if(GeneralUtils.isEmpty(name)){
             return null;
         }
-        return name.substring(name.lastIndexOf("."));
+        return name.substring(name.lastIndexOf(".") + 1);
     }
 
     public static String filename(final String originalName){

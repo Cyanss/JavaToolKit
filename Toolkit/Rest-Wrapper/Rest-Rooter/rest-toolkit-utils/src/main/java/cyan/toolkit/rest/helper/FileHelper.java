@@ -42,18 +42,13 @@ public class FileHelper {
         if (file.exists()) {
             return file;
         }
-        if (file.isFile()) {
-            try {
-                boolean create = file.createNewFile();
-                if (!create) {
-                    throw new FileCreateException();
-                }
-
-            } catch (IOException exception) {
-                throw new FileCreateException(exception.getMessage());
-            }
-        } else {
-            boolean mkdirs = file.mkdirs();
+        if(!file.getParentFile().exists()){
+            boolean mkdirs = file.getParentFile().mkdirs();
+        }
+        try {
+            boolean create = file.createNewFile();
+        } catch (IOException exception) {
+            throw new FileCreateException(exception.getMessage());
         }
         return file;
     }
