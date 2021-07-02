@@ -5,11 +5,13 @@ import cyan.toolkit.rest.error.often.FileCreateException;
 import cyan.toolkit.rest.helper.FileHelper;
 import cyan.toolkit.rest.util.often.NameUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +28,19 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class FileUtils {
+
+    public static File cacheFile(String cachePath, MultipartFile file) {
+        createPath(cachePath);
+        String originalFilename = file.getOriginalFilename();
+        String path = cachePath + originalFilename;
+        File cacheFile = new File(path);
+        try {
+            file.transferTo(cacheFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cacheFile;
+    }
 
     public static File createFile(String path) {
         return createFile(new File(path));
@@ -242,7 +257,7 @@ public class FileUtils {
         }
     }
 
-    public static String extension(String name){
+    public static String suffix(String name){
         if(GeneralUtils.isEmpty(name)){
             return null;
         }
@@ -256,6 +271,32 @@ public class FileUtils {
         return originalName.substring(0,originalName.lastIndexOf("."));
     }
 
+    public static void writeZip(File file, HttpServletResponse response) throws Exception {
+        write(file,"application/octet-stream",response);
+    }
+
+    public static void writeExcel(File file, HttpServletResponse response) throws Exception {
+        write(file,"application/vnd.ms-excel",response);
+    }
+
+    public static void write(File file,String contentType, HttpServletResponse response) throws Exception {
+        /** 写入response */
+        String filename = file.getName();
+        InputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file));
+        byte[] bufferCache = new byte[bufferedInputStream.available()];
+        int readSize = bufferedInputStream.read(bufferCache);
+        bufferedInputStream.close();
+        response.reset();
+        response.addHeader("Content-Disposition", "attachment;filename="
+                + new String(filename.replaceAll(" ", "").getBytes(StandardCharsets.UTF_8), "iso8859-1"));
+        response.addHeader("Content-Length", "" + file.length());
+        response.setCharacterEncoding("UTF-8");
+        OutputStream bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
+        response.setContentType(contentType);
+        bufferedOutputStream.write(bufferCache);
+        bufferedOutputStream.flush();
+        bufferedOutputStream.close();
+    }
 
     public static String fileSize(Long fileSize) {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");

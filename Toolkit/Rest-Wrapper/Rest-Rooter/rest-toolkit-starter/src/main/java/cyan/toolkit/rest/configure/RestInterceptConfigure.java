@@ -1,5 +1,6 @@
 package cyan.toolkit.rest.configure;
 
+
 import cyan.toolkit.rest.interceptor.RestHandlerInterceptor;
 import cyan.toolkit.rest.interceptor.RestHttpInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * <p>RestInterceptConfigure</p>
@@ -18,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @date 17:12 2020/9/9
  */
 @Configuration
-public class RestInterceptConfigure implements WebMvcConfigurer {
+public class RestInterceptConfigure extends WebMvcConfigurationSupport {
     @Autowired
     private RestHandlerInterceptor handlerInterceptor;
     @Autowired

@@ -21,7 +21,7 @@ public class StreamHelper {
         try {
             int length;
             byte[] buffer = new byte[1024];
-            while((length = inputStream.read(buffer)) != -1) {
+            while ((length = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, length);
                 outputStream.flush();
             }
@@ -101,8 +101,12 @@ public class StreamHelper {
 
 
     public static void write(OutputStream outputStream, byte[] data) throws StreamWriteException {
+        InputStream inputStream = new ByteArrayInputStream(data);
+        write(outputStream,inputStream);
+    }
+
+    public static void write(OutputStream outputStream, InputStream inputStream) throws StreamWriteException {
         try {
-            InputStream inputStream = new ByteArrayInputStream(data);
             byte[] buffer = new byte[1024];
             int length;
             while ((length = inputStream.read(buffer)) != -1) {
@@ -113,13 +117,12 @@ public class StreamHelper {
         } catch (IOException exception) {
             throw new StreamWriteException(exception.getMessage());
         }
-
     }
 
     public static void write(File file, byte[] data) throws StreamWriteException {
         try {
             OutputStream outputStream = new FileOutputStream(file);
-            write(outputStream,data);
+            write(outputStream, data);
         } catch (IOException exception) {
             throw new StreamWriteException(exception.getMessage());
         }
@@ -129,7 +132,7 @@ public class StreamHelper {
     public static void write(String filename, byte[] data) throws StreamWriteException {
         try {
             OutputStream outputStream = new FileOutputStream(filename);
-            write(outputStream,data);
+            write(outputStream, data);
         } catch (IOException exception) {
             throw new StreamWriteException(exception.getMessage());
         }

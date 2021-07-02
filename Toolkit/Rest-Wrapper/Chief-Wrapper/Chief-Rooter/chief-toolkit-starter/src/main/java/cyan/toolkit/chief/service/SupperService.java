@@ -246,6 +246,7 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
         return new ArrayList<>(modelList);
     }
 
+    @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
     public void deleteById(I id) throws RestException {
         if (GeneralUtils.isEmpty(id)) {
@@ -254,6 +255,7 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
         supperMapper.deleteById(id);
     }
 
+    @Override
     @Transactional(rollbackFor = {RestException.class, SQLException.class})
     public void deleteAll(Collection<I> idList) throws RestException {
         if (GeneralUtils.isEmpty(idList)) {
@@ -262,6 +264,7 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
         supperMapper.deleteAll(idList);
     }
 
+    @Override
     @SuppressWarnings(value = "unchecked")
     public M queryById(I id, Boolean... isLoadArray) throws RestException {
         if (GeneralUtils.isEmpty(id)) {
@@ -291,6 +294,7 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
         return modelActuator(entity, isLoadArray);
     }
 
+    @Override
     @SuppressWarnings(value = "unchecked")
     public List<M> queryAll(Collection<I> idList, Boolean... isLoadArray) throws RestException {
         if (GeneralUtils.isEmpty(idList)) {

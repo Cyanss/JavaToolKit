@@ -85,7 +85,15 @@ public class StreamUtils {
             log.error("It is failed when data write to outputStream!", exception);
             exception.printStackTrace();
         }
+    }
 
+    public static void write(OutputStream outputStream, InputStream inputStream) {
+        try {
+            StreamHelper.write(outputStream, inputStream);
+        } catch (StreamWriteException exception) {
+            log.error("It is failed when inputStream write to outputStream!", exception);
+            exception.printStackTrace();
+        }
     }
 
     public static void write(String filename, byte[] data) {

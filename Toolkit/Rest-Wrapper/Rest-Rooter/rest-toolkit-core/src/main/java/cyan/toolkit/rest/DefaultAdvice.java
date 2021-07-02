@@ -63,6 +63,7 @@ public class DefaultAdvice implements ApplicationContextAware, InitializingBean 
             return ResponseEntity.ok(defaultException.buildResult());
         } else {
             doExceptionHandle(exception,request,response);
+            exception.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(DefaultResult.fail(RestErrorStatus.UNKNOWN_ERROR,exception));
         }
     }

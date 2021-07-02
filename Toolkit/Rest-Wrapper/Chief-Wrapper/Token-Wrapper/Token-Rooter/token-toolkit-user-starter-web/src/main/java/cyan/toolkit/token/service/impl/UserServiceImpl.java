@@ -1,12 +1,12 @@
 package cyan.toolkit.token.service.impl;
 
 import cyan.toolkit.chief.ChiefIdService;
+import cyan.toolkit.chief.service.stereotype.RestService;
 import cyan.toolkit.rest.RestException;
 import cyan.toolkit.token.entity.UserInfoEntity;
 import cyan.toolkit.token.filter.UserFilter;
 import cyan.toolkit.token.model.UserInfo;
 import cyan.toolkit.token.service.UserService;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>UserServiceImpl</p>
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @group cyan.tool.kit
  * @date 14:35 2021/6/29
  */
-@Service
+@RestService(name = "userInfoService")
 public class UserServiceImpl extends ChiefIdService<UserInfo, UserInfoEntity, UserFilter> implements UserService {
 
     @Override

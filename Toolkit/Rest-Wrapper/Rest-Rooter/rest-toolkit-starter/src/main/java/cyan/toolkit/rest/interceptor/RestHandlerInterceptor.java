@@ -131,17 +131,18 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
     public void applyInterceptRequestLog(RestInterceptRequest interceptRequest) {
         if (interceptProperties.getLogEnabled()) {
             log.info(">>>>>>>>>>>>>> Request Intercept Log Begin <<<<<<<<<<<<<<");
-            log.info("Request >======= [time]: {}", DateUtils.formatTime(interceptRequest.getTime()));
-            log.info("Request >= [start time]: {}",interceptRequest.getStartTime());
-            log.info("Request >=== [end time]: {}",interceptRequest.getEndTime());
-            log.info("Request >== [cost time]: {}",interceptRequest.getCostTime());
-            log.info("Request >= [ip address]: {}",interceptRequest.getIpAddress());
-            log.info("Request >= [user agent]: {}",interceptRequest.getUserAgent());
-            log.info("Request >===== [method]: {}",interceptRequest.getMethod());
-            log.info("Request >======== [url]: {}",interceptRequest.getUrl());
-            log.info("Request >====== [param]: {}",interceptRequest.getParam());
-            log.info("Request >===== [status]: {}",interceptRequest.getStatus());
-            log.info("Request >==== [message]: {}",interceptRequest.getIpAddress());
+            log.info("Request           time : {}", DateUtils.formatTime(interceptRequest.getTime()));
+            log.info("Request     start time : {}",interceptRequest.getStartTime());
+            log.info("Request       end time : {}",interceptRequest.getEndTime());
+            log.info("Request      cost time : {}",interceptRequest.getCostTime());
+            log.info("Request     ip address : {}",interceptRequest.getIpAddress());
+            log.info("Request     user agent : {}",interceptRequest.getUserAgent());
+            log.info("Request         method : {}",interceptRequest.getMethod());
+            log.info("Request            url : {}",interceptRequest.getUrl());
+            log.info("Request          param : {}",interceptRequest.getParam());
+            log.info("Request         status : {}",interceptRequest.getStatus());
+            log.info("Request        message : {}",interceptRequest.getMessage());
+            log.info("Request        message : {}",interceptRequest.getIpAddress());
             log.info(">>>>>>>>>>>>>>> Request Intercept Log end <<<<<<<<<<<<<<<");
         }
     }

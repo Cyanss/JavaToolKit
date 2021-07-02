@@ -31,18 +31,18 @@ public class RestHttpInterceptor implements ClientHttpRequestInterceptor {
     @NonNull
     public ClientHttpResponse intercept(@NonNull HttpRequest httpRequest, @NonNull byte[] bytes, @NonNull ClientHttpRequestExecution execution) throws IOException {
         String url = httpRequest.getURI().getPath();
-        log.info("[HttpRequest]-Url:     {}",url);
+        log.info(" HttpRequest -Url:     {}",url);
         HttpMethod method = httpRequest.getMethod();
-        log.info("[HttpRequest]-Method:  {}", JsonUtils.parseJson(method));
+        log.info(" HttpRequest -Method:  {}", JsonUtils.parseJson(method));
         String query = httpRequest.getURI().getQuery();
         UriComponents uriComponents = UriComponentsBuilder.newInstance().query(query).build();
         MultiValueMap<String, String> queryParams = uriComponents.getQueryParams();
         Map<String, String> params = queryParams.toSingleValueMap();
-        log.info("[HttpRequest]-Params:  {}", JsonUtils.parseJson(params));
+        log.info(" HttpRequest -Params:  {}", JsonUtils.parseJson(params));
         HttpHeaders headers = httpRequest.getHeaders();
-        log.info("[HttpRequest]-Headers: {}",JsonUtils.parseJson(headers));
+        log.info(" HttpRequest -Headers: {}",JsonUtils.parseJson(headers));
         String httpRequestBody = new String(bytes);
-        log.info("[HttpRequest]-Body:    {}",httpRequestBody);
+        log.info(" HttpRequest -Body:    {}", httpRequestBody);
         return execution.execute(httpRequest, bytes);
     }
 }

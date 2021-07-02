@@ -28,8 +28,9 @@ public class BeanUtils {
         Set<String> emptyNames = new HashSet<>();
         for (PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null)
+            if (srcValue == null) {
                 emptyNames.add(pd.getName());
+            }
         }
         String[] ignoreProperties = new String[emptyNames.size()];
         emptyNames.toArray(ignoreProperties);

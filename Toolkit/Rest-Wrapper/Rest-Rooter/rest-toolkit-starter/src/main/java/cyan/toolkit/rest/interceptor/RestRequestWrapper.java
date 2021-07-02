@@ -1,15 +1,13 @@
 package cyan.toolkit.rest.interceptor;
 
+
 import org.springframework.util.StreamUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 /**
  * <p>RestRequestWrapper</p>
@@ -19,44 +17,21 @@ import java.io.InputStreamReader;
  * @date 16:47 2020/9/9
  */
 public class RestRequestWrapper extends HttpServletRequestWrapper {
-    private final byte[] body;
+    private final  ThreadLocal<HttpServletRequest> BODY_HOLDER = new ThreadLocal<>();
 
     public RestRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
-        body = StreamUtils.copyToByteArray(request.getInputStream());
+        //TODO
+        BODY_HOLDER.set(request);
     }
 
     @Override
-    public BufferedReader getReader() {
+    public BufferedReader getReader()throws IOException {
         return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
     @Override
-    public ServletInputStream getInputStream() {
-
-        final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(body);
-
-        return new ServletInputStream() {
-
-            @Override
-            public int read() {
-                return byteArrayInputStream.read();
-            }
-
-            @Override
-            public boolean isFinished() {
-                return false;
-            }
-
-            @Override
-            public boolean isReady() {
-                return false;
-            }
-
-            @Override
-            public void setReadListener(ReadListener readListener) {
-
-            }
-        };
+    public ServletInputStream getInputStream() throws IOException {
+        return BODY_HOLDER.get().getInputStream();
     }
 }
