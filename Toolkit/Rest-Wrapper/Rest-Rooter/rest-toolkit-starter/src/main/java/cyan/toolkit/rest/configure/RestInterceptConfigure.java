@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * <p>RestInterceptConfigure</p>
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
  * @date 17:12 2020/9/9
  */
 @Configuration
-public class RestInterceptConfigure extends WebMvcConfigurationSupport {
+public class RestInterceptConfigure implements WebMvcConfigurer {
     @Autowired
     private RestHandlerInterceptor handlerInterceptor;
     @Autowired

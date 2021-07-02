@@ -1,8 +1,10 @@
 package cyan.toolkit.rest;
 
+import cyan.toolkit.rest.configure.RestExceptionProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
@@ -31,6 +33,8 @@ import java.util.Map;
 @ControllerAdvice
 @RestControllerAdvice
 public class DefaultAdvice implements ApplicationContextAware, InitializingBean {
+    @Autowired
+    private RestExceptionProperties exceptionProperties;
     @Nullable
     private ApplicationContext applicationContext;
     @Nullable
@@ -60,10 +64,15 @@ public class DefaultAdvice implements ApplicationContextAware, InitializingBean 
         if (exception instanceof DefaultException) {
             DefaultException defaultException = (DefaultException) exception;
             doDefaultExceptionHandle(defaultException,request,response);
+            if (exceptionProperties.getConsoleLog().getRestExceptionEnabled()) {
+                exception.printStackTrace();
+            }
             return ResponseEntity.ok(defaultException.buildResult());
         } else {
             doExceptionHandle(exception,request,response);
-            exception.printStackTrace();
+            if (exceptionProperties.getConsoleLog().getCommonExceptionEnabled()) {
+                exception.printStackTrace();
+            }
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(DefaultResult.fail(RestErrorStatus.UNKNOWN_ERROR,exception));
         }
     }

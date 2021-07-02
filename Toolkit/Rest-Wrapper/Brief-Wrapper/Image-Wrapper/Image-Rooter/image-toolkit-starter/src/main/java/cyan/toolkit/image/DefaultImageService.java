@@ -45,7 +45,7 @@ final class DefaultImageService implements ImageService {
             FileOutputStream outputStream = new FileOutputStream(new File(imagePath));
             StreamUtils.transfer(file.getInputStream(), outputStream);
             String metaPath = uuidPath.concat(File.separator).concat(uuid).concat(".meta");
-            String extension = FileUtils.extension(filename);
+            String extension = FileUtils.suffix(filename);
             if (GeneralUtils.isEmpty(extension)) {
                 throw new ImageException("图片格式错误！", new ParamInvalidException());
             }

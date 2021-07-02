@@ -1,0 +1,75 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.rest.error",
+      "sourceType": "cyan.toolkit.rest.configure.RestExceptionProperties",
+      "type": "cyan.toolkit.rest.configure.RestExceptionProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.rest.error.console-log.rest-exception-enabled",
+      "type": "java.lang.Boolean",
+      "description": "rest exception enabled."
+    },
+    {
+      "name": "cyan.toolkit.rest.error.console-log.common-exception-enabled",
+      "type": "java.lang.Boolean",
+      "description": "common exception enabled."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.rest.error.console-log.rest-exception-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "rest exception enabled close."
+        },
+        {
+          "value": true,
+          "description": "rest exception enabled open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.rest.error.console-log.common-exception-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "common exception enabled close."
+        },
+        {
+          "value": true,
+          "description": "common exception enabled open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.rest.intercept.bean-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "intercept bean close."
+        },
+        {
+          "value": true,
+          "description": "intercept bean open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.rest.identity.type",
+      "values": [
+        {
+          "value": "CONFIG",
+          "description": "identity type CONFIG."
+        },
+        {
+          "value": "SERVER",
+          "description": "identity type SERVER."
+        }
+      ]
+    }
+  ]
+}
