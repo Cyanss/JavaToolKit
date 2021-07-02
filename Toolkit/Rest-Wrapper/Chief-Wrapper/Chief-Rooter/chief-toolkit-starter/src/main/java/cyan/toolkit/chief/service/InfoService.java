@@ -26,15 +26,19 @@ public abstract class InfoService<I,M extends InfoModel<I>, E extends InfoEntity
     @Override
     public void doServiceHandle() {
         this.createActuator = (@NonNull M model) -> {
-            //TODO
-            OptionalHelper.fieldable(model.getName(), "name is null！");
-            Boolean existByName = existByName(model.getName());
-            OptionalHelper.nameRepeat(existByName, model.getName());
+            if (nameProperties.getNonullEnabled()) {
+                OptionalHelper.fieldable(model.getName(), "name is null！");
+            }
+            if (nameProperties.getUniqueEnabled()) {
+                Boolean existByName = existByName(model.getName());
+                OptionalHelper.nameRepeat(existByName, model.getName());
+            }
         };
         this.updateActuator = (@NonNull M model) -> {
-            //TODO
-            Boolean existByName = existByNameAndNotId(model.getName(),model.getId());
-            OptionalHelper.nameRepeat(existByName,model.getName());
+            if (nameProperties.getUniqueEnabled()) {
+                Boolean existByName = existByNameAndNotId(model.getName(),model.getId());
+                OptionalHelper.nameRepeat(existByName,model.getName());
+            }
         };
         if (super.supperMapper instanceof InfoMapper) {
             this.consumerMapper = (InfoMapper) super.supperMapper;

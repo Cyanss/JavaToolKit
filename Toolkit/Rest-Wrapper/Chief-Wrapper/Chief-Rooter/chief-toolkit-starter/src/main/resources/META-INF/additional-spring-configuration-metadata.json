@@ -1,0 +1,49 @@
+{
+  "groups": [
+    {
+      "name": "cyan.toolkit.rest.identity",
+      "sourceType": "cyan.toolkit.chief.configure.ChiefNameProperties",
+      "type": "cyan.toolkit.chief.configure.ChiefNameProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cyan.toolkit.chief.name.unique-enabled",
+      "type": "java.lang.Boolean",
+      "description": "name unique enabled."
+    },
+    {
+      "name": "cyan.toolkit.chief.name.nonull-enabled",
+      "type": "java.lang.Boolean",
+      "description": "name nonull enabled."
+    }
+  ],
+  "hints": [
+    {
+      "name": "cyan.toolkit.chief.name.unique-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "name unique enabled close."
+        },
+        {
+          "value": true,
+          "description": "name unique enabled open."
+        }
+      ]
+    },
+    {
+      "name": "cyan.toolkit.chief.name.nonull-enabled",
+      "values": [
+        {
+          "value": false,
+          "description": "name nonull enabled close."
+        },
+        {
+          "value": true,
+          "description": "name nonull enabled open."
+        }
+      ]
+    }
+  ]
+}

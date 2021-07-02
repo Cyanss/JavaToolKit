@@ -1,6 +1,7 @@
 package cyan.toolkit.chief.service;
 
 import com.github.pagehelper.Page;
+import cyan.toolkit.chief.configure.ChiefNameProperties;
 import cyan.toolkit.chief.error.ServiceUnknownException;
 import cyan.toolkit.chief.filter.IdFilter;
 import cyan.toolkit.chief.helper.MEBuilderHelper;
@@ -53,6 +54,8 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
 
     private String simpleName;
 
+    protected ChiefNameProperties nameProperties;
+
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         SupperService.applicationContext = applicationContext;
@@ -61,6 +64,7 @@ public abstract class SupperService<I, M extends IdModel<I>, E extends IdEntity<
     @SuppressWarnings(value = "unchecked")
     @Override
     public void afterPropertiesSet() throws Exception {
+        this.nameProperties = applicationContext.getBean("chiefNameProperties", ChiefNameProperties.class);
         String commonBeanName;
         simpleName = this.getClass().getSimpleName();
         if (simpleName.contains("ServiceImpl")) {
