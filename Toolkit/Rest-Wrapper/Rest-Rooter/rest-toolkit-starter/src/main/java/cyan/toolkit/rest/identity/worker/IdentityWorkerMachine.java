@@ -65,7 +65,7 @@ class IdentityWorkerMachine implements IdentityWorker{
                 offset = IdentityWorkerConfig.CACHE_SIZE + 1;
                 isOffset = false;
             }
-            time = new IdentityWorkerTime().sequence(Math.abs(this.lastTime - time) * this.sequence + offset);
+            time = new IdentityWorkerTime().sequence(Math.abs(this.lastTime - time) + this.sequence + offset);
             log.warn("clock is moving backwards. Rejecting requests until {}", this.lastTime);
         }
         if (this.lastTime.equals(time)) {
