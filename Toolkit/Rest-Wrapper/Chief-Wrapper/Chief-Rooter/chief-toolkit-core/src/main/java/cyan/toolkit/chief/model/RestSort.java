@@ -99,13 +99,8 @@ public class RestSort<S extends RestSort<S>> implements Serializable {
             return this;
         }
 
-        public RestSort.Builder<S> type(Integer type) {
-            this.type = SortType.parserKey(type);
-            return this;
-        }
-
         public RestSort.Builder<S> type(String type) {
-            this.type = SortType.parserValue(type);
+            this.type = SortType.parserKey(type);
             return this;
         }
         

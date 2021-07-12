@@ -3,6 +3,7 @@ package cyan.toolkit.chief.configure;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
@@ -15,8 +16,10 @@ import tk.mybatis.spring.annotation.MapperScan;
 @Slf4j
 @Configuration
 @ComponentScan(basePackages = {"cyan.toolkit.chief"})
-public class ChiefStarterAutoConfigure {
-    public ChiefStarterAutoConfigure() {
-        log.debug("================= chief-toolkit-starter initiated ！ ===================");
+@Import(value = {ChiefDatasourceConfigure.class})
+@MapperScan(basePackages = {"cyan.toolkit.chief.simple.mapper"})
+public class ChiefWebAutoConfigure {
+    public ChiefWebAutoConfigure() {
+        log.debug("================= chief-toolkit-web initiated ！ ===================");
     }
 }
