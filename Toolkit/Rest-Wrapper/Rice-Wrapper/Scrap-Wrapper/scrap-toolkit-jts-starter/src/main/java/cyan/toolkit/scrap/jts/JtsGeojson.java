@@ -1,6 +1,8 @@
 package cyan.toolkit.scrap.jts;
 
 
+import org.locationtech.jts.geom.GeometryFactory;
+
 public class JtsGeojson {
     public static final String POINT = "Point";
     public static final String LINE_STRING = "LineString";
@@ -17,4 +19,6 @@ public class JtsGeojson {
     public static final String GEOMETRIES = "geometries";
 
     public static final String COORDINATES = "coordinates";
+
+    public static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
 }

@@ -5,30 +5,27 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import cyan.toolkit.scrap.jts.JtsParser;
-import cyan.toolkit.scrap.jts.parser.GeometryParser;
 import org.locationtech.jts.geom.Geometry;
 
 import java.io.IOException;
 
-import static cyan.toolkit.scrap.jts.JtsGeojson.GEOMETRY_FACTORY;
-
 /**
- * <p>GeometryDeserializer</p>
+ * <p>JtsDeserializer</p>
  * @author Cyan (snow22314@outlook.com)
  * @version V.0.0.1
  * @group cyan.tool.kit
- * @date 10:52 2020/9/22
+ * @date 14:47 2021/7/12
  */
-public class GeometryDeserializer extends JsonDeserializer<Geometry> {
+public class JtsDeserializer<S extends Geometry> extends JsonDeserializer<S> {
 
-    private JtsParser jtsParser;
+    private JtsParser<S> jtsParser;
 
-    public GeometryDeserializer() {
-        this.jtsParser = new GeometryParser(GEOMETRY_FACTORY);
+    public JtsDeserializer(JtsParser<S> jtsParser) {
+        this.jtsParser = jtsParser;
     }
 
     @Override
-    public Geometry deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public S deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         JsonNode root = jsonParser.getCodec().readTree(jsonParser);
         return jtsParser.parse(root);
     }
