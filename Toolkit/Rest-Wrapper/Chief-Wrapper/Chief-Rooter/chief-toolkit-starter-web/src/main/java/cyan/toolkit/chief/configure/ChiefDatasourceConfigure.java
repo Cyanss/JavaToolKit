@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 
