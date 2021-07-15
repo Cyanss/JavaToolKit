@@ -82,7 +82,10 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         ServletRequest requestWrapper = null;
         if (servletRequest instanceof HttpServletRequest) {
-            requestWrapper = new RestRequestWrapper((HttpServletRequest) servletRequest);
+            String contentType = servletRequest.getContentType();
+            if (!contentType.contains("multipart/form-data")) {
+                requestWrapper = new RestRequestWrapper((HttpServletRequest) servletRequest);
+            }
         }
         if (null == requestWrapper) {
             filterChain.doFilter(servletRequest, servletResponse);
@@ -113,11 +116,24 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
         String requestBody = "";
         String contentType = request.getContentType();
         if (StringUtils.hasText(contentType) && contentType.contains("application/json")) {
-            requestBody = RestInterceptHolder.getRequestBody(request);
+            if (request instanceof RestRequestWrapper) {
+                RestRequestWrapper requestWrapper = (RestRequestWrapper) request;
+                String body = new String(requestWrapper.getBody());
+                String bodyTrim = body.replaceAll("\r", "")
+                        .replaceAll("\n", "")
+                        .replaceAll(" ", "")
+                        .trim();
+                if (bodyTrim.length() > 500) {
+                    requestBody = bodyTrim.substring(0,500).concat("...");
+                } else {
+                    requestBody = bodyTrim;
+                }
+            } else {
+                log.debug("the request is not 'RestRequestWrapper' type!");
+            }
         }
         String param = StringUtils.hasText(requestBody) ? requestBody : RestInterceptHolder.getRequestParam(request);
         interceptRequestBuilder.param(param);
-
         return interceptRequestBuilder.build();
     }
 
@@ -142,7 +158,6 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
             log.info("Request          param : {}",interceptRequest.getParam());
             log.info("Request         status : {}",interceptRequest.getStatus());
             log.info("Request        message : {}",interceptRequest.getMessage());
-            log.info("Request        message : {}",interceptRequest.getIpAddress());
             log.info(">>>>>>>>>>>>>>> Request Intercept Log end <<<<<<<<<<<<<<<");
         }
     }
