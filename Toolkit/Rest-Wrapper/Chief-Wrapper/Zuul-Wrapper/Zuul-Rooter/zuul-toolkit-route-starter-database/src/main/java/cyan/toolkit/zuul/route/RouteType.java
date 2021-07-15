@@ -41,13 +41,13 @@ public enum RouteType implements RestValue<Integer,String> {
     }
 
     @JsonCreator
-    public static SortType parserKey(@NonNull Integer key) {
-        SortType sortTypeEnum = RestValue.parserKey(SortType.class, key);
-        return Optional.ofNullable(sortTypeEnum).orElse(SortType.DESC);
+    public static RouteType parserKey(@NonNull Integer key) {
+        RouteType typeEnum = RestValue.parserKey(RouteType.class, key);
+        return Optional.ofNullable(typeEnum).orElse(RouteType.DEFAULT);
     }
 
-    public static SortType parserValue(@NonNull String value) {
-        SortType sortTypeEnum = RestValue.parserValue(SortType.class, value);
-        return Optional.ofNullable(sortTypeEnum).orElse(SortType.DESC);
+    public static RouteType parserValue(@NonNull String value) {
+        RouteType typeEnum = RestValue.parserValue(RouteType.class, value);
+        return Optional.ofNullable(typeEnum).orElse(RouteType.DEFAULT);
     }
 }
