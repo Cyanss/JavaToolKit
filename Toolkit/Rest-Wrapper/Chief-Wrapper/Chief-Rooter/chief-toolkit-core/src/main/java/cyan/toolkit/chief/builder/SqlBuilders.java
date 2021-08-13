@@ -39,6 +39,14 @@ public class SqlBuilders {
         return new SqlBuilder(seq);
     }
 
+    public static SqlBuilder nonin(StringBuilder sqlBuilder, String target, Collection<?> values) {
+        return newSqlBuilder(sqlBuilder).nin(target, values, true);
+    }
+
+    public static void nonin(SqlBuilder sqlBuilder, String target, Collection<?> values) {
+        sqlBuilder.nin(target, values, true);
+    }
+
     public static SqlBuilder in(StringBuilder sqlBuilder, String target, Collection<?> values) {
         return newSqlBuilder(sqlBuilder).in(target, values, true);
     }
@@ -53,6 +61,14 @@ public class SqlBuilders {
 
     public static void range(SqlBuilder sqlBuilder, String target, Object beginValue, Object endValue) {
         sqlBuilder.re(target, beginValue, endValue, true);
+    }
+
+    public static SqlBuilder scope(StringBuilder sqlBuilder, String minTarget, String maxTarget,Object value) {
+        return newSqlBuilder(sqlBuilder).se(minTarget, maxTarget, value, true);
+    }
+
+    public static void scope(SqlBuilder sqlBuilder, String minTarget, String maxTarget,Object value) {
+        sqlBuilder.se(minTarget, maxTarget, value, true);
     }
 
     public static SqlBuilder both(StringBuilder sqlBuilder, String target, Object beginValue, Object endValue) {

@@ -286,6 +286,22 @@ public final class SqlBuilder implements Serializable, CharSequence {
         return in(target,values,false);
     }
 
+    public SqlBuilder nin(String target, Collection<?> values, Boolean andOfOr) {
+        if (GeneralUtils.isNotEmpty(values)) {
+            if (values.size() == 1) {
+                Object value = values.stream().findFirst().get();
+                this.neq(target,value,andOfOr);
+            } else {
+                this.andOfOr(andOfOr);
+                this.append(target).append(" NOT IN (");
+                values.forEach(value -> this.value(value,true));
+                this.deleteCharAt(this.length() - 2);
+                this.append(")");
+            }
+        }
+        return this;
+    }
+
     public SqlBuilder in(String target, Collection<?> values, Boolean andOfOr) {
         if (GeneralUtils.isNotEmpty(values)) {
             if (values.size() == 1) {
@@ -310,10 +326,26 @@ public final class SqlBuilder implements Serializable, CharSequence {
         return this;
     }
 
+    public SqlBuilder sb(String minTarget, String maxTarget, Object value) {
+        if (GeneralUtils.isNotEmpty(value)) {
+            this.lt(minTarget,value,true);
+            this.gt(maxTarget,value,true);
+        }
+        return this;
+    }
+
     public SqlBuilder reb(String target,  Object beginValue, Object endValue) {
         if (GeneralUtils.isNotEmpty(beginValue) && GeneralUtils.isNotEmpty(endValue)) {
             this.gte(target,endValue,true);
             this.lte(target,beginValue,true);
+        }
+        return this;
+    }
+
+    public SqlBuilder seb(String minTarget, String maxTarget, Object value) {
+        if (GeneralUtils.isNotEmpty(value)) {
+            this.lte(minTarget,value,true);
+            this.gte(maxTarget,value,true);
         }
         return this;
     }
@@ -327,11 +359,29 @@ public final class SqlBuilder implements Serializable, CharSequence {
         return this;
     }
 
+    public SqlBuilder seo(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.andOfOr(andOfOr);
+        this.append("( ");
+        this.gte(maxTarget,value,null);
+        this.lte(minTarget,value,false);
+        this.append(" )");
+        return this;
+    }
+
     public SqlBuilder ro(String target,  Object beginValue, Object endValue, Boolean andOfOr) {
         this.andOfOr(andOfOr);
         this.append("( ");
         this.gt(target,endValue,null);
         this.lt(target,beginValue,false);
+        this.append(" )");
+        return this;
+    }
+
+    public SqlBuilder so(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.andOfOr(andOfOr);
+        this.append("( ");
+        this.gt(maxTarget,value,null);
+        this.lt(minTarget,value,false);
         this.append(" )");
         return this;
     }
@@ -345,11 +395,29 @@ public final class SqlBuilder implements Serializable, CharSequence {
         return this;
     }
 
-    public SqlBuilder rea(String target,  Object beginValue, Object endValue, Boolean andOfOr) {
+    public SqlBuilder sa(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.andOfOr(andOfOr);
+        this.append("( ");
+        this.gt(maxTarget,value,null);
+        this.lt(minTarget,value,true);
+        this.append(" )");
+        return this;
+    }
+
+    public SqlBuilder rea(String target, Object beginValue, Object endValue, Boolean andOfOr) {
         this.andOfOr(andOfOr);
         this.append("( ");
         this.gte(target,beginValue,null);
         this.lte(target,endValue,true);
+        this.append(" )");
+        return this;
+    }
+
+    public SqlBuilder sea(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.andOfOr(andOfOr);
+        this.append("( ");
+        this.gte(maxTarget,value,null);
+        this.lte(minTarget,value,true);
         this.append(" )");
         return this;
     }
@@ -360,9 +428,21 @@ public final class SqlBuilder implements Serializable, CharSequence {
         return this;
     }
 
+    public SqlBuilder s(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.gt(maxTarget, value, andOfOr);
+        this.lt(minTarget, value, andOfOr);
+        return this;
+    }
+
     public SqlBuilder re(String target,  Object beginValue, Object endValue, Boolean andOfOr) {
         this.gte(target,beginValue, andOfOr);
         this.lte(target,endValue, andOfOr);
+        return this;
+    }
+
+    public SqlBuilder se(String minTarget, String maxTarget, Object value, Boolean andOfOr) {
+        this.gte(maxTarget, value, andOfOr);
+        this.lte(minTarget, value, andOfOr);
         return this;
     }
 
@@ -373,6 +453,17 @@ public final class SqlBuilder implements Serializable, CharSequence {
         } else {
             this.gt(target, beginValue, andOfOr);
             this.lte(target, endValue, andOfOr);
+        }
+        return this;
+    }
+
+    public SqlBuilder ss(String minTarget, String maxTarget, Object value, Boolean andOfOr, Boolean beginOfEnd) {
+        if (beginOfEnd) {
+            this.gte(maxTarget, value, andOfOr);
+            this.lt(minTarget, value, andOfOr);
+        } else {
+            this.gt(maxTarget, value, andOfOr);
+            this.lte(minTarget, value, andOfOr);
         }
         return this;
     }
