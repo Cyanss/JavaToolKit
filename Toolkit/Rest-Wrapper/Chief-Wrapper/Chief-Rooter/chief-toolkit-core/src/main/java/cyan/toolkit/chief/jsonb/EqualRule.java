@@ -74,7 +74,7 @@ public class EqualRule extends JsonbRule<EqualRule> {
             return SqlBuilder.EMPTY;
         }
         SqlBuilder sqlBuilder = SqlBuilders.newSqlBuilder();
-        if (ValueType.isContrast(this.type.getKey())) {
+        if (ValueType.isEqual(this.type.getKey())) {
             String target = target(alias, this.name, variable, this.type);
             String sql = this.operation.translateSql(target, this.value);
             sqlBuilder.andOfOr(true).append(sql);

@@ -89,7 +89,7 @@ public class RangeRule extends JsonbRule<RangeRule> {
             return SqlBuilder.EMPTY;
         }
         SqlBuilder sqlBuilder = SqlBuilders.newSqlBuilder();
-        if (ValueType.isContrast(this.type.getKey())) {
+        if (ValueType.isRange(this.type.getKey())) {
             String target = target(alias, this.name, variable, this.type);
             String sql = this.operation.translateSql(target, this.startValue,this.endValue);
             sqlBuilder.andOfOr(true).append(sql);
