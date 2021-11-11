@@ -170,7 +170,7 @@
     -->
     <!--默认环境:打印控制台-->
     <springProfile name="default">
-        <logger name="cyan.toolkit.token" level="debug"/>
+        <logger name="cyan.toolkit.zuul" level="debug"/>
         <root level="info" >
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
@@ -182,7 +182,7 @@
 
     <!--开发环境:打印控制台-->
     <springProfile name="dev">
-        <logger name="cyan.toolkit.token" level="info"/>
+        <logger name="cyan.toolkit.zuul" level="info"/>
         <root level="info" >
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
@@ -194,8 +194,8 @@
 
     <!--生产环境:输出到文件-->
     <springProfile name="prod">
-        <logger name="cyan.toolkit.token" level="error"/>
-        <root level="error">
+        <logger name="cyan.toolkit.zuul" level="info"/>
+        <root level="info">
             <appender-ref ref="CONSOLE" />
             <appender-ref ref="DEBUG_FILE" />
             <appender-ref ref="INFO_FILE" />

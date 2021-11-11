@@ -2,13 +2,11 @@ package cyan.toolkit.chief.jsonb;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import cyan.toolkit.rest.RestField;
+import cyan.toolkit.rest.RestValue;
 import org.springframework.lang.NonNull;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * <p>EqualOperation</p>
@@ -17,28 +15,30 @@ import java.util.stream.Stream;
  * @group cyan.tool.kit
  * @date 9:10 2021/5/7
  */
-public enum EqualOperation {
+public enum EqualOperation implements RestField {
     /** 相等 */
-    EQUAL_OPERATION(1, "target = 'values'"),
+    EQUAL_OPERATION(1, "相等","target = 'values'"),
     /** 左模糊 */
-    LEFT_LIKE_OPERATION(2, "target like concat('%','values')"),
+    LEFT_LIKE_OPERATION(2, "左模糊","target like concat('%','values')"),
     /** 右模糊 */
-    RIGHT_LIKE_OPERATION(3, "target like concat('values','%')"),
+    RIGHT_LIKE_OPERATION(3, "右模糊","target like concat('values','%')"),
     /** 全模糊 */
-    ALL_LIKE_OPERATION(4, "target like concat('%','values','%')"),
+    ALL_LIKE_OPERATION(4, "全模糊","target like concat('%','values','%')"),
     /** 不为空 */
-    NOT_NULL_OPERATION(5, "target is not null"),
+    NOT_NULL_OPERATION(5, "不为空","target is not null"),
     ;
 
     private final Integer key;
     private final String value;
+    private final String field;
 
     public static final String TARGET = "target";
     public static final String VALUE = "values";
 
-    EqualOperation(Integer key,String value) {
+    EqualOperation(Integer key, String value, String field) {
         this.key = key;
         this.value = value;
+        this.field = field;
     }
 
     @JsonValue
@@ -46,23 +46,31 @@ public enum EqualOperation {
         return this.key;
     }
 
-
     public String getValue() {
         return this.value;
     }
 
+    public String getField() {
+        return this.field;
+    }
+
     public String translateSql(String target, Object value) {
-        return this.value.replace(TARGET, target).replace(VALUE, String.valueOf(value));
+        return this.field.replace(TARGET, target).replace(VALUE, String.valueOf(value));
     }
 
     @JsonCreator
     public static EqualOperation parserKey(@NonNull Integer key) {
-        Map<Integer, EqualOperation> operationEnums = Stream.of(EqualOperation.values()).collect(Collectors.toMap(EqualOperation::getKey, Function.identity()));
-        return Optional.ofNullable(operationEnums.get(key)).orElse(EqualOperation.EQUAL_OPERATION);
+        EqualOperation typeEnum = RestValue.parserKey(EqualOperation.class, key);
+        return Optional.ofNullable(typeEnum).orElse(EqualOperation.EQUAL_OPERATION);
     }
 
     public static EqualOperation parserValue(@NonNull String value) {
-        Map<String, EqualOperation> operationEnums = Stream.of(EqualOperation.values()).collect(Collectors.toMap(EqualOperation::getValue, Function.identity()));
-        return Optional.ofNullable(operationEnums.get(value)).orElse(EqualOperation.EQUAL_OPERATION);
+        EqualOperation typeEnum = RestValue.parserValue(EqualOperation.class, value);
+        return Optional.ofNullable(typeEnum).orElse(EqualOperation.EQUAL_OPERATION);
+    }
+
+    public static EqualOperation parserField(@NonNull String field) {
+        EqualOperation typeEnum = RestField.parserField(EqualOperation.class, field);
+        return Optional.ofNullable(typeEnum).orElse(EqualOperation.EQUAL_OPERATION);
     }
 }

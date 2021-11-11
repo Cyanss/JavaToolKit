@@ -1,9 +1,11 @@
 package cyan.toolkit.chief.builder;
 
+import cyan.toolkit.rest.util.common.DateUtils;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * <p>SqlBuilder</p>
@@ -512,29 +514,28 @@ public final class SqlBuilder implements Serializable, CharSequence {
 
     public SqlBuilder value(Object value, Boolean commaOfNone) {
         if (value instanceof String) {
-            // the value is like '2020-09-11 00:00:00'
             this.append("'").append(value).append("'");
-            if (commaOfNone) {
-                this.append(", ");
-            } else {
-                this.append(" ");
-            }
+        } else if (value instanceof Date) {
+            // the value is like '2020-09-11 00:00:00'
+            this.append("'").append(DateUtils.formatTime((Date) value)).append("'");
         } else {
             this.append(value);
-            if (commaOfNone) {
-                this.append(", ");
-            } else {
-                this.append(" ");
-            }
+        }
+        if (commaOfNone) {
+            this.append(", ");
+        } else {
+            this.append(" ");
         }
         return this;
     }
 
     public SqlBuilder value(Object value, String symbol) {
         if (value instanceof String) {
-            // the value is like '2020-09-11 00:00:00'
             this.append("'").append(value).append("'").append(symbol).append(" ");
-        } else {
+        } else if (value instanceof Date) {
+            // the value is like '2020-09-11 00:00:00'
+            this.append("'").append(DateUtils.formatTime((Date) value)).append("'").append(symbol).append(" ");
+        }else {
             this.append(value).append(symbol).append(" ");
         }
         return this;

@@ -69,7 +69,7 @@ public class EqualRule extends JsonbRule<EqualRule> {
     }
 
     @Override
-    public String toSql(@NonNull String alias,@NonNull String variable) {
+    public String toSql(@NonNull String alias, @NonNull String variable) {
         if (GeneralUtils.isEmpty(this.value) || GeneralUtils.isEmpty(this.type) || GeneralUtils.isEmpty(this.operation)) {
             return SqlBuilder.EMPTY;
         }

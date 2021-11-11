@@ -40,8 +40,8 @@ public class RangeRule extends JsonbRule<RangeRule> {
     public RangeRule(RangeRule.Builder builder) {
         super(builder);
         this.type = builder.type;
-        this.startValue = startValue;
-        this.endValue = endValue;
+        this.startValue = builder.startValue;
+        this.endValue = builder.endValue;
         this.operation = builder.operation;
     }
 
@@ -83,7 +83,7 @@ public class RangeRule extends JsonbRule<RangeRule> {
     }
 
     @Override
-    public String toSql(@NonNull String alias,@NonNull String variable) {
+    public String toSql(@NonNull String alias, @NonNull String variable) {
         if (GeneralUtils.isEmpty(this.startValue) || GeneralUtils.isEmpty(this.endValue)
                 || GeneralUtils.isEmpty(this.type) || GeneralUtils.isEmpty(this.operation)) {
             return SqlBuilder.EMPTY;

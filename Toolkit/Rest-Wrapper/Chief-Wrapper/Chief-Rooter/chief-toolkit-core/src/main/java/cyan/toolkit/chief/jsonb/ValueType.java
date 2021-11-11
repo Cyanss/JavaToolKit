@@ -2,6 +2,8 @@ package cyan.toolkit.chief.jsonb;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import cyan.toolkit.rest.RestField;
+import cyan.toolkit.rest.RestValue;
 import cyan.toolkit.rest.util.common.GeneralUtils;
 import org.springframework.lang.NonNull;
 
@@ -18,32 +20,34 @@ import java.util.stream.Stream;
  * @group cyan.tool.kit
  * @date 8:52 2021/5/7
  */
-public enum ValueType {
+public enum ValueType implements RestField {
     /** 短整型 */
-    SHORT(1, "int2"),
+    SHORT(1, "短整型","int2"),
     /** 整型 */
-    INTEGER(2, "int4"),
+    INTEGER(2, "整型","int4"),
     /** 长整型 */
-    LONG(3, "int8"),
+    LONG(3, "长整型","int8"),
     /** 单精度浮点类型 */
-    FLOAT(4, "float4"),
+    FLOAT(4, "单精度浮点类型","float4"),
     /** 双精度浮点类型 */
-    DOUBLE(5, "float8"),
+    DOUBLE(5, "双精度浮点类型","float8"),
     /** 文本类型 */
-    TEXT(6, "text"),
+    TEXT(6, "文本类型","text"),
     /** 日期类型 */
-    DATE(7, "date"),
+    DATE(7, "日期类型","timestamptz"),
     /** 布尔类型 */
-    BOOLEAN(8, "bool"),
+    BOOLEAN(8, "布尔类型","bool"),
     /** 字符串类型 */
-    STRING(9, "varchar"),
+    STRING(9, "字符串类型","varchar"),
             ;
     private final Integer key;
     private final String value;
+    private final String field;
 
-    ValueType(Integer key,String value) {
+    ValueType(Integer key, String value, String field) {
         this.key = key;
         this.value = value;
+        this.field = field;
     }
 
     @JsonValue
@@ -51,20 +55,28 @@ public enum ValueType {
         return this.key;
     }
 
-
     public String getValue() {
         return this.value;
     }
 
+    public String getField() {
+        return this.field;
+    }
+
     @JsonCreator
     public static ValueType parserKey(@NonNull Integer key) {
-        Map<Integer, ValueType> valueTypeEnums = Stream.of(ValueType.values()).collect(Collectors.toMap(ValueType::getKey, Function.identity()));
-        return Optional.ofNullable(valueTypeEnums.get(key)).orElse(ValueType.STRING);
+        ValueType typeEnum = RestValue.parserKey(ValueType.class, key);
+        return Optional.ofNullable(typeEnum).orElse(ValueType.STRING);
     }
 
     public static ValueType parserValue(@NonNull String value) {
-        Map<String, ValueType> valueTypeEnums = Stream.of(ValueType.values()).collect(Collectors.toMap(ValueType::getValue, Function.identity()));
-        return Optional.ofNullable(valueTypeEnums.get(value)).orElse(ValueType.STRING);
+        ValueType typeEnum = RestValue.parserValue(ValueType.class, value);
+        return Optional.ofNullable(typeEnum).orElse(ValueType.STRING);
+    }
+
+    public static ValueType parserField(@NonNull String field) {
+        ValueType typeEnum = RestField.parserField(ValueType.class, field);
+        return Optional.ofNullable(typeEnum).orElse(ValueType.STRING);
     }
 
     public static boolean isPresent(Integer key) {
