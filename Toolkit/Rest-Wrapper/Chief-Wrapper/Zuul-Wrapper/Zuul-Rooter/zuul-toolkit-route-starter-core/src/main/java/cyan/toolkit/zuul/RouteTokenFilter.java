@@ -56,9 +56,9 @@ public class RouteTokenFilter extends ZuulFilter {
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
         String requestURI = request.getRequestURI();
-        log.debug("request uri: {}", requestURI);
+        log.info("request uri: {}", requestURI);
         StringBuffer requestURL = request.getRequestURL();
-        log.debug("request url: {}", requestURL);
+        log.info("request url: {}", requestURL);
         if (cyan.toolkit.zuul.DynamicRouteLocator.existWhite(requestURI)) {
             log.info("request uri: {} has existed in the white list, skip the auth of zuul!", requestURI);
             return null;

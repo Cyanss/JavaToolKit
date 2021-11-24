@@ -83,7 +83,7 @@ public class RestHandlerInterceptor extends HandlerInterceptorAdapter implements
         ServletRequest requestWrapper = null;
         if (servletRequest instanceof HttpServletRequest) {
             String contentType = servletRequest.getContentType();
-            if (!contentType.contains("multipart/form-data")) {
+            if (GeneralUtils.isNotEmpty(contentType) && !contentType.contains("multipart/form-data")) {
                 requestWrapper = new RestRequestWrapper((HttpServletRequest) servletRequest);
             }
         }
